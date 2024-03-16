@@ -1,21 +1,18 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { ForwardedRef, forwardRef } from "react";
 
 interface ThemeSwitchProps {
     className?: string;
 }
 
-const ThemeSwitch = (
-    { className }: ThemeSwitchProps,
-    ref: ForwardedRef<HTMLButtonElement>
-): React.ReactElement => {
+export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
+    className,
+}: ThemeSwitchProps) => {
     const { resolvedTheme, setTheme } = useTheme();
 
     return (
         <button
-            ref={ref}
             type="button"
             onClick={() => setTheme(resolvedTheme == "dark" ? "light" : "dark")}
             className={`aspect-square rounded-full touch-manipulation ${className}`}
@@ -57,7 +54,3 @@ const ThemeSwitch = (
         </button>
     );
 };
-
-export const ThemeSwitchRef = forwardRef<HTMLButtonElement, ThemeSwitchProps>(
-    ThemeSwitch
-);

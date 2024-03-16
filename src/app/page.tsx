@@ -1,7 +1,7 @@
 import { GlitchText } from "./components/glitchText";
-import { ThemeSwitchRef } from "./components/themeSwitch";
 import { Cursor } from "./components/cursor/cursor";
 import { Navigation } from "./components/navigation";
+import { NavProjectsShowcase } from "./components/navigation/projects";
 
 export default function Home() {
     return (
@@ -15,7 +15,9 @@ export default function Home() {
                     <span>Or sleeping.</span>
                 </p>
                 <GlitchText text="Or both." />
-                <Navigation />
+                <Navigation>
+                    <NavProjectsShowcase />
+                </Navigation>
             </main>
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <div className="absolute left-1/2 top-1/2">
