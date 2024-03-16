@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { clsx } from "clsx";
+import useIsTouchdevice from "./util/useIsTouchDevice";
 
 type CursorProps = {
     clickables: string[];
@@ -119,6 +120,11 @@ export const Cursor: React.FC<CursorProps> = ({
             });
         };
     }, [clickables, showSystemCursor, manageMouseMove]);
+
+    const isTouchdevice = useIsTouchdevice();
+    if (typeof window !== "undefined" && isTouchdevice) {
+        return <></>;
+    }
 
     return (
         <motion.div
