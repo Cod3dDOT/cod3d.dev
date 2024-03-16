@@ -1,4 +1,0 @@
-{
-	"*.{js,ts,tsx}": ["prettier --check", "tsc-files --pretty --noEmit"],
-	"*.css": "prettier --check"
-}

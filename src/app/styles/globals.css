@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground: hsl(0, 0%, 7%);
+    --background: hsl(0, 0%, 91%);
+}
+
+.dark {
+    --foreground: hsl(0, 0%, 91%);
+    --background: hsl(0, 0%, 7%);
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+}
+
+h1 {
+    @apply lg:text-8xl md:text-6xl text-4xl;
+}
+
+p {
+    @apply text-base;
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
