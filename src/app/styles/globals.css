@@ -15,6 +15,7 @@
 body {
     color: var(--foreground);
     background: var(--background);
+    overscroll-behavior: none;
 }
 
 h1 {
