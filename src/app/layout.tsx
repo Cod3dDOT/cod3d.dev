@@ -4,7 +4,7 @@ import "./styles/globals.css";
 import "./styles/grainy.css";
 import "./styles/glitch.css";
 import { ThemeProvider } from "next-themes";
-import Cursor from "./components/cursor";
+import { Cursor } from "./components/cursor";
 
 const font = Pixelify_Sans({
     subsets: ["latin"],

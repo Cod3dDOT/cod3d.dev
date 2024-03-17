@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
 import { GlitchText } from "./components/glitchText";
 import { Navigation } from "./components/navigation";
-import Cursor from "./components/cursor";
 
 const NavBlogShowcase = dynamic(() => import("./components/navigation/blog"));
 const NavContactsShowcase = dynamic(
