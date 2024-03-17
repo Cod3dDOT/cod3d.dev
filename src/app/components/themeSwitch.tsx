@@ -29,21 +29,21 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
                         cx="24"
                         cy="10"
                         r="6"
-                        className="transition-[cx] origin-center duration-250
-                            dark:[cx:17] dark:delay-[250ms] dark:duration-500 dark:translate-x-0 dark:translate-y-0"
+                        className="transition-[cx] origin-center duration-300
+                            dark:[cx:17] dark:delay-300 dark:duration-600 dark:translate-x-0 dark:translate-y-0"
                     />
                 </mask>
                 <circle
-                    className="transition-all origin-center peer duration-500 fill-black hover:fill-[var(--foreground)]
-                                dark:scale-[1.75] dark:duration-[250ms] dark:fill-gray-300 dark:hover:fill-white"
+                    className="transition-all origin-center peer duration-600 fill-black hover:fill-[var(--foreground)]
+                                dark:scale-[1.75] dark:duration-300 dark:fill-gray-300 dark:hover:fill-white"
                     cx="12"
                     cy="12"
                     r="6"
                     mask="url(#moon-mask)"
                 />
                 <g
-                    className="transition-all origin-center stroke-2 [stroke-linecap:round] duration-500 stroke-black peer-hover:stroke-[var(--foreground)]
-                    dark:-rotate-45 dark:duration-150 dark:opacity-0 dark:stroke-white"
+                    className="transition-all origin-center stroke-2 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-[var(--foreground)]
+                    dark:-rotate-45 dark:duration-300 dark:opacity-0 dark:stroke-white"
                 >
                     <line x1="12" y1="1" x2="12" y2="3" />
                     <line x1="12" y1="21" x2="12" y2="23" />

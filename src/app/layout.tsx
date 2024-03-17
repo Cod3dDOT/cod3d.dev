@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import "./styles/grainy.css";
 import "./styles/glitch.css";
 import { ThemeProvider } from "next-themes";
+import Cursor from "./components/cursor";
 
 const font = Pixelify_Sans({
     subsets: ["latin"],
@@ -12,7 +13,7 @@ const font = Pixelify_Sans({
 
 export const metadata: Metadata = {
     title: "cod3d's den",
-    description: "Probably trying to hack you. Or sleepin. Or both.",
+    description: "Probably trying to hack you. Or sleeping. Or both.",
 };
 
 export default function RootLayout({
@@ -23,6 +24,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={font.className}>
+                <Cursor showSystemCursor={false} />
                 <ThemeProvider attribute="class">{children}</ThemeProvider>
             </body>
         </html>

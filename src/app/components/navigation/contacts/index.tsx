@@ -2,7 +2,7 @@ import GithubIcon from "../../icons/github";
 import MailIcon from "../../icons/mail";
 import MatrixIcon from "../../icons/matrix";
 
-export const NavContactsShowcase: React.FC = async () => {
+const NavContactsShowcase: React.FC = async () => {
     return (
         <div className="mt-auto">
             <h2 className="text-5xl mb-4">Catch Me</h2>
@@ -20,3 +20,5 @@ export const NavContactsShowcase: React.FC = async () => {
         </div>
     );
 };
+
+export default NavContactsShowcase;

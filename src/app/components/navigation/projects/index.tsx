@@ -5,7 +5,7 @@ async function getProjects() {
     return (await pb.collection("projects").getList()).items;
 }
 
-export const NavProjectsShowcase: React.FC = async () => {
+const NavProjectsShowcase: React.FC = async () => {
     const projects = await getProjects();
     return (
         <div>
@@ -15,3 +15,5 @@ export const NavProjectsShowcase: React.FC = async () => {
         </div>
     );
 };
+
+export default NavProjectsShowcase;
