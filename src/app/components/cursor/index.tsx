@@ -10,7 +10,6 @@ import {
 } from "framer-motion";
 import { clsx } from "clsx";
 import useIsTouchdevice from "./util/useIsTouchDevice";
-import { usePathname } from "next/navigation";
 
 type CursorProps = {
     showSystemCursor: boolean;
@@ -29,8 +28,6 @@ function map_range(
 }
 
 export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
-    const pathname = usePathname();
-
     const [state, setState] = useState({
         isMoving: false,
         isHovered: false,
@@ -99,16 +96,6 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
             document.body.style.cursor = "none";
         }
     }, [showSystemCursor]);
-
-    useEffect(() => {
-        setState((prevState) => ({
-            ...prevState,
-            isHovered: false,
-            dims: null,
-        }));
-        size.w.set(15);
-        size.h.set(15);
-    }, [pathname]);
 
     useEffect(() => {
         const onMouseEnter = (
@@ -186,7 +173,7 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
                 });
             });
         };
-    }, [showSystemCursor, manageMouseMove, pathname, size.w, size.h]);
+    }, [showSystemCursor, manageMouseMove, size.w, size.h]);
 
     const isTouchdevice = useIsTouchdevice();
     if (typeof window !== "undefined" && isTouchdevice) {

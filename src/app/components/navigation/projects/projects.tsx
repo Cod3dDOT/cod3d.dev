@@ -1,7 +1,11 @@
+"use client";
+
 import { getFileUrl } from "@/app/lib/pocketbase/config";
 import { Project } from "@/app/lib/pocketbase/types";
+import { clsx } from "clsx";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type NavProjectsListProps = {
     projects: Project[];
@@ -10,23 +14,37 @@ type NavProjectsListProps = {
 export const NavProjectsList: React.FC<NavProjectsListProps> = ({
     projects,
 }) => {
+    const pathname = usePathname();
     return (
         <div>
             {projects.map((project) => {
-                return <NavProject project={project} key={project.id} />;
+                return (
+                    <NavProject
+                        project={project}
+                        key={project.id}
+                        pathname={pathname}
+                    />
+                );
             })}
         </div>
     );
 };
 
-const NavProject: React.FC<{ project: Project }> = ({ project }) => {
+const NavProject: React.FC<{ project: Project; pathname: string }> = ({
+    project,
+    pathname,
+}) => {
+    const path = `/projects/${project.name}`;
     return (
         <Link
-            href={`/projects/${project.name}`}
+            href={path}
             className="cursor-height relative flex h-16 items-center overflow-hidden group transition-all rounded-md hover:shadow-xl"
         >
             <span
-                className="h-full w-0 transition-all group-hover:w-2 group-hover:mr-2"
+                className={clsx(
+                    "h-full w-0 transition-all group-hover:w-2 group-hover:mr-2",
+                    pathname == path && "w-2 mr-2"
+                )}
                 style={{ backgroundColor: project.color }}
             />
             <div className="flex flex-col flex-1 py-2">

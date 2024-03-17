@@ -4,6 +4,8 @@ import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 import { ThemeSwitch } from "../themeSwitch";
 import { usePathname } from "next/navigation";
+import HomeIcon from "../icons/home";
+import Link from "next/link";
 
 type NavigationProps = {
     children?: React.ReactNode;
@@ -32,10 +34,19 @@ export const Navigation: React.FC<NavigationProps> = ({ children }) => {
                     opened ? "translate-x-0" : "translate-x-[calc(100%-4rem)]"
                 )}
             >
-                <div className="flex flex-col items-center h-full py-8 flex-[0_0_4rem] w-16 shadow-inner">
-                    <ThemeSwitch className="clickable w-8 h-8" />
+                <div className="relative flex flex-col items-center h-full py-8 flex-[0_0_4rem] w-16 shadow-inner gap-8">
+                    <ThemeSwitch className="w-8 h-8" />
+                    <Link
+                        href="/"
+                        className={clsx(
+                            "cursor transition-transform",
+                            pathname == "/" && "scale-0"
+                        )}
+                    >
+                        <HomeIcon className="w-8 h-8 fill-[var(--foreground)]" />
+                    </Link>
                     <button
-                        className="cursor flex items-center justify-center w-full gap-2 my-auto cursor-none"
+                        className="fixed top-1/2 cursor w-16 cursor-none flex items-center justify-center gap-2"
                         onClick={() => setOpened(!opened)}
                     >
                         <span className="w-1 h-16 bg-[var(--foreground)]" />
