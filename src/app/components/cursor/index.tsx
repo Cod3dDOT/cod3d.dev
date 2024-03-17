@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
     m,
     useMotionValue,
@@ -10,38 +10,48 @@ import {
 } from "framer-motion";
 import { clsx } from "clsx";
 import useIsTouchdevice from "./util/useIsTouchDevice";
-
-type CursorProps = {
-    showSystemCursor: boolean;
-};
+import { CursorProps, Interactable, InteractableOpts } from "./types";
+import find from "./util/find";
 
 let timeout: NodeJS.Timeout;
 
-function map_range(
-    value: number,
-    low1: number,
-    high1: number,
-    low2: number,
-    high2: number
-) {
-    return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
-}
-
-export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
+export const Cursor: React.FC<CursorProps> = ({
+    showSystemCursor = false,
+    interactables,
+    children,
+    color,
+    alpha,
+    size = 15,
+    snap,
+}) => {
+    const defaultOptions = useMemo(
+        () => ({
+            children,
+            color,
+            alpha,
+            width: size,
+            height: size,
+            snap,
+        }),
+        [children, color, alpha, size, snap]
+    );
     const [state, setState] = useState({
         isMoving: false,
         isHovered: false,
-        dims: null as DOMRect | null,
+        snap: {
+            dims: null as DOMRect | null,
+            mode: null as InteractableOpts["snap"] | null,
+        },
     });
 
     const mouse = {
-        x: useMotionValue(0),
-        y: useMotionValue(0),
+        x: useMotionValue(100),
+        y: useMotionValue(100),
     };
 
-    const size = {
-        w: useMotionValue(15),
-        h: useMotionValue(15),
+    const targetSize = {
+        w: useMotionValue(defaultOptions.width),
+        h: useMotionValue(defaultOptions.height),
     };
 
     const smoothOptions = { damping: 200, stiffness: 5000, mass: 1 };
@@ -50,32 +60,31 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
         y: useSpring(mouse.y, smoothOptions),
     };
     const smoothSize = {
-        w: useSpring(size.w, smoothOptions),
-        h: useSpring(size.h, smoothOptions),
+        w: useSpring(targetSize.w, smoothOptions),
+        h: useSpring(targetSize.h, smoothOptions),
     };
 
     const manageMouseMove = useCallback(
         (e: { clientX: number; clientY: number }) => {
             const { clientX, clientY } = e;
-            const { isHovered, dims } = state;
+            const { isHovered, snap } = state;
 
-            if (isHovered && dims) {
-                const { left, top, height, width } = dims;
+            if (isHovered && snap && snap.dims && snap.mode) {
+                const { left, top, height, width } = snap.dims;
                 const center = { x: left + width / 2, y: top + height / 2 };
                 const distance = {
                     x: clientX - center.x,
                     y: clientY - center.y,
                 };
 
+                const mapW = snap.mode === "vertical" ? 1 : 0.2;
+                const mapH = snap.mode === "horizontal" ? 1 : 0.2;
+
                 mouse.x.set(
-                    center.x -
-                        smoothSize.w.get() / 2 +
-                        map_range(distance.x, 0, width, 0, width / 3)
+                    center.x - smoothSize.w.get() / 2 + distance.x * mapW
                 );
                 mouse.y.set(
-                    center.y -
-                        smoothSize.h.get() / 2 +
-                        map_range(distance.y, 0, height, 0, height / 3)
+                    center.y - smoothSize.h.get() / 2 + distance.y * mapH
                 );
             } else {
                 mouse.x.set(clientX - smoothSize.w.get() / 2);
@@ -91,29 +100,25 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
         [mouse.x, mouse.y, smoothSize.h, smoothSize.w, state]
     );
 
+    // hide system cursor
     useEffect(() => {
-        if (typeof window === "object" && !showSystemCursor) {
-            document.body.style.cursor = "none";
-        }
+        if (typeof window !== "object") return;
+        document.body.style.cursor = showSystemCursor ? "pointer" : "none";
     }, [showSystemCursor]);
 
     useEffect(() => {
-        const onMouseEnter = (
-            el: HTMLElement,
-            mode: "height" | "width" | "both"
-        ) => {
-            const dims = el.getBoundingClientRect();
-            const w =
-                mode == "width" || mode == "both" ? dims.width : dims.height;
-            const h =
-                mode == "height" || mode == "both" ? dims.height : dims.width;
+        const onMouseEnter = (el: HTMLElement, opts: typeof defaultOptions) => {
             setState((prevState) => ({
                 ...prevState,
                 isHovered: true,
-                dims: dims,
+                snap: {
+                    dims: el.getBoundingClientRect(),
+                    mode: opts.snap,
+                },
             }));
-            size.w.set(w * 1.4);
-            size.h.set(h * 1.4);
+
+            targetSize.w.set(opts.width * 1.4);
+            targetSize.h.set(opts.height * 1.4);
         };
 
         const onMouseLeave = () => {
@@ -122,37 +127,64 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
                 isHovered: false,
                 dims: null,
             }));
-            size.w.set(15);
-            size.h.set(15);
+            targetSize.w.set(defaultOptions.width);
+            targetSize.h.set(defaultOptions.height);
         };
 
         window.addEventListener("mousemove", manageMouseMove);
 
-        const clickableHeight = Array.from(
-            document.querySelectorAll<HTMLElement>(".cursor-height")
-        ).map((node) => {
-            return { node: node, mode: "height" };
-        });
-        const clickableWidth = Array.from(
-            document.querySelectorAll<HTMLElement>(".cursor-width")
-        ).map((node) => {
-            return { node: node, mode: "width" };
-        });
-        const clickable = Array.from(
-            document.querySelectorAll<HTMLElement>(".cursor")
-        ).map((node) => {
-            return { node: node, mode: "both" };
-        });
+        const interactEls = document.querySelectorAll<HTMLElement>(
+            interactables
+                .map((interactable) =>
+                    typeof interactable === "object" && interactable?.target
+                        ? interactable.target
+                        : interactable ?? ""
+                )
+                .join(",")
+        );
 
-        const clickableEls = clickableHeight
-            .concat(clickableWidth)
-            .concat(clickable);
-
-        clickableEls.forEach(({ node: el, mode }) => {
+        interactEls.forEach((el) => {
             if (!showSystemCursor) el.style.cursor = "none";
 
+            const iOptions: InteractableOpts = (
+                typeof interactEls === "object"
+                    ? find(
+                          interactables,
+                          (interactable: Interactable) =>
+                              typeof interactable === "object" &&
+                              el.matches(interactable.target)
+                      ) || {}
+                    : {}
+            ) as InteractableOpts;
+
+            // caches size, but passes the element later into the callback use up-to-date position
+            // will not work if element will change size
+            const dims = el.getBoundingClientRect();
+
+            let w = iOptions.size || defaultOptions.width;
+            if (typeof w != "number") {
+                w =
+                    iOptions.size == "width" || iOptions.size == "both"
+                        ? dims.width
+                        : dims.height;
+            }
+            let h = iOptions.size || defaultOptions.height;
+            if (typeof h != "number") {
+                h =
+                    iOptions.size == "height" || iOptions.size == "both"
+                        ? dims.height
+                        : dims.width;
+            }
+
+            const options: typeof defaultOptions = {
+                ...defaultOptions,
+                ...iOptions,
+                width: h,
+                height: h,
+            };
+
             el.addEventListener("mouseenter", () => {
-                onMouseEnter(el, mode as "height" | "width" | "both");
+                onMouseEnter(el, options);
             });
 
             el.addEventListener("mouseleave", () => {
@@ -163,9 +195,46 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
         return () => {
             window.removeEventListener("mousemove", manageMouseMove);
 
-            clickableEls.forEach(({ node: el, mode }) => {
+            interactEls.forEach((el) => {
+                if (!showSystemCursor) el.style.cursor = "none";
+
+                const iOptions: InteractableOpts = (
+                    typeof interactEls === "object"
+                        ? find(
+                              interactables,
+                              (interactable: Interactable) =>
+                                  typeof interactable === "object" &&
+                                  el.matches(interactable.target)
+                          ) || {}
+                        : {}
+                ) as InteractableOpts;
+
+                const dims = el.getBoundingClientRect();
+
+                let w = iOptions.size || defaultOptions.width;
+                if (typeof w != "number") {
+                    w =
+                        iOptions.size == "width" || iOptions.size == "both"
+                            ? dims.width
+                            : dims.height;
+                }
+                let h = iOptions.size || defaultOptions.height;
+                if (typeof h != "number") {
+                    h =
+                        iOptions.size == "height" || iOptions.size == "both"
+                            ? dims.height
+                            : dims.width;
+                }
+
+                const options: typeof defaultOptions = {
+                    ...defaultOptions,
+                    ...iOptions,
+                    width: h,
+                    height: h,
+                };
+
                 el.removeEventListener("mouseenter", () => {
-                    onMouseEnter(el, mode as "height" | "width" | "both");
+                    onMouseEnter(el, options);
                 });
 
                 el.removeEventListener("mouseleave", () => {
@@ -173,7 +242,14 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
                 });
             });
         };
-    }, [showSystemCursor, manageMouseMove, size.w, size.h]);
+    }, [
+        showSystemCursor,
+        manageMouseMove,
+        targetSize.w,
+        targetSize.h,
+        interactables,
+        defaultOptions,
+    ]);
 
     const isTouchdevice = useIsTouchdevice();
     if (typeof window !== "undefined" && isTouchdevice) {
