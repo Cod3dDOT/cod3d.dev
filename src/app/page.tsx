@@ -1,14 +1,5 @@
 import dynamic from "next/dynamic";
 import { GlitchText } from "./components/glitchText";
-import { Navigation } from "./components/navigation";
-
-const NavBlogShowcase = dynamic(() => import("./components/navigation/blog"));
-const NavContactsShowcase = dynamic(
-    () => import("./components/navigation/contacts")
-);
-const NavProjectsShowcase = dynamic(
-    () => import("./components/navigation/projects")
-);
 
 export default function Home() {
     return (
@@ -21,11 +12,6 @@ export default function Home() {
                     <span>Or sleeping.</span>
                 </p>
                 <GlitchText as="p" text="Or both." />
-                <Navigation>
-                    <NavBlogShowcase />
-                    <NavProjectsShowcase />
-                    <NavContactsShowcase />
-                </Navigation>
             </main>
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <div className="absolute left-1/2 top-1/2">

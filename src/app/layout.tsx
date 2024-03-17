@@ -1,10 +1,25 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
+
 import { Pixelify_Sans } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+
+import Transitions, { Animate } from "./components/transitions";
+import { Navigation } from "./components/navigation";
+
 import "./styles/globals.css";
 import "./styles/grainy.css";
 import "./styles/glitch.css";
-import { ThemeProvider } from "next-themes";
-import { Cursor } from "./components/cursor";
+
+const NavBlogShowcase = dynamic(() => import("./components/navigation/blog"));
+const NavContactsShowcase = dynamic(
+    () => import("./components/navigation/contacts")
+);
+const NavProjectsShowcase = dynamic(
+    () => import("./components/navigation/projects")
+);
+
+const Cursor = dynamic(() => import("./components/cursor"));
 
 const font = Pixelify_Sans({
     subsets: ["latin"],
@@ -25,7 +40,16 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning>
             <body className={font.className}>
                 <Cursor showSystemCursor={false} />
-                <ThemeProvider attribute="class">{children}</ThemeProvider>
+                <ThemeProvider attribute="class">
+                    <Transitions>
+                        <Animate>{children}</Animate>
+                        <Navigation>
+                            <NavBlogShowcase />
+                            <NavProjectsShowcase />
+                            <NavContactsShowcase />
+                        </Navigation>
+                    </Transitions>
+                </ThemeProvider>
             </body>
         </html>
     );
