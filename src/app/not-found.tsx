@@ -1,11 +1,9 @@
-import { Cursor } from "./components/cursor/cursor";
 import { GlitchText } from "./components/glitchText";
 import { clsx } from "clsx";
 
 const NotFoundPage: React.FC = () => {
     return (
         <>
-            <Cursor showSystemCursor={false} />
             <div
                 className={clsx(
                     "flex flex-col sm:w-full w-1 mx-auto h-screen overflow-hidden justify-center items-center p-8 text-center"

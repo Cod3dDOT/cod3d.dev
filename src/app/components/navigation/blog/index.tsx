@@ -1,6 +1,6 @@
 import { pb } from "@/app/lib/pocketbase/config";
 
-export const NavBlogShowcase: React.FC = async () => {
+const NavBlogShowcase: React.FC = async () => {
     return (
         <div>
             <h2 className="text-5xl mb-4">Blog</h2>
@@ -8,3 +8,5 @@ export const NavBlogShowcase: React.FC = async () => {
         </div>
     );
 };
+
+export default NavBlogShowcase;

@@ -1,15 +1,22 @@
 "use client";
 
 import { clsx } from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeSwitch } from "../themeSwitch";
+import { usePathname } from "next/navigation";
 
 type NavigationProps = {
     children?: React.ReactNode;
 };
 
 export const Navigation: React.FC<NavigationProps> = ({ children }) => {
+    const pathname = usePathname();
     const [opened, setOpened] = useState(false);
+
+    useEffect(() => {
+        setOpened(false);
+    }, [pathname]);
+
     return (
         <>
             <div

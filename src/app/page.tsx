@@ -1,14 +1,9 @@
-import { Cursor } from "./components/cursor/cursor";
+import dynamic from "next/dynamic";
 import { GlitchText } from "./components/glitchText";
-import { Navigation } from "./components/navigation";
-import { NavBlogShowcase } from "./components/navigation/blog";
-import { NavContactsShowcase } from "./components/navigation/contacts";
-import { NavProjectsShowcase } from "./components/navigation/projects";
 
 export default function Home() {
     return (
         <>
-            <Cursor showSystemCursor={false} />
             <main className="flex h-screen flex-col justify-center lg:px-24 px-16">
                 <h1 className="lg:mb-8 md:mb-6 mb-4">cod3d.dev</h1>
                 <p className=" whitespace-pre">
@@ -17,11 +12,6 @@ export default function Home() {
                     <span>Or sleeping.</span>
                 </p>
                 <GlitchText as="p" text="Or both." />
-                <Navigation>
-                    <NavBlogShowcase />
-                    <NavProjectsShowcase />
-                    <NavContactsShowcase />
-                </Navigation>
             </main>
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <div className="absolute left-1/2 top-1/2">

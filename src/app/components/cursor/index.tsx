@@ -1,9 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import {
+    m,
+    useMotionValue,
+    useSpring,
+    LazyMotion,
+    domAnimation,
+} from "framer-motion";
 import { clsx } from "clsx";
 import useIsTouchdevice from "./util/useIsTouchDevice";
+import { usePathname } from "next/navigation";
 
 type CursorProps = {
     showSystemCursor: boolean;
@@ -11,13 +18,23 @@ type CursorProps = {
 
 let timeout: NodeJS.Timeout;
 
+function map_range(
+    value: number,
+    low1: number,
+    high1: number,
+    low2: number,
+    high2: number
+) {
+    return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
+}
+
 export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
+    const pathname = usePathname();
+
     const [state, setState] = useState({
         isMoving: false,
         isHovered: false,
         dims: null as DOMRect | null,
-        cursorW: 15,
-        cursorH: 15,
     });
 
     const mouse = {
@@ -25,16 +42,25 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
         y: useMotionValue(0),
     };
 
+    const size = {
+        w: useMotionValue(15),
+        h: useMotionValue(15),
+    };
+
     const smoothOptions = { damping: 200, stiffness: 5000, mass: 1 };
     const smoothMouse = {
         x: useSpring(mouse.x, smoothOptions),
         y: useSpring(mouse.y, smoothOptions),
     };
+    const smoothSize = {
+        w: useSpring(size.w, smoothOptions),
+        h: useSpring(size.h, smoothOptions),
+    };
 
     const manageMouseMove = useCallback(
         (e: { clientX: number; clientY: number }) => {
             const { clientX, clientY } = e;
-            const { isHovered, dims, cursorW, cursorH } = state;
+            const { isHovered, dims } = state;
 
             if (isHovered && dims) {
                 const { left, top, height, width } = dims;
@@ -44,11 +70,19 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
                     y: clientY - center.y,
                 };
 
-                mouse.x.set(center.x - cursorW / 2 + distance.x * 0.2);
-                mouse.y.set(center.y - cursorH / 2 + distance.y * 0.2);
+                mouse.x.set(
+                    center.x -
+                        smoothSize.w.get() / 2 +
+                        map_range(distance.x, 0, width, 0, width / 3)
+                );
+                mouse.y.set(
+                    center.y -
+                        smoothSize.h.get() / 2 +
+                        map_range(distance.y, 0, height, 0, height / 3)
+                );
             } else {
-                mouse.x.set(clientX - cursorW / 2);
-                mouse.y.set(clientY - cursorH / 2);
+                mouse.x.set(clientX - smoothSize.w.get() / 2);
+                mouse.y.set(clientY - smoothSize.h.get() / 2);
             }
 
             clearTimeout(timeout);
@@ -57,7 +91,7 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
                 if (state.isMoving) setState({ ...state, isMoving: false });
             }, 5000);
         },
-        [mouse.x, mouse.y, state]
+        [mouse.x, mouse.y, smoothSize.h, smoothSize.w, state]
     );
 
     useEffect(() => {
@@ -65,6 +99,16 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
             document.body.style.cursor = "none";
         }
     }, [showSystemCursor]);
+
+    useEffect(() => {
+        setState((prevState) => ({
+            ...prevState,
+            isHovered: false,
+            dims: null,
+        }));
+        size.w.set(15);
+        size.h.set(15);
+    }, [pathname]);
 
     useEffect(() => {
         const onMouseEnter = (
@@ -80,9 +124,9 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
                 ...prevState,
                 isHovered: true,
                 dims: dims,
-                cursorW: w * 1.5,
-                cursorH: h * 1.5,
             }));
+            size.w.set(w * 1.4);
+            size.h.set(h * 1.4);
         };
 
         const onMouseLeave = () => {
@@ -90,16 +134,12 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
                 ...prevState,
                 isHovered: false,
                 dims: null,
-                cursorW: 15,
-                cursorH: 15,
             }));
+            size.w.set(15);
+            size.h.set(15);
         };
 
         window.addEventListener("mousemove", manageMouseMove);
-
-        // const clickableEls = document.querySelectorAll<HTMLElement>(
-        //     clickables.join(",")
-        // );
 
         const clickableHeight = Array.from(
             document.querySelectorAll<HTMLElement>(".cursor-height")
@@ -146,7 +186,7 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
                 });
             });
         };
-    }, [showSystemCursor, manageMouseMove]);
+    }, [showSystemCursor, manageMouseMove, pathname, size.w, size.h]);
 
     const isTouchdevice = useIsTouchdevice();
     if (typeof window !== "undefined" && isTouchdevice) {
@@ -154,20 +194,26 @@ export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
     }
 
     return (
-        <motion.div
-            style={{
-                left: smoothMouse.x,
-                top: smoothMouse.y,
-            }}
-            animate={{
-                width: state.cursorW,
-                height: state.cursorH,
-                opacity: state.isMoving ? 1 : 0,
-            }}
-            className={clsx(
-                "opacity-0 z-50 fixed w-5 h-5 rounded-full bg-[var(--foreground)] border-[var(--foreground)] border-2 transition-colors duration-500 pointer-events-none",
-                state.isHovered && "bg-transparent"
-            )}
-        />
+        <LazyMotion features={domAnimation}>
+            <m.div
+                style={{
+                    left: smoothMouse.x,
+                    top: smoothMouse.y,
+                    width: smoothSize.w,
+                    height: smoothSize.h,
+                }}
+                animate={{
+                    // width: state.cursorW,
+                    // height: state.cursorH,
+                    opacity: state.isMoving ? 1 : 0,
+                }}
+                className={clsx(
+                    "opacity-0 z-50 fixed w-5 h-5 rounded-full bg-[var(--foreground)] border-[var(--foreground)] border-2 transition-colors duration-500 pointer-events-none",
+                    state.isHovered && "bg-transparent"
+                )}
+            />
+        </LazyMotion>
     );
 };
+
+export default Cursor;
