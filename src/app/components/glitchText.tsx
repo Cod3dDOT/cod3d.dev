@@ -3,12 +3,18 @@ import { clsx } from "clsx";
 type GlitchTextProps = {
     text: string;
     className?: string;
+    as: any;
 };
 
-export const GlitchText: React.FC<GlitchTextProps> = ({ text, className }) => {
+export const GlitchText: React.FC<GlitchTextProps> = ({
+    text,
+    className,
+    as,
+}) => {
+    const As = as;
     return (
-        <p className={clsx(className, "glitch")} data-text={text}>
+        <As className={clsx(className, "glitch")} data-text={text}>
             <span>{text}</span>
-        </p>
+        </As>
     );
 };

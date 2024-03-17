@@ -6,21 +6,18 @@ import { clsx } from "clsx";
 import useIsTouchdevice from "./util/useIsTouchDevice";
 
 type CursorProps = {
-    clickables: string[];
     showSystemCursor: boolean;
 };
 
 let timeout: NodeJS.Timeout;
 
-export const Cursor: React.FC<CursorProps> = ({
-    clickables,
-    showSystemCursor = false,
-}) => {
+export const Cursor: React.FC<CursorProps> = ({ showSystemCursor = false }) => {
     const [state, setState] = useState({
         isMoving: false,
         isHovered: false,
         dims: null as DOMRect | null,
-        cursorSize: 15,
+        cursorW: 15,
+        cursorH: 15,
     });
 
     const mouse = {
@@ -37,7 +34,7 @@ export const Cursor: React.FC<CursorProps> = ({
     const manageMouseMove = useCallback(
         (e: { clientX: number; clientY: number }) => {
             const { clientX, clientY } = e;
-            const { isHovered, dims, cursorSize } = state;
+            const { isHovered, dims, cursorW, cursorH } = state;
 
             if (isHovered && dims) {
                 const { left, top, height, width } = dims;
@@ -47,11 +44,11 @@ export const Cursor: React.FC<CursorProps> = ({
                     y: clientY - center.y,
                 };
 
-                mouse.x.set(center.x - cursorSize / 2 + distance.x * 0.2);
-                mouse.y.set(center.y - cursorSize / 2 + distance.y * 0.2);
+                mouse.x.set(center.x - cursorW / 2 + distance.x * 0.2);
+                mouse.y.set(center.y - cursorH / 2 + distance.y * 0.2);
             } else {
-                mouse.x.set(clientX - cursorSize / 2);
-                mouse.y.set(clientY - cursorSize / 2);
+                mouse.x.set(clientX - cursorW / 2);
+                mouse.y.set(clientY - cursorH / 2);
             }
 
             clearTimeout(timeout);
@@ -70,12 +67,21 @@ export const Cursor: React.FC<CursorProps> = ({
     }, [showSystemCursor]);
 
     useEffect(() => {
-        const onMouseEnter = (el: HTMLElement) => {
+        const onMouseEnter = (
+            el: HTMLElement,
+            mode: "height" | "width" | "both"
+        ) => {
+            const dims = el.getBoundingClientRect();
+            const w =
+                mode == "width" || mode == "both" ? dims.width : dims.height;
+            const h =
+                mode == "height" || mode == "both" ? dims.height : dims.width;
             setState((prevState) => ({
                 ...prevState,
                 isHovered: true,
-                dims: el.getBoundingClientRect(),
-                cursorSize: el.getBoundingClientRect().width * 2,
+                dims: dims,
+                cursorW: w * 1.5,
+                cursorH: h * 1.5,
             }));
         };
 
@@ -84,21 +90,42 @@ export const Cursor: React.FC<CursorProps> = ({
                 ...prevState,
                 isHovered: false,
                 dims: null,
-                cursorSize: 15,
+                cursorW: 15,
+                cursorH: 15,
             }));
         };
 
         window.addEventListener("mousemove", manageMouseMove);
 
-        const clickableEls = document.querySelectorAll<HTMLElement>(
-            clickables.join(",")
-        );
+        // const clickableEls = document.querySelectorAll<HTMLElement>(
+        //     clickables.join(",")
+        // );
 
-        clickableEls.forEach((el) => {
+        const clickableHeight = Array.from(
+            document.querySelectorAll<HTMLElement>(".cursor-height")
+        ).map((node) => {
+            return { node: node, mode: "height" };
+        });
+        const clickableWidth = Array.from(
+            document.querySelectorAll<HTMLElement>(".cursor-width")
+        ).map((node) => {
+            return { node: node, mode: "width" };
+        });
+        const clickable = Array.from(
+            document.querySelectorAll<HTMLElement>(".cursor")
+        ).map((node) => {
+            return { node: node, mode: "both" };
+        });
+
+        const clickableEls = clickableHeight
+            .concat(clickableWidth)
+            .concat(clickable);
+
+        clickableEls.forEach(({ node: el, mode }) => {
             if (!showSystemCursor) el.style.cursor = "none";
 
             el.addEventListener("mouseenter", () => {
-                onMouseEnter(el);
+                onMouseEnter(el, mode as "height" | "width" | "both");
             });
 
             el.addEventListener("mouseleave", () => {
@@ -109,9 +136,9 @@ export const Cursor: React.FC<CursorProps> = ({
         return () => {
             window.removeEventListener("mousemove", manageMouseMove);
 
-            clickableEls.forEach((el) => {
+            clickableEls.forEach(({ node: el, mode }) => {
                 el.removeEventListener("mouseenter", () => {
-                    onMouseEnter(el);
+                    onMouseEnter(el, mode as "height" | "width" | "both");
                 });
 
                 el.removeEventListener("mouseleave", () => {
@@ -119,7 +146,7 @@ export const Cursor: React.FC<CursorProps> = ({
                 });
             });
         };
-    }, [clickables, showSystemCursor, manageMouseMove]);
+    }, [showSystemCursor, manageMouseMove]);
 
     const isTouchdevice = useIsTouchdevice();
     if (typeof window !== "undefined" && isTouchdevice) {
@@ -133,8 +160,8 @@ export const Cursor: React.FC<CursorProps> = ({
                 top: smoothMouse.y,
             }}
             animate={{
-                width: state.cursorSize,
-                height: state.cursorSize,
+                width: state.cursorW,
+                height: state.cursorH,
                 opacity: state.isMoving ? 1 : 0,
             }}
             className={clsx(

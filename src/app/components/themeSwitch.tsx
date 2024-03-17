@@ -1,5 +1,6 @@
 "use client";
 
+import { clsx } from "clsx";
 import { useTheme } from "next-themes";
 
 interface ThemeSwitchProps {
@@ -15,7 +16,10 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
         <button
             type="button"
             onClick={() => setTheme(resolvedTheme == "dark" ? "light" : "dark")}
-            className={`aspect-square rounded-full touch-manipulation ${className}`}
+            className={clsx(
+                "cursor aspect-square rounded-full touch-manipulation",
+                className
+            )}
             aria-label="Theme switch"
         >
             <svg aria-hidden="true" viewBox="0 0 24 24" focusable={false}>

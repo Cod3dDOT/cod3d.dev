@@ -11,6 +11,11 @@ body::after {
 }
 
 body::before {
-    background: hsl(0, 0%, 0%);
-    filter: url(#noiseFilter);
+    background: #d9d9d9;
+    filter: url(#noiseFilter-light);
+}
+
+.dark body::before {
+    background: var(--background);
+    filter: url(#noiseFilter-dark);
 }

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Pixelify_Sans } from "next/font/google";
 import "./styles/globals.css";
 import "./styles/grainy.css";
 import "./styles/glitch.css";
 import { ThemeProvider } from "next-themes";
 
-const font = Poppins({
+const font = Pixelify_Sans({
     subsets: ["latin"],
-    weight: ["100", "400", "800"],
+    weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {

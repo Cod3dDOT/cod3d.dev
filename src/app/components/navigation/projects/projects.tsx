@@ -1,12 +1,13 @@
 import { getFileUrl } from "@/app/lib/pocketbase/config";
 import { Project } from "@/app/lib/pocketbase/types";
 import Image from "next/image";
+import Link from "next/link";
 
-type NavProjectsCarouselProps = {
+type NavProjectsListProps = {
     projects: Project[];
 };
 
-export const NavProjectsCarousel: React.FC<NavProjectsCarouselProps> = ({
+export const NavProjectsList: React.FC<NavProjectsListProps> = ({
     projects,
 }) => {
     return (
@@ -20,13 +21,16 @@ export const NavProjectsCarousel: React.FC<NavProjectsCarouselProps> = ({
 
 const NavProject: React.FC<{ project: Project }> = ({ project }) => {
     return (
-        <div className="relative flex h-16 items-center overflow-hidden group">
+        <Link
+            href={`/projects/${project.name}`}
+            className="cursor-height relative flex h-16 items-center overflow-hidden group transition-all rounded-md hover:shadow-xl"
+        >
             <span
-                className="h-full w-0 transition-all group-hover:w-2"
+                className="h-full w-0 transition-all group-hover:w-2 group-hover:mr-2"
                 style={{ backgroundColor: project.color }}
             />
-            <div className="flex flex-col flex-1 p-2">
-                <span className="text-base">{project.name}</span>
+            <div className="flex flex-col flex-1 py-2">
+                <span className="text-xl">{project.name}</span>
                 <span className="text-sm">{project.shortDescription}</span>
             </div>
             <Image
@@ -36,6 +40,6 @@ const NavProject: React.FC<{ project: Project }> = ({ project }) => {
                 alt={project.name + " hero image"}
                 className="object-contain h-full w-auto p-2 aspect-square"
             />
-        </div>
+        </Link>
     );
 };
