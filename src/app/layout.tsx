@@ -38,6 +38,11 @@ export const metadata: Metadata = {
         description: "Probably trying to hack you. Or sleeping. Or both.",
         siteName: "cod3d's den",
         locale: "en_US",
+        images: [
+            {
+                url: "/og.png",
+            },
+        ],
     },
 };
 
