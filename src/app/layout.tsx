@@ -7,10 +7,9 @@ import { Pixelify_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import Cursor from './components/cursor';
+import { CursorProps } from './components/cursor/types';
+import { GrainyBackground } from './components/grainyBackground';
 import { Navigation } from './components/navigation';
-import NavBlogShowcase from './components/navigation/blog';
-import NavContactsShowcase from './components/navigation/contacts';
-import NavProjectsShowcase from './components/navigation/projects';
 import Transitions, { Animate } from './components/transitions';
 
 const font = Pixelify_Sans({
@@ -19,7 +18,7 @@ const font = Pixelify_Sans({
 });
 
 export const metadata: Metadata = {
-	metadataBase: new URL('https://cod3d.dev'), // takes effect only in prod
+	metadataBase: new URL('https://cod3d.dev'), // takes effect only in production
 	title: "cod3d's den",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
 	creator: 'cod3d',
@@ -40,6 +39,19 @@ export const metadata: Metadata = {
 	}
 };
 
+const CursorInteractables: CursorProps['interactables'] = [
+	{ target: '.cursor', size: 'both' },
+	{
+		target: '.cursor-width',
+		size: 'width'
+	},
+	{
+		target: '.cursor-height',
+		size: 'height',
+		snap: 'vertical'
+	}
+];
+
 export default function RootLayout({
 	children
 }: Readonly<{
@@ -47,76 +59,25 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
+			<head>
+				<script
+					defer
+					src="https://analytics.eu.umami.is/script.js"
+					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
+				/>
+			</head>
 			<body className={font.className}>
 				<ThemeProvider attribute="class">
+					<GrainyBackground />
 					<Cursor
-						interactables={[
-							{ target: '.cursor', size: 'both' },
-							{
-								target: '.cursor-width',
-								size: 'width'
-							},
-							{
-								target: '.cursor-height',
-								size: 'height',
-								snap: 'vertical'
-							}
-						]}
+						interactables={CursorInteractables}
 						showSystemCursor={false}
 						snap="center"
 					/>
+					<Navigation />
 					<Transitions>
 						<Animate>{children}</Animate>
 					</Transitions>
-					<Navigation>
-						<NavBlogShowcase />
-						<NavProjectsShowcase />
-						<NavContactsShowcase />
-					</Navigation>
-					<svg className="absolute left-0 top-0">
-						<filter id="noiseFilter-dark">
-							<feTurbulence
-								type="fractalNoise"
-								baseFrequency="0.6"
-								stitchTiles="stitch"
-							/>
-							<feColorMatrix
-								in="colorNoise"
-								type="matrix"
-								values="1.0 0.3 0.3 0.0 0.0
-                                    0.3 1.0 0.3 0.0 0.0
-                                    0.3 0.3 1.0 0.0 0.0
-                                    0.0 0.0 0.0 0.1 0.0"
-							/>
-							<feComposite
-								operator="in"
-								in2="SourceGraphic"
-								result="monoNoise"
-							/>
-							<feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
-						</filter>
-						<filter id="noiseFilter-light">
-							<feTurbulence
-								type="fractalNoise"
-								baseFrequency="0.6"
-								stitchTiles="stitch"
-							/>
-							<feColorMatrix
-								in="colorNoise"
-								type="matrix"
-								values="1.0 0.3 0.3 0.0 0.0
-                                    0.3 1.0 0.3 0.0 0.0
-                                    0.3 0.3 1.0 0.0 0.0
-                                    0.0 0.0 0.0 0.9 0.0"
-							/>
-							<feComposite
-								operator="in"
-								in2="SourceGraphic"
-								result="monoNoise"
-							/>
-							<feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
-						</filter>
-					</svg>
 				</ThemeProvider>
 			</body>
 		</html>

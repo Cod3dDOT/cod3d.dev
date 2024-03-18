@@ -34,15 +34,15 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 					/>
 				</mask>
 				<circle
-					className="transition-all origin-center peer duration-600 fill-black hover:fill-[var(--foreground)]
-                                dark:scale-[1.75] dark:duration-300 dark:fill-gray-300 dark:hover:fill-white"
+					className="transition-all origin-center peer duration-600 fill-black hover:fill-foreground
+                                dark:scale-[1.75] dark:duration-300 dark:fill-foreground dark:hover:fill-white"
 					cx="12"
 					cy="12"
 					r="6"
 					mask="url(#moon-mask)"
 				/>
 				<g
-					className="transition-all origin-center stroke-2 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-[var(--foreground)]
+					className="transition-all origin-center stroke-2 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-foreground
                     dark:-rotate-45 dark:duration-300 dark:opacity-0 dark:stroke-white"
 				>
 					<line x1="12" y1="1" x2="12" y2="3" />

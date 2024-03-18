@@ -268,7 +268,7 @@ export const Cursor: React.FC<CursorProps> = ({
 					opacity: state.isMoving ? 1 : 0
 				}}
 				className={clsx(
-					'opacity-0 z-50 fixed w-5 h-5 rounded-full bg-[var(--foreground)] border-[var(--foreground)] border-2 transition-colors duration-500 pointer-events-none',
+					'opacity-0 z-50 fixed w-5 h-5 rounded-full bg-foreground border-foreground border-2 transition-colors duration-500 pointer-events-none',
 					state.isHovered && 'bg-transparent'
 				)}
 			/>

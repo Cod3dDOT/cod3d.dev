@@ -16,7 +16,7 @@ export const NavProject: React.FC<{ project: Project }> = ({ project }) => {
 					href={String(project.repo)}
 					className="cursor h-full transition-all lg:w-0 lg:mr-0 mr-2 lg:group-hover:w-14 sm:group-hover:ml-2 flex justify-center items-center overflow-hidden"
 				>
-					<GithubIcon className="h-full aspect-square fill-[var(--foreground)]" />
+					<GithubIcon className="h-full aspect-square fill-foreground" />
 				</a>
 			)}
 		</div>

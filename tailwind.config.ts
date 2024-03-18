@@ -7,7 +7,15 @@ const config: Config = {
 		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
 		'./src/app/**/*.{js,ts,jsx,tsx,mdx}'
 	],
-	theme: {},
+	theme: {
+		extend: {
+			colors: {
+				transparent: 'transparent',
+				foreground: 'var(--foreground)',
+				background: 'var(--background)'
+			}
+		}
+	},
 	plugins: [require('tailwindcss-animate')]
 };
 export default config;
