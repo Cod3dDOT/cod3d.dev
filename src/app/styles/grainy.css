@@ -1,21 +1,21 @@
 body::before,
 body::after {
-    position: absolute;
-    inset: 0;
-    content: "";
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
+	position: absolute;
+	inset: 0;
+	content: '';
+	width: 100%;
+	height: 100vh;
+	z-index: -1;
 
-    opacity: 40%;
+	opacity: 40%;
 }
 
 body::before {
-    background: #d9d9d9;
-    filter: url(#noiseFilter-light);
+	background: #d9d9d9;
+	filter: url(#noiseFilter-light);
 }
 
 .dark body::before {
-    background: var(--background);
-    filter: url(#noiseFilter-dark);
+	background: var(--background);
+	filter: url(#noiseFilter-dark);
 }
