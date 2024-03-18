@@ -10,6 +10,7 @@ import { Navigation } from "./components/navigation";
 import "./styles/globals.css";
 import "./styles/grainy.css";
 import "./styles/glitch.css";
+import Cursor from "./components/cursor";
 
 const NavBlogShowcase = dynamic(() => import("./components/navigation/blog"));
 const NavContactsShowcase = dynamic(
@@ -19,15 +20,12 @@ const NavProjectsShowcase = dynamic(
     () => import("./components/navigation/projects")
 );
 
-const Cursor = dynamic(() => import("./components/cursor"));
-
 const font = Pixelify_Sans({
     subsets: ["latin"],
     variable: "--font-pixelify",
 });
 
 export const metadata: Metadata = {
-    // metadataBase: new URL("localhost:3000"),
     title: "cod3d's den",
     description: "Probably trying to hack you. Or sleeping. Or both.",
     creator: "cod3d",
