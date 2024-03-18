@@ -6,10 +6,10 @@ export interface Project {
     updated: string;
     published: boolean;
     name: string;
-    shortDescription: string;
     description: string;
-    images: string[];
     color: string;
+    repo: URL;
+    status: "stale" | "dev" | "idea" | "archived";
 }
 
 export interface TypedPocketBase extends PocketBase {

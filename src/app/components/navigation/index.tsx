@@ -53,7 +53,7 @@ export const Navigation: React.FC<NavigationProps> = ({ children }) => {
                         <span className="w-1 h-16 bg-[var(--foreground)]" />
                     </button>
                 </div>
-                <div className="w-[calc(100%-4rem-2rem)] py-8 space-y-8">
+                <div className="flex flex-col w-[calc(100%-4rem-2rem)] py-8 space-y-8">
                     {children}
                 </div>
             </div>

@@ -54,84 +54,84 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={font.className}>
-                <Cursor
-                    interactables={[
-                        { target: ".cursor", size: "both" },
-                        {
-                            target: ".cursor-width",
-                            size: "width",
-                        },
-                        {
-                            target: ".cursor-height",
-                            size: "height",
-                            snap: "vertical",
-                        },
-                    ]}
-                    showSystemCursor={false}
-                    snap="center"
-                />
                 <ThemeProvider attribute="class">
+                    <Cursor
+                        interactables={[
+                            { target: ".cursor", size: "both" },
+                            {
+                                target: ".cursor-width",
+                                size: "width",
+                            },
+                            {
+                                target: ".cursor-height",
+                                size: "height",
+                                snap: "vertical",
+                            },
+                        ]}
+                        showSystemCursor={false}
+                        snap="center"
+                    />
                     <Transitions>
                         <Animate>{children}</Animate>
-                        <Navigation>
-                            <NavBlogShowcase />
-                            <NavProjectsShowcase />
-                            <NavContactsShowcase />
-                        </Navigation>
                     </Transitions>
-                </ThemeProvider>
-                <svg className="absolute left-0 top-0">
-                    <filter id="noiseFilter-dark">
-                        <feTurbulence
-                            type="fractalNoise"
-                            baseFrequency="0.6"
-                            stitchTiles="stitch"
-                        />
-                        <feColorMatrix
-                            in="colorNoise"
-                            type="matrix"
-                            values="1.0 0.3 0.3 0.0 0.0
+                    <Navigation>
+                        <NavBlogShowcase />
+                        <NavProjectsShowcase />
+                        <NavContactsShowcase />
+                    </Navigation>
+                    <svg className="absolute left-0 top-0">
+                        <filter id="noiseFilter-dark">
+                            <feTurbulence
+                                type="fractalNoise"
+                                baseFrequency="0.6"
+                                stitchTiles="stitch"
+                            />
+                            <feColorMatrix
+                                in="colorNoise"
+                                type="matrix"
+                                values="1.0 0.3 0.3 0.0 0.0
                                     0.3 1.0 0.3 0.0 0.0
                                     0.3 0.3 1.0 0.0 0.0
                                     0.0 0.0 0.0 0.1 0.0"
-                        />
-                        <feComposite
-                            operator="in"
-                            in2="SourceGraphic"
-                            result="monoNoise"
-                        />
-                        <feBlend
-                            in="SourceGraphic"
-                            in2="monoNoise"
-                            mode="screen"
-                        />
-                    </filter>
-                    <filter id="noiseFilter-light">
-                        <feTurbulence
-                            type="fractalNoise"
-                            baseFrequency="0.6"
-                            stitchTiles="stitch"
-                        />
-                        <feColorMatrix
-                            in="colorNoise"
-                            type="matrix"
-                            values="1.0 0.3 0.3 0.0 0.0
+                            />
+                            <feComposite
+                                operator="in"
+                                in2="SourceGraphic"
+                                result="monoNoise"
+                            />
+                            <feBlend
+                                in="SourceGraphic"
+                                in2="monoNoise"
+                                mode="screen"
+                            />
+                        </filter>
+                        <filter id="noiseFilter-light">
+                            <feTurbulence
+                                type="fractalNoise"
+                                baseFrequency="0.6"
+                                stitchTiles="stitch"
+                            />
+                            <feColorMatrix
+                                in="colorNoise"
+                                type="matrix"
+                                values="1.0 0.3 0.3 0.0 0.0
                                     0.3 1.0 0.3 0.0 0.0
                                     0.3 0.3 1.0 0.0 0.0
                                     0.0 0.0 0.0 0.9 0.0"
-                        />
-                        <feComposite
-                            operator="in"
-                            in2="SourceGraphic"
-                            result="monoNoise"
-                        />
-                        <feBlend
-                            in="SourceGraphic"
-                            in2="monoNoise"
-                            mode="screen"
-                        />
-                    </filter>
-                </svg>
+                            />
+                            <feComposite
+                                operator="in"
+                                in2="SourceGraphic"
+                                result="monoNoise"
+                            />
+                            <feBlend
+                                in="SourceGraphic"
+                                in2="monoNoise"
+                                mode="screen"
+                            />
+                        </filter>
+                    </svg>
+                </ThemeProvider>
             </body>
         </html>
     );

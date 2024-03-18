@@ -4,7 +4,7 @@ import MatrixIcon from "../../icons/matrix";
 
 const NavContactsShowcase: React.FC = async () => {
     return (
-        <div className="mt-auto">
+        <div className="w-full h-full flex flex-col justify-end">
             <h2 className="text-5xl mb-4">Catch Me</h2>
             <div className="flex">
                 <a href="https://github.com/cod3ddot" className="pr-4 cursor">
