@@ -18,8 +18,10 @@ const NavProjectsShowcase = async () => {
 			<h2 className="text-5xl mb-4">Projects</h2>
 
 			<div className="space-y-2">
-				{projects.map((project) => {
-					return <NavProject project={project} key={project.id} />;
+				{projects.map((project, index) => {
+					return (
+						<NavProject project={project} key={project.id} index={index + 1} />
+					);
 				})}
 			</div>
 		</div>

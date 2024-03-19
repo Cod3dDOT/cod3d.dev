@@ -1,21 +1,28 @@
 import GithubIcon from '../../icons/github';
 import MailIcon from '../../icons/mail';
 import MatrixIcon from '../../icons/matrix';
+import { ContactLink } from './link';
 
-const NavContactsShowcase = async () => {
+const NavContactsShowcase: React.FC = () => {
 	return (
-		<div className="w-full h-full flex flex-col justify-end">
+		<div className="relative w-full h-full flex flex-col justify-end group">
 			<h2 className="text-5xl mb-4">Catch Me</h2>
-			<div className="flex">
-				<a href="https://github.com/cod3ddot" className="pr-4 cursor">
-					<GithubIcon className="w-12 h-12 fill-foreground" />
-				</a>
-				<a href="mailto:cod3ddot@proton.me" className="px-4 cursor">
-					<MailIcon className="w-12 h-12 fill-foreground" />
-				</a>
-				<a href="mailto:cod3ddot@proton.me" className="pl-4 cursor">
-					<MatrixIcon className="w-12 h-12 fill-foreground" />
-				</a>
+			<div className="flex gap-4">
+				<ContactLink>
+					<a href="https://github.com/cod3ddot">
+						<GithubIcon className="w-full h-full fill-foreground" />
+					</a>
+				</ContactLink>
+				<ContactLink>
+					<a href="mailto:cod3ddot@proton.me">
+						<MailIcon className="w-full h-full fill-foreground" />
+					</a>
+				</ContactLink>
+				<ContactLink>
+					<a href="mailto:cod3ddot@proton.me">
+						<MatrixIcon className="w-full h-full fill-foreground" />
+					</a>
+				</ContactLink>
 			</div>
 		</div>
 	);
