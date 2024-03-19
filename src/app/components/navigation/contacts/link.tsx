@@ -4,9 +4,6 @@ import { AnimatePresence, motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
-import PokeBall from '@/../public/pokeball.png';
-import PokeBallGif from '@/../public/pokeball-open.gif';
-
 function randomIntFromInterval(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -37,13 +34,13 @@ export const ContactLink: React.FC<{
 			<AnimatePresence>
 				{!delayedHover ? (
 					<Image
-						src={PokeBall}
+						src="/pokeball.png"
 						alt="pokeball"
 						className="w-full h-full scale-125"
 					/>
 				) : !played ? (
 					<Image
-						src={PokeBallGif}
+						src="/pokeball-open.gif"
 						alt="pokeball"
 						className="w-full h-full scale-125"
 					/>
