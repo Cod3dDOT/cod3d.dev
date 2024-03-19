@@ -34,6 +34,8 @@ export const ContactLink: React.FC<{
 			<AnimatePresence>
 				{!delayedHover ? (
 					<Image
+						width={128}
+						height={128}
 						src="/pokeball.png"
 						alt="pokeball"
 						className="w-full h-full scale-125"
