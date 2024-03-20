@@ -4,6 +4,8 @@ import { AnimatePresence, motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
+import PokeballImage from '../../../../../public/pokeball.png';
+
 function randomIntFromInterval(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -36,7 +38,7 @@ export const ContactLink: React.FC<{
 					<Image
 						width={128}
 						height={128}
-						src="/pokeball.png"
+						src={PokeballImage}
 						alt="pokeball"
 						className="w-full h-full scale-125"
 					/>
