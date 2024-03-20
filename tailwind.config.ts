@@ -13,6 +13,17 @@ const config: Config = {
 				transparent: 'transparent',
 				foreground: 'var(--foreground)',
 				background: 'var(--background)'
+			},
+			animation: {
+				arrows: 'arrows 2s infinite'
+			},
+			keyframes: {
+				arrows: {
+					'0%': { translate: '-5px 0', opacity: '0' },
+					'30%': { translate: '0', opacity: '1' },
+					'60%': { translate: '0', opacity: '1' },
+					'100%': { translate: '5px 0', opacity: '0' }
+				}
 			}
 		}
 	},

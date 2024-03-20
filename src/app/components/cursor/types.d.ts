@@ -4,6 +4,7 @@ export interface InteractableOpts {
 	alpha?: number;
 	size?: 'height' | 'width' | 'both' | number;
 	snap?: 'vertical' | 'horizontal' | 'center';
+	radius?: number;
 }
 
 export type Interactable = string | ({ target: string } & InteractableOpts);

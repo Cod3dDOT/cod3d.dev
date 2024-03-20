@@ -4,11 +4,9 @@ import { AnimatePresence, motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
-import PokeballImage from '../../../../../public/pokeball.png';
+import { randomIntFromInterval } from '@/app/lib/math';
 
-function randomIntFromInterval(min: number, max: number) {
-	return Math.floor(Math.random() * (max - min + 1) + min);
-}
+import PokeballImage from '../../../../../public/pokeball.png';
 
 export const ContactLink: React.FC<{
 	children: ReactNode;
@@ -44,6 +42,8 @@ export const ContactLink: React.FC<{
 					/>
 				) : !played ? (
 					<Image
+						width={128}
+						height={128}
 						src="/pokeball-open.gif"
 						alt="pokeball"
 						className="w-full h-full scale-125"

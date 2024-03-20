@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 };
 
 const CursorInteractables: CursorProps['interactables'] = [
-	{ target: '.cursor', size: 'both' },
+	{ target: '.cursor', size: 'both', snap: 'center' },
 	{
 		target: '.cursor-width',
 		size: 'width'
@@ -49,6 +49,11 @@ const CursorInteractables: CursorProps['interactables'] = [
 		target: '.cursor-height',
 		size: 'height',
 		snap: 'vertical'
+	},
+	{
+		target: '.cursor-blog-nav',
+		size: 'both',
+		radius: 10
 	}
 ];
 

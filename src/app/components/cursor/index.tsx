@@ -10,9 +10,9 @@ import {
 } from 'framer-motion';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import useIsTouchdevice from '../../lib/hooks/useIsTouchDevice';
 import { CursorProps, Interactable, InteractableOpts } from './types';
 import find from './util/find';
-import useIsTouchdevice from './util/useIsTouchDevice';
 
 let timeout: NodeJS.Timeout;
 
@@ -23,7 +23,8 @@ export const Cursor: React.FC<CursorProps> = ({
 	color,
 	alpha,
 	size = 15,
-	snap
+	snap,
+	radius = 999
 }) => {
 	const defaultOptions = useMemo(
 		() => ({
@@ -32,9 +33,10 @@ export const Cursor: React.FC<CursorProps> = ({
 			alpha,
 			width: size,
 			height: size,
-			snap
+			snap,
+			radius
 		}),
-		[children, color, alpha, size, snap]
+		[children, color, alpha, size, snap, radius]
 	);
 	const [state, setState] = useState({
 		isMoving: false,
@@ -42,7 +44,8 @@ export const Cursor: React.FC<CursorProps> = ({
 		snap: {
 			dims: null as DOMRect | null,
 			mode: null as InteractableOpts['snap'] | null
-		}
+		},
+		radius: radius
 	});
 
 	const mouse = {
@@ -104,25 +107,52 @@ export const Cursor: React.FC<CursorProps> = ({
 	}, [showSystemCursor]);
 
 	useEffect(() => {
-		const onMouseEnter = (el: HTMLElement, opts: typeof defaultOptions) => {
+		const onMouseEnter = (el: HTMLElement, opts: InteractableOpts) => {
+			const dims = el.getBoundingClientRect();
+
+			let w = opts.size || defaultOptions.width;
+			if (typeof w != 'number') {
+				w =
+					opts.size == 'width' || opts.size == 'both'
+						? dims.width
+						: dims.height;
+			}
+
+			let h = opts.size || defaultOptions.height;
+			if (typeof h != 'number') {
+				h =
+					opts.size == 'height' || opts.size == 'both'
+						? dims.height
+						: dims.width;
+			}
+
+			const options: typeof defaultOptions = {
+				...defaultOptions,
+				...opts,
+				width: w,
+				height: h
+			};
+
 			setState((prevState) => ({
 				...prevState,
 				isHovered: true,
 				snap: {
-					dims: el.getBoundingClientRect(),
-					mode: opts.snap
-				}
+					dims: dims,
+					mode: options.snap
+				},
+				radius: options.radius
 			}));
 
-			targetSize.w.set(opts.width * 1.4);
-			targetSize.h.set(opts.height * 1.4);
+			targetSize.w.set(options.width * 1.2);
+			targetSize.h.set(options.height * 1.2);
 		};
 
 		const onMouseLeave = () => {
 			setState((prevState) => ({
 				...prevState,
 				isHovered: false,
-				dims: null
+				dims: null,
+				radius: defaultOptions.radius
 			}));
 			targetSize.w.set(defaultOptions.width);
 			targetSize.h.set(defaultOptions.height);
@@ -154,34 +184,8 @@ export const Cursor: React.FC<CursorProps> = ({
 					: {}
 			) as InteractableOpts;
 
-			// caches size, but passes the element later into the callback use up-to-date position
-			// will not work if element will change size
-			const dims = el.getBoundingClientRect();
-
-			let w = iOptions.size || defaultOptions.width;
-			if (typeof w != 'number') {
-				w =
-					iOptions.size == 'width' || iOptions.size == 'both'
-						? dims.width
-						: dims.height;
-			}
-			let h = iOptions.size || defaultOptions.height;
-			if (typeof h != 'number') {
-				h =
-					iOptions.size == 'height' || iOptions.size == 'both'
-						? dims.height
-						: dims.width;
-			}
-
-			const options: typeof defaultOptions = {
-				...defaultOptions,
-				...iOptions,
-				width: h,
-				height: h
-			};
-
 			el.addEventListener('mouseenter', () => {
-				onMouseEnter(el, options);
+				onMouseEnter(el, iOptions);
 			});
 
 			el.addEventListener('mouseleave', () => {
@@ -206,32 +210,8 @@ export const Cursor: React.FC<CursorProps> = ({
 						: {}
 				) as InteractableOpts;
 
-				const dims = el.getBoundingClientRect();
-
-				let w = iOptions.size || defaultOptions.width;
-				if (typeof w != 'number') {
-					w =
-						iOptions.size == 'width' || iOptions.size == 'both'
-							? dims.width
-							: dims.height;
-				}
-				let h = iOptions.size || defaultOptions.height;
-				if (typeof h != 'number') {
-					h =
-						iOptions.size == 'height' || iOptions.size == 'both'
-							? dims.height
-							: dims.width;
-				}
-
-				const options: typeof defaultOptions = {
-					...defaultOptions,
-					...iOptions,
-					width: h,
-					height: h
-				};
-
 				el.removeEventListener('mouseenter', () => {
-					onMouseEnter(el, options);
+					onMouseEnter(el, iOptions);
 				});
 
 				el.removeEventListener('mouseleave', () => {
@@ -260,15 +240,14 @@ export const Cursor: React.FC<CursorProps> = ({
 					left: smoothMouse.x,
 					top: smoothMouse.y,
 					width: smoothSize.w,
-					height: smoothSize.h
+					height: smoothSize.h,
+					borderRadius: state.radius
 				}}
 				animate={{
-					// width: state.cursorW,
-					// height: state.cursorH,
 					opacity: state.isMoving ? 1 : 0
 				}}
 				className={clsx(
-					'opacity-0 z-50 fixed w-5 h-5 rounded-full bg-foreground border-foreground border-2 transition-colors duration-500 pointer-events-none',
+					'opacity-0 z-50 fixed w-5 h-5 bg-foreground border-foreground border-2 transition-colors duration-500 pointer-events-none',
 					state.isHovered && 'bg-transparent'
 				)}
 			/>

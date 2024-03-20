@@ -6,8 +6,9 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Project } from '@/app/lib/pocketbase/types';
 
-import GithubIcon from '../../icons/github';
+import GithubIcon from '../../../icons/github';
 import { ProjectBadge } from './badge';
+import { MemoProjectGridEffect } from './gridEffect';
 
 export const NavProject: React.FC<{
 	project: Project;
@@ -18,10 +19,7 @@ export const NavProject: React.FC<{
 	const [played, setPlayed] = useState(false);
 
 	useEffect(() => {
-		if (!isInView) {
-			// setPlayed(false);
-			return;
-		}
+		if (!isInView) return;
 
 		setTimeout(() => {
 			setPlayed(true);
@@ -41,16 +39,20 @@ export const NavProject: React.FC<{
 			}}
 		>
 			<ProjectBadge status={project.status} />
-			<div className="flex flex-col flex-1 sm:pl-2 p-2 pl-0">
+			<div className="flex flex-col sm:w-fit p-2 flex-1 sm:flex-initial">
 				<span className="text-xl">{project.name}</span>
 				<span className="text-sm">{project.description}</span>
 			</div>
+			<div className="sm:block hidden flex-1">
+				<MemoProjectGridEffect />
+			</div>
+
 			{project.repo && (
 				<a
 					href={String(project.repo)}
 					className="cursor h-full transition-all lg:w-0 lg:mr-0 mr-2 lg:group-hover:w-14 sm:group-hover:ml-2 flex justify-center items-center overflow-hidden"
 				>
-					<GithubIcon className="h-full aspect-square fill-foreground" />
+					<GithubIcon className="h-8 w-8 fill-foreground" />
 				</a>
 			)}
 		</div>
