@@ -2,12 +2,13 @@
 
 import { clsx } from 'clsx';
 import { useTheme } from 'next-themes';
+import { memo } from 'react';
 
 interface ThemeSwitchProps {
 	className?: string;
 }
 
-export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
+const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 	className
 }: ThemeSwitchProps) => {
 	const { resolvedTheme, setTheme } = useTheme();
@@ -17,7 +18,7 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 			type="button"
 			onClick={() => setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')}
 			className={clsx(
-				'cursor aspect-square rounded-full touch-manipulation',
+				'group aspect-square rounded-full touch-manipulation',
 				className
 			)}
 			aria-label="Theme switch"
@@ -34,16 +35,16 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 					/>
 				</mask>
 				<circle
-					className="transition-all origin-center peer duration-600 fill-black hover:fill-foreground
-                                dark:scale-[1.75] dark:duration-300 dark:fill-foreground dark:hover:fill-white"
+					className="transition-all origin-center peer duration-600 fill-black group-hover:fill-black/60
+                                dark:scale-[1.75] dark:duration-300 dark:fill-foreground dark:group-hover:fill-white"
 					cx="12"
 					cy="12"
 					r="6"
 					mask="url(#moon-mask)"
 				/>
 				<g
-					className="transition-all origin-center stroke-2 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-foreground
-                    dark:-rotate-45 dark:duration-300 dark:opacity-0 dark:stroke-white"
+					className="transition-all origin-center stroke-2 delay-150 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-black/60
+                    dark:-rotate-45 dark:duration-300 dark:delay-0 dark:opacity-0 dark:stroke-white"
 				>
 					<line x1="12" y1="1" x2="12" y2="3" />
 					<line x1="12" y1="21" x2="12" y2="23" />
@@ -58,3 +59,5 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 		</button>
 	);
 };
+
+export const ThemeSwitch = memo(_ThemeSwitch);

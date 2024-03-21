@@ -22,7 +22,7 @@ export const ContactLink: React.FC<{
 				setDelayedHover(true);
 				setTimeout(() => {
 					setPlayed(true);
-				}, 2800);
+				}, 2500);
 			},
 			randomIntFromInterval(0, 1000)
 		);

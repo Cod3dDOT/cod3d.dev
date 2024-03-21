@@ -52,7 +52,12 @@ export const NavProject: React.FC<{
 					href={String(project.repo)}
 					className="h-full transition-all lg:w-0 lg:mr-0 mr-2 lg:group-hover:w-14 sm:group-hover:ml-2 flex justify-center items-center overflow-hidden"
 				>
-					<GithubIcon className="h-8 w-8 fill-foreground" />
+					<GithubIcon
+						aria-hidden="true"
+						focusable="false"
+						className="h-8 w-8 fill-foreground"
+					/>
+					<span className="sr-only">Project Github link</span>
 				</a>
 			)}
 		</div>

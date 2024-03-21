@@ -10,18 +10,33 @@ const NavContactsShowcase: React.FC = () => {
 			<div className="flex gap-4">
 				<ContactLink>
 					<a href="https://github.com/cod3ddot">
-						<GithubIcon className="w-full h-full fill-foreground" />
+						<GithubIcon
+							aria-hidden="true"
+							focusable="false"
+							className="w-full h-full fill-foreground"
+						/>
 					</a>
+					<span className="sr-only">Github</span>
 				</ContactLink>
 				<ContactLink>
 					<a href="mailto:cod3ddot@proton.me">
-						<MailIcon className="w-full h-full fill-foreground" />
+						<MailIcon
+							aria-hidden="true"
+							focusable="false"
+							className="w-full h-full fill-foreground"
+						/>
 					</a>
+					<span className="sr-only">Mail</span>
 				</ContactLink>
 				<ContactLink>
 					<a href="mailto:cod3ddot@proton.me">
-						<MatrixIcon className="w-full h-full fill-foreground" />
+						<MatrixIcon
+							aria-hidden="true"
+							focusable="false"
+							className="w-full h-full fill-foreground"
+						/>
 					</a>
+					<span className="sr-only">Matrix</span>
 				</ContactLink>
 			</div>
 		</div>

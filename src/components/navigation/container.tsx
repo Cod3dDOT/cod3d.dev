@@ -75,14 +75,36 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 							pathname == '/' && 'scale-0'
 						)}
 					>
-						<HomeIcon className="w-8 h-8 fill-foreground" />
+						<HomeIcon
+							aria-hidden="true"
+							focusable="false"
+							className="w-8 h-8 fill-foreground"
+						/>
+						<span className="sr-only">Home</span>
 					</Link>
 					<button
-						className="fixed top-1/2 w-16 flex items-center justify-center gap-2"
+						className="group fixed top-1/2 w-16 h-16"
 						onClick={() => setOpened(!opened)}
 					>
-						<span className="w-1 h-16 bg-foreground" />
-						<span className="w-1 h-16 bg-foreground" />
+						<div className="relative w-full h-full *:absolute *:w-1 *:h-16 *:bg-foreground *:top-1/2 *:left-1/2 *:-translate-y-1/2">
+							<span
+								className={clsx(
+									'transition-all -translate-x-[calc(50%-4px)] ',
+									opened
+										? '!-translate-x-1/2 !h-8 !rotate-45 group-hover:scale-y-90'
+										: 'group-hover:scale-y-125'
+								)}
+							/>
+							<span
+								className={clsx(
+									'transition-all -translate-x-[calc(50%+4px)]',
+									opened &&
+										'!-translate-x-1/2 !h-8 !-rotate-45 group-hover:scale-y-90'
+								)}
+							/>
+						</div>
+
+						<span className="sr-only">Toggle the navigation drawer</span>
 					</button>
 				</div>
 				<div className="flex flex-col w-full p-8 space-y-8">{children}</div>
