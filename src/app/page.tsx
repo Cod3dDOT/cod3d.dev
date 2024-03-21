@@ -1,4 +1,4 @@
-import { GlitchText } from './components/glitchText';
+import { GlitchText } from '@/components/glitchText';
 
 export default function Home() {
 	return (

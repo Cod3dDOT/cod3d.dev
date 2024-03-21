@@ -9,17 +9,17 @@ const NavContactsShowcase: React.FC = () => {
 			<h2 className="text-5xl mb-4">Catch Me</h2>
 			<div className="flex gap-4">
 				<ContactLink>
-					<a href="https://github.com/cod3ddot" className="cursor-none">
+					<a href="https://github.com/cod3ddot">
 						<GithubIcon className="w-full h-full fill-foreground" />
 					</a>
 				</ContactLink>
 				<ContactLink>
-					<a href="mailto:cod3ddot@proton.me" className="cursor-none">
+					<a href="mailto:cod3ddot@proton.me">
 						<MailIcon className="w-full h-full fill-foreground" />
 					</a>
 				</ContactLink>
 				<ContactLink>
-					<a href="mailto:cod3ddot@proton.me" className="cursor-none">
+					<a href="mailto:cod3ddot@proton.me">
 						<MatrixIcon className="w-full h-full fill-foreground" />
 					</a>
 				</ContactLink>

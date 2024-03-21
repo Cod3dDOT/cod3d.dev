@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { pb } from '@/app/lib/pocketbase/config';
+import { pb } from '@/lib/pocketbase/config';
 
 import { SpotlightCard } from '../../spotlightCard';
 

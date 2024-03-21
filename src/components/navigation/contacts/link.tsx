@@ -4,9 +4,8 @@ import { AnimatePresence, motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
-import { randomIntFromInterval } from '@/app/lib/math';
-
-import PokeballImage from '../../../../../public/pokeball.png';
+import PokeballImage from '@/../public/pokeball.png';
+import { randomIntFromInterval } from '@/lib/math';
 
 export const ContactLink: React.FC<{
 	children: ReactNode;
@@ -30,7 +29,7 @@ export const ContactLink: React.FC<{
 	}, [isInView]);
 
 	return (
-		<div className="cursor w-10 h-10" ref={ref}>
+		<div className="w-10 h-10" ref={ref}>
 			<AnimatePresence>
 				{!delayedHover ? (
 					<Image

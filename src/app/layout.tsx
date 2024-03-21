@@ -6,11 +6,10 @@ import type { Metadata } from 'next';
 import { Pixelify_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
-import Cursor from './components/cursor';
-import { CursorProps } from './components/cursor/types';
-import { GrainyBackground } from './components/grainyBackground';
-import { Navigation } from './components/navigation';
-import Transitions, { Animate } from './components/transitions';
+import { LibCursor } from '@/components/cursor';
+import { GrainyBackground } from '@/components/grainyBackground';
+import { Navigation } from '@/components/navigation';
+import Transitions, { Animate } from '@/components/transitions';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -39,24 +38,6 @@ export const metadata: Metadata = {
 	}
 };
 
-const CursorInteractables: CursorProps['interactables'] = [
-	{ target: '.cursor', size: 'both', snap: 'center' },
-	{
-		target: '.cursor-width',
-		size: 'width'
-	},
-	{
-		target: '.cursor-height',
-		size: 'height',
-		snap: 'vertical'
-	},
-	{
-		target: '.cursor-blog-nav',
-		size: 'both',
-		radius: 10
-	}
-];
-
 export default function RootLayout({
 	children
 }: Readonly<{
@@ -74,11 +55,7 @@ export default function RootLayout({
 			<body className={font.className}>
 				<ThemeProvider attribute="class">
 					<GrainyBackground />
-					<Cursor
-						interactables={CursorInteractables}
-						showSystemCursor={false}
-						snap="center"
-					/>
+					<LibCursor />
 					<Navigation />
 					<Transitions>
 						<Animate>{children}</Animate>

@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { Project } from '@/app/lib/pocketbase/types';
+import { Project } from '@/lib/pocketbase/types';
 
 type ProjectBadgeProps = {
 	status: Project['status'];

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { pb } from '@/app/lib/pocketbase/config';
+import { pb } from '@/lib/pocketbase/config';
 
 import ChevronIcon from '../../icons/chevron';
 import { NavProject } from './project/project';
@@ -20,7 +20,7 @@ const NavProjectsShowcase = async () => {
 		<div>
 			<Link
 				href="/projects"
-				className="relative flex group w-full justify-between items-center mb-4 cursor-height"
+				className="relative flex group w-full justify-between items-center mb-4"
 			>
 				<h2 className="text-5xl">Projects</h2>
 				<div className="relative w-8 h-8 group-hover:opacity-100 lg:opacity-0 transition-opacity">

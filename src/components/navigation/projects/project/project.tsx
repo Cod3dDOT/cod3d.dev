@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
-import { Project } from '@/app/lib/pocketbase/types';
+import { Project } from '@/lib/pocketbase/types';
 
 import GithubIcon from '../../../icons/github';
 import { ProjectBadge } from './badge';
@@ -50,7 +50,7 @@ export const NavProject: React.FC<{
 			{project.repo && (
 				<a
 					href={String(project.repo)}
-					className="cursor h-full transition-all lg:w-0 lg:mr-0 mr-2 lg:group-hover:w-14 sm:group-hover:ml-2 flex justify-center items-center overflow-hidden"
+					className="h-full transition-all lg:w-0 lg:mr-0 mr-2 lg:group-hover:w-14 sm:group-hover:ml-2 flex justify-center items-center overflow-hidden"
 				>
 					<GithubIcon className="h-8 w-8 fill-foreground" />
 				</a>

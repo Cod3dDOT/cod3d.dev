@@ -3,8 +3,8 @@
 import clsx from 'clsx';
 import { memo } from 'react';
 
-import { GridPattern } from '@/app/components/gridPattern';
-import { randomIntFromInterval } from '@/app/lib/math';
+import { GridPattern } from '@/components/gridPattern';
+import { randomIntFromInterval } from '@/lib/math';
 
 export const ProjectGridEffect = () => {
 	const animationDelay = [

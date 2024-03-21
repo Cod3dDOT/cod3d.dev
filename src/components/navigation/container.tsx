@@ -71,14 +71,14 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 					<Link
 						href="/"
 						className={clsx(
-							'cursor transition-transform',
+							'transition-transform',
 							pathname == '/' && 'scale-0'
 						)}
 					>
 						<HomeIcon className="w-8 h-8 fill-foreground" />
 					</Link>
 					<button
-						className="fixed top-1/2 cursor w-16 cursor-none flex items-center justify-center gap-2"
+						className="fixed top-1/2 w-16 flex items-center justify-center gap-2"
 						onClick={() => setOpened(!opened)}
 					>
 						<span className="w-1 h-16 bg-foreground" />
