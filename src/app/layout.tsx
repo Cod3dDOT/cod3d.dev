@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 	creator: 'cod3d',
 	keywords: 'blog, projects, coding',
 	robots: 'index, follow',
+	themeColor: '#111111', // remove when updating next-themes to v1.0.0
 	openGraph: {
 		type: 'website',
 		url: 'https://cod3d.dev',

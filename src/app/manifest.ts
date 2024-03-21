@@ -12,6 +12,12 @@ export default function manifest(): MetadataRoute.Manifest {
 		theme_color: '#111111',
 		icons: [
 			{
+				src: '/icons/maskable-192x192.png',
+				sizes: '192x192',
+				type: 'image/png',
+				purpose: 'maskable'
+			},
+			{
 				src: '/icons/android-chrome-192x192.png',
 				sizes: '192x192',
 				type: 'image/png'
@@ -26,16 +32,16 @@ export default function manifest(): MetadataRoute.Manifest {
 				sizes: '48x48 32x32 16x16',
 				type: 'image/x-icon'
 			}
+		],
+		shortcuts: [
+			{
+				name: 'Projects',
+				url: '/projects'
+			},
+			{
+				name: 'Blog',
+				url: '/blog'
+			}
 		]
-		// shortcuts: [
-		// 	{
-		// 		name: 'Projects',
-		// 		url: '/projects'
-		// 	},
-		// 	{
-		// 		name: 'Blog',
-		// 		url: '/blog'
-		// 	}
-		// ]
 	};
 }
