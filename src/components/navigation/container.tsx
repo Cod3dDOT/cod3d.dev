@@ -53,7 +53,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 		<>
 			<div
 				className={clsx(
-					'absolute inset-0 hidden lg:block -z-10 opacity-0 duration-300 bg-black transition-all',
+					'fixed inset-0 hidden lg:block -z-10 opacity-0 duration-300 bg-black transition-all',
 					opened && 'opacity-10 z-10 right-1/2'
 				)}
 			/>
@@ -107,7 +107,9 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 						<span className="sr-only">Toggle the navigation drawer</span>
 					</button>
 				</div>
-				<div className="flex flex-col w-full p-8 space-y-8">{children}</div>
+				<div className="flex flex-col w-full justify-between p-8 space-y-8">
+					{children}
+				</div>
 			</nav>
 		</>
 	);

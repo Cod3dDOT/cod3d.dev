@@ -2,7 +2,8 @@ import './styles/globals.css';
 import './styles/grainy.css';
 import './styles/glitch.css';
 
-import type { Metadata } from 'next';
+import clsx from 'clsx';
+import type { Metadata, Viewport } from 'next';
 import { Pixelify_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
@@ -13,8 +14,13 @@ import Transitions, { Animate } from '@/components/transitions';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
+	display: 'swap',
 	variable: '--font-pixelify'
 });
+
+export const viewport: Viewport = {
+	themeColor: 'var(--background)' // remove when updating next-themes to v1.0.0
+};
 
 export const metadata: Metadata = {
 	metadataBase: new URL('https://cod3d.dev'), // takes effect only in production
@@ -23,7 +29,6 @@ export const metadata: Metadata = {
 	creator: 'cod3d',
 	keywords: 'blog, projects, coding',
 	robots: 'index, follow',
-	themeColor: '#111111', // remove when updating next-themes to v1.0.0
 	openGraph: {
 		type: 'website',
 		url: 'https://cod3d.dev',
@@ -53,7 +58,7 @@ export default function RootLayout({
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
 				/>
 			</head>
-			<body className={font.className}>
+			<body className={clsx(font.variable, 'font-pixelify')}>
 				<ThemeProvider attribute="class">
 					<GrainyBackground />
 					<LibCursor />

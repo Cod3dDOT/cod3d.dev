@@ -39,8 +39,8 @@ export default function manifest(): MetadataRoute.Manifest {
 				url: '/projects'
 			},
 			{
-				name: 'Blog',
-				url: '/blog'
+				name: 'Thoughts',
+				url: '/thoughts'
 			}
 		]
 	};

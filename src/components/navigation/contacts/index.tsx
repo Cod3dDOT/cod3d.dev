@@ -5,8 +5,8 @@ import { ContactLink } from './link';
 
 const NavContactsShowcase: React.FC = () => {
 	return (
-		<div className="relative w-full h-full flex flex-col justify-end group">
-			<h2 className="text-5xl mb-4">Catch Me</h2>
+		<div className="group">
+			<h2 className="sm:mb-8 mb-4">Catch Me</h2>
 			<div className="flex gap-4">
 				<ContactLink>
 					<a href="https://github.com/cod3ddot">

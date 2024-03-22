@@ -1,12 +1,12 @@
-import NavBlogShowcase from './blog';
 import NavContactsShowcase from './contacts';
 import NavigationContainer from './container';
 import NavProjectsShowcase from './projects';
+import NavThoughtsShowcase from './thoughts';
 
 export const Navigation: React.FC = () => {
 	return (
 		<NavigationContainer>
-			<NavBlogShowcase />
+			<NavThoughtsShowcase />
 			<NavProjectsShowcase />
 			<NavContactsShowcase />
 		</NavigationContainer>

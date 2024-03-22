@@ -9,6 +9,10 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+			fontFamily: {
+				pixelify: ['var(--font-pixelify)'],
+				roboto: ['var(--font-roboto)']
+			},
 			colors: {
 				transparent: 'transparent',
 				foreground: 'var(--foreground)',
@@ -27,6 +31,10 @@ const config: Config = {
 			}
 		}
 	},
-	plugins: [require('tailwindcss-animate')]
+	plugins: [
+		require('@pyncz/tailwind-mask-image'),
+		require('@tailwindcss/typography'),
+		require('tailwindcss-animate')
+	]
 };
 export default config;

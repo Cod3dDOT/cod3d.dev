@@ -20,9 +20,9 @@ const NavProjectsShowcase = async () => {
 		<div>
 			<Link
 				href="/projects"
-				className="relative flex group w-full justify-between items-center mb-4"
+				className="relative flex group w-full justify-between items-center sm:mb-8 mb-4"
 			>
-				<h2 className="text-5xl">Projects</h2>
+				<h2>Projects</h2>
 				<div className="relative w-8 h-8 group-hover:opacity-100 lg:opacity-0 transition-opacity">
 					<ChevronIcon className="absolute aspect-square h-full fill-foreground animate-arrows left-1" />
 					<ChevronIcon className="absolute aspect-square h-full fill-foreground animate-arrows delay-75" />
