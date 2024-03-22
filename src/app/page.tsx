@@ -16,8 +16,8 @@ export default function Home() {
 			<GlitchText as="p" text="Or both." />
 			<div className="absolute inset-0 right-0 -z-10 overflow-hidden">
 				<div
-					className="animate-spin [animation-duration:18s] relative h-full aspect-square ml-auto
-                *:h-[42rem] *:w-[42rem]"
+					className="animate-spin [animation-duration:32s] relative h-full aspect-square ml-32 sm:ml-auto
+                sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]"
 				>
 					<Image
 						src={Blue}

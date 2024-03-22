@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 const config: Config = {
 	darkMode: 'class',
@@ -8,6 +9,10 @@ const config: Config = {
 		'./src/app/**/*.{js,ts,jsx,tsx,mdx}'
 	],
 	theme: {
+		screens: {
+			xs: '400px',
+			...defaultTheme.screens
+		},
 		extend: {
 			fontFamily: {
 				pixelify: ['var(--font-pixelify)'],

@@ -18,7 +18,7 @@ const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 			type="button"
 			onClick={() => setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')}
 			className={clsx(
-				'group aspect-square rounded-full touch-manipulation',
+				'group hover:scale-95 aspect-square touch-manipulation',
 				className
 			)}
 			aria-label="Theme switch"

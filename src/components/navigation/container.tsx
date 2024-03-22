@@ -61,49 +61,48 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 				role="navigation"
 				ref={menu}
 				className={clsx(
-					'z-10 fixed flex backdrop-blur-lg shadow-lg transition-transform duration-300',
-					'inset-0 lg:left-1/2',
-					opened ? 'translate-x-0' : 'translate-x-[calc(100%-4rem)]'
+					'z-10 fixed flex backdrop-blur-lg transition-transform duration-300 will-change-transform',
+					'inset-0 xl:left-1/2',
+					opened
+						? 'translate-x-0'
+						: 'sm:translate-x-[calc(100%-4rem)] translate-x-[calc(100%-3rem)]'
 				)}
 			>
-				<div className="relative flex flex-col items-center h-full py-8 flex-[0_0_4rem] w-16 shadow-inner gap-8">
-					<ThemeSwitch className="w-8 h-8" />
+				<div className="flex flex-col items-center h-full py-6 sm:w-16 w-12 shadow-lg">
+					<ThemeSwitch className="w-full sm:p-4 p-2" />
 					<Link
 						href="/"
 						className={clsx(
-							'transition-transform',
+							'transition-transform w-full aspect-square sm:p-4 p-2 hover:scale-95',
 							pathname == '/' && 'scale-0'
 						)}
 					>
 						<HomeIcon
 							aria-hidden="true"
 							focusable="false"
-							className="w-8 h-8 fill-foreground"
+							className="w-full h-full fill-foreground"
 						/>
 						<span className="sr-only">Home</span>
 					</Link>
 					<button
-						className="group fixed top-1/2 w-16 h-16"
+						className="relative group h-1/2 my-auto w-16 *:absolute *:w-1 *:h-16 *:bg-foreground *:top-1/2 *:left-1/2 *:-translate-y-1/2"
 						onClick={() => setOpened(!opened)}
 					>
-						<div className="relative w-full h-full *:absolute *:w-1 *:h-16 *:bg-foreground *:top-1/2 *:left-1/2 *:-translate-y-1/2">
-							<span
-								className={clsx(
-									'transition-all -translate-x-[calc(50%-4px)] ',
-									opened
-										? '!-translate-x-1/2 !h-8 !rotate-45 group-hover:scale-y-90'
-										: 'group-hover:scale-y-125'
-								)}
-							/>
-							<span
-								className={clsx(
-									'transition-all -translate-x-[calc(50%+4px)]',
-									opened &&
-										'!-translate-x-1/2 !h-8 !-rotate-45 group-hover:scale-y-90'
-								)}
-							/>
-						</div>
-
+						<span
+							className={clsx(
+								'transition-all -translate-x-[calc(50%-4px)] ',
+								opened
+									? '!-translate-x-1/2 !h-8 !rotate-45 group-hover:scale-y-90'
+									: 'group-hover:scale-y-125'
+							)}
+						/>
+						<span
+							className={clsx(
+								'transition-all -translate-x-[calc(50%+4px)]',
+								opened &&
+									'!-translate-x-1/2 !h-8 !-rotate-45 group-hover:scale-y-90'
+							)}
+						/>
 						<span className="sr-only">Toggle the navigation drawer</span>
 					</button>
 				</div>
