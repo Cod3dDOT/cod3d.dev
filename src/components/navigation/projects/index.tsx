@@ -31,10 +31,8 @@ const NavProjectsShowcase = async () => {
 			</Link>
 
 			<div className="space-y-2">
-				{projects.map((project, index) => {
-					return (
-						<NavProject project={project} key={project.id} index={index + 1} />
-					);
+				{projects.map((project) => {
+					return <NavProject project={project} key={project.id} />;
 				})}
 			</div>
 		</div>

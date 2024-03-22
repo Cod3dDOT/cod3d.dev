@@ -1,3 +1,7 @@
+import Image from 'next/image';
+
+import Blue from '@/../public/blue.png';
+import Yellow from '@/../public/yellow.png';
 import { GlitchText } from '@/components/glitchText';
 
 export default function Home() {
@@ -10,12 +14,22 @@ export default function Home() {
 				<span>Or sleeping.</span>
 			</p>
 			<GlitchText as="p" text="Or both." />
-			<div
-				className="absolute flex justify-center items-center inset-0 -z-10 overflow-hidden
-            *:absolute *:left-1/2 *:top-1/2 *:blur-3xl *:rounded-full *:animate-spin *:[animation-duration:18s] *:origin-top-right *:h-96 *:w-96 "
-			>
-				<div className="bg-sky-600" />
-				<div className="bg-yellow-300 ![animation-delay:-9s]" />
+			<div className="absolute inset-0 right-0 -z-10 overflow-hidden">
+				<div
+					className="animate-spin [animation-duration:18s] relative h-full aspect-square ml-auto
+                *:h-[42rem] *:w-[42rem]"
+				>
+					<Image
+						src={Blue}
+						alt="Blue blob"
+						className="absolute -left-16 -top-16"
+					/>
+					<Image
+						src={Yellow}
+						alt="Yellow blob"
+						className="absolute -right-16 -bottom-16"
+					/>
+				</div>
 			</div>
 		</main>
 	);

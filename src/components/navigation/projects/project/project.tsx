@@ -1,9 +1,3 @@
-'use client';
-
-import { clsx } from 'clsx';
-import { useInView } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-
 import { Project } from '@/lib/pocketbase/types';
 
 import GithubIcon from '../../../icons/github';
@@ -12,32 +6,9 @@ import { MemoProjectGridEffect } from './gridEffect';
 
 export const NavProject: React.FC<{
 	project: Project;
-	index: number;
-}> = ({ project, index }) => {
-	const ref = useRef(null);
-	const isInView = useInView(ref);
-	const [played, setPlayed] = useState(false);
-
-	useEffect(() => {
-		if (!isInView) return;
-
-		setTimeout(() => {
-			setPlayed(true);
-		}, index * 200);
-	}, [index, isInView]);
-
+}> = ({ project }) => {
 	return (
-		<div
-			ref={ref}
-			className={clsx(
-				'relative flex sm:h-16 items-center overflow-hidden group transition-shadow rounded-md shadow-xl hover:!shadow-xl',
-				(isInView || played) && '!shadow-none'
-			)}
-			style={{
-				transitionDelay: played ? '0ms' : index * 200 + 'ms',
-				transitionDuration: played ? '300ms' : '1000ms'
-			}}
-		>
+		<div className="relative flex sm:h-16 items-center overflow-hidden group transition-shadow rounded-md hover:shadow-xl">
 			<ProjectBadge status={project.status} />
 			<div className="flex flex-col sm:w-fit p-2 flex-1 sm:flex-initial">
 				<span className="text-xl">{project.name}</span>
