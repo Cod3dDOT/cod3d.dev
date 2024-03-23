@@ -6,7 +6,7 @@ import parse, {
 import Link from 'next/link';
 
 import ChevronIcon from '@/components/icons/chevron';
-import Code from '@/components/pages/thoughts/thought/code';
+import { Code } from '@/components/pages/thoughts/thought/code';
 import { getThought } from '@/lib/pocketbase/req';
 
 export async function generateMetadata({
