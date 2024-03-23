@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-import { getThought } from './page';
+import { getThought } from '@/lib/pocketbase/req';
 
 // Route segment config
 export const runtime = 'edge';

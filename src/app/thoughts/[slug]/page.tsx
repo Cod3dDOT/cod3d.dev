@@ -1,17 +1,13 @@
 import parse, {
-	DOMNode,
-	domToReact,
 	Element,
 	HTMLReactParserOptions,
 	Text
 } from 'html-react-parser';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 import ChevronIcon from '@/components/icons/chevron';
-import { Code } from '@/components/pages/thoughts/thought/code';
-import { pb } from '@/lib/pocketbase/config';
-import { Thought } from '@/lib/pocketbase/types';
+import Code from '@/components/pages/thoughts/thought/code';
+import { getThought } from '@/lib/pocketbase/req';
 
 export async function generateMetadata({
 	params
@@ -31,15 +27,6 @@ export async function generateMetadata({
 			siteName: "cod3d's den"
 		}
 	};
-}
-
-export async function getThought(slug: string): Promise<Thought> {
-	const items = (
-		await pb.collection('thoughts').getList(1, 1, { filter: `slug='${slug}'` })
-	).items;
-
-	if (items.length == 0) redirect(`/404`);
-	return items[0];
 }
 
 const options: HTMLReactParserOptions = {
