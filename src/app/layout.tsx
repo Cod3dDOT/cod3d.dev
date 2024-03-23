@@ -7,7 +7,7 @@ import type { Metadata, Viewport } from 'next';
 import { Pixelify_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
-import { LibCursor } from '@/components/cursor';
+import { Cursor } from '@/components/cursor';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { Navigation } from '@/components/navigation';
 import Transitions, { Animate } from '@/components/transitions';
@@ -60,7 +60,7 @@ export default function RootLayout({
 			<body className={clsx(font.variable, 'font-pixelify')}>
 				<ThemeProvider attribute="class">
 					<GrainyBackground />
-					<LibCursor />
+					<Cursor />
 					<Navigation />
 					<Transitions>
 						<Animate>{children}</Animate>

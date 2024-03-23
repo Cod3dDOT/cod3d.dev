@@ -1,13 +1,8 @@
 'use client';
 
-import AnimatedCursor from 'react-animated-cursor';
+import AnimatedCursor from './AnimatedCursor';
 
-import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
-
-export const LibCursor = () => {
-	const isMobile = useIsTouchdevice();
-	if (isMobile) return <></>;
-
+export const Cursor = () => {
 	return (
 		<AnimatedCursor
 			color="255,255,255"
