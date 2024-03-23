@@ -8,7 +8,7 @@ import { Pixelify_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import { LibCursor } from '@/components/cursor';
-import { GrainyBackground } from '@/components/grainyBackground';
+import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { Navigation } from '@/components/navigation';
 import Transitions, { Animate } from '@/components/transitions';
 
@@ -35,7 +35,6 @@ export const metadata: Metadata = {
 		title: "cod3d's den",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		siteName: "cod3d's den",
-		locale: 'en_US',
 		images: [
 			{
 				url: '/og.png'

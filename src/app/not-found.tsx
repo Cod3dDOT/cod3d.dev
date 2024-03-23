@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import { GlitchText } from '@/components/glitchText';
+import { GlitchText } from '@/components/effects/glitchText';
 
 const NotFoundPage: React.FC = () => {
 	return (

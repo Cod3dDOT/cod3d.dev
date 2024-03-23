@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
 		short_name: 'cod3d.dev',
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		start_url: '/',
-		lang: 'en_US',
+		lang: 'en',
 		display: 'standalone',
 		background_color: '#111111',
 		theme_color: '#111111',

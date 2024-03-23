@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { memo } from 'react';
 
-import { GridPattern } from '@/components/gridPattern';
+import { GridPattern } from '@/components/effects/gridPattern';
 import { randomIntFromInterval } from '@/lib/math';
 
 export const ProjectGridEffect = () => {

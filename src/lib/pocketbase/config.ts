@@ -1,7 +1,7 @@
 import PocketBase, { FileOptions } from 'pocketbase';
 
 import { pb_url } from './consts';
-import { Project, TypedPocketBase } from './types';
+import { Project, Thought, TypedPocketBase } from './types';
 
 export const pb = new PocketBase(pb_url) as TypedPocketBase;
 pb.autoCancellation(false);
@@ -11,7 +11,8 @@ export function getFileUrl(
 		| {
 				[key: string]: string;
 		  }
-		| Project,
+		| Project
+		| Thought,
 	filename: string,
 	queryParams?: FileOptions | undefined
 ) {

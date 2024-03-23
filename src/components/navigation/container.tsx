@@ -74,7 +74,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 						href="/"
 						className={clsx(
 							'transition-transform w-full aspect-square sm:p-4 p-2 hover:scale-95',
-							pathname == '/' && 'scale-0'
+							pathname == '/' && '!scale-0'
 						)}
 					>
 						<HomeIcon

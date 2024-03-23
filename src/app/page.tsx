@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import Blue from '@/../public/blue.png';
 import Yellow from '@/../public/yellow.png';
-import { GlitchText } from '@/components/glitchText';
+import { GlitchText } from '@/components/effects/glitchText';
 
 export default function Home() {
 	return (
