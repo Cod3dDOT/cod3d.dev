@@ -12,11 +12,30 @@ type CodeProps = {
 	filename?: string;
 };
 
-export const Code: React.FC<CodeProps> = ({
-	code,
-	language = 'tsx',
-	filename
-}) => {
+const formatToLanguage = {
+	swift: 'swift',
+	kt: 'kotlin',
+	m: 'objectivec',
+	'': 'js-extras',
+	re: 'reason',
+	rs: 'rust',
+	graphql: 'graphql',
+	yaml: 'yaml',
+	go: 'go',
+	cpp: 'cpp',
+	md: 'markdown',
+	py: 'python'
+};
+
+export const Code: React.FC<CodeProps> = ({ code, language, filename }) => {
+	const extPattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+	const match = (filename || '').match(extPattern);
+	const lang = language
+		? language
+		: match?.length == 2 && match[1] in formatToLanguage
+			? formatToLanguage[match[1] as keyof typeof formatToLanguage]
+			: 'tsx';
+
 	const onCopyClick = () => copy(code);
 
 	return (
@@ -32,7 +51,7 @@ export const Code: React.FC<CodeProps> = ({
 					<span className="sr-only">Copy contents of {filename}</span>
 				</button>
 			</div>
-			<Highlight theme={themes.vsDark} code={code} language={language}>
+			<Highlight theme={themes.vsDark} code={code} language={lang}>
 				{({ className, style, tokens, getLineProps, getTokenProps }) => (
 					<pre style={style} className={className}>
 						{tokens.map((line, i) => {
