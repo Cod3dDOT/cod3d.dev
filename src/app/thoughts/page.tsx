@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import { ThoughtsBody } from '@/components/pages/thoughts';
-import { pb } from '@/lib/pocketbase/config';
+import { getThoughts } from '@/lib/pocketbase/req';
 
 export const metadata: Metadata = {
 	title: "cod3d's thoughts",
@@ -23,16 +23,8 @@ export const metadata: Metadata = {
 	}
 };
 
-async function getThoughts() {
-	return (
-		await pb.collection('thoughts').getList(1, 20, {
-			sort: 'created'
-		})
-	).items;
-}
-
 const ThoughtsPage: React.FC = async () => {
-	const thoughts = await getThoughts();
+	const thoughts = await getThoughts(1, 20);
 	return <ThoughtsBody thoughts={thoughts} />;
 };
 

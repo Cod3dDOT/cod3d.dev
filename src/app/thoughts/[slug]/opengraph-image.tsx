@@ -6,7 +6,7 @@ import { getThought } from '@/lib/pocketbase/req';
 export const runtime = 'edge';
 
 // Image metadata
-export const alt = 'About Acme';
+export const alt = "Cod3d's thoughts";
 export const size = {
 	width: 1200,
 	height: 675

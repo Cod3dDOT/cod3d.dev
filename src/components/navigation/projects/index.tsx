@@ -1,21 +1,12 @@
 import Link from 'next/link';
 
-import { pb } from '@/lib/pocketbase/config';
+import { getProjects } from '@/lib/pocketbase/req';
 
 import ChevronIcon from '../../icons/chevron';
 import { NavProject } from './project/project';
 
-async function getProjects() {
-	return (
-		await pb.collection('projects').getList(1, 3, {
-			filter: 'repo != null',
-			sort: 'status'
-		})
-	).items;
-}
-
 const NavProjectsShowcase = async () => {
-	const projects = await getProjects();
+	const projects = await getProjects(1, 3);
 	return (
 		<div>
 			<Link

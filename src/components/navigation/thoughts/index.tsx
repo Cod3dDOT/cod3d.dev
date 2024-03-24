@@ -1,21 +1,12 @@
 import Link from 'next/link';
 
 import ChevronIcon from '@/components/icons/chevron';
-import { pb } from '@/lib/pocketbase/config';
+import { getThoughts } from '@/lib/pocketbase/req';
 
 import { SpotlightCard } from '../../effects/spotlightCard';
 
-async function getThoughts() {
-	return (
-		await pb.collection('thoughts').getList(1, 2, {
-			filter: 'preview != null',
-			sort: 'created'
-		})
-	).items;
-}
-
 const NavThoughtsShowcase: React.FC = async () => {
-	const thoughts = await getThoughts();
+	const thoughts = await getThoughts(1, 2);
 
 	return (
 		<div className="relative">
