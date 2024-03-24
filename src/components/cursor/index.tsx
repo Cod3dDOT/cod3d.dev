@@ -11,11 +11,11 @@ export const Cursor = () => {
 			outerSize={0}
 			outerAlpha={1}
 			innerStyle={{
-				backgroundColor: 'var(--foreground)'
+				backgroundColor: 'rgb(var(--foreground))'
 			}}
 			outerStyle={{
 				background: 'transparent',
-				border: '2px solid var(--foreground)'
+				border: '2px solid rgb(var(--foreground))'
 			}}
 			clickables={[
 				{
