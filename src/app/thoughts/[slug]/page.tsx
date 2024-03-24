@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	const thought = await getThought(params.slug);
 
 	return (
-		<div className="relative flex sm:mt-24 mt-8 w-full overflow-visible">
+		<div className="relative xl:flex sm:mt-24 mt-8">
 			<TableofContents className="sticky top-24 self-start block h-auto" />
 			<div className="max-w-[100ch] mx-auto">
 				<Link href={'/thoughts'} className="flex items-center space-x-2 mb-8">

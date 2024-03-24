@@ -14,7 +14,7 @@ export const Year: React.FC<YearProps> = ({ year, memo, children }) => {
 					{year}
 				</h2>
 				<p>{memo}</p>
-				<div className="-z-10 absolute inset-0 -inset-x-24 overflow-hidden mask-linear mask-dir-to-l mask-at-center">
+				<div className="-z-10 absolute inset-0 overflow-hidden mask-linear mask-dir-to-l mask-at-center">
 					<div
 						className="w-full h-full opacity-50 bg-black/50
                     group-first:[background-image:repeating-radial-gradient(circle_at_0_0,transparent_0,var(--background)_11px),repeating-linear-gradient(#e34b1b55,#e34b1b)]"
