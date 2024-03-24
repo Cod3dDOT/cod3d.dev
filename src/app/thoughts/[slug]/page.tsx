@@ -32,15 +32,26 @@ export default async function Page({ params }: { params: { slug: string } }) {
 		<div className="relative xl:flex sm:mt-24 mt-8">
 			<TableofContents className="sticky top-24 self-start h-auto" />
 			<div className="max-w-[100ch] mx-auto">
-				<Link href={'/thoughts'} className="flex items-center space-x-2 mb-8">
+				<Link
+					href={'/thoughts'}
+					className="flex items-center space-x-2 mb-8 group"
+				>
 					<ChevronIcon className="h-full aspect-square fill-foreground rotate-180" />
-					<span>Back to thoughts</span>
+					<span>All thoughts</span>
 				</Link>
 
 				<article className="prose max-w-full dark:prose-invert prose-img:w-full">
 					<h1 className="md:w-4/5">{thought.name}</h1>
 					<ThoughtBody thought={thought} />
 				</article>
+
+				<Link
+					href={'/thoughts'}
+					className="flex items-center space-x-2 mt-8 group"
+				>
+					<ChevronIcon className="h-full aspect-square fill-foreground rotate-180" />
+					<span>All thoughts</span>
+				</Link>
 			</div>
 		</div>
 	);

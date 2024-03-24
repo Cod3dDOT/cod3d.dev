@@ -60,14 +60,7 @@ export default function Transitions({ children, className }: Props) {
 
 		// for relative links in thoughts
 		if (href.at(0) == '#') {
-			document
-				.getElementById(href.substring(1))
-				?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-			setTimeout(() => {
-				router.push(href);
-			}, 500);
-
+			router.push(href);
 			return;
 		}
 
