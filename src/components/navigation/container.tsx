@@ -61,7 +61,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 				role="navigation"
 				ref={menu}
 				className={clsx(
-					'z-10 fixed flex backdrop-blur-lg transition-transform duration-300 will-change-transform',
+					'z-10 fixed flex transition-transform duration-300 will-change-transform bg-background md:bg-transparent md:backdrop-blur-xl',
 					'inset-0 xl:left-1/2',
 					opened
 						? 'translate-x-0'
