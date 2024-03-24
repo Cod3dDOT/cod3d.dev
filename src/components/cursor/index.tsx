@@ -19,6 +19,11 @@ export const Cursor = () => {
 			}}
 			clickables={[
 				{
+					target: '.thoughts-table-of-contents',
+					outerSize: 5,
+					innerSize: 0
+				},
+				{
 					target: 'a,button',
 					outerSize: 12,
 					innerSize: 0

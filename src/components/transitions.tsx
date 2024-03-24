@@ -52,11 +52,26 @@ export default function Transitions({ children, className }: Props) {
 
 	const onClick: MouseEventHandler<HTMLDivElement> = (e) => {
 		const a = (e.target as Element).closest('a');
-		if (a) {
-			e.preventDefault();
-			const href = a.getAttribute('href');
-			if (href) navigate(href);
+		if (!a) return;
+
+		e.preventDefault();
+		const href = a.getAttribute('href');
+		if (!href) return;
+
+		// for relative links in thoughts
+		if (href.at(0) == '#') {
+			document
+				.getElementById(href.substring(1))
+				?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+			setTimeout(() => {
+				router.push(href);
+			}, 500);
+
+			return;
 		}
+
+		navigate(href);
 	};
 
 	return (

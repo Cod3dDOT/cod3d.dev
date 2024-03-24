@@ -8,13 +8,13 @@ type YearProps = {
 
 export const Year: React.FC<YearProps> = ({ year, memo, children }) => {
 	return (
-		<div className="group w-full space-y-8 ">
+		<div className="group w-full space-y-8">
 			<div className="relative group-first:py-16 py-8">
 				<h2 className="group-first:lg:text-9xl group-first:md:text-6xl group-first:text-4xl leading-relaxed">
 					{year}
 				</h2>
 				<p>{memo}</p>
-				<div className="-z-10 absolute inset-0 -inset-x-1/2 overflow-hidden">
+				<div className="-z-10 absolute inset-0 -inset-x-24 overflow-hidden mask-linear mask-dir-to-l mask-at-center">
 					<div
 						className="w-full h-full opacity-50 bg-black/50
                     group-first:[background-image:repeating-radial-gradient(circle_at_0_0,transparent_0,var(--background)_11px),repeating-linear-gradient(#e34b1b55,#e34b1b)]"

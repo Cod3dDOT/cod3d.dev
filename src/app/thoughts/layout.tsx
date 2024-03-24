@@ -16,7 +16,7 @@ export default function ThoughtsLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="overflow-hidden">
+		<>
 			<section
 				className={clsx(
 					font.variable,
@@ -26,6 +26,6 @@ export default function ThoughtsLayout({
 				{children}
 			</section>
 			<Footer />
-		</div>
+		</>
 	);
 }
