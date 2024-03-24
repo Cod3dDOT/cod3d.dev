@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 import ChevronIcon from '@/components/icons/chevron';
-import { getFileUrl, pb } from '@/lib/pocketbase/config';
+import { pb } from '@/lib/pocketbase/config';
 
 import { SpotlightCard } from '../../effects/spotlightCard';
 
@@ -54,13 +53,17 @@ const NavThoughtsShowcase: React.FC = async () => {
 								size={200}
 								className="relative h-full w-full"
 							>
-								<Image
-									width={512}
-									height={256}
-									src={getFileUrl(thought, thought.preview)}
-									alt={thought.name + ' preview'}
-									className="absolute inset-0 p-1 w-full h-full z-10"
-								/>
+								<div className="absolute inset-1 bg-background p-8 md:py-10 flex flex-col justify-between overflow-hidden">
+									<span className="text-xl md:text-2xl xl:text-3xl">
+										cod3d.dev
+									</span>
+									<div className="text-sm md:text-md xl:text-lg leading-tight">
+										<span>Thought:</span>
+										<br />
+										<span>{thought.name}</span>
+									</div>
+									<div className="absolute w-36 h-36 rounded-full -top-16 -right-16 bg-blue-500 blur-xl" />
+								</div>
 							</SpotlightCard>
 						</Link>
 					);

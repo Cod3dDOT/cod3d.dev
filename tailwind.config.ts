@@ -20,8 +20,8 @@ const config: Config = {
 			},
 			colors: {
 				transparent: 'transparent',
-				foreground: 'var(--foreground)',
-				background: 'var(--background)'
+				foreground: 'rgb(var(--foreground) / <alpha-value>)',
+				background: 'rgb(var(--background) / <alpha-value>)'
 			},
 			animation: {
 				arrows: 'arrows 2s infinite'

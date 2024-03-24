@@ -1,5 +1,4 @@
 import './styles/globals.css';
-import './styles/grainy.css';
 import './styles/glitch.css';
 
 import clsx from 'clsx';
@@ -57,7 +56,7 @@ export default function RootLayout({
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
 				/>
 			</head>
-			<body className={clsx(font.variable, 'font-pixelify')}>
+			<body className={clsx(font.variable, 'font-pixelify bg-grainy')}>
 				<ThemeProvider attribute="class">
 					<GrainyBackground />
 					<Cursor />

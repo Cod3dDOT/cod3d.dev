@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
 const nextConfig = {
 	images: {
 		remotePatterns: [
@@ -7,12 +9,16 @@ const nextConfig = {
 				hostname: 'cod3d.pockethost.io',
 				port: '',
 				pathname: '/**'
+			},
+			{
+				protocol: 'https',
+				hostname: 'cod3d.dev',
+				port: '',
+				pathname: '/**'
 			}
 		]
 	}
 };
-
-import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const withBundleAnalyzerConfig = withBundleAnalyzer({
 	enabled: process.env.ANALYZE === 'true'

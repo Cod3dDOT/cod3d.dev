@@ -3,19 +3,17 @@
 @tailwind utilities;
 
 :root {
-	--foreground: hsl(0, 0%, 7%);
-	--background: hsl(0, 0%, 91%);
+	--foreground: 18 18 18;
+	--background: 232 232 232;
 }
 
 .dark {
-	--foreground: hsl(0, 0%, 91%);
-	--background: hsl(0, 0%, 7%);
+	--foreground: 232 232 232;
+	--background: 18 18 18;
 }
 
 body {
-	color: var(--foreground);
-	background: var(--background);
-	overscroll-behavior: none;
+	@apply bg-background text-foreground overscroll-y-none;
 }
 
 h1 {
@@ -33,5 +31,31 @@ p {
 @layer utilities {
 	.text-balance {
 		text-wrap: balance;
+	}
+}
+
+@layer components {
+	.bg-grainy::before,
+	.bg-grainy::after {
+		position: fixed;
+		inset: 0;
+		content: '';
+		z-index: -1;
+
+		opacity: 40%;
+	}
+
+	.bg-grainy::before {
+		background: #d9d9d9;
+		filter: url(#noiseFilter-light);
+	}
+
+	.dark .bg-grainy::before {
+		@apply bg-background;
+		filter: url(#noiseFilter-dark);
+	}
+
+	.bg-not-grainy::before {
+		@apply !bg-transparent !filter-none;
 	}
 }
