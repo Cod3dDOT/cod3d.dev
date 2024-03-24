@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 		siteName: "cod3d's den",
 		images: [
 			{
-				url: '/og.png'
+				url: '/og.webp'
 			}
 		]
 	}

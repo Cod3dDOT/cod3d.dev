@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
-import Blue from '@/../public/blue.png';
-import Yellow from '@/../public/yellow.png';
+import Blue from '@/../public/blue.webp';
+import Yellow from '@/../public/yellow.webp';
 import { GlitchText } from '@/components/effects/glitchText';
 
 export default function Home() {
@@ -21,11 +21,15 @@ export default function Home() {
 				>
 					<Image
 						src={Blue}
+						width={256}
+						height={256}
 						alt="Blue blob"
 						className="absolute -left-16 -top-16"
 					/>
 					<Image
 						src={Yellow}
+						width={256}
+						height={256}
 						alt="Yellow blob"
 						className="absolute -right-16 -bottom-16"
 					/>
