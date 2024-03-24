@@ -15,8 +15,27 @@ export const TableofContents: React.FC<{ className?: string }> = ({
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	useEffect(() => {
-		if (!window) return;
+		const options = {
+			root: document,
+			rootMargin: '0px',
+			threshold: 1.0
+		};
 
+		const observer = new IntersectionObserver(
+			(entries: IntersectionObserverEntry[]) => {
+				const last = entries.findLast((el) => el.isIntersecting);
+				const index = headings.findIndex((el) => el.id == last?.target.id);
+				if (index != -1) setActiveIndex(index);
+			},
+			options
+		);
+		headings.forEach(({ id }) => {
+			const element = document.getElementById(id);
+			if (element) observer.observe(element);
+		});
+	}, [headings]);
+
+	useEffect(() => {
 		const headingsWithIds = Array.from(
 			document.querySelectorAll(
 				'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]'
@@ -31,24 +50,7 @@ export const TableofContents: React.FC<{ className?: string }> = ({
 		});
 
 		setHeadings(headingsText);
-
-		const options = {
-			root: document,
-			rootMargin: '0px',
-			threshold: 1.0
-		};
-
-		const observer = new IntersectionObserver(
-			(entries: IntersectionObserverEntry[]) => {
-				const last = entries.findIndex((el) => el.isIntersecting);
-				if (last != -1) setActiveIndex(last);
-			},
-			options
-		);
-		headingsWithIds.forEach((element) => {
-			observer.observe(element);
-		});
-	}, [activeIndex]);
+	}, []);
 
 	return (
 		<div className={clsx('space-y-8 xl:block hidden', className)}>

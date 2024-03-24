@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 	return (
 		<div className="relative xl:flex sm:mt-24 mt-8">
-			<TableofContents className="sticky top-24 self-start block h-auto" />
+			<TableofContents className="sticky top-24 self-start h-auto" />
 			<div className="max-w-[100ch] mx-auto">
 				<Link href={'/thoughts'} className="flex items-center space-x-2 mb-8">
 					<ChevronIcon className="h-full aspect-square fill-foreground rotate-180" />
