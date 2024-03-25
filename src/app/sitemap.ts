@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	];
 
 	const withThoughts = thoughts.map((thought) => ({
-		url: `https://cod3d.dev/thought/${thought.slug}`,
+		url: `https://cod3d.dev/thoughts/${thought.slug}`,
 		lastModified: new Date(thought.updated)
 	}));
 
