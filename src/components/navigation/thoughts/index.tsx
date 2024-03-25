@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
 import ChevronIcon from '@/components/icons/chevron';
-import { getThoughts } from '@/lib/pocketbase/req';
+import { Thought } from '@/lib/pocketbase/types';
 
 import { SpotlightCard } from '../../effects/spotlightCard';
 
-const NavThoughtsShowcase: React.FC = async () => {
-	const thoughts = await getThoughts(1, 2);
-
+const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = ({
+	thoughts
+}) => {
 	return (
 		<div className="relative">
 			<Link

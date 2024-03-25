@@ -1,12 +1,13 @@
 import Link from 'next/link';
 
-import { getProjects } from '@/lib/pocketbase/req';
+import { Project } from '@/lib/pocketbase/types';
 
 import ChevronIcon from '../../icons/chevron';
 import { NavProject } from './project/project';
 
-const NavProjectsShowcase = async () => {
-	const projects = await getProjects(1, 3);
+const NavProjectsShowcase: React.FC<{ projects: Project[] }> = ({
+	projects
+}) => {
 	return (
 		<div>
 			<Link

@@ -16,16 +16,16 @@ export default function ThoughtsLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<>
+		<div className="flex flex-col min-h-screen">
 			<section
 				className={clsx(
 					font.variable,
-					'font-roboto container mx-auto sm:py-64 py-24 pl-4 sm:pr-16 pr-12'
+					'font-roboto container mx-auto sm:py-64 py-24 pl-4 sm:pr-16 pr-12 flex-1'
 				)}
 			>
 				{children}
 			</section>
 			<Footer />
-		</>
+		</div>
 	);
 }
