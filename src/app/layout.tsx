@@ -1,6 +1,5 @@
 import './styles/globals.css';
 import './styles/glitch.css';
-import './styles/stars.css';
 
 import clsx from 'clsx';
 import type { Metadata, Viewport } from 'next';

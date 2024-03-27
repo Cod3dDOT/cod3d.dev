@@ -1,3 +1,5 @@
+import '@/app/styles/stars.css';
+
 import { Metadata } from 'next';
 
 import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
