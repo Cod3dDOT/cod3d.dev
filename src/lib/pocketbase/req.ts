@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
 
-import { getPb } from './config';
+import { getPB } from './config';
 
 export async function getThought(slug: string) {
-	const pb = await getPb();
+	const pb = await getPB();
 	const items = (
 		await pb.collection('thoughts').getList(1, 1, { filter: `slug='${slug}'` })
 	).items;
@@ -18,7 +18,7 @@ export async function getThoughts(
 	page?: number | undefined,
 	perPage?: number | undefined
 ) {
-	const pb = await getPb();
+	const pb = await getPB();
 	return (
 		await pb.collection('thoughts').getList(page, perPage, {
 			sort: 'created'
@@ -30,7 +30,7 @@ export async function getProjects(
 	page?: number | undefined,
 	perPage?: number | undefined
 ) {
-	const pb = await getPb();
+	const pb = await getPB();
 	return (
 		await pb.collection('projects').getList(page, perPage, {
 			filter: 'repo != null',

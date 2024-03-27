@@ -1,35 +1,28 @@
-import PocketBase, { FileOptions } from 'pocketbase';
+import PocketBase from 'pocketbase';
 
-import { pb_url } from './consts';
-import { Project, Thought, TypedPocketBase } from './types';
+import { TypedPocketBase } from './types';
 
-const pb = new PocketBase(pb_url) as TypedPocketBase;
-pb.autoCancellation(false);
+const pbUrl = process.env.PB_URL;
+const pbUser = process.env.PB_USER;
+const pbPass = process.env.PB_PASS;
 
-const authenticate = async () => {
+if (!pbUrl || !pbUser || !pbPass)
+	throw new Error('Invalid .env database config');
+
+export let pb: TypedPocketBase | null = null;
+
+export const getPB = async () => {
+	if (pb) return pb;
+
+	console.log('created pb');
+	pb = new PocketBase(pbUrl) as TypedPocketBase;
+	pb.autoCancellation(false);
+
 	const authData = await pb
 		.collection('users')
-		.authWithPassword('cod3d.dev', 'Vqh66Zyp5rR2zT1', { requestKey: null });
+		.authWithPassword(pbUser, pbPass, { requestKey: null });
 
 	pb.authStore.save(authData.token);
-};
 
-export const getPb = async () => {
-	if (!pb.authStore.isValid) {
-		await authenticate();
-	}
 	return pb;
 };
-
-export function getFileUrl(
-	record:
-		| {
-				[key: string]: string;
-		  }
-		| Project
-		| Thought,
-	filename: string,
-	queryParams?: FileOptions | undefined
-) {
-	return pb.files.getUrl(record, filename, queryParams);
-}
