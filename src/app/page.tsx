@@ -20,6 +20,7 @@ export default function Home() {
                 sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]"
 				>
 					<Image
+						priority
 						src={Blue}
 						width={256}
 						height={256}
