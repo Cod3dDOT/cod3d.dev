@@ -1,4 +1,4 @@
-export default function findInArray<T>(
+export function findInArray<T>(
 	arr: T[],
 	callback: (element: T, index: number, array: T[]) => boolean,
 	...args: unknown[]
@@ -20,4 +20,22 @@ export default function findInArray<T>(
 	}
 
 	return undefined;
+}
+
+type Grouped<T> = {
+	[key: string]: T[];
+};
+
+export function getGroupedBy<T, K extends keyof T>(
+	arr: T[],
+	key: K
+): Grouped<T> {
+	return arr.reduce((acc: Grouped<T>, obj: T) => {
+		const keyValue = obj[key];
+		if (!acc[String(keyValue)]) {
+			acc[String(keyValue)] = [];
+		}
+		acc[String(keyValue)].push(obj);
+		return acc;
+	}, {} as Grouped<T>);
 }

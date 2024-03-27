@@ -2,13 +2,17 @@
 
 import { clsx } from 'clsx';
 import copy from 'copy-to-clipboard';
-import { Highlight, Language, themes } from 'prism-react-renderer';
+import dynamic from 'next/dynamic';
 
 import CopyIcon from '@/components/icons/copy';
 
+const DynamicHighlight = dynamic(() =>
+	import('prism-react-renderer').then((mod) => mod.Highlight)
+);
+
 type CodeProps = {
 	code: string;
-	language?: Language;
+	language?: string;
 	filename?: string;
 };
 
@@ -27,14 +31,16 @@ const formatToLanguage = {
 	py: 'python'
 };
 
-export const Code: React.FC<CodeProps> = ({ code, language, filename }) => {
+const getLanguageFromFilename = (filename: string) => {
 	const extPattern = /\.([0-9a-z]+)(?:[\?#]|$)/i;
 	const match = (filename || '').match(extPattern);
-	const lang = language
-		? language
-		: match?.length == 2 && match[1] in formatToLanguage
-			? formatToLanguage[match[1] as keyof typeof formatToLanguage]
-			: 'tsx';
+	return match?.length == 2 && match[1] in formatToLanguage
+		? formatToLanguage[match[1] as keyof typeof formatToLanguage]
+		: 'tsx';
+};
+
+export const Code: React.FC<CodeProps> = ({ code, language, filename }) => {
+	const lang = language ? language : getLanguageFromFilename(filename || '');
 
 	const onCopyClick = () => copy(code);
 
@@ -51,7 +57,7 @@ export const Code: React.FC<CodeProps> = ({ code, language, filename }) => {
 					<span className="sr-only">Copy contents of {filename}</span>
 				</button>
 			</div>
-			<Highlight theme={themes.vsDark} code={code} language={lang}>
+			<DynamicHighlight code={code} language={lang}>
 				{({ className, style, tokens, getLineProps, getTokenProps }) => (
 					<pre style={style} className={className}>
 						{tokens.map((line, i) => {
@@ -71,7 +77,7 @@ export const Code: React.FC<CodeProps> = ({ code, language, filename }) => {
 						})}
 					</pre>
 				)}
-			</Highlight>
+			</DynamicHighlight>
 		</div>
 	);
 };

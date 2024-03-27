@@ -1,5 +1,6 @@
 import './styles/globals.css';
 import './styles/glitch.css';
+import './styles/stars.css';
 
 import clsx from 'clsx';
 import type { Metadata, Viewport } from 'next';
@@ -48,7 +49,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" suppressHydrationWarning className="scroll-smooth">
+		<html
+			lang="en"
+			suppressHydrationWarning
+			className="scroll-smooth scrollbar-thin"
+		>
 			<head>
 				<script
 					defer
@@ -58,10 +63,10 @@ export default function RootLayout({
 			</head>
 			<body className={clsx(font.variable, 'font-pixelify bg-grainy')}>
 				<ThemeProvider attribute="class">
-					<GrainyBackground />
-					<Cursor />
-					<Navigation />
 					<Transitions>
+						<GrainyBackground />
+						<Cursor />
+						<Navigation />
 						<Animate>{children}</Animate>
 					</Transitions>
 				</ThemeProvider>

@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	const thought = await getThought(params.slug);
 
 	return (
-		<div className="relative xl:flex sm:mt-24 mt-8">
+		<div className="font-roboto relative xl:flex sm:mt-24 mt-8 container mx-auto pl-4 sm:pr-16 pr-12">
 			<TableofContents className="sticky top-24 self-start h-auto" />
 			<div className="max-w-[100ch] mx-auto">
 				<Link

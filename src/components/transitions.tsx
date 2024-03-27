@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
 	createContext,
@@ -59,10 +59,10 @@ export default function Transitions({ children, className }: Props) {
 		if (!href) return;
 
 		// for relative links in thoughts
-		if (href.at(0) == '#') {
-			router.push(href);
-			return;
-		}
+		// if (href.at(0) == '#') {
+		// 	router.push(href);
+		// 	return;
+		// }
 
 		navigate(href);
 	};
@@ -79,17 +79,19 @@ export default function Transitions({ children, className }: Props) {
 export function Animate({ children, className }: Props) {
 	const { pending } = usePageTransition();
 	return (
-		<AnimatePresence>
-			{!pending && (
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
-					className={className}
-				>
-					{children}
-				</motion.div>
-			)}
-		</AnimatePresence>
+		<LazyMotion features={domAnimation}>
+			<AnimatePresence>
+				{!pending && (
+					<m.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className={className}
+					>
+						{children}
+					</m.div>
+				)}
+			</AnimatePresence>
+		</LazyMotion>
 	);
 }

@@ -16,7 +16,8 @@ const config: Config = {
 		extend: {
 			fontFamily: {
 				pixelify: ['var(--font-pixelify)'],
-				roboto: ['var(--font-roboto)']
+				roboto: ['var(--font-roboto)'],
+				poppins: ['var(--font-poppins)']
 			},
 			colors: {
 				transparent: 'transparent',
@@ -39,7 +40,8 @@ const config: Config = {
 	plugins: [
 		require('@pyncz/tailwind-mask-image'),
 		require('@tailwindcss/typography'),
-		require('tailwindcss-animate')
+		require('tailwindcss-animate'),
+		require('tailwind-scrollbar')
 	]
 };
 export default config;

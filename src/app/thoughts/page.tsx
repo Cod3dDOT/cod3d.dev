@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 
-import { ThoughtsBody } from '@/components/pages/thoughts';
+import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
+import { Years } from '@/components/pages/thoughts/years';
 import { getThoughts } from '@/lib/pocketbase/req';
 
 export const metadata: Metadata = {
@@ -25,7 +26,13 @@ export const metadata: Metadata = {
 
 const ThoughtsPage: React.FC = async () => {
 	const thoughts = await getThoughts(1, 20);
-	return <ThoughtsBody thoughts={thoughts} />;
+
+	return (
+		<div className="font-poppins md:px-24 px-10">
+			<ThoughtsTextReveal />
+			<Years thoughts={thoughts} />
+		</div>
+	);
 };
 
 export default ThoughtsPage;

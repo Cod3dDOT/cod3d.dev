@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion, useInView } from 'framer-motion';
+import { useInView } from 'framer-motion';
 import Image from 'next/image';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
@@ -30,32 +30,25 @@ export const ContactLink: React.FC<{
 
 	return (
 		<div className="w-10 h-10" ref={ref}>
-			<AnimatePresence>
-				{!delayedHover ? (
-					<Image
-						width={128}
-						height={128}
-						src={PokeballImage}
-						alt="pokeball"
-						className="w-full h-full scale-125"
-					/>
-				) : !played ? (
-					<Image
-						width={128}
-						height={128}
-						src="/pokeball-open.gif"
-						alt="pokeball"
-						className="w-full h-full scale-125"
-					/>
-				) : (
-					<motion.div
-						initial={{ opacity: 0, scale: 0 }}
-						animate={{ opacity: 1, scale: 1 }}
-					>
-						{children}
-					</motion.div>
-				)}
-			</AnimatePresence>
+			{!delayedHover ? (
+				<Image
+					width={128}
+					height={128}
+					src={PokeballImage}
+					alt="pokeball"
+					className="w-full h-full scale-125"
+				/>
+			) : !played ? (
+				<Image
+					width={128}
+					height={128}
+					src="/pokeball-open.gif"
+					alt="pokeball"
+					className="w-full h-full scale-125"
+				/>
+			) : (
+				<div className="fade-in duration-500 animate-in">{children}</div>
+			)}
 		</div>
 	);
 };

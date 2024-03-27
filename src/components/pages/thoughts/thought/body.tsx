@@ -1,6 +1,4 @@
 import parse, {
-	DOMNode,
-	domToReact,
 	Element,
 	HTMLReactParserOptions,
 	Text
@@ -21,28 +19,6 @@ const options: HTMLReactParserOptions = {
 			const filename = children.shift();
 			const code = children.join('\n');
 			return <Code code={code} filename={filename} />;
-		}
-
-		if (['h1', 'h2', 'h3', 'h4', 'h5'].includes(domNode.tagName)) {
-			const child = domNode.firstChild;
-			if (child instanceof Element && child.tagName == 'a') {
-				domNode.attribs.id = child.attribs.href.substring(1);
-				return domNode;
-			}
-			return domNode;
-		}
-
-		if (domNode.tagName == 'a') {
-			const parent = domNode.parent;
-			if (
-				parent instanceof Element &&
-				['h1', 'h2', 'h3', 'h4', 'h5'].includes(parent.tagName)
-			) {
-				return (
-					<span>{domToReact(domNode.children as DOMNode[], options)}</span>
-				);
-			}
-			return domNode;
 		}
 	}
 };

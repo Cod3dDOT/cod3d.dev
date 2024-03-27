@@ -8,7 +8,7 @@ import {
 	useState
 } from 'react';
 
-import find from '@/lib/find';
+import { findInArray } from '@/lib/array';
 import { useEventListener } from '@/lib/hooks/useEventListener';
 import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
 
@@ -276,7 +276,7 @@ function CursorCore({
 
 			const clickableOptions =
 				typeof clickables === 'object'
-					? find(
+					? findInArray(
 							clickables,
 							(clickable: Clickable) =>
 								typeof clickable === 'object' && el.matches(clickable.target)
@@ -313,7 +313,7 @@ function CursorCore({
 			clickableEls.forEach((el) => {
 				const clickableOptions =
 					typeof clickables === 'object'
-						? find(
+						? findInArray(
 								clickables,
 								(clickable: Clickable) =>
 									typeof clickable === 'object' && el.matches(clickable.target)

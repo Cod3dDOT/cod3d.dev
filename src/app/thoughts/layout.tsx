@@ -1,13 +1,20 @@
 import { clsx } from 'clsx';
-import { Roboto } from 'next/font/google';
+import { Poppins, Roboto } from 'next/font/google';
 
 import { Footer } from '@/components/footer';
 
-const font = Roboto({
+const roboto = Roboto({
 	subsets: ['latin'],
 	weight: ['100', '300', '400', '500', '700', '900'],
 	display: 'swap',
 	variable: '--font-roboto'
+});
+
+const poppins = Poppins({
+	subsets: ['latin'],
+	weight: ['100', '300', '400', '500', '700', '900'],
+	display: 'swap',
+	variable: '--font-poppins'
 });
 
 export default function ThoughtsLayout({
@@ -16,15 +23,10 @@ export default function ThoughtsLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="flex flex-col min-h-screen">
-			<section
-				className={clsx(
-					font.variable,
-					'font-roboto container mx-auto sm:py-64 py-24 pl-4 sm:pr-16 pr-12 flex-1'
-				)}
-			>
+		<div>
+			<main className={clsx(roboto.variable, poppins.variable)}>
 				{children}
-			</section>
+			</main>
 			<Footer />
 		</div>
 	);
