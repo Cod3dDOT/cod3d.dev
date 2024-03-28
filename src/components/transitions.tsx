@@ -1,14 +1,17 @@
 'use client';
 
 import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
 	createContext,
 	MouseEventHandler,
 	PropsWithChildren,
 	use,
+	useState,
 	useTransition
 } from 'react';
+
+import { Loader } from './loader';
 
 export const DELAY = 200;
 
@@ -18,10 +21,12 @@ const noop = () => {};
 
 type TransitionContext = {
 	pending: boolean;
+	target: string;
 	navigate: (url: string) => void;
 };
 const Context = createContext<TransitionContext>({
 	pending: false,
+	target: '',
 	navigate: noop
 });
 export const usePageTransition = () => use(Context);
@@ -43,9 +48,11 @@ type Props = PropsWithChildren<{
 export default function Transitions({ children, className }: Props) {
 	const [pending, start] = useTransition();
 	const router = useRouter();
+	const pathname = usePathname();
+
+	const [target, setTarget] = useState('');
+
 	const navigate = (href: string) => {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		//@ts-ignore
 		start(async () => {
 			router.push(href);
 			await sleep(DELAY);
@@ -60,6 +67,10 @@ export default function Transitions({ children, className }: Props) {
 		const href = a.getAttribute('href');
 		if (!href) return;
 
+		if (href == pathname) return;
+
+		setTarget(href);
+
 		// for relative links in thoughts
 		if (href.at(0) == '#') {
 			router.push(href);
@@ -70,7 +81,7 @@ export default function Transitions({ children, className }: Props) {
 	};
 
 	return (
-		<Context.Provider value={{ pending, navigate }}>
+		<Context.Provider value={{ pending, navigate, target }}>
 			<div onClickCapture={onClick} className={className}>
 				{children}
 			</div>
@@ -79,11 +90,12 @@ export default function Transitions({ children, className }: Props) {
 }
 
 export function Animate({ children, className }: Props) {
-	const { pending } = usePageTransition();
+	const { pending, target } = usePageTransition();
+
 	return (
 		<LazyMotion features={domAnimation}>
 			<AnimatePresence>
-				{!pending && (
+				{!pending ? (
 					<m.div
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -92,6 +104,17 @@ export function Animate({ children, className }: Props) {
 					>
 						{children}
 					</m.div>
+				) : (
+					target.includes('thoughts/') && (
+						<m.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className="absolute inset-0 flex items-center justify-center"
+						>
+							<Loader />
+						</m.div>
+					)
 				)}
 			</AnimatePresence>
 		</LazyMotion>

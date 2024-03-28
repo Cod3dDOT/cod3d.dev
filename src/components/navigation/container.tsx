@@ -16,8 +16,12 @@ const useAutoClose = ({
 	menu: RefObject<HTMLElement>;
 }) => {
 	const handleClosure = useCallback(
-		(event: MouseEvent | FocusEvent) =>
-			!menu?.current?.contains(event.target as Node) && setOpened(false),
+		(event: MouseEvent | FocusEvent) => {
+			const contains = menu?.current?.contains(event.target as Node);
+			const link = (event.target as HTMLElement).tagName == 'a';
+
+			if (!contains || link) setOpened(false);
+		},
 		[setOpened, menu]
 	);
 

@@ -1,0 +1,96 @@
+.loader .arrow {
+	width: 0;
+	height: 0;
+	margin: 0 -6px;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+	border-bottom: 21.6px solid rgb(var(--foreground));
+	animation: blink 1s infinite;
+	filter: drop-shadow(0 0 18px rgb(var(--foreground)));
+}
+.loader .arrow.down {
+	transform: rotate(180deg);
+}
+.loader .arrow.outer-1 {
+	animation-delay: -0.0555555556s;
+}
+.loader .arrow.outer-2 {
+	animation-delay: -0.1111111111s;
+}
+.loader .arrow.outer-3 {
+	animation-delay: -0.1666666667s;
+}
+.loader .arrow.outer-4 {
+	animation-delay: -0.2222222222s;
+}
+.loader .arrow.outer-5 {
+	animation-delay: -0.2777777778s;
+}
+.loader .arrow.outer-6 {
+	animation-delay: -0.3333333333s;
+}
+.loader .arrow.outer-7 {
+	animation-delay: -0.3888888889s;
+}
+.loader .arrow.outer-8 {
+	animation-delay: -0.4444444444s;
+}
+.loader .arrow.outer-9 {
+	animation-delay: -0.5s;
+}
+.loader .arrow.outer-10 {
+	animation-delay: -0.5555555556s;
+}
+.loader .arrow.outer-11 {
+	animation-delay: -0.6111111111s;
+}
+.loader .arrow.outer-12 {
+	animation-delay: -0.6666666667s;
+}
+.loader .arrow.outer-13 {
+	animation-delay: -0.7222222222s;
+}
+.loader .arrow.outer-14 {
+	animation-delay: -0.7777777778s;
+}
+.loader .arrow.outer-15 {
+	animation-delay: -0.8333333333s;
+}
+.loader .arrow.outer-16 {
+	animation-delay: -0.8888888889s;
+}
+.loader .arrow.outer-17 {
+	animation-delay: -0.9444444444s;
+}
+.loader .arrow.outer-18 {
+	animation-delay: -1s;
+}
+.loader .arrow.inner-1 {
+	animation-delay: -0.1666666667s;
+}
+.loader .arrow.inner-2 {
+	animation-delay: -0.3333333333s;
+}
+.loader .arrow.inner-3 {
+	animation-delay: -0.5s;
+}
+.loader .arrow.inner-4 {
+	animation-delay: -0.6666666667s;
+}
+.loader .arrow.inner-5 {
+	animation-delay: -0.8333333333s;
+}
+.loader .arrow.inner-6 {
+	animation-delay: -1s;
+}
+@keyframes blink {
+	0% {
+		opacity: 0.1;
+	}
+	30% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.1;
+	}
+}

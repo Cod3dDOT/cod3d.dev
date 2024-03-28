@@ -11,6 +11,7 @@ export async function getThought(slug: string) {
 	if (items.length == 0) {
 		redirect(`/404`);
 	}
+
 	return items[0];
 }
 
