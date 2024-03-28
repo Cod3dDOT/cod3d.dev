@@ -9,12 +9,11 @@ const pbPass = process.env.PB_PASS;
 if (!pbUrl || !pbUser || !pbPass)
 	throw new Error('Invalid .env database config');
 
-export let pb: TypedPocketBase | null = null;
+export let pb: TypedPocketBase;
 
 export const getPB = async () => {
 	if (pb) return pb;
 
-	console.log('created pb');
 	pb = new PocketBase(pbUrl) as TypedPocketBase;
 	pb.autoCancellation(false);
 

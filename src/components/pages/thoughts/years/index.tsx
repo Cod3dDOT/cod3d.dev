@@ -1,7 +1,9 @@
 'use client';
 
+import '@/app/styles/thoughts.css';
+
 import { AnimatePresence, m } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { GlitchText } from '@/components/effects/glitchText';
 import { getGroupedBy } from '@/lib/array';
@@ -31,6 +33,7 @@ const starAnimations: {
 export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
 	const [active, setActive] = useState(2024);
 	const [offset, setOffset] = useState(0);
+	const containerRef = useRef<HTMLDivElement>(null);
 
 	const thoughtsByYears = getGroupedBy(
 		thoughts.map((th) => {
@@ -38,6 +41,13 @@ export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
 		}),
 		'year'
 	);
+
+	useEffect(() => {
+		const c = containerRef.current;
+		if (c) {
+			c.scrollLeft = c.clientWidth;
+		}
+	}, []);
 
 	const onSwitchCallback = (off: number) => {
 		if (offset != 0) return;
@@ -48,6 +58,10 @@ export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
 
 		setTimeout(() => {
 			setActive(active + off);
+			const c = containerRef.current;
+			if (c) {
+				c.scrollBy({ left: c.clientWidth * -off });
+			}
 		}, DURATION / 2);
 
 		setTimeout(() => {
@@ -62,7 +76,7 @@ export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
 
 	return (
 		<div
-			className="font-pixelify relative flex overflow-hidden h-[calc(100vh-10rem)] rounded-lg w-full
+			className="font-pixelify relative flex lg:h-[calc(100vh-10rem)] h-[calc(100vh-6rem)] rounded-lg w-full
                         xl:flex-row flex-col"
 		>
 			<div className="xl:w-32 xl:h-full w-full h-32 flex xl:flex-col">
@@ -89,14 +103,14 @@ export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
 					</button>
 				</div>
 			</div>
-			<div className="relative w-full h-full">
+			<div className="relative w-full h-full perspective xl:[scale:105%]">
 				<AnimatePresence>
 					{offset != 0 && (
 						<m.div
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							className="z-10 absolute inset-0 bg-background"
+							className="z-10 absolute inset-0 bg-background overflow-hidden"
 						>
 							<div className="relative w-full h-full flex items-center justify-center bg-grainy">
 								<div className="*:absolute *:inset-0">
@@ -118,25 +132,35 @@ export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
 						</m.div>
 					)}
 				</AnimatePresence>
-				{active in thoughtsByYears ? (
-					<ThoughtsYear thoughts={thoughtsByYears[active]} year={active} />
-				) : active - 1 in thoughtsByYears ? (
+
+				<div
+					ref={containerRef}
+					className="flex overflow-hidden h-full scrollbar-none"
+				>
 					<div
-						className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center
-                    lg:text-8xl md:text-6xl text-3xl text-center"
+						className="flex-[1_0_100%] w-full h-full flex flex-col justify-center items-center
+                    lg:text-8xl md:text-5xl text-3xl text-center"
 					>
 						<span>Welcome back to the</span>
 						<GlitchText text="future" as="span" />
 					</div>
-				) : (
+					{Object.keys(thoughtsByYears).map((key) => {
+						return (
+							<ThoughtsYear
+								key={key}
+								thoughts={thoughtsByYears[key]}
+								year={active}
+							/>
+						);
+					})}
 					<div
-						className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center
+						className="flex-[1_0_100%] w-full h-full flex flex-col justify-center items-center
                                 lg:text-8xl md:text-6xl text-3xl text-center"
 					>
 						<span>You told me once to forget the</span>
 						<GlitchText text="past" as="span" />
 					</div>
-				)}
+				</div>
 			</div>
 		</div>
 	);

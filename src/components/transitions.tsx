@@ -44,6 +44,8 @@ export default function Transitions({ children, className }: Props) {
 	const [pending, start] = useTransition();
 	const router = useRouter();
 	const navigate = (href: string) => {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		//@ts-ignore
 		start(async () => {
 			router.push(href);
 			await sleep(DELAY);
@@ -59,10 +61,10 @@ export default function Transitions({ children, className }: Props) {
 		if (!href) return;
 
 		// for relative links in thoughts
-		// if (href.at(0) == '#') {
-		// 	router.push(href);
-		// 	return;
-		// }
+		if (href.at(0) == '#') {
+			router.push(href);
+			return;
+		}
 
 		navigate(href);
 	};
