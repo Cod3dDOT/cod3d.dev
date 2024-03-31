@@ -1,0 +1,4 @@
+Contact: @cod3ddot:matrix.org
+Expires: 2024-03-31T07:00:00.000Z
+Preferred-Languages: en
+Canonical: https://cod3d.dev/security.txt

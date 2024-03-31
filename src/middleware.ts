@@ -111,7 +111,10 @@ function CSP(request: NextRequest) {
 }
 
 function PERMISSIONS(response: NextResponse) {
-	response.headers.set('Permissions-Policy', 'none');
+	response.headers.set(
+		'Permissions-Policy',
+		'fullscreen=(self),picture-in-picture=(self)'
+	);
 	return response;
 }
 

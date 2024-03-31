@@ -29,7 +29,7 @@ const NavContactsShowcase: React.FC = () => {
 					<span className="sr-only">Mail</span>
 				</ContactLink>
 				<ContactLink>
-					<a href="mailto:cod3ddot@proton.me">
+					<a href="@cod3ddot:matrix.org">
 						<MatrixIcon
 							aria-hidden="true"
 							focusable="false"
