@@ -10,6 +10,7 @@ import { Cursor } from '@/components/cursor';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { Navigation } from '@/components/navigation';
 import Transitions, { Animate } from '@/components/transitions';
+import { nonce } from '@/lib/nonce';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -78,11 +79,12 @@ export const metadata: Metadata = {
 	}
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const _nonce = await nonce();
 	return (
 		<html
 			lang="en"
@@ -94,10 +96,12 @@ export default function RootLayout({
 					defer
 					src="https://analytics.eu.umami.is/script.js"
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
+					nonce={_nonce}
 				/>
 			</head>
 			<body className={clsx(font.variable, 'font-pixelify bg-grainy')}>
 				<script
+					nonce={_nonce}
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 				/>
