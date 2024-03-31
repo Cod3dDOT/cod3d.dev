@@ -68,20 +68,21 @@ function CSP(request: NextRequest) {
 	};
 
 	const cspHeader = `
-    default-src 'self';
-    connect-src 'self' analytics.eu.umami.is;
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')} ${
-			process.env.NODE_ENV === 'development' && "'unsafe-eval'"
-		};
-    style-src 'self' 'nonce-${nonce}' ${hashes.style.join(' ')} 'unsafe-hashes';
-    img-src 'self' blob: data:;
-    font-src 'self';
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'none';
-    upgrade-insecure-requests;
-`;
+        default-src 'self';
+        connect-src 'self' analytics.eu.umami.is;
+        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')} ${
+					process.env.NODE_ENV === 'development' && "'unsafe-eval'"
+				};
+        style-src 'self' 'nonce-${nonce}' ${hashes.style.join(' ')} 'unsafe-hashes';
+        img-src 'self' blob: data:;
+        font-src 'self';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        frame-ancestors 'none';
+        upgrade-insecure-requests;
+    `;
+
 	// Replace newline characters and spaces
 	const contentSecurityPolicyHeaderValue = cspHeader
 		.replace(/\s{2,}/g, ' ')
@@ -109,8 +110,14 @@ function CSP(request: NextRequest) {
 	return response;
 }
 
+function PERMISSIONS(response: NextResponse) {
+	response.headers.set('Permissions-Policy', 'none');
+	return response;
+}
+
 export function middleware(request: NextRequest) {
 	const withCSP = CSP(request);
 	const withCORS = CORS(request, withCSP);
-	return withCORS;
+	const withPermissions = PERMISSIONS(withCORS);
+	return withPermissions;
 }
