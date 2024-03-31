@@ -18,7 +18,18 @@ const font = Pixelify_Sans({
 });
 
 export const viewport: Viewport = {
+	width: 'device-width',
+	initialScale: 1,
 	themeColor: 'var(--background)' // remove when updating next-themes to v1.0.0
+};
+
+const jsonLd = {
+	'@context': 'https://schema.org/',
+	'@type': 'WebSite',
+	name: "cod3d's den",
+	url: 'cod3d.dev',
+	image: 'https://cod3d.dev/og.png',
+	description: 'Probably trying to hack you. Or sleeping. Or both.'
 };
 
 export const metadata: Metadata = {
@@ -27,7 +38,14 @@ export const metadata: Metadata = {
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
 	creator: 'cod3d',
 	keywords: 'blog, projects, coding',
-	robots: 'index, follow',
+	robots: {
+		index: true,
+		follow: true,
+		'max-image-preview': 'large',
+		'max-snippet': -1,
+		'max-video-preview': -1,
+		googleBot: 'index, follow'
+	},
 	openGraph: {
 		type: 'website',
 		url: 'https://cod3d.dev',
@@ -36,7 +54,25 @@ export const metadata: Metadata = {
 		siteName: "cod3d's den",
 		images: [
 			{
-				url: '/og.webp'
+				url: '/og.webp',
+				width: 1200,
+				height: 675,
+				alt: 'cod3d'
+			}
+		]
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: "cod3d's den",
+		description: 'Probably trying to hack you. Or sleeping. Or both.',
+		// creator: '@cod3ddot',
+		site: "cod3d's den",
+		images: [
+			{
+				url: '/og.webp',
+				width: 1200,
+				height: 675,
+				alt: 'cod3d'
 			}
 		]
 	}
@@ -61,6 +97,10 @@ export default function RootLayout({
 				/>
 			</head>
 			<body className={clsx(font.variable, 'font-pixelify bg-grainy')}>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+				/>
 				<ThemeProvider attribute="class">
 					<Transitions>
 						<GrainyBackground />
