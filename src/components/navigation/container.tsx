@@ -174,13 +174,14 @@ const MobileOpener: React.FC<{
 				<span className="sr-only">Home</span>
 			</Link>
 			<ThemeSwitch className="h-12 w-12 p-3" />
-			<button onClick={() => setOpened(!opened)}>
+			<button type="button" onClick={() => setOpened(!opened)}>
 				<ChevronIcon
 					className={clsx(
 						'h-12 w-12 p-4 fill-foreground transition-transform duration-300',
 						opened && 'rotate-180'
 					)}
 				/>
+				<span className="sr-only">Toggle the navigation drawer</span>
 			</button>
 			<span
 				className={clsx(

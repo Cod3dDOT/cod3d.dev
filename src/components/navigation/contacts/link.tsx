@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { ReactNode, useCallback } from 'react';
 
-const style =
-	'flex items-center space-x-2 rounded-full border-foreground border-2 p-4 overflow-hidden';
+const style = `relative flex items-center space-x-2
+	rounded-full border-foreground border-2 p-4 overflow-hidden
+    `;
 
 export const ContactButton: React.FC<{
 	children: ReactNode;
@@ -16,7 +17,7 @@ export const ContactButton: React.FC<{
 	}, [copy]);
 
 	return (
-		<button className={style} onClick={copyCallback}>
+		<button className={style} onClick={copyCallback} type="button">
 			{children}
 			<span>{text}</span>
 		</button>

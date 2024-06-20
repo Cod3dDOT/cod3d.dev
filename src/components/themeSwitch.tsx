@@ -12,6 +12,7 @@ const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 	className
 }: ThemeSwitchProps) => {
 	const { resolvedTheme, setTheme } = useTheme();
+	const id = Math.round(Math.random() * 100);
 
 	return (
 		<button
@@ -24,7 +25,7 @@ const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 			aria-label="Theme switch"
 		>
 			<svg aria-hidden="true" viewBox="0 0 24 24" focusable={false}>
-				<mask className="origin-center" id="moon-mask">
+				<mask className="origin-center" id={'moon-mask-' + id}>
 					<rect x="0" y="0" width="100%" height="100%" fill="white" />
 					<circle
 						cx="24"
@@ -40,7 +41,7 @@ const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 					cx="12"
 					cy="12"
 					r="6"
-					mask="url(#moon-mask)"
+					mask={`url(#moon-mask-${id})`}
 				/>
 				<g
 					className="transition-all origin-center stroke-2 delay-150 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-black/60

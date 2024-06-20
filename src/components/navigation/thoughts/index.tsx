@@ -23,7 +23,7 @@ const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = ({
 			<SectionLink link="/thoughts" text="Thoughts" />
 
 			<div
-				className="rounded-xl overflow-hidden
+				className="
             grid sm:grid-cols-2 grid-cols-1 grid-rows-1 sm:aspect-[32/9] aspect-video space-x-2"
 			>
 				{thoughts.map((thought) => {
@@ -31,13 +31,13 @@ const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = ({
 						<Link
 							key={thought.id}
 							href={'/thoughts/' + thought.slug}
-							className="cursor-thoughts-nav rounded-xl overflow-hidden"
+							className="cursor-thoughts-nav"
 						>
 							<SpotlightCard
 								from="#1cd1c6"
 								via="#407cff"
 								size={200}
-								className="relative h-full w-full"
+								className="relative h-full w-full rounded-xl overflow-hidden"
 							>
 								<div
 									className="rounded-xl overflow-hidden

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import React, { useMemo, useRef } from 'react';
 import { useMouse } from 'react-use';
 import Tilt from 'react-parallax-tilt';
+import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
 
 interface SpotlightCardProps {
 	as?: React.ElementType;
@@ -33,8 +34,9 @@ export function SpotlightCard({
 	className,
 	...props
 }: SpotlightCardProps): JSX.Element {
-	const container = useRef<HTMLDivElement>(null);
+	const mobile = useIsTouchdevice();
 
+	const container = useRef<HTMLDivElement>(null);
 	const { elX, elY, elW, elH } = useMouse(container);
 
 	const spotlightColorStops = useMemo(() => {
@@ -49,25 +51,40 @@ export function SpotlightCard({
 		return [from, via, to].filter((value) => !!value).join(',');
 	}, [hsl, hslMax, hslMin, from, via, to, elY, elX, elH, elW]);
 
-	// let force = 80,
-	// 	rx = (x / width) * force,
-	// 	ry = (y / height) * -force;
-
-	// card.style.transform = 'rotateY(' + rx + 'deg) rotateX(' + ry + 'deg)';
-
 	const classes =
 		mode === 'before'
 			? `before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--x)_var(--y),var(--spotlight-color-stops))]`
 			: `after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--x)_var(--y),var(--spotlight-color-stops))]`;
 
+	if (mobile) {
+		return (
+			<Component
+				className={clsx('bg-background', classes, className)}
+				style={{
+					'--x': `0px`,
+					'--y': `0px`,
+					'--spotlight-color-stops': spotlightColorStops,
+					'--spotlight-size': `${size}px`
+				}}
+			>
+				{children}
+			</Component>
+		);
+	}
+
 	return (
-		<Tilt tiltMaxAngleX={4} tiltMaxAngleY={4} className="h-full">
+		<Tilt
+			glareEnable={true}
+			glareBorderRadius="0.75rem"
+			tiltMaxAngleX={4}
+			tiltMaxAngleY={4}
+			className={className}
+		>
 			<Component
 				ref={container}
 				className={clsx(
 					'relative transform-gpu overflow-hidden h-full',
-					classes,
-					className
+					classes
 				)}
 				{...props}
 				style={{

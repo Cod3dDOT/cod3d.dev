@@ -20,7 +20,11 @@ export const config = {
 };
 
 function CORS(request: NextRequest, response: NextResponse) {
-	const allowedOrigins = ['https://cod3d.dev', 'https://github.com'];
+	const allowedOrigins = [
+		'https://cod3d.dev',
+		'https://github.com',
+		'https://api-gateway.umami.dev'
+	];
 
 	const corsOptions = {
 		'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -77,7 +81,7 @@ function CSP(request: NextRequest) {
 
 	const cspHeader = `
         default-src 'self';
-        connect-src 'self' analytics.eu.umami.is;
+        connect-src 'self' api-gateway.umami.dev;
         script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
         style-src 'self' ${hashes.style.join(' ')} 'unsafe-hashes';
         img-src 'self' blob: data:;
