@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-
 import { getPB } from './config';
 
 export async function getThought(slug: string) {
@@ -20,6 +19,7 @@ export async function getThoughts(
 	perPage?: number | undefined
 ) {
 	const pb = await getPB();
+
 	return (
 		await pb.collection('thoughts').getList(page, perPage, {
 			sort: 'created'

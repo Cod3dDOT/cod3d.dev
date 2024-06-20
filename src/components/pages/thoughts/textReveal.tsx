@@ -80,30 +80,29 @@ export const ThoughtsTextReveal = () => {
 	return (
 		<TextReveal
 			body={"Archiving thoughts so that my brain doesn't have to"}
-			className="relative h-[200vh] text-foreground w-full"
+			className="relative h-[200vh] text-foreground w-full max-w-[96rem]"
 		>
 			{(tokens, progress) => (
-				<div className="sticky left-0 top-0 flex h-screen items-center leading-none lg:text-9xl md:text-6xl text-4xl font-medium">
-					<div>
+				<div className="sticky top-0 flex h-screen items-center">
+					<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight">
 						{tokens.map((token, index) => (
 							<TextReveal.Token key={index} index={index}>
 								{(isActive) => (
 									<span
-										className={clsx(
-											{
-												'opacity-10': !isActive,
-												'[text-shadow:3px_3px_#558ABB] md:[text-shadow:5px_5px_#558ABB]':
-													token == 'brain' && isActive
-											},
-											'transition-all'
-										)}
+										className={clsx('transition-all [font-size:inherit]', {
+											'opacity-10': !isActive,
+											'[text-shadow:3px_3px_#558ABB] md:[text-shadow:5px_5px_#558ABB]':
+												token == 'brain' && isActive,
+											'[text-shadow:3px_3px_#BB2649] md:[text-shadow:5px_5px_#BB2649]':
+												token == 'thoughts' && isActive
+										})}
 									>
 										{token}
 									</span>
 								)}
 							</TextReveal.Token>
 						))}
-					</div>
+					</h1>
 
 					<button
 						className="absolute bottom-12"
@@ -116,7 +115,7 @@ export const ThoughtsTextReveal = () => {
 					>
 						<ScrollIcon
 							className={'fill-foreground/50'}
-							style={{ opacity: 1 - progress }}
+							style={{ opacity: 1 - progress || 0 }}
 						/>
 					</button>
 				</div>

@@ -4,9 +4,11 @@ import clsx from 'clsx';
 import { memo } from 'react';
 
 import { GridPattern } from '@/components/effects/gridPattern';
-import { randomIntFromInterval } from '@/lib/math';
+import { randomIntFromIntervalPredicted, stringToUniqueId } from '@/lib/math';
+import { Project } from '@/lib/pocketbase/types';
 
-export const ProjectGridEffect = () => {
+export const ProjectGridEffect: React.FC<{ id: Project['id'] }> = ({ id }) => {
+	const idn = stringToUniqueId(id);
 	const animationDelay = [
 		'delay-0',
 		'delay-100',
@@ -14,10 +16,12 @@ export const ProjectGridEffect = () => {
 		'delay-300',
 		'delay-500'
 	];
-	const blocks = Array.from({ length: 60 }, () => [
-		randomIntFromInterval(0, 4),
-		randomIntFromInterval(0, 30)
+
+	const blocks = Array.from({ length: 60 }, (_, i) => [
+		randomIntFromIntervalPredicted(0, 4, idn + i),
+		randomIntFromIntervalPredicted(0, 30, idn - i)
 	]);
+
 	return (
 		<GridPattern
 			offsetX={0}
@@ -34,7 +38,7 @@ export const ProjectGridEffect = () => {
 					column={column}
 					className={clsx(
 						'fill-foreground opacity-70 transition animate-pulse',
-						animationDelay[randomIntFromInterval(0, 4)]
+						animationDelay[randomIntFromIntervalPredicted(0, 4, idn + index)]
 					)}
 				/>
 			))}

@@ -12,7 +12,7 @@ if (!pbUrl || !pbUser || !pbPass)
 export let pb: TypedPocketBase;
 
 export const getPB = async () => {
-	if (pb) return pb;
+	if (pb && pb.authStore.isValid) return pb;
 
 	pb = new PocketBase(pbUrl) as TypedPocketBase;
 	pb.autoCancellation(false);

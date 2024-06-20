@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply bg-background text-foreground overscroll-y-none;
+}
+
+h1 {
+	@apply md:text-[8rem] sm:text-[5.65rem] text-[4rem];
+}
+
+h2 {
+	@apply md:text-[5.65rem] sm:text-[4rem] text-[2.83rem];
+}
+
+h3 {
+	@apply md:text-[4rem] sm:text-[2.83rem] text-[2rem];
+}
+
+h4 {
+	@apply md:text-[2.83rem] sm:text-[2rem] text-[1.44rem];
+}
+
+p,
+span {
+	@apply text-base;
+}

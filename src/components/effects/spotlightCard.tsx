@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import React, { useMemo, useRef } from 'react';
 import { useMouse } from 'react-use';
+import Tilt from 'react-parallax-tilt';
 
 interface SpotlightCardProps {
 	as?: React.ElementType;
@@ -48,28 +49,36 @@ export function SpotlightCard({
 		return [from, via, to].filter((value) => !!value).join(',');
 	}, [hsl, hslMax, hslMin, from, via, to, elY, elX, elH, elW]);
 
+	// let force = 80,
+	// 	rx = (x / width) * force,
+	// 	ry = (y / height) * -force;
+
+	// card.style.transform = 'rotateY(' + rx + 'deg) rotateX(' + ry + 'deg)';
+
 	const classes =
 		mode === 'before'
 			? `before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--x)_var(--y),var(--spotlight-color-stops))]`
 			: `after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--x)_var(--y),var(--spotlight-color-stops))]`;
 
 	return (
-		<Component
-			ref={container}
-			className={clsx(
-				'relative transform-gpu overflow-hidden',
-				classes,
-				className
-			)}
-			{...props}
-			style={{
-				'--x': `${elX}px`,
-				'--y': `${elY}px`,
-				'--spotlight-color-stops': spotlightColorStops,
-				'--spotlight-size': `${size}px`
-			}}
-		>
-			{children}
-		</Component>
+		<Tilt tiltMaxAngleX={4} tiltMaxAngleY={4} className="h-full">
+			<Component
+				ref={container}
+				className={clsx(
+					'relative transform-gpu overflow-hidden h-full',
+					classes,
+					className
+				)}
+				{...props}
+				style={{
+					'--x': `${elX}px`,
+					'--y': `${elY}px`,
+					'--spotlight-color-stops': spotlightColorStops,
+					'--spotlight-size': `${size}px`
+				}}
+			>
+				{children}
+			</Component>
+		</Tilt>
 	);
 }

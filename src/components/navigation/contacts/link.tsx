@@ -1,54 +1,37 @@
 'use client';
 
-import { useInView } from 'framer-motion';
-import Image from 'next/image';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { ReactNode, useCallback } from 'react';
 
-import PokeballImage from '@/../public/pokeball.png';
-import { randomIntFromInterval } from '@/lib/math';
+const style =
+	'flex items-center space-x-2 rounded-full border-foreground border-2 p-4 overflow-hidden';
+
+export const ContactButton: React.FC<{
+	children: ReactNode;
+	text: string;
+	copy: string;
+}> = ({ children, text, copy }) => {
+	const copyCallback = useCallback(() => {
+		navigator.clipboard.writeText(copy);
+	}, [copy]);
+
+	return (
+		<button className={style} onClick={copyCallback}>
+			{children}
+			<span>{text}</span>
+		</button>
+	);
+};
 
 export const ContactLink: React.FC<{
 	children: ReactNode;
-}> = ({ children }) => {
-	const [delayedHover, setDelayedHover] = useState(false);
-	const [played, setPlayed] = useState(false);
-	const ref = useRef(null);
-	const isInView = useInView(ref);
-
-	useEffect(() => {
-		if (!isInView) return;
-		setTimeout(
-			() => {
-				setDelayedHover(true);
-				setTimeout(() => {
-					setPlayed(true);
-				}, 2500);
-			},
-			randomIntFromInterval(0, 1000)
-		);
-	}, [isInView]);
-
+	text: string;
+	href: string;
+}> = ({ children, text, href }) => {
 	return (
-		<div className="w-10 h-10" ref={ref}>
-			{!delayedHover ? (
-				<Image
-					width={128}
-					height={128}
-					src={PokeballImage}
-					alt="pokeball"
-					className="w-full h-full scale-125"
-				/>
-			) : !played ? (
-				<Image
-					width={128}
-					height={128}
-					src="/pokeball-open.gif"
-					alt="pokeball"
-					className="w-full h-full scale-125"
-				/>
-			) : (
-				<div className="fade-in duration-500 animate-in">{children}</div>
-			)}
-		</div>
+		<Link className={style} href={href}>
+			{children}
+			<span>{text}</span>
+		</Link>
 	);
 };

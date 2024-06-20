@@ -55,25 +55,31 @@ function CORS(request: NextRequest, response: NextResponse) {
 
 function CSP(request: NextRequest) {
 	const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
+
 	const hashes = {
-		script: ["'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='"],
-		style: [
-			"'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='",
-			"'sha256-dZv43Imcg9IVVs8F3qa/uhalpu/jln6PcUJZMQ4DvVE='",
-			"'sha256-hAzIRge8oAVjQrNQXCLPHz2EJBL/qfRFUzcgyiM8D3w='",
-			"'sha256-PFl9s1E8wF/yrLwhmN50lEd077pu6W7ug0RNFqwmURc='",
-			"'sha256-bjO9gy2GfmNK8gqrAZ6mhy6lctqH9pUfyQTGM0iHIqk='",
-			"'sha256-tTgjrFAQDNcRW/9ebtwfDewCTgZMFnKpGa9tcHFyvcs='"
-		]
+		script: [
+			"'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='",
+			process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
+		],
+		style:
+			process.env.NODE_ENV === 'development'
+				? ["'unsafe-inline'"]
+				: [
+						`'nonce-${nonce}'`,
+						"'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='",
+						"'sha256-dZv43Imcg9IVVs8F3qa/uhalpu/jln6PcUJZMQ4DvVE='",
+						"'sha256-hAzIRge8oAVjQrNQXCLPHz2EJBL/qfRFUzcgyiM8D3w='",
+						"'sha256-PFl9s1E8wF/yrLwhmN50lEd077pu6W7ug0RNFqwmURc='",
+						"'sha256-bjO9gy2GfmNK8gqrAZ6mhy6lctqH9pUfyQTGM0iHIqk='",
+						"'sha256-tTgjrFAQDNcRW/9ebtwfDewCTgZMFnKpGa9tcHFyvcs='"
+					]
 	};
 
 	const cspHeader = `
         default-src 'self';
         connect-src 'self' analytics.eu.umami.is;
-        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')} ${
-					process.env.NODE_ENV === 'development' && "'unsafe-eval'"
-				};
-        style-src 'self' 'nonce-${nonce}' ${hashes.style.join(' ')} 'unsafe-hashes';
+        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
+        style-src 'self' ${hashes.style.join(' ')} 'unsafe-hashes';
         img-src 'self' blob: data:;
         font-src 'self';
         object-src 'none';

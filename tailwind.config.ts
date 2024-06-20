@@ -25,7 +25,9 @@ const config: Config = {
 				background: 'rgb(var(--background) / <alpha-value>)'
 			},
 			animation: {
-				arrows: 'arrows 2s infinite'
+				arrows: 'arrows 2s infinite',
+				'link-hover': 'link 1s forwards',
+				'link-default': 'link 1s backwards'
 			},
 			keyframes: {
 				arrows: {
@@ -33,6 +35,11 @@ const config: Config = {
 					'30%': { translate: '0', opacity: '1' },
 					'60%': { translate: '0', opacity: '1' },
 					'100%': { translate: '5px 0', opacity: '0' }
+				},
+				link: {
+					'0%': { width: '0', height: '2px' },
+					'50%': { width: '100%', height: '2px' },
+					'100%': { width: '100%', height: '100%' }
 				}
 			}
 		}

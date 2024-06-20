@@ -1,25 +1,19 @@
 .masonry {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(100px, 1fr));
-	@apply gap-1 text-sm;
+	@apply gap-1;
 }
 
 @media (min-width: 768px) {
 	.masonry {
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		@apply gap-2 text-base;
+		@apply gap-2;
 	}
 }
 
 @media (min-width: 1280px) {
 	.masonry {
 		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-	}
-
-	.perspective {
-		transform: perspective(30cm) rotateY(-5deg);
-		transform-style: preserve-3d;
-		transform-origin: right;
 	}
 }
 

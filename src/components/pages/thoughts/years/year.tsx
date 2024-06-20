@@ -15,7 +15,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 	className
 }) => {
 	return (
-		<div className={clsx('masonry flex-[1_0_100%] ', className)}>
+		<div className={clsx('masonry flex-[1_0_100%] h-full text-5xl', className)}>
 			{thoughts.map((th) => (
 				<Link href={'/thoughts/' + th.slug} key={th.id} className="grid-item">
 					{th.name}

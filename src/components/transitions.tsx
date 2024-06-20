@@ -1,122 +1,83 @@
 'use client';
 
-import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
-import { usePathname, useRouter } from 'next/navigation';
-import {
-	createContext,
-	MouseEventHandler,
-	PropsWithChildren,
-	use,
-	useState,
-	useTransition
-} from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useSelectedLayoutSegment } from 'next/navigation';
+import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-import { Loader } from './loader';
+import { useContext, useEffect, useRef } from 'react';
 
-export const DELAY = 200;
+function usePreviousValue<T>(value: T): T | undefined {
+	const prevValue = useRef<T>();
 
-const sleep = (ms: number) =>
-	new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
-const noop = () => {};
+	useEffect(() => {
+		prevValue.current = value;
+		return () => {
+			prevValue.current = undefined;
+		};
+	});
 
-type TransitionContext = {
-	pending: boolean;
-	target: string;
-	navigate: (url: string) => void;
-};
-const Context = createContext<TransitionContext>({
-	pending: false,
-	target: '',
-	navigate: noop
-});
-export const usePageTransition = () => use(Context);
-export const usePageTransitionHandler = () => {
-	const { navigate } = usePageTransition();
-	const onClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
-		e.preventDefault();
-		const href = e.currentTarget.getAttribute('href');
-		if (href) navigate(href);
-	};
+	return prevValue.current;
+}
 
-	return onClick;
-};
+function FrozenRouter(props: { children: React.ReactNode }) {
+	const context = useContext(LayoutRouterContext);
+	const prevContext = usePreviousValue(context) || null;
 
-type Props = PropsWithChildren<{
-	className?: string;
-}>;
+	const segment = useSelectedLayoutSegment();
+	const prevSegment = usePreviousValue(segment);
 
-export default function Transitions({ children, className }: Props) {
-	const [pending, start] = useTransition();
-	const router = useRouter();
-	const pathname = usePathname();
-
-	const [target, setTarget] = useState('');
-
-	const navigate = (href: string) => {
-		start(async () => {
-			router.push(href);
-			await sleep(DELAY);
-		});
-	};
-
-	const onClick: MouseEventHandler<HTMLDivElement> = (e) => {
-		const a = (e.target as Element).closest('a');
-		if (!a) return;
-
-		e.preventDefault();
-		const href = a.getAttribute('href');
-		if (!href) return;
-
-		if (href == pathname) return;
-
-		setTarget(href);
-
-		// for relative links in thoughts
-		if (href.at(0) == '#') {
-			router.push(href);
-			return;
-		}
-
-		navigate(href);
-	};
+	const changed =
+		segment !== prevSegment &&
+		segment !== undefined &&
+		prevSegment !== undefined;
 
 	return (
-		<Context.Provider value={{ pending, navigate, target }}>
-			<div onClickCapture={onClick} className={className}>
-				{children}
-			</div>
-		</Context.Provider>
+		<LayoutRouterContext.Provider value={changed ? prevContext : context}>
+			{props.children}
+		</LayoutRouterContext.Provider>
 	);
 }
 
-export function Animate({ children, className }: Props) {
-	const { pending, target } = usePageTransition();
+export function LayoutTransition(props: {
+	children: React.ReactNode;
+	className?: React.ComponentProps<typeof motion.div>['className'];
+	style?: React.ComponentProps<typeof motion.div>['style'];
+	initial: React.ComponentProps<typeof motion.div>['initial'];
+	animate: React.ComponentProps<typeof motion.div>['animate'];
+	exit: React.ComponentProps<typeof motion.div>['exit'];
+}) {
+	const segment = useSelectedLayoutSegment();
 
 	return (
-		<LazyMotion features={domAnimation}>
-			<AnimatePresence>
-				{!pending ? (
-					<m.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						className={className}
-					>
-						{children}
-					</m.div>
-				) : (
-					target.includes('thoughts/') && (
-						<m.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							className="absolute inset-0 flex items-center justify-center"
-						>
-							<Loader />
-						</m.div>
-					)
-				)}
-			</AnimatePresence>
-		</LazyMotion>
+		<AnimatePresence>
+			<motion.div
+				className={props.className}
+				style={props.style}
+				key={segment}
+				initial={props.initial}
+				animate={props.animate}
+				exit={props.exit}
+			>
+				<FrozenRouter>{props.children}</FrozenRouter>
+			</motion.div>
+		</AnimatePresence>
+	);
+}
+
+export function FadeTransition(props: { children: React.ReactNode }) {
+	return (
+		<div className="relative flex min-w-screen min-h-screen">
+			<LayoutTransition
+				className="absolute inset-0"
+				initial={{ opacity: 0 }}
+				animate={{
+					opacity: 1,
+					transition: { delay: 0.1, duration: 0.5 }
+				}}
+				exit={{ opacity: 0 }}
+			>
+				{props.children}
+			</LayoutTransition>
+		</div>
 	);
 }

@@ -1,4 +1,5 @@
 import './styles/globals.css';
+import './styles/typography.css';
 import './styles/glitch.css';
 
 import clsx from 'clsx';
@@ -9,8 +10,10 @@ import { ThemeProvider } from 'next-themes';
 import { Cursor } from '@/components/cursor';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { Navigation } from '@/components/navigation';
-import Transitions, { Animate } from '@/components/transitions';
+import { FadeTransition } from '@/components/transitions';
 import { nonce } from '@/lib/nonce';
+
+import { ReactLenis } from '@/lib/lenis';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -21,7 +24,7 @@ const font = Pixelify_Sans({
 export const viewport: Viewport = {
 	width: 'device-width',
 	initialScale: 1,
-	themeColor: 'var(--background)' // remove when updating next-themes to v1.0.0
+	themeColor: '#121212' // remove when updating next-themes to v1.0.0
 };
 
 const jsonLd = {
@@ -86,11 +89,7 @@ export default async function RootLayout({
 }>) {
 	const _nonce = await nonce();
 	return (
-		<html
-			lang="en"
-			suppressHydrationWarning
-			className="scroll-smooth scrollbar-thin"
-		>
+		<html lang="en" suppressHydrationWarning className="scrollbar-thin">
 			<head>
 				<script
 					defer
@@ -105,13 +104,14 @@ export default async function RootLayout({
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 				/>
+
 				<ThemeProvider attribute="class">
-					<Transitions>
-						<GrainyBackground />
-						<Cursor />
-						<Navigation />
-						<Animate>{children}</Animate>
-					</Transitions>
+					<GrainyBackground />
+					<Cursor />
+					<Navigation />
+					<ReactLenis root>
+						<FadeTransition>{children}</FadeTransition>
+					</ReactLenis>
 				</ThemeProvider>
 			</body>
 		</html>

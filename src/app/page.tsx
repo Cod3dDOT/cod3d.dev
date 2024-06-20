@@ -6,18 +6,22 @@ import { GlitchText } from '@/components/effects/glitchText';
 
 export default function Home() {
 	return (
-		<main className="flex h-screen flex-col justify-center lg:px-24 px-16">
-			<h1 className="lg:mb-8 md:mb-6 mb-4">cod3d.dev</h1>
+		<main className="h-full flex flex-col justify-center my-auto md:pl-24 sm:pl-16 pl-8">
+			<h1>cod3d.dev</h1>
+
 			<p className="whitespace-pre">
 				<span>Probably trying to hack you. </span>
 				<br className="sm:hidden" />
 				<span>Or sleeping.</span>
+				<br />
+				<GlitchText as="span" text="Or both." />
 			</p>
-			<GlitchText as="p" text="Or both." />
+
 			<div className="absolute inset-0 right-0 -z-10 overflow-hidden">
 				<div
-					className="animate-spin [animation-duration:32s] relative h-full aspect-square ml-32 sm:ml-auto
-                sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]"
+					className="relative h-full aspect-square sm:ml-auto
+                    animate-spin [animation-duration:32s]
+                    sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]"
 				>
 					<Image
 						priority

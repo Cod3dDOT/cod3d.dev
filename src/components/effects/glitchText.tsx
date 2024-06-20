@@ -14,7 +14,7 @@ export const GlitchText: React.FC<GlitchTextProps> = ({
 	const As = as;
 	return (
 		<As className={clsx(className, 'glitch')} data-text={text}>
-			<span>{text}</span>
+			{text}
 		</As>
 	);
 };
