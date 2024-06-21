@@ -15,11 +15,11 @@ h2 {
 }
 
 h3 {
-	@apply md:text-[4rem] sm:text-[2.83rem] text-[2rem];
+	@apply md:text-[2.83rem] sm:text-[2rem] text-[1.44rem];
 }
 
 h4 {
-	@apply md:text-[2.83rem] sm:text-[2rem] text-[1.44rem];
+	@apply md:text-[2rem] sm:text-[1.44rem] text-[1.22rem];
 }
 
 p,

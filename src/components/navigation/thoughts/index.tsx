@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import ChevronIcon from '@/components/icons/chevron';
 import { Thought } from '@/lib/pocketbase/types';
 
 import { SpotlightCard } from '../../effects/spotlightCard';

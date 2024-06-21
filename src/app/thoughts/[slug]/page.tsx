@@ -29,8 +29,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	const thought = await getThought(params.slug);
 
 	return (
-		<div className="font-roboto relative xl:flex sm:mt-24 mt-8 container mx-auto pl-4 sm:pr-16 pr-12">
-			<TableofContents className="sticky top-24 self-start h-auto" />
+		<div className="relative xl:flex sm:mt-24 mt-8 container mx-auto">
+			{/* <TableofContents className="sticky top-24 self-start h-auto" /> */}
 			<div className="max-w-[100ch] mx-auto">
 				<Link
 					href={'/thoughts'}
@@ -40,7 +40,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 					<span>All thoughts</span>
 				</Link>
 
-				<article className="prose max-w-full dark:prose-invert prose-img:w-full">
+				<article className="prose max-w-full dark:prose-invert prose-img:w-full prose-p:font-roboto prose-p:leading-relaxed">
 					<h1 className="md:w-4/5">{thought.name}</h1>
 					<ThoughtBody thought={thought} />
 				</article>

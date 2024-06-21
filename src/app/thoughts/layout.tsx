@@ -28,7 +28,7 @@ export default function ThoughtsLayout({
 				className={clsx(
 					roboto.variable,
 					poppins.variable,
-					'relative bg-background'
+					'relative bg-background md:px-24 px-10'
 				)}
 			>
 				{children}

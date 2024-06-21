@@ -76,8 +76,8 @@ export function SpotlightCard({
 		<Tilt
 			glareEnable={true}
 			glareBorderRadius="0.75rem"
-			tiltMaxAngleX={4}
-			tiltMaxAngleY={4}
+			tiltMaxAngleX={3}
+			tiltMaxAngleY={3}
 			className={className}
 		>
 			<Component

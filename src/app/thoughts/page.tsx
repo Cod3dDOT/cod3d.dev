@@ -28,7 +28,7 @@ const ThoughtsPage: React.FC = async () => {
 	const thoughts = await getThoughts(1, 20);
 
 	return (
-		<div className="font-poppins md:px-24 px-10">
+		<div className="font-poppins">
 			<ThoughtsTextReveal />
 			<Years thoughts={thoughts} />
 		</div>
