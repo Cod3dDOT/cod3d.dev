@@ -34,20 +34,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			<div className="max-w-[100ch] mx-auto">
 				<Link
 					href={'/thoughts'}
-					className="flex items-center space-x-2 mb-8 group"
+					className="flex items-center space-x-2 mb-8 group hover:underline"
 				>
 					<ChevronIcon className="h-full aspect-square fill-foreground rotate-180" />
 					<span>All thoughts</span>
 				</Link>
 
-				<article className="prose max-w-full dark:prose-invert prose-img:w-full prose-p:font-roboto prose-p:leading-relaxed">
+				<article className="prose max-w-full dark:prose-invert prose-img:w-full prose-p:font-roboto prose-p:leading-relaxed prose-ul:font-roboto">
 					<h1 className="md:w-4/5">{thought.name}</h1>
 					<ThoughtBody thought={thought} />
 				</article>
 
 				<Link
 					href={'/thoughts'}
-					className="flex items-center space-x-2 mt-8 group"
+					className="flex items-center space-x-2 mt-8 group hover:underline"
 				>
 					<ChevronIcon className="h-full aspect-square fill-foreground rotate-180" />
 					<span>All thoughts</span>
