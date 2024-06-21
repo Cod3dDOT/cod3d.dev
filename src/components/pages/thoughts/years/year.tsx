@@ -33,7 +33,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 						from={colors.from[index]}
 						via={colors.to[index]}
 						size={200}
-						className="rounded-xl overflow-hidden grid-item bg-background-dark/50"
+						className="relative rounded-xl overflow-hidden grid-item bg-background-dark/50"
 					>
 						<Link
 							href={'/thoughts/' + th.slug}
@@ -54,7 +54,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 							from="#fff"
 							via="#222"
 							size={200}
-							className="rounded-xl overflow-hidden grid-item bg-background-dark/50"
+							className="relative rounded-xl overflow-hidden grid-item bg-background-dark/50"
 							key={year + '-coming-soon-' + i}
 						>
 							<div
