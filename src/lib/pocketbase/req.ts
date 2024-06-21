@@ -3,6 +3,7 @@ import { getPB } from './config';
 
 export async function getThought(slug: string) {
 	const pb = await getPB();
+
 	const items = (
 		await pb.collection('thoughts').getList(1, 1, { filter: `slug='${slug}'` })
 	).items;
