@@ -63,7 +63,7 @@ function CSP(request: NextRequest) {
 	const hashes = {
 		script: [
 			"'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='", //json-ld inline script
-			"'sha512-t0U1o2XEx0ovnacdC+pb46gdd2jBBs1Unz9M+6K7qQSYxscbOoQSNso6hXFbt5A+N1u8UzakhEUlmj9tly4tZA=='", //cloudlflare email-encoder
+			"'sha512-Y/D2+U+6utw/d0zKpqQBaW6KdlGgdLwHfSFPkdoICzZxT9eZ60D+1kFUlyAI40/HM9buMUrGdXJ7N7WP++vr7g=='", //cloudlflare email-encoder
 			process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
 		],
 		style:

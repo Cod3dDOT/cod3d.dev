@@ -8,7 +8,6 @@ import { Pixelify_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import { Cursor } from '@/components/cursor';
-import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { Navigation } from '@/components/navigation';
 import { FadeTransition } from '@/components/transitions';
 import { nonce } from '@/lib/nonce';
@@ -98,7 +97,7 @@ export default async function RootLayout({
 					nonce={_nonce}
 				/>
 			</head>
-			<body className={clsx(font.variable, 'font-pixelify bg-grainy')}>
+			<body className={clsx(font.variable, 'font-pixelify')}>
 				<script
 					nonce={_nonce}
 					type="application/ld+json"
@@ -106,7 +105,6 @@ export default async function RootLayout({
 				/>
 
 				<ThemeProvider attribute="class">
-					<GrainyBackground />
 					<Cursor />
 					<Navigation />
 					<ReactLenis root>

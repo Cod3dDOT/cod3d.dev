@@ -20,6 +20,17 @@ export function randomIntFromInterval(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+export function remapRange(
+	value: number,
+	fromMin: number,
+	fromMax: number,
+	toMin: number,
+	toMax: number
+): number {
+	const proportion = (value - fromMin) / (fromMax - fromMin);
+	return toMin + proportion * (toMax - toMin);
+}
+
 export function stringToUniqueId(str: string, seed = 0) {
 	let h1 = 0xdeadbeef ^ seed,
 		h2 = 0x41c6ce57 ^ seed;

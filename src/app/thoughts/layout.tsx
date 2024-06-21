@@ -23,11 +23,17 @@ export default function ThoughtsLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div>
-			<main className={clsx(roboto.variable, poppins.variable)}>
+		<>
+			<main
+				className={clsx(
+					roboto.variable,
+					poppins.variable,
+					'relative bg-background'
+				)}
+			>
 				{children}
 			</main>
 			<Footer />
-		</div>
+		</>
 	);
 }

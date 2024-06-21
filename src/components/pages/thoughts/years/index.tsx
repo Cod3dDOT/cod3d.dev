@@ -49,13 +49,6 @@ export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
 						</div>
 					);
 				})}
-				<div
-					className="w-full h-screen flex flex-col justify-center items-center
-                                lg:text-8xl md:text-6xl text-3xl text-center"
-				>
-					<span>You told me once to forget the</span>
-					<GlitchText text="past" as="span" />
-				</div>
 			</div>
 		</div>
 	);

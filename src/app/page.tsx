@@ -3,10 +3,12 @@ import Image from 'next/image';
 import Blue from '@/../public/blue.webp';
 import Yellow from '@/../public/yellow.webp';
 import { GlitchText } from '@/components/effects/glitchText';
+import { GrainyBackground } from '@/components/effects/grainyBackground';
 
 export default function Home() {
 	return (
-		<main className="h-full flex flex-col justify-center my-auto md:pl-24 sm:pl-16 pl-8">
+		<main className="h-full flex flex-col justify-center my-auto md:pl-24 sm:pl-16 pl-8 bg-grainy">
+			<GrainyBackground />
 			<h1>cod3d.dev</h1>
 
 			<p className="whitespace-pre">

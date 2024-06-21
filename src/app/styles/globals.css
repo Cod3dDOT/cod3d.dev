@@ -4,12 +4,18 @@
 
 :root {
 	--foreground: 18 18 18;
-	--background: 232 232 232;
+	--background-dark: 232 232 232;
+	--background: 220 220 220;
 }
 
 .dark {
 	--foreground: 232 232 232;
-	--background: 18 18 18;
+	--background-dark: 18 18 18;
+	--background: 34 34 34;
+}
+
+div {
+	display: block;
 }
 
 @layer components {
@@ -29,7 +35,7 @@
 	}
 
 	.dark .bg-grainy::before {
-		@apply bg-background;
+		@apply bg-background-dark;
 		filter: url(#noiseFilter-dark);
 	}
 
