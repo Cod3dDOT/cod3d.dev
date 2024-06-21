@@ -65,7 +65,7 @@ function CSP(request: NextRequest) {
 	const hashes = {
 		script: [
 			"'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='", //json-ld inline script
-			"'sha512-Y/D2+U+6utw/d0zKpqQBaW6KdlGgdLwHfSFPkdoICzZxT9eZ60D+1kFUlyAI40/HM9buMUrGdXJ7N7WP++vr7g=='", //cloudlflare email-encoder
+			"'sha256-RrWaxIcrjb6FTcxav9mgXg/7RKhvienU87nevi8qpKg='", //cloudlflare email-encoder
 			process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
 		],
 		style:
@@ -75,15 +75,10 @@ function CSP(request: NextRequest) {
 						`'nonce-${nonce}'`,
 
 						// thoughts
-						"'sha256-p5fT26BhfGylOMxUbZPQGLLMIINdn1Qi1BstkBu2BAI='",
-						"'sha256-ZiXsiWEALLPx8KA8m3wSq6UcslHpp8j7J0Y6kh/fPAs='",
-						"'sha256-3EP1piOo/O4YWqWO7mQYW6fCsMcX8uB/C/w3Cgomac4='",
+						"'sha256-OTVileWRHQBTssRl6xTJoqzuFy52bistW+wWChzVKKw='",
 						"'sha256-OXJWNkqOzUVYLtMkGQ9uevLQsgCZb/Y+Q6ypWpD5ai8='",
-						"'sha256-odk0BmJy3MXU8EjWAL5kY7FjyAMINYkhOAqyWayW568='",
-						"'sha256-NYltNzbRNYMdwcHJGw0xgGYOrCzt+ZZbUjmmLjuDZIc='",
-						"'sha256-4/2nIlfwIVTJ1+JcNQ6LkeVWzNS148LKAJeL5yofdN4='",
-						"'sha256-X516qlcIbAVEwajCVsxxTXmkjhjG3LJElgnVHG6QJx8='",
-						"'sha256-3wSsD5MOSyrZmjlU/4s1vYNCz/6zIOUxSyl3eNTNL1s='",
+						"'sha256-3EP1piOo/O4YWqWO7mQYW6fCsMcX8uB/C/w3Cgomac4='",
+						"'sha256-YgvMKfdTn4s8rWkq5cXyxs8ggVxB3FbMNm2Wa8gzeqw='",
 
 						// homepage
 						"'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='",

@@ -1,34 +1,14 @@
-.masonry {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(100px, 1fr));
-	@apply gap-1;
-}
-
-@media (min-width: 768px) {
-	.masonry {
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		@apply gap-2;
-	}
-}
-
-@media (min-width: 1280px) {
-	.masonry {
-		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-	}
-}
-
 .grid-item-inner {
 	background-size: 500% 500%;
 	background-image: linear-gradient(
 		to bottom right,
-		var(--from),
-		var(--to),
+		var(--gradient-from),
+		var(--gradient-to),
 		rgb(var(--background)),
 		rgb(var(--background)),
 		rgb(var(--foreground))
 	);
 	background-position: 66%;
-	@apply transition-all rounded-lg flex justify-center items-center md:p-8 p-4;
 }
 
 .grid-item-inner:hover {
@@ -36,14 +16,23 @@
 }
 
 .grid-item {
+	--gradient-from: rgb(var(--background));
+	--gradient-to: rgb(var(--background-dark));
+	--spotlight-from: rgb(var(--foreground));
 	@apply row-span-2 md:row-span-1;
 }
 
 .grid-item:nth-child(7n + 1) {
+	--gradient-from: rgb(141, 141, 225);
+	--gradient-to: rgb(70, 101, 202);
+	--spotlight-from: var(--gradient-from);
 	@apply col-span-2 row-span-1;
 }
 
 .grid-item:nth-child(7n + 2) {
+	--gradient-from: rgb(214, 141, 225);
+	--gradient-to: rgb(156, 70, 202);
+	--spotlight-from: var(--gradient-from);
 	@apply col-span-1 row-span-2;
 }
 

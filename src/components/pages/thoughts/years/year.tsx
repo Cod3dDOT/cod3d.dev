@@ -11,11 +11,6 @@ type ThoughtsBodyProps = {
 	className?: string;
 };
 
-const colors = {
-	from: ['rgb(141, 141, 225)', 'rgb(214, 141, 225)'],
-	to: ['rgb(70, 101, 202)', 'rgb(156, 70, 202)']
-};
-
 export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 	year,
 	thoughts,
@@ -23,26 +18,28 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 }) => {
 	const _nonce = await nonce();
 
+	const gridClasses =
+		'grid h-screen gap-1 grid-cols-[repeat(2,minmax(100px,1fr))] ' +
+		'md:gap-2 md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] ' +
+		'xl:grid-cols-[repeat(auto-fit,minmax(400px,1fr))]';
+	const cardClasses =
+		'grid-item relative rounded-xl overflow-hidden bg-background-dark/50';
+	const contentClasses =
+		'grid-item-inner absolute flex inset-1 justify-center items-center transition-all rounded-lg md:p-8 p-4';
+
 	return (
-		<div className="space-y-10">
+		<div className="space-y-10 py-8">
 			<h2>{year}</h2>
-			<div className={clsx('masonry h-screen text-5xl', className)}>
-				{thoughts.map((th, index) => (
+			<div className={clsx(gridClasses, className)}>
+				{thoughts.map((th) => (
 					<SpotlightCard
 						nonce={_nonce}
-						from={colors.from[index]}
-						via={colors.to[index]}
+						from="var(--spotlight-from)"
 						size={200}
-						className="relative rounded-xl overflow-hidden grid-item bg-background-dark/50"
+						key={th.id}
+						className={cardClasses}
 					>
-						<Link
-							href={'/thoughts/' + th.slug}
-							key={th.id}
-							className="absolute inset-1 grid-item-inner"
-							nonce={_nonce}
-							// @ts-ignore
-							style={{ '--from': colors.from[index], '--to': colors.to[index] }}
-						>
+						<Link href={'/thoughts/' + th.slug} className={contentClasses}>
 							<h4>{th.name}</h4>
 						</Link>
 					</SpotlightCard>
@@ -51,20 +48,12 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 					return (
 						<SpotlightCard
 							nonce={_nonce}
-							from="#fff"
-							via="#222"
+							from="var(--spotlight-from)"
 							size={200}
-							className="relative rounded-xl overflow-hidden grid-item bg-background-dark/50"
+							className={cardClasses}
 							key={year + '-coming-soon-' + i}
 						>
-							<div
-								className="absolute inset-1 grid-item-inner"
-								nonce={_nonce}
-								// @ts-ignore
-								style={{ '--from': '#222', '--to': '#222' }}
-							>
-								???
-							</div>
+							<div className={contentClasses}>???</div>
 						</SpotlightCard>
 					);
 				})}

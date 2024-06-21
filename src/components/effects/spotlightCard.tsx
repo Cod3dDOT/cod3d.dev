@@ -22,7 +22,7 @@ interface SpotlightCardProps {
 }
 
 export function SpotlightCard({
-	nonce,
+	nonce = '',
 	as: Component = 'div',
 	from = 'rgba(255,255,255,0.8)',
 	via = null,
@@ -55,16 +55,17 @@ export function SpotlightCard({
 
 	const classes =
 		mode === 'before'
-			? `before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--x)_var(--y),var(--spotlight-color-stops))]`
-			: `after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--x)_var(--y),var(--spotlight-color-stops))]`;
+			? `before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]`
+			: `after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]`;
 
 	if (mobile) {
 		return (
 			<Component
+				nonce={nonce}
 				className={clsx('bg-background', classes, className)}
 				style={{
-					'--x': `0px`,
-					'--y': `0px`,
+					'--spotlight-x': `0px`,
+					'--spotlight-y': `0px`,
 					'--spotlight-color-stops': spotlightColorStops,
 					'--spotlight-size': `${size}px`
 				}}
@@ -85,14 +86,11 @@ export function SpotlightCard({
 			<Component
 				nonce={nonce}
 				ref={container}
-				className={clsx(
-					'relative transform-gpu overflow-hidden h-full',
-					classes
-				)}
+				className={clsx('relative transform-gpu h-full', classes)}
 				{...props}
 				style={{
-					'--x': `${elX}px`,
-					'--y': `${elY}px`,
+					'--spotlight-x': `${elX}px`,
+					'--spotlight-y': `${elY}px`,
 					'--spotlight-color-stops': spotlightColorStops,
 					'--spotlight-size': `${size}px`
 				}}
