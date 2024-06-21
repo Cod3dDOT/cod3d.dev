@@ -62,7 +62,8 @@ function CSP(request: NextRequest) {
 
 	const hashes = {
 		script: [
-			"'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='",
+			"'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='", //json-ld inline script
+			"'sha512-t0U1o2XEx0ovnacdC+pb46gdd2jBBs1Unz9M+6K7qQSYxscbOoQSNso6hXFbt5A+N1u8UzakhEUlmj9tly4tZA=='", //cloudlflare email-encoder
 			process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
 		],
 		style:
@@ -82,7 +83,7 @@ function CSP(request: NextRequest) {
 	const cspHeader = `
         default-src 'self';
         connect-src 'self' api-gateway.umami.dev;
-        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
+        script-src 'self' cod3d.dev 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
         style-src 'self' ${hashes.style.join(' ')} 'unsafe-hashes';
         img-src 'self' blob: data:;
         font-src 'self';
@@ -123,7 +124,10 @@ function CSP(request: NextRequest) {
 function PERMISSIONS(response: NextResponse) {
 	response.headers.set(
 		'Permissions-Policy',
-		'fullscreen=(self),picture-in-picture=(self)'
+		'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),' +
+			'accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),' +
+			'camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),' +
+			'midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
 	);
 	return response;
 }
