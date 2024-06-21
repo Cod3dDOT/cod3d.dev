@@ -7,6 +7,7 @@ import Tilt from 'react-parallax-tilt';
 import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
 
 interface SpotlightCardProps {
+	nonce?: string;
 	as?: React.ElementType;
 	from?: string;
 	via?: string | null;
@@ -21,6 +22,7 @@ interface SpotlightCardProps {
 }
 
 export function SpotlightCard({
+	nonce,
 	as: Component = 'div',
 	from = 'rgba(255,255,255,0.8)',
 	via = null,
@@ -81,6 +83,7 @@ export function SpotlightCard({
 			className={className}
 		>
 			<Component
+				nonce={nonce}
 				ref={container}
 				className={clsx(
 					'relative transform-gpu overflow-hidden h-full',

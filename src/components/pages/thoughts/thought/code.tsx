@@ -45,7 +45,7 @@ export const Code: React.FC<CodeProps> = ({ code, language, filename }) => {
 	const onCopyClick = () => copy(code);
 
 	return (
-		<div className="*:m-0 border-2 dark:border-background border-foreground rounded-lg">
+		<div className="*:m-0 border-2 dark:border-background-dark border-foreground rounded-lg">
 			<div className="flex justify-between p-4">
 				<p className="m-0">{filename}</p>
 				<button onClick={onCopyClick}>

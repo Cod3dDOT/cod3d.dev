@@ -4,6 +4,7 @@ import ChevronIcon from '@/components/icons/chevron';
 import { ThoughtBody } from '@/components/pages/thoughts/thought/body';
 import { TableofContents } from '@/components/pages/thoughts/thought/tableOfContents';
 import { getThought } from '@/lib/pocketbase/req';
+import { nonce } from '@/lib/nonce';
 
 export async function generateMetadata({
 	params
@@ -27,6 +28,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const thought = await getThought(params.slug);
+	const _nonce = await nonce();
 
 	return (
 		<div className="relative xl:flex sm:mt-24 mt-8 container mx-auto">
@@ -40,7 +42,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
 					<span>All thoughts</span>
 				</Link>
 
-				<article className="prose max-w-full dark:prose-invert prose-img:w-full prose-p:font-roboto prose-p:leading-relaxed prose-ul:font-roboto">
+				<article
+					nonce={_nonce}
+					className="prose max-w-full dark:prose-invert prose-img:w-full prose-p:font-roboto prose-p:leading-relaxed prose-ul:font-roboto"
+				>
 					<h1 className="md:w-4/5">{thought.name}</h1>
 					<ThoughtBody thought={thought} />
 				</article>

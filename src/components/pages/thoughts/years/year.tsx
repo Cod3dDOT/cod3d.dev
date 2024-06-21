@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { Thought } from '@/lib/pocketbase/types';
 import { SpotlightCard } from '@/components/effects/spotlightCard';
+import { nonce } from '@/lib/nonce';
 
 type ThoughtsBodyProps = {
 	year: number;
@@ -15,17 +16,20 @@ const colors = {
 	to: ['rgb(70, 101, 202)', 'rgb(156, 70, 202)']
 };
 
-export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
+export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 	year,
 	thoughts,
 	className
 }) => {
+	const _nonce = await nonce();
+
 	return (
 		<div className="space-y-10">
 			<h2>{year}</h2>
 			<div className={clsx('masonry h-screen text-5xl', className)}>
 				{thoughts.map((th, index) => (
 					<SpotlightCard
+						nonce={_nonce}
 						from={colors.from[index]}
 						via={colors.to[index]}
 						size={200}
@@ -35,6 +39,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 							href={'/thoughts/' + th.slug}
 							key={th.id}
 							className="absolute inset-1 grid-item-inner"
+							nonce={_nonce}
 							// @ts-ignore
 							style={{ '--from': colors.from[index], '--to': colors.to[index] }}
 						>
@@ -45,6 +50,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 				{Array.from({ length: 7 - thoughts.length }).map((v, i) => {
 					return (
 						<SpotlightCard
+							nonce={_nonce}
 							from="#fff"
 							via="#222"
 							size={200}
@@ -53,6 +59,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 						>
 							<div
 								className="absolute inset-1 grid-item-inner"
+								nonce={_nonce}
 								// @ts-ignore
 								style={{ '--from': '#222', '--to': '#222' }}
 							>
