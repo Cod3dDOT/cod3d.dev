@@ -6,13 +6,6 @@ import { getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
 import { Footer } from '@/components/footer';
 
-// const poppins = Poppins({
-// 	subsets: ['latin'],
-// 	weight: ['100', '300', '400', '500', '700', '900'],
-// 	display: 'swap',
-// 	variable: '--font-poppins'
-// });
-
 export const metadata: Metadata = {
 	title: "cod3d's thoughts",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',

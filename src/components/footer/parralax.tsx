@@ -15,7 +15,7 @@ export const AsideFooter: React.FC<{
 	useLenis(
 		({ progress: p }) => {
 			if (p < 0.8) return;
-			const mapped = remapRange(p, 0.85, 1, 100, 10);
+			const mapped = remapRange(p, 0.85, 1, 100, 0);
 			if (Math.abs(mapped - progress) < 0.5) return;
 			setProgress(mapped);
 		},
@@ -23,7 +23,7 @@ export const AsideFooter: React.FC<{
 	);
 
 	return (
-		<aside className="sticky bottom-0 w-full bg-background-dark pb-16 -z-10 overflow-clip">
+		<aside className="sticky bottom-0 w-full bg-background-dark py-16 -z-10 overflow-clip">
 			<div
 				style={{
 					transform: `translate3d(0px, ${progress}%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`
@@ -39,8 +39,9 @@ export const AsideFooter: React.FC<{
 				<Image
 					src={sprite}
 					alt={pokemon}
-					width={300}
-					height={300}
+					width={96}
+					height={96}
+					quality={100}
 					className="w-[50vw] max-w-96 pixelated"
 				/>
 			</div>

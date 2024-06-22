@@ -68,11 +68,15 @@ function CSP(request: NextRequest) {
 			"'sha256-RrWaxIcrjb6FTcxav9mgXg/7RKhvienU87nevi8qpKg='", //cloudlflare email-encoder
 			process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
 		],
+		// unsafe-inline will override nonce and any hashes
 		style:
 			process.env.NODE_ENV === 'development' || isThought
 				? ["'unsafe-inline'"]
 				: [
 						`'nonce-${nonce}'`,
+
+						//footer
+						"'sha256-ghnKJ/662EJZRba76TruWSR3DJgZoQvivmvkW8gdOKo='",
 
 						// thoughts
 						"'sha256-OTVileWRHQBTssRl6xTJoqzuFy52bistW+wWChzVKKw='",
