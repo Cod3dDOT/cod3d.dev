@@ -15,7 +15,7 @@ const NavContactsShowcase: React.FC = () => {
 						className="w-full h-full fill-foreground"
 					/>
 				</ContactLink>
-				<ContactLink href="mailto:cod3ddot@proton.me" text="Mail">
+				<ContactLink href="mailto:dot@cod3d.dev" text="Mail">
 					<MailIcon
 						aria-hidden="true"
 						focusable="false"
