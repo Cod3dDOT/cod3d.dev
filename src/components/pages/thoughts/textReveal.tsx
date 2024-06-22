@@ -101,7 +101,7 @@ export const ThoughtsTextReveal = () => {
 	return (
 		<TextReveal
 			body={"Archiving thoughts so that my brain doesn't have to"}
-			className="relative h-[200vh] text-foreground w-full max-w-[96rem]"
+			className="font-poppins relative h-[200vh] text-foreground w-full max-w-[96rem]"
 		>
 			{(tokens, progress, skip) => (
 				<div className="sticky top-0 flex h-screen items-center">

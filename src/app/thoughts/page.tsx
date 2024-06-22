@@ -3,6 +3,15 @@ import { Metadata } from 'next';
 import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
 import { Years } from '@/components/pages/thoughts/years';
 import { getThoughts } from '@/lib/pocketbase/req';
+import { ReactLenis } from '@/lib/lenis';
+import { Footer } from '@/components/footer';
+
+// const poppins = Poppins({
+// 	subsets: ['latin'],
+// 	weight: ['100', '300', '400', '500', '700', '900'],
+// 	display: 'swap',
+// 	variable: '--font-poppins'
+// });
 
 export const metadata: Metadata = {
 	title: "cod3d's thoughts",
@@ -28,10 +37,13 @@ const ThoughtsPage: React.FC = async () => {
 	const thoughts = await getThoughts(1, 20);
 
 	return (
-		<div className="font-poppins">
-			<ThoughtsTextReveal />
-			<Years thoughts={thoughts} />
-		</div>
+		<ReactLenis root>
+			<main className="bg-background md:px-24 px-10 relative">
+				<ThoughtsTextReveal />
+				<Years thoughts={thoughts} />
+			</main>
+			<Footer />
+		</ReactLenis>
 	);
 };
 

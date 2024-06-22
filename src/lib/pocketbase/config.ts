@@ -15,7 +15,7 @@ export const getPB = async () => {
 	if (pb && pb.authStore.isValid) return pb;
 
 	pb = new PocketBase(pbUrl) as TypedPocketBase;
-	if (process.env.NODE_ENV === 'development') pb.autoCancellation(false);
+	pb.autoCancellation(false); // if (process.env.NODE_ENV === 'development')
 
 	const authData = await pb
 		.collection('users')

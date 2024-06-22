@@ -107,9 +107,8 @@ export default async function RootLayout({
 				<ThemeProvider attribute="class">
 					<Cursor />
 					<Navigation />
-					<ReactLenis root>
-						<FadeTransition>{children}</FadeTransition>
-					</ReactLenis>
+
+					<FadeTransition>{children}</FadeTransition>
 				</ThemeProvider>
 			</body>
 		</html>

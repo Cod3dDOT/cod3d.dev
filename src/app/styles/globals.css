@@ -42,4 +42,10 @@ div {
 	.bg-not-grainy::before {
 		@apply !bg-transparent !filter-none;
 	}
+
+	.pixelated {
+		image-rendering: pixelated;
+		image-rendering: -moz-crisp-edges;
+		image-rendering: crisp-edges;
+	}
 }

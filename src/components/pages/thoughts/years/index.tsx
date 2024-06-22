@@ -18,7 +18,7 @@ export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
 	);
 
 	return (
-		<div className="font-pixelify mt-8">
+		<div className="mt-8">
 			{Object.keys(thoughtsByYears).map((key) => {
 				return (
 					<div key={key} className="w-full">

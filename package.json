@@ -7,6 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
+		"generate-pokemons": "node scripts/generate-poke.mjs",
 		"format": "prettier --check .",
 		"format:fix": "prettier --write --list-different .",
 		"analyze": "cross-env ANALYZE=true pnpm build"
@@ -32,6 +33,7 @@
 		"tailwind-merge": "^2.3.0"
 	},
 	"devDependencies": {
+		"colorthief": "^2.4.0",
 		"@pyncz/tailwind-mask-image": "^2.0.0",
 		"@tailwindcss/typography": "^0.5.13",
 		"@types/node": "^20.14.7",
