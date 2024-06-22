@@ -1,6 +1,6 @@
 //read file from public folder
 import { stringToUniqueId } from '@/lib/math';
-import { pb } from '@/lib/pocketbase/config';
+import { getPB } from '@/lib/pocketbase/config';
 import fs from 'fs';
 import { redirect } from 'next/navigation';
 import path from 'path';
@@ -16,10 +16,11 @@ export async function GET(request: Request) {
 		redirect('/404');
 	}
 
-	if (
-		request.headers.get('X-S') !==
-		stringToUniqueId(pb.authStore.token).toString()
-	) {
+	const hashedToken = stringToUniqueId(
+		(await getPB()).authStore.token
+	).toString();
+
+	if (request.headers.get('X-S') !== hashedToken) {
 		redirect('/404');
 	}
 

@@ -1,6 +1,6 @@
 import { getBaseUrl } from './getUrl';
 import { stringToUniqueId } from './math';
-import { pb } from './pocketbase/config';
+import { getPB } from './pocketbase/config';
 
 export interface Pokemon {
 	name: string;
@@ -12,7 +12,7 @@ export interface Pokemon {
 export async function getRandomPokemon(): Promise<Pokemon> {
 	const url = getBaseUrl() + '/api/poke';
 
-	const hashedToken = stringToUniqueId(pb.authStore.token);
+	const hashedToken = stringToUniqueId((await getPB()).authStore.token);
 
 	const pokemon = await (
 		await fetch(url, {
