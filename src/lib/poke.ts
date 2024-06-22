@@ -1,6 +1,9 @@
-import { getBaseUrl } from './getUrl';
-import { stringToUniqueId } from './math';
-import { getPB } from './pocketbase/config';
+import fs from 'fs';
+import path from 'path';
+
+const __dirname = path.resolve('./public');
+const filePath = path.join(__dirname, 'pokemon.json');
+const mons = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 export interface Pokemon {
 	name: string;
@@ -10,20 +13,8 @@ export interface Pokemon {
 }
 
 export async function getRandomPokemon(): Promise<Pokemon> {
-	const url = getBaseUrl() + '/api/poke';
-
-	const hashedToken = stringToUniqueId((await getPB()).authStore.token);
-
-	console.log(hashedToken);
-
-	const pokemon = await (
-		await fetch(url, {
-			method: 'GET',
-			cache: 'no-cache',
-			// @ts-expect-error
-			headers: { accept: 'application/json', 'X-S': hashedToken }
-		})
-	).json();
+	const index = Math.floor(Math.random() * mons.length);
+	const pokemon = mons[index];
 
 	return {
 		name: pokemon.n,
