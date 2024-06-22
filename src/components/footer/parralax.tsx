@@ -14,9 +14,9 @@ export const AsideFooter: React.FC<{
 	const [progress, setProgress] = useState(0);
 	useLenis(
 		({ progress: p }) => {
-			if (p < 0.8) return;
-			const mapped = remapRange(p, 0.8, 1, 100, 0);
-			if (Math.abs(mapped - progress) < 0.25) return;
+			if (p < 0.5) return;
+			const mapped = remapRange(p, 0.5, 1, 100, 0);
+			if (Math.abs(mapped - progress) < 0.5) return;
 			setProgress(mapped);
 		},
 		[progress]

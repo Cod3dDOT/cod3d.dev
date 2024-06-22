@@ -42,7 +42,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	const _nonce = await nonce();
 
 	return (
-		<ReactLenis root>
+		<ReactLenis root options={{ syncTouch: true }}>
 			<main
 				className={clsx(
 					roboto.variable,
