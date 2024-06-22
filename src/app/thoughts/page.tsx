@@ -30,7 +30,7 @@ const ThoughtsPage: React.FC = async () => {
 	const thoughts = await getThoughts(1, 20);
 
 	return (
-		<ReactLenis root options={{ syncTouch: true }}>
+		<ReactLenis root>
 			<main className="bg-background md:px-24 px-10 relative">
 				<ThoughtsTextReveal />
 				<Years thoughts={thoughts} />
