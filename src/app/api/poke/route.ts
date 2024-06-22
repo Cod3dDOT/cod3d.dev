@@ -20,6 +20,8 @@ export async function GET(request: Request) {
 		(await getPB()).authStore.token
 	).toString();
 
+	console.log(request.headers.get('X-S'), hashedToken);
+
 	if (request.headers.get('X-S') !== hashedToken) {
 		redirect('/404');
 	}

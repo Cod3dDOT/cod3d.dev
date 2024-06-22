@@ -14,6 +14,8 @@ export async function getRandomPokemon(): Promise<Pokemon> {
 
 	const hashedToken = stringToUniqueId((await getPB()).authStore.token);
 
+	console.log(hashedToken);
+
 	const pokemon = await (
 		await fetch(url, {
 			method: 'GET',
