@@ -17,7 +17,7 @@ export const SectionLink: React.FC<{ link: string; text: string }> = ({
 				<ChevronIcon className="absolute aspect-square h-full fill-foreground animate-arrows delay-75" />
 			</div>
 			<span
-				className="absolute left-0 bottom-0 bg-foreground mix-blend-exclusion w-0 h-2 transition-all
+				className="absolute left-0 bottom-0 bg-white dark:mix-blend-exclusion mix-blend-multiply w-0 h-2 transition-all
                             group-hover:animate-link-hover"
 			/>
 		</Link>
