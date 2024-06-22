@@ -56,18 +56,18 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 	useAutoClose({ setOpened, menu });
 
 	return (
-		<nav className="relative" role="navigation z-50">
+		<nav className="relative" role="navigation z-40">
 			<div
 				className={clsx(
 					'fixed inset-0 hidden lg:block -z-10 opacity-0 duration-300 bg-black transition-all',
-					opened && 'opacity-10 z-10 right-1/2'
+					opened && 'opacity-10 z-50 right-1/2'
 				)}
 			/>
 
 			<div
 				ref={menu}
 				className={clsx(
-					'z-10 fixed flex transition-transform duration-300 will-change-transform inset-0 xl:left-1/2',
+					'z-50 fixed flex transition-transform duration-300 will-change-transform inset-0 xl:left-1/2',
 					'bg-background bg-grainy md:bg-not-grainy md:bg-transparent md:backdrop-blur-xl',
 					opened
 						? 'translate-x-0'
@@ -154,9 +154,9 @@ const MobileOpener: React.FC<{
 	return (
 		<div
 			className={clsx(
-				'flex sm:hidden absolute w-screen p-4 space-x-2 z-20',
+				'flex sm:hidden absolute p-4 space-x-2 z-20',
 				'transition-transform duration-300 will-change-transform',
-				!opened && '-translate-x-full'
+				!opened ? '-translate-x-full' : 'translate-x-[calc(100vw-100%)]'
 			)}
 		>
 			<Link
@@ -183,12 +183,6 @@ const MobileOpener: React.FC<{
 				/>
 				<span className="sr-only">Toggle the navigation drawer</span>
 			</button>
-			<span
-				className={clsx(
-					'absolute bottom-0 left-0 h-full bg-background bg-grainy w-full !m-0 border-b-2 border-foreground -z-10 duration-300 transition-transform',
-					!opened ? 'translate-x-full' : 'translate-x-0'
-				)}
-			/>
 		</div>
 	);
 };
