@@ -76,7 +76,7 @@ function CSP(request: NextRequest) {
 						`'nonce-${nonce}'`,
 
 						//footer
-						"'sha256-AFGlUGbG/bsVEGbOIOTairxQG687KEs5QjLLsOnsibI='",
+						"'sha256-FB+gwYNuBu292uRAiuqeyxcsdZUjxEAq65OOIHINA3s='",
 
 						// thoughts
 						"'sha256-OTVileWRHQBTssRl6xTJoqzuFy52bistW+wWChzVKKw='",
