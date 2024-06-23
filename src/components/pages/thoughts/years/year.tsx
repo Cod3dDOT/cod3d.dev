@@ -33,6 +33,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 			<div className={clsx(gridClasses, className)}>
 				{thoughts.map((th) => (
 					<SpotlightCard
+						id={`year-${year}-thought-${th.id}`}
 						nonce={_nonce}
 						from="var(--spotlight-from)"
 						size={200}
@@ -47,6 +48,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 				{Array.from({ length: 7 - thoughts.length }).map((v, i) => {
 					return (
 						<SpotlightCard
+							id={`year-${year}-unknown-${i}`}
 							nonce={_nonce}
 							from="var(--spotlight-from)"
 							size={200}

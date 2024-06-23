@@ -2,9 +2,10 @@
 
 import AnimatedCursor from './AnimatedCursor';
 
-export const Cursor = () => {
+export const Cursor: React.FC<{ nonce?: string }> = ({ nonce }) => {
 	return (
 		<AnimatedCursor
+			nonce={nonce}
 			color="255,255,255"
 			trailingSpeed={1}
 			innerSize={8}

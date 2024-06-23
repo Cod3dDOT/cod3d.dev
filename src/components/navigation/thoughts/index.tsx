@@ -4,6 +4,7 @@ import { Thought } from '@/lib/pocketbase/types';
 
 import { SpotlightCard } from '../../effects/spotlightCard';
 import { SectionLink } from '../section-link';
+import { nonce } from '@/lib/nonce';
 
 const dateToString = (date: string) => {
 	const d = new Date(date);
@@ -14,9 +15,11 @@ const dateToString = (date: string) => {
 	});
 };
 
-const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = ({
+const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = async ({
 	thoughts
 }) => {
+	const _nonce = await nonce();
+
 	return (
 		<section>
 			<SectionLink link="/thoughts" text="Thoughts" />
@@ -33,6 +36,8 @@ const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = ({
 							className="cursor-thoughts-nav"
 						>
 							<SpotlightCard
+								id={'spotlight-nav-thoughts-' + thought.id}
+								nonce={_nonce}
 								from="#1cd1c6"
 								via="#407cff"
 								size={200}

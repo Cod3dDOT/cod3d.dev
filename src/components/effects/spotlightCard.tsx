@@ -7,6 +7,7 @@ import Tilt from 'react-parallax-tilt';
 import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
 
 interface SpotlightCardProps {
+	id?: string;
 	nonce?: string;
 	as?: React.ElementType;
 	from?: string;
@@ -22,6 +23,7 @@ interface SpotlightCardProps {
 }
 
 export function SpotlightCard({
+	id = '',
 	nonce = '',
 	as: Component = 'div',
 	from = 'rgba(255,255,255,0.8)',
@@ -61,15 +63,15 @@ export function SpotlightCard({
 	if (mobile) {
 		return (
 			<Component
-				nonce={nonce}
-				className={clsx('bg-background', classes, className)}
-				style={{
-					'--spotlight-x': `0px`,
-					'--spotlight-y': `0px`,
-					'--spotlight-color-stops': spotlightColorStops,
-					'--spotlight-size': `${size}px`
-				}}
+				className={clsx(
+					`bg-background spotlight-card-${id}`,
+					classes,
+					className
+				)}
 			>
+				<style
+					nonce={nonce}
+				>{`.spotlight-card-${id} { --spotlight-x: 0px; --spotlight-y: 0px; --spotlight-size: ${size}px; --spotlight-color-stops: ${spotlightColorStops}; }`}</style>
 				{children}
 			</Component>
 		);
@@ -86,15 +88,15 @@ export function SpotlightCard({
 			<Component
 				nonce={nonce}
 				ref={container}
-				className={clsx('relative transform-gpu h-full', classes)}
+				className={clsx(
+					`relative transform-gpu h-full spotlight-card-${id}`,
+					classes
+				)}
 				{...props}
-				style={{
-					'--spotlight-x': `${elX}px`,
-					'--spotlight-y': `${elY}px`,
-					'--spotlight-color-stops': spotlightColorStops,
-					'--spotlight-size': `${size}px`
-				}}
 			>
+				<style
+					nonce={nonce}
+				>{`.spotlight-card-${id} { --spotlight-x: ${elX}px; --spotlight-y: ${elY}px; --spotlight-size: ${size}px; --spotlight-color-stops: ${spotlightColorStops}; }`}</style>
 				{children}
 			</Component>
 		</Tilt>

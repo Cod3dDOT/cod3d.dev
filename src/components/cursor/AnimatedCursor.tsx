@@ -19,6 +19,15 @@ import type {
 	Clickable
 } from './AnimatedCursor.types';
 
+const convertObjectToCSS = (styleObj: CSSProperties) => {
+	return Object.entries(styleObj)
+		.map(
+			([key, value]) =>
+				`${key.replace(/([A-Z])/g, '-$1').toLowerCase()}: ${value};`
+		)
+		.join(' ');
+};
+
 /**
  * Cursor Core
  * Replaces the native cursor with a custom animated cursor, consisting
@@ -41,6 +50,7 @@ import type {
  * @param {number} obj.trailingSpeed - speed the outer cursor trails at
  */
 function CursorCore({
+	nonce,
 	clickables = [
 		'a',
 		'input[type="text"]',
@@ -370,8 +380,8 @@ function CursorCore({
 	// Cursor Styles
 	const styles = {
 		cursorInner: {
-			width: !options.children ? options.innerSize : 'auto',
-			height: !options.children ? options.innerSize : 'auto',
+			width: !options.children ? options.innerSize + 'px' : 'auto',
+			height: !options.children ? options.innerSize + 'px' : 'auto',
 			backgroundColor: !options.children
 				? `rgba(${options.color}, 1)`
 				: 'transparent',
@@ -379,8 +389,8 @@ function CursorCore({
 			...(options.innerStyle && options.innerStyle)
 		},
 		cursorOuter: {
-			width: options.outerSize,
-			height: options.outerSize,
+			width: options.outerSize + 'px',
+			height: options.outerSize + 'px',
 			backgroundColor: `rgba(${options.color}, ${options.outerAlpha})`,
 			...coreStyles,
 			...(options.outerStyle && options.outerStyle)
@@ -389,16 +399,17 @@ function CursorCore({
 
 	return (
 		<>
-			<div ref={cursorOuterRef} style={styles.cursorOuter} />
-			<div ref={cursorInnerRef} style={styles.cursorInner}>
-				<div
-					style={{
-						opacity: !options.children ? 0 : 1,
-						transition: 'opacity 0.3s ease-in-out'
-					}}
-				>
-					{options.children}
-				</div>
+			<style nonce={nonce}>
+				{`#cursor-outer { ${convertObjectToCSS(styles.cursorOuter)} }
+                #cursor-inner { ${convertObjectToCSS(styles.cursorInner)} }
+                #cursor-inner div { ${convertObjectToCSS({
+									opacity: !options.children ? 0 : 1,
+									transition: 'opacity 0.3s ease-in-out'
+								})}}`}
+			</style>
+			<div ref={cursorOuterRef} id="cursor-outer" />
+			<div ref={cursorInnerRef} id="cursor-inner">
+				<div>{options.children}</div>
 			</div>
 		</>
 	);
@@ -409,6 +420,7 @@ function CursorCore({
  * Calls and passes props to CursorCore if not a touch/mobile device.
  */
 function AnimatedCursor({
+	nonce,
 	children,
 	clickables,
 	color,
@@ -428,6 +440,7 @@ function AnimatedCursor({
 	}
 	return (
 		<CursorCore
+			nonce={nonce}
 			clickables={clickables}
 			color={color}
 			innerScale={innerScale}

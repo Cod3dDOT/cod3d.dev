@@ -105,7 +105,7 @@ export default async function RootLayout({
 				/>
 
 				<ThemeProvider attribute="class">
-					<Cursor />
+					<Cursor nonce={_nonce} />
 					<Navigation />
 
 					<FadeTransition>{children}</FadeTransition>

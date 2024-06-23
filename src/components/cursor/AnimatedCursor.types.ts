@@ -15,6 +15,7 @@ export interface AnimatedCursorOptions {
 export type Clickable = string | ({ target: string } & AnimatedCursorOptions);
 
 export interface AnimatedCursorProps extends AnimatedCursorOptions {
+	nonce?: string;
 	clickables?: Clickable[];
 	showSystemCursor?: boolean;
 	trailingSpeed?: number;
