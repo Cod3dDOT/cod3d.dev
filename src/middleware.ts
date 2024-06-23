@@ -60,7 +60,7 @@ function CORS(request: NextRequest, response: NextResponse) {
 function CSP(request: NextRequest) {
 	const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
-	const isThought = request.url.includes('/thoughts/');
+	const isThought = request.url.includes('/thoughts');
 
 	const hashes = {
 		script: [
