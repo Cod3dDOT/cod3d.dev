@@ -31,7 +31,8 @@ export const AsideFooter: React.FC<{
 				className="will-change-transform flex flex-col md:flex-row justify-center items-center z-10"
 			>
 				<div className="max-w-prose px-24 space-y-4">
-					<div className="text-4xl sm:text-7xl" style={{ color }}>
+					<style>{`#footer-pokemon-name { color: ${color} }`}</style>
+					<div className="text-4xl sm:text-7xl" id="footer-pokemon-name">
 						{pokemon}
 					</div>
 					<div>{description}</div>
