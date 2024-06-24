@@ -96,6 +96,11 @@ async function CSP(request: NextRequest) {
 					]
 	};
 
+	const trustedTypes =
+		process.env.NODE_ENV === 'development'
+			? ''
+			: "require-trusted-types-for 'script';";
+
 	const cspHeader = `
         default-src 'self';
         connect-src 'self' api-gateway.umami.dev cloud.umami.is;
@@ -108,6 +113,7 @@ async function CSP(request: NextRequest) {
         form-action 'self';
         frame-ancestors 'none';
         upgrade-insecure-requests;
+        ${trustedTypes}
     `;
 
 	// Replace newline characters and spaces
