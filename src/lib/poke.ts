@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const __dirname = path.resolve('./public');
-const filePath = path.join(__dirname, 'pokemon.json');
+const filePath = path.join(__dirname, 'pokemons.json');
 const mons = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 export interface Pokemon {
@@ -20,6 +20,6 @@ export function getRandomPokemon(): Pokemon {
 		name: pokemon.n,
 		description: pokemon.d,
 		sprite: `/pokemon/${pokemon.n}.png`,
-		class: pokemon.c
+		class: 'mon' + pokemon.c
 	};
 }

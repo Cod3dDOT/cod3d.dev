@@ -1,31 +1,11 @@
-// write a script to be launched with node to scarpe all pokemon data from pokeapi.co
-import ColorThief from 'colorthief';
 import fs from 'fs';
-
-function rgbToHex(r, g, b) {
-	const hex = (r << 16) | (g << 8) | b;
-	return '#' + hex.toString(16).padStart(6, '0');
-}
-
-function hexToRgb(hex) {
-	const bigint = parseInt(hex.slice(1), 16);
-	const r = (bigint >> 16) & 255;
-	const g = (bigint >> 8) & 255;
-	const b = bigint & 255;
-	return [r, g, b];
-}
-
-function clamp(value, min, max) {
-	return Math.min(Math.max(value, min), max);
-}
-
-function roundToNearest(value, multiple) {
-	return Math.round(value / multiple) * multiple;
-}
-
-function reduceColorSpace(rgb, multiple = 32) {
-	return rgb.map((value) => clamp(roundToNearest(value, multiple), 0, 255));
-}
+import {
+	colorFromImage,
+	rgbToHex,
+	hexToRgb,
+	reduceColorSpace,
+	writeFile
+} from './generate-utils.mjs';
 
 async function getAllPokemonSpecies() {
 	const url = 'https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0';
@@ -46,11 +26,7 @@ async function getPokemon(id) {
 	return await response.json();
 }
 
-const writeJsonDataToFile = (data) => {
-	fs.writeFileSync('pokemon.json', JSON.stringify(data));
-};
-
-const generateCSSColors = (data) => {
+const generateCSSFile = (path, data) => {
 	const colorToClass = {};
 	let classCounter = 1;
 
@@ -68,21 +44,15 @@ const generateCSSColors = (data) => {
 	let cssContent = '';
 
 	for (const [color, className] of Object.entries(colorToClass)) {
-		cssContent += `.${className} { color: ${color}; }`;
+		cssContent += `.${className}{color:${color};}`;
 	}
 
 	data.forEach((item) => {
-		item.c = item.className;
+		item.c = parseInt(item.className.substring(3));
 		item.className = undefined;
 	});
 
-	fs.writeFile('pokemons.css', cssContent, (err) => {
-		if (err) {
-			console.error('Error writing to CSS file', err);
-		} else {
-			console.log('CSS file generated successfully');
-		}
-	});
+	writeFile(path, cssContent);
 };
 
 const getFormattedPokemon = async (id) => {
@@ -109,10 +79,7 @@ const savePokemonImage = async (pokemon) => {
 };
 
 const updatePokemonColor = async (pokemon) => {
-	const color = await ColorThief.getColor(
-		`./public/pokemon/${pokemon.n}.png`,
-		1 // because 96x96 is a small image
-	);
+	const color = await colorFromImage(`./public/pokemon/${pokemon.n}.png`);
 	pokemon.c = rgbToHex(...color);
 };
 
@@ -139,24 +106,24 @@ async function fetch() {
 
 	console.log('Generating pokemon colors...');
 
-	for (let i = 0; i < pokemons.length; i++) {
-		await updatePokemonColor(pokemons[i]);
-	}
-
-	console.log('Saving pokemon data...');
-
-	writeJsonDataToFile(pokemons);
-	generateCSSColors(pokemons);
-}
-
-async function regenerateColors() {
-	const pokemons = JSON.parse(fs.readFileSync('public/pokemon.json', 'utf8'));
 	for (const pokemon of pokemons) {
 		await updatePokemonColor(pokemon);
 	}
 
-	generateCSSColors(pokemons);
-	writeJsonDataToFile(pokemons);
+	console.log('Saving pokemon data...');
+
+	generateCSSFile('pokemons.css', pokemons);
+	writeFile('pokemons.json', JSON.stringify(pokemons));
 }
 
-regenerateColors();
+async function regenerateColors(path) {
+	const pokemons = JSON.parse(fs.readFileSync(path, 'utf8'));
+	for (const pokemon of pokemons) {
+		await updatePokemonColor(pokemon);
+	}
+
+	generateCSSFile('pokemons.css', pokemons);
+	writeFile('pokemons.json', JSON.stringify(pokemons));
+}
+
+regenerateColors('public/pokemons.json');
