@@ -11,7 +11,7 @@ export const config = {
 		 */
 		{
 			source:
-				'/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|opengraph-image|manifest|pokemon|icon).*)',
+				'/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|opengraph-image|manifest|pokemon|icons).*)',
 			missing: [
 				{ type: 'header', key: 'next-router-prefetch' },
 				{ type: 'header', key: 'purpose', value: 'prefetch' }
@@ -103,7 +103,7 @@ async function CSP(request: NextRequest) {
 
 	const cspHeader = `
         default-src 'self';
-        connect-src 'self' api-gateway.umami.dev cloud.umami.is;
+        connect-src 'self' https://api-gateway.umami.dev/api/send https://cod3d.dev;
         script-src 'self' cod3d.dev 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
         style-src 'self' ${hashes.style.join(' ')} 'unsafe-hashes';
         img-src 'self' blob: data:;
@@ -144,13 +144,13 @@ async function CSP(request: NextRequest) {
 }
 
 function PERMISSIONS(response: NextResponse) {
-	// response.headers.set(
-	// 	'Permissions-Policy',
-	// 	'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),' +
-	// 		'accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),' +
-	// 		'camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),' +
-	// 		'midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
-	// );
+	response.headers.set(
+		'Permissions-Policy',
+		'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),' +
+			'accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),' +
+			'camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),' +
+			'midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
+	);
 	return response;
 }
 
