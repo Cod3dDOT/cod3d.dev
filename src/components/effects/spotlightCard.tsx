@@ -68,10 +68,14 @@ export function SpotlightCard({
 					classes,
 					className
 				)}
+				style={{
+					'--spotlight-color-stops': spotlightColorStops,
+					'--spotlight-size': `${size}px`,
+					'--spotlight-x': `0px`,
+					'--spotlight-y': `0px`
+				}}
+				{...props}
 			>
-				<style
-					nonce={nonce}
-				>{`.spotlight-card-${id} { --spotlight-x: 0px; --spotlight-y: 0px; --spotlight-size: ${size}px; --spotlight-color-stops: ${spotlightColorStops}; }`}</style>
 				{children}
 			</Component>
 		);
@@ -99,9 +103,6 @@ export function SpotlightCard({
 				}}
 				{...props}
 			>
-				{/* <style
-					nonce={nonce}
-				>{`.spotlight-card-${id} { --spotlight-x: ${elX}px; --spotlight-y: ${elY}px; --spotlight-size: ${size}px; --spotlight-color-stops: ${spotlightColorStops}; }`}</style> */}
 				{children}
 			</Component>
 		</Tilt>
