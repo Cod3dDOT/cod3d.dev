@@ -1,11 +1,9 @@
 import { getRandomPokemon } from '@/lib/poke';
 import { AsideFooter } from './parralax';
-import { memo } from 'react';
-import { nonce } from '@/lib/nonce';
+import { FooterMon } from './pokemon';
 
-const _Footer: React.FC = async () => {
-	const pokemon = await getRandomPokemon();
-	const _nonce = await nonce();
+export const Footer: React.FC = async () => {
+	const pokemon = getRandomPokemon();
 
 	return (
 		<>
@@ -18,15 +16,9 @@ const _Footer: React.FC = async () => {
 					<p>Made with ❤️ and ☕</p>
 				</div>
 			</footer>
-			<AsideFooter
-				nonce={_nonce}
-				pokemon={pokemon.name}
-				description={pokemon.description}
-				sprite={pokemon.sprite}
-				color={pokemon.color}
-			/>
+			<AsideFooter>
+				<FooterMon pokemon={pokemon} />
+			</AsideFooter>
 		</>
 	);
 };
-
-export const Footer = memo(_Footer);

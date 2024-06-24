@@ -10,9 +10,7 @@ import { ThemeProvider } from 'next-themes';
 import { Cursor } from '@/components/cursor';
 import { Navigation } from '@/components/navigation';
 import { FadeTransition } from '@/components/transitions';
-import { nonce } from '@/lib/nonce';
-
-import { ReactLenis } from '@/lib/lenis';
+import { getNonce } from '@/lib/nonce';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -86,26 +84,26 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const _nonce = await nonce();
+	const nonce = await getNonce();
 	return (
-		<html lang="en" suppressHydrationWarning className="scrollbar-thin">
+		<html lang="en" className="scrollbar-thin">
 			<head>
 				<script
+					integrity="sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg="
+					crossOrigin="anonymous"
 					defer
-					src="https://analytics.eu.umami.is/script.js"
+					src="https://cloud.umami.is/script.js"
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
-					nonce={_nonce}
-				/>
+				></script>
 			</head>
 			<body className={clsx(font.variable, 'font-pixelify')}>
 				<script
-					nonce={_nonce}
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 				/>
 
 				<ThemeProvider attribute="class">
-					<Cursor nonce={_nonce} />
+					<Cursor nonce={nonce} />
 					<Navigation />
 
 					<FadeTransition>{children}</FadeTransition>

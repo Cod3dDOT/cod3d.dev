@@ -1,6 +1,6 @@
-/** @type {import('next').NextConfig} */
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
 		remotePatterns: [

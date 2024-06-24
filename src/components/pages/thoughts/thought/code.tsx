@@ -1,14 +1,13 @@
-'use client';
-
 import { clsx } from 'clsx';
-import copy from 'copy-to-clipboard';
-import dynamic from 'next/dynamic';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 
 import CopyIcon from '@/components/icons/copy';
-
-const DynamicHighlight = dynamic(() =>
-	import('prism-react-renderer').then((mod) => mod.Highlight)
-);
+import parse, {
+	Element,
+	HTMLReactParserOptions,
+	Text
+} from 'html-react-parser';
 
 type CodeProps = {
 	code: string;
@@ -19,16 +18,18 @@ type CodeProps = {
 const formatToLanguage = {
 	swift: 'swift',
 	kt: 'kotlin',
-	m: 'objectivec',
-	'': 'js-extras',
-	re: 'reason',
 	rs: 'rust',
-	graphql: 'graphql',
 	yaml: 'yaml',
 	go: 'go',
 	cpp: 'cpp',
 	md: 'markdown',
-	py: 'python'
+	py: 'python',
+	ts: 'typescript',
+	js: 'javascript',
+	jsx: 'javascript',
+	tsx: 'typescript',
+	json: 'json',
+	java: 'java'
 };
 
 const getLanguageFromFilename = (filename: string) => {
@@ -36,19 +37,23 @@ const getLanguageFromFilename = (filename: string) => {
 	const match = (filename || '').match(extPattern);
 	return match?.length == 2 && match[1] in formatToLanguage
 		? formatToLanguage[match[1] as keyof typeof formatToLanguage]
-		: 'tsx';
+		: 'typescript';
 };
 
-export const Code: React.FC<CodeProps> = ({ code, language, filename }) => {
+export const CodeBlock: React.FC<CodeProps> = ({
+	code,
+	language,
+	filename
+}) => {
 	const lang = language ? language : getLanguageFromFilename(filename || '');
 
-	const onCopyClick = () => copy(code);
+	// const onCopyClick = () => copy(code);
 
 	return (
 		<div className="*:m-0 border-2 dark:border-background-dark border-foreground rounded-lg">
 			<div className="flex justify-between p-4">
 				<p className="m-0">{filename}</p>
-				<button onClick={onCopyClick}>
+				<button>
 					<CopyIcon
 						aria-hidden="true"
 						focusable="false"
@@ -57,27 +62,23 @@ export const Code: React.FC<CodeProps> = ({ code, language, filename }) => {
 					<span className="sr-only">Copy contents of {filename}</span>
 				</button>
 			</div>
-			<DynamicHighlight code={code} language={lang}>
-				{({ className, style, tokens, getLineProps, getTokenProps }) => (
-					<pre style={style} className={className}>
-						{tokens.map((line, i) => {
-							const props = getLineProps({ line });
-							return (
-								<div
-									className={clsx(props.className, 'hover:mix-blend-lighten')}
-									key={i}
-									style={props.style}
-								>
-									<span className="mr-4 select-none">{i + 1}</span>
-									{line.map((token, key) => (
-										<span key={key} {...getTokenProps({ token })} />
-									))}
-								</div>
-							);
-						})}
-					</pre>
-				)}
-			</DynamicHighlight>
+			<pre>
+				<code className={`language-${lang}`}>
+					{parse(hljs.highlightAuto(code, [lang]).value)}
+				</code>
+			</pre>
 		</div>
+	);
+};
+
+export const CodeInline: React.FC<CodeProps> = ({ code, language }) => {
+	return (
+		<code
+			className={clsx(
+				'after:contents before:contents py-1 px-2 bg-background-dark rounded-md'
+			)}
+		>
+			{code}
+		</code>
 	);
 };

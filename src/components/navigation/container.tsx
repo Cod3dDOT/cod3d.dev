@@ -102,6 +102,7 @@ const DesktopOpener: React.FC<{
 	return (
 		<div className="hidden sm:flex flex-col items-center h-full sm:w-16 w-12 shadow-lg">
 			<ThemeSwitch
+				id="theme-switch-desktop"
 				className={clsx(
 					'w-full p-4 transition-transform duration-300 translate-y-4',
 					opened && pathname == '/' && 'translate-y-[3.3rem]'
@@ -173,7 +174,7 @@ const MobileOpener: React.FC<{
 				/>
 				<span className="sr-only">Home</span>
 			</Link>
-			<ThemeSwitch className="h-12 w-12 p-3" />
+			<ThemeSwitch id="theme-switch-mobile" className="h-12 w-12 p-3" />
 			<button type="button" onClick={() => setOpened(!opened)}>
 				<ChevronIcon
 					className={clsx(

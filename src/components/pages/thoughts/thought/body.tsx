@@ -6,7 +6,7 @@ import parse, {
 
 import { Thought } from '@/lib/pocketbase/types';
 
-import { Code } from './code';
+import { CodeInline, CodeBlock } from './code';
 
 const options: HTMLReactParserOptions = {
 	replace(domNode) {
@@ -18,7 +18,15 @@ const options: HTMLReactParserOptions = {
 				.map((child) => (child as Text).data);
 			const filename = children.shift();
 			const code = children.join('\n');
-			return <Code code={code} filename={filename} />;
+			return <CodeBlock code={code} filename={filename} />;
+		}
+
+		if (domNode.tagName == 'code') {
+			const children = domNode.children
+				.filter((child) => child instanceof Text)
+				.map((child) => (child as Text).data);
+			const code = children.join('');
+			return <CodeInline code={code} />;
 		}
 	}
 };
@@ -27,6 +35,7 @@ type ThoughtBodyProps = {
 	thought: Thought;
 };
 
-export const ThoughtBody: React.FC<ThoughtBodyProps> = ({ thought }) => {
+export const ThoughtBody: React.FC<ThoughtBodyProps> = async ({ thought }) => {
+	// console.log(thought.body);
 	return parse(thought.body, options);
 };

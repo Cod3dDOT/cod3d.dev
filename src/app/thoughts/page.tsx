@@ -5,6 +5,8 @@ import { Years } from '@/components/pages/thoughts/years';
 import { getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
 import { Footer } from '@/components/footer';
+import { getNonce } from '@/lib/nonce';
+import { headers } from 'next/headers';
 
 export const metadata: Metadata = {
 	title: "cod3d's thoughts",

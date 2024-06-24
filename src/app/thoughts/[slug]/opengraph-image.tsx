@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-import { nonce } from '@/lib/nonce';
+import { getNonce } from '@/lib/nonce';
 import { getThought } from '@/lib/pocketbase/req';
 
 // Route segment config
@@ -32,7 +32,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 		(
 			// ImageResponse JSX element
 			<div
-				nonce={await nonce()}
+				nonce={await getNonce()}
 				style={{
 					fontSize: 128,
 					backgroundColor: '#111',

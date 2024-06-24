@@ -5,14 +5,15 @@ import { useTheme } from 'next-themes';
 import { memo } from 'react';
 
 interface ThemeSwitchProps {
+	id?: string;
 	className?: string;
 }
 
 const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
+	id,
 	className
 }: ThemeSwitchProps) => {
 	const { resolvedTheme, setTheme } = useTheme();
-	const id = Math.round(Math.random() * 100);
 
 	return (
 		<button

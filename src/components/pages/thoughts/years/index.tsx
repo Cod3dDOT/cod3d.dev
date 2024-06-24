@@ -9,7 +9,7 @@ type ThoughtsYearsProps = {
 	thoughts: Thought[];
 };
 
-export const Years: React.FC<ThoughtsYearsProps> = ({ thoughts }) => {
+export const Years: React.FC<ThoughtsYearsProps> = async ({ thoughts }) => {
 	const thoughtsByYears = getGroupedBy(
 		thoughts.map((th) => {
 			return { ...th, year: new Date(th.created).getFullYear() };

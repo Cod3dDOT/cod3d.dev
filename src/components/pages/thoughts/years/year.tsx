@@ -1,23 +1,24 @@
+'use client';
+
 import { clsx } from 'clsx';
 import Link from 'next/link';
 
 import { Thought } from '@/lib/pocketbase/types';
 import { SpotlightCard } from '@/components/effects/spotlightCard';
-import { nonce } from '@/lib/nonce';
 
 type ThoughtsBodyProps = {
+	nonce?: string;
 	year: number;
 	thoughts: Thought[];
 	className?: string;
 };
 
-export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
+export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
+	nonce,
 	year,
 	thoughts,
 	className
 }) => {
-	const _nonce = await nonce();
-
 	const gridClasses =
 		'grid h-screen gap-1 grid-cols-[repeat(2,minmax(100px,1fr))] ' +
 		'md:gap-2 md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] ' +
@@ -34,7 +35,6 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 				{thoughts.map((th) => (
 					<SpotlightCard
 						id={`year-${year}-thought-${th.id}`}
-						nonce={_nonce}
 						from="var(--spotlight-from)"
 						size={200}
 						key={th.id}
@@ -49,7 +49,6 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = async ({
 					return (
 						<SpotlightCard
 							id={`year-${year}-unknown-${i}`}
-							nonce={_nonce}
 							from="var(--spotlight-from)"
 							size={200}
 							className={cardClasses}

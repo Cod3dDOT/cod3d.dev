@@ -4,7 +4,7 @@ import ChevronIcon from '@/components/icons/chevron';
 import { ThoughtBody } from '@/components/pages/thoughts/thought/body';
 import { TableofContents } from '@/components/pages/thoughts/thought/tableOfContents';
 import { getThought } from '@/lib/pocketbase/req';
-import { nonce } from '@/lib/nonce';
+import { getNonce } from '@/lib/nonce';
 import { ReactLenis } from '@/lib/lenis';
 import { Footer } from '@/components/footer';
 import clsx from 'clsx';
@@ -39,7 +39,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const thought = await getThought(params.slug);
-	const _nonce = await nonce();
+	const nonce = await getNonce();
 
 	return (
 		<ReactLenis root>
@@ -60,7 +60,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 					</Link>
 
 					<article
-						nonce={_nonce}
+						nonce={nonce}
 						className="prose max-w-full dark:prose-invert prose-img:w-full prose-p:font-roboto prose-p:leading-relaxed prose-ul:font-roboto"
 					>
 						<h1 className="md:w-4/5">{thought.name}</h1>

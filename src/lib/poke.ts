@@ -9,10 +9,10 @@ export interface Pokemon {
 	name: string;
 	description: string;
 	sprite: string;
-	color: string;
+	class: string;
 }
 
-export async function getRandomPokemon(): Promise<Pokemon> {
+export function getRandomPokemon(): Pokemon {
 	const index = Math.floor(Math.random() * mons.length);
 	const pokemon = mons[index];
 
@@ -20,6 +20,6 @@ export async function getRandomPokemon(): Promise<Pokemon> {
 		name: pokemon.n,
 		description: pokemon.d,
 		sprite: `/pokemon/${pokemon.n}.png`,
-		color: pokemon.c
+		class: pokemon.c
 	};
 }

@@ -86,17 +86,22 @@ export function SpotlightCard({
 			className={className}
 		>
 			<Component
-				nonce={nonce}
 				ref={container}
 				className={clsx(
 					`relative transform-gpu h-full spotlight-card-${id}`,
 					classes
 				)}
+				style={{
+					'--spotlight-color-stops': spotlightColorStops,
+					'--spotlight-size': `${size}px`,
+					'--spotlight-x': `${elX}px`,
+					'--spotlight-y': `${elY}px`
+				}}
 				{...props}
 			>
-				<style
+				{/* <style
 					nonce={nonce}
-				>{`.spotlight-card-${id} { --spotlight-x: ${elX}px; --spotlight-y: ${elY}px; --spotlight-size: ${size}px; --spotlight-color-stops: ${spotlightColorStops}; }`}</style>
+				>{`.spotlight-card-${id} { --spotlight-x: ${elX}px; --spotlight-y: ${elY}px; --spotlight-size: ${size}px; --spotlight-color-stops: ${spotlightColorStops}; }`}</style> */}
 				{children}
 			</Component>
 		</Tilt>

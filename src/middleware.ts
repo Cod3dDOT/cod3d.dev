@@ -10,7 +10,8 @@ export const config = {
 		 * - favicon.ico (favicon file)
 		 */
 		{
-			source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+			source:
+				'/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|opengraph-image|manifest|pokemon|icon).*)',
 			missing: [
 				{ type: 'header', key: 'next-router-prefetch' },
 				{ type: 'header', key: 'purpose', value: 'prefetch' }
@@ -23,7 +24,8 @@ function CORS(request: NextRequest, response: NextResponse) {
 	const allowedOrigins = [
 		'https://cod3d.dev',
 		'https://github.com',
-		'https://api-gateway.umami.dev'
+		'https://api-gateway.umami.dev',
+		'https://cloud.umami.is'
 	];
 
 	const corsOptions = {
@@ -57,29 +59,31 @@ function CORS(request: NextRequest, response: NextResponse) {
 	return response;
 }
 
-function CSP(request: NextRequest) {
+async function CSP(request: NextRequest) {
 	const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
-
-	const isThought = request.url.includes('/thoughts');
 
 	const hashes = {
 		script: [
 			"'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='", //json-ld inline script
+			"'sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg='",
 			"'sha256-RrWaxIcrjb6FTcxav9mgXg/7RKhvienU87nevi8qpKg='", //cloudlflare email-encoder
 			process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
 		],
 		// unsafe-inline will override nonce and any hashes
 		style:
-			process.env.NODE_ENV === 'development' || isThought
+			process.env.NODE_ENV === 'development'
 				? ["'unsafe-inline'"]
 				: [
 						`'nonce-${nonce}'`,
 
+						//something, possibly footer
+						"'sha256-Y9g1vnU5ywyIwbIvwb3UvTiA2lo4N5nIBXfiMNClqYQ='",
+
 						// thoughts
-						"'sha256-OTVileWRHQBTssRl6xTJoqzuFy52bistW+wWChzVKKw='",
 						"'sha256-OXJWNkqOzUVYLtMkGQ9uevLQsgCZb/Y+Q6ypWpD5ai8='",
 						"'sha256-3EP1piOo/O4YWqWO7mQYW6fCsMcX8uB/C/w3Cgomac4='",
-						"'sha256-YgvMKfdTn4s8rWkq5cXyxs8ggVxB3FbMNm2Wa8gzeqw='",
+						"'sha256-DfDHsb01i3x8hjBF8augn/uMacvjKKf6ZvynOJD7J8o='",
+						"'sha256-geco2bDyS+Sc/wAKeVY5bwJ5ZiB4SsxkbgG2GqlY468='",
 
 						// homepage
 						"'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='",
@@ -93,7 +97,7 @@ function CSP(request: NextRequest) {
 
 	const cspHeader = `
         default-src 'self';
-        connect-src 'self' api-gateway.umami.dev;
+        connect-src 'self' api-gateway.umami.dev cloud.umami.is;
         script-src 'self' cod3d.dev 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
         style-src 'self' ${hashes.style.join(' ')} 'unsafe-hashes';
         img-src 'self' blob: data:;
@@ -133,18 +137,18 @@ function CSP(request: NextRequest) {
 }
 
 function PERMISSIONS(response: NextResponse) {
-	response.headers.set(
-		'Permissions-Policy',
-		'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),' +
-			'accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),' +
-			'camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),' +
-			'midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
-	);
+	// response.headers.set(
+	// 	'Permissions-Policy',
+	// 	'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),' +
+	// 		'accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),' +
+	// 		'camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),' +
+	// 		'midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
+	// );
 	return response;
 }
 
-export function middleware(request: NextRequest) {
-	const withCSP = CSP(request);
+export async function middleware(request: NextRequest) {
+	const withCSP = await CSP(request);
 	const withCORS = CORS(request, withCSP);
 	const withPermissions = PERMISSIONS(withCORS);
 	return withPermissions;
