@@ -2,6 +2,18 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	async rewrites() {
+		return [
+			{
+				source: '/um.js',
+				destination: 'https://analytics.umami.is/script.js'
+			},
+			{
+				source: '/api/send',
+				destination: 'https://api-gateway.umami.dev/api/send'
+			}
+		];
+	},
 	images: {
 		remotePatterns: [
 			{

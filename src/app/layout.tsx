@@ -92,8 +92,9 @@ export default async function RootLayout({
 					integrity="sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg="
 					crossOrigin="anonymous"
 					defer
-					src="https://cloud.umami.is/script.js"
+					src="/um.js"
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
+					data-host-url={process.env.SITE_URL}
 				></script>
 			</head>
 			<body className={clsx(font.variable, 'font-pixelify')}>
