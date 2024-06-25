@@ -23,7 +23,6 @@ export const config = {
 function CORS(request: NextRequest, response: NextResponse) {
 	const allowedOrigins = [
 		'https://cod3d.dev',
-		'https://github.com',
 		'https://api-gateway.umami.dev',
 		'https://cloud.umami.is'
 	];
@@ -50,6 +49,9 @@ function CORS(request: NextRequest, response: NextResponse) {
 
 	if (isAllowedOrigin) {
 		response.headers.set('Access-Control-Allow-Origin', origin);
+		response.headers.set('Cross-Origin-Embedder-Policy', 'require-corp'); // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy
+		response.headers.set('Cross-Origin-Opener-Policy', 'same-origin'); // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy
+		response.headers.set('Cross-Origin-Resource-Policy', 'same-origin'); // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy
 	}
 
 	Object.entries(corsOptions).forEach(([key, value]) => {
@@ -103,7 +105,7 @@ async function CSP(request: NextRequest) {
 
 	const cspHeader = `
         default-src 'self';
-        connect-src 'self' https://api-gateway.umami.dev/api/send https://cod3d.dev;
+        connect-src 'self' https://api-gateway.umami.dev/api/send;
         script-src 'self' cod3d.dev 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
         style-src 'self' ${hashes.style.join(' ')} 'unsafe-hashes';
         img-src 'self' blob: data:;
@@ -158,5 +160,16 @@ export async function middleware(request: NextRequest) {
 	const withCSP = await CSP(request);
 	const withCORS = CORS(request, withCSP);
 	const withPermissions = PERMISSIONS(withCORS);
+
+	// technically is taken care of by cloudflare. In order: embed, browserxss, ???, don't guess content type, hsts
+	withPermissions.headers.set('X-Frame-Options', 'DENY');
+	withPermissions.headers.set('X-XSS-Protection', '1; mode=block');
+	withPermissions.headers.set('Referrer-Policy', 'same-origin');
+	withPermissions.headers.set('X-Content-Type-Options', 'nosniff');
+	withPermissions.headers.set(
+		'Strict-Transport-Security',
+		'max-age=15552000; includeSubDomains; preload'
+	);
+
 	return withPermissions;
 }
