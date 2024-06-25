@@ -15,7 +15,13 @@ const NavContactsShowcase: React.FC = () => {
 						className="w-full h-full fill-foreground"
 					/>
 				</ContactLink>
-				<ContactLink href="protected" text="Mail" id="mail">
+				<ContactLink
+					href="/"
+					text="Mail"
+					protectedBytes={[
+						0, 0, 0, 0, 0, 110, 7, 10, 18, 51, 100, 46, 100, 101, 118
+					]}
+				>
 					<MailIcon
 						aria-hidden="true"
 						focusable="false"

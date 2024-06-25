@@ -1,7 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { ReactNode, useCallback } from 'react';
+import { ReactNode, useCallback, useEffect, useRef } from 'react';
+
+const bytes = (str: string) => str.split('').map((c) => c.charCodeAt(0));
+const str = (bytes: number[]) =>
+	bytes.map((b) => String.fromCharCode(b)).join('');
+const byte_xor = (b1: number[], b2: number[]) => b1.map((b, i) => b ^ b2[i]);
+const ebytes = [0, 0, 0, 0, 0, 110, 7, 10, 18, 51, 100, 46, 100, 101, 118];
 
 const style = `relative flex items-center space-x-2
 	rounded-full border-foreground border-2 p-4 overflow-hidden
@@ -28,10 +34,27 @@ export const ContactLink: React.FC<{
 	children: ReactNode;
 	text: string;
 	href: string;
-	id?: string;
-}> = ({ children, text, href, id }) => {
+	protectedBytes?: number[];
+}> = ({ children, text, href, protectedBytes }) => {
+	const linkRef = useRef<HTMLAnchorElement>(null);
+
+	useEffect(() => {
+		if (!linkRef.current || !protectedBytes) return;
+		linkRef.current.addEventListener('click', (e) => {
+			e.preventDefault();
+
+			let host = location.hostname;
+			while (host.length < protectedBytes.length) {
+				host = host + host;
+			}
+
+			let email = str(byte_xor(ebytes, bytes(host)));
+			window.location.href = 'mailto:' + email;
+		});
+	}, [protectedBytes]);
+
 	return (
-		<Link className={style} href={href} id={id}>
+		<Link ref={linkRef} className={style} href={href}>
 			{children}
 			<span>{text}</span>
 		</Link>
