@@ -57,6 +57,9 @@ function CORS(request: NextRequest, response: NextResponse) {
 	return response;
 }
 
+// I will probably never get rid of "unsafe-hashes"
+// Am I mad about it? Yes. Yes I am.
+// Can I do anything about it? Probably not, as it will require removing all inline styles.
 async function CSP(request: NextRequest) {
 	const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
@@ -99,8 +102,8 @@ async function CSP(request: NextRequest) {
 
 	const cspHeader = `
         default-src 'self';
-        connect-src 'self' https://api-gateway.umami.dev/api/send;
-        script-src 'self' cod3d.dev 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
+        connect-src 'self';
+        script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${hashes.script.join(' ')};
         style-src 'self' ${hashes.style.join(' ')} 'unsafe-hashes';
         img-src 'self' blob: data:;
         font-src 'self';
