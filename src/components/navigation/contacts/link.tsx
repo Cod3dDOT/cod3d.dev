@@ -28,9 +28,10 @@ export const ContactLink: React.FC<{
 	children: ReactNode;
 	text: string;
 	href: string;
-}> = ({ children, text, href }) => {
+	id?: string;
+}> = ({ children, text, href, id }) => {
 	return (
-		<Link className={style} href={href}>
+		<Link className={style} href={href} id={id}>
 			{children}
 			<span>{text}</span>
 		</Link>

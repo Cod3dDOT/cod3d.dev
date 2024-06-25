@@ -11,6 +11,7 @@ import { Cursor } from '@/components/cursor';
 import { Navigation } from '@/components/navigation';
 import { FadeTransition } from '@/components/transitions';
 import { getNonce } from '@/lib/nonce';
+import Script from 'next/script';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -108,6 +109,8 @@ export default async function RootLayout({
 
 					<FadeTransition>{children}</FadeTransition>
 				</ThemeProvider>
+
+				<Script strategy="lazyOnload" src={'/email.js'} nonce={nonce} />
 			</body>
 		</html>
 	);

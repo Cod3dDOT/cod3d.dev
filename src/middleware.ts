@@ -161,7 +161,7 @@ export async function middleware(request: NextRequest) {
 	const withCORS = CORS(request, withCSP);
 	const withPermissions = PERMISSIONS(withCORS);
 
-	// technically is taken care of by cloudflare. In order: embed, browserxss, ???, don't guess content type, hsts
+	// In order: embed, browser xss checks, ???, don't guess content type, hsts
 	withPermissions.headers.set('X-Frame-Options', 'DENY');
 	withPermissions.headers.set('X-XSS-Protection', '1; mode=block');
 	withPermissions.headers.set('Referrer-Policy', 'same-origin');
