@@ -21,11 +21,7 @@ export const config = {
 };
 
 function CORS(request: NextRequest, response: NextResponse) {
-	const allowedOrigins = [
-		'https://cod3d.dev',
-		'https://api-gateway.umami.dev',
-		'https://cloud.umami.is'
-	];
+	const allowedOrigins = ['https://cod3d.dev'];
 
 	const corsOptions = {
 		'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -68,8 +64,6 @@ async function CSP(request: NextRequest) {
 		script: [
 			"'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='", // json-ld inline script
 			"'sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg='", // umami analytics
-			"'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='", // ???
-			"'sha256-RrWaxIcrjb6FTcxav9mgXg/7RKhvienU87nevi8qpKg='", // cloudflare email-encoder (not working lmao)
 			process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ''
 		],
 		// unsafe-inline will override nonce and any hashes
