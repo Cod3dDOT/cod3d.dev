@@ -94,7 +94,8 @@ export default async function RootLayout({
 					defer
 					src="/um.js"
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
-					data-host-url={process.env.SITE_URL}
+					data-domains="cod3d.dev"
+					data-host-url="cod3d.dev"
 				></script>
 			</head>
 			<body className={clsx(font.variable, 'font-pixelify')}>
