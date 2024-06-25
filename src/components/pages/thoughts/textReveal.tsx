@@ -100,12 +100,12 @@ export const TextReveal: React.FC<RootProps> & { Token: React.FC<TokenProps> } =
 export const ThoughtsTextReveal = () => {
 	return (
 		<TextReveal
-			body={"Archiving thoughts so that my brain doesn't have to"}
-			className="font-poppins relative h-[200vh] text-foreground w-full max-w-[96rem]"
+			body="Archiving thoughts so that my brain doesn't have to"
+			className="relative h-[200vh] text-foreground w-full max-w-[96rem]"
 		>
 			{(tokens, progress, skip) => (
 				<div className="sticky top-0 flex h-screen items-center">
-					<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight">
+					<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight lg:text-[9vw] xl:text-[8rem]">
 						{tokens.map((token, index) => (
 							<TextReveal.Token key={index} index={index}>
 								{(isActive) => (

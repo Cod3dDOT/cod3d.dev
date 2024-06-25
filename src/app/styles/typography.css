@@ -6,6 +6,7 @@ body {
 	@apply bg-background text-foreground overscroll-y-none;
 }
 
+/* this is too large for 16*10 laptop screens*/
 h1 {
 	@apply md:text-[8rem] sm:text-[5.65rem] text-[4rem];
 }
