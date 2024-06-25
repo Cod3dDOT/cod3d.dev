@@ -46,7 +46,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			<main
 				className={clsx(
 					roboto.variable,
-					'bg-background md:px-24 px-10 relative xl:flex sm:mt-24 mt-8'
+					'bg-background md:px-24 px-10 relative xl:flex sm:pt-24 pt-8'
 				)}
 			>
 				{/* <TableofContents className="sticky top-24 self-start h-auto" /> */}

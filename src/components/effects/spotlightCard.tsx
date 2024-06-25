@@ -63,6 +63,7 @@ export function SpotlightCard({
 	if (mobile) {
 		return (
 			<Component
+				nonce={nonce}
 				className={clsx(
 					`bg-background spotlight-card-${id}`,
 					classes,
@@ -90,6 +91,7 @@ export function SpotlightCard({
 			className={className}
 		>
 			<Component
+				nonce={nonce}
 				ref={container}
 				className={clsx(
 					`relative transform-gpu h-full spotlight-card-${id}`,
