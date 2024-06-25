@@ -1,4 +1,16 @@
-Contact: @cod3ddot:matrix.org
-Expires: 2024-03-31T07:00:00.000Z
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Contact: mailto:cod3ddot@proton.me
+Expires: 2025-01-01T08:00:00.000Z
+Encryption: https://cod3d.dev/pgp-key.txt
+Acknowledgments: https://cod3d.dev/legends
 Preferred-Languages: en
 Canonical: https://cod3d.dev/security.txt
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRgbyCUGT0rsAH8a4OoAaaUB6W61wUCZno/OQAKCRCoAaaUB6W6
+1wi9AP0VjVUdO1H3iVze5Q3F6j1eIDpWzK3ML0JwJ75yJl3uGQEAk857HbV9xhAk
+rs2+GhayPbPA6i4zF4WRAIx37fppygk=
+=Odev
+-----END PGP SIGNATURE-----
