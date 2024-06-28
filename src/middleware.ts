@@ -71,13 +71,10 @@ async function CSP(request: NextRequest) {
 		],
 		// unsafe-inline will override nonce and any hashes
 		style:
-			process.env.NODE_ENV === 'development'
+			process.env.NODE_ENV !== 'development'
 				? ["'unsafe-inline'"]
 				: [
 						`'nonce-${nonce}'`,
-
-						//something, possibly footer
-						"'sha256-Y9g1vnU5ywyIwbIvwb3UvTiA2lo4N5nIBXfiMNClqYQ='",
 
 						// thoughts
 						"'sha256-OXJWNkqOzUVYLtMkGQ9uevLQsgCZb/Y+Q6ypWpD5ai8='",
@@ -87,11 +84,12 @@ async function CSP(request: NextRequest) {
 
 						// homepage
 						"'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='",
-						"'sha256-dZv43Imcg9IVVs8F3qa/uhalpu/jln6PcUJZMQ4DvVE='",
-						"'sha256-hAzIRge8oAVjQrNQXCLPHz2EJBL/qfRFUzcgyiM8D3w='",
-						"'sha256-PFl9s1E8wF/yrLwhmN50lEd077pu6W7ug0RNFqwmURc='",
-						"'sha256-bjO9gy2GfmNK8gqrAZ6mhy6lctqH9pUfyQTGM0iHIqk='",
-						"'sha256-tTgjrFAQDNcRW/9ebtwfDewCTgZMFnKpGa9tcHFyvcs='"
+						"'sha256-tTgjrFAQDNcRW/9ebtwfDewCTgZMFnKpGa9tcHFyvcs='",
+
+						//hello
+						"'sha256-HGYbL7c7YTMNrtcUQBvASpkCpnhcLdlW/2pKHJ8sJ98='",
+						"'sha256-YYxElkDlCygmA+y95zmjQUGyfjKfYNAlVBuOlwC16mU='",
+						"'sha256-sf+AfSpoX2wAlbPSwhwe8fvuXnxOevh3pN6J2u1XdVE='"
 					]
 	};
 

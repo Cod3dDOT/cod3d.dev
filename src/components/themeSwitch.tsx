@@ -17,6 +17,7 @@ const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 
 	return (
 		<button
+			id={id}
 			type="button"
 			onClick={() => setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')}
 			className={clsx(

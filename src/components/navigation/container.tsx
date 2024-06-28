@@ -9,6 +9,7 @@ import HomeIcon from '../icons/home';
 import { ThemeSwitch } from '../themeSwitch';
 import ChevronIcon from '../icons/chevron';
 import { ReactLenis } from '@/lib/lenis';
+import { eventBus } from '@/lib/eventbus';
 
 const useAutoClose = ({
 	setOpened,
@@ -48,6 +49,10 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 	const pathname = usePathname();
 	const menu = useRef<HTMLDivElement>(null);
 	const [opened, setOpened] = useState(false);
+
+	useEffect(() => {
+		eventBus.dispatch('nav:toggle', { on: opened });
+	}, [opened]);
 
 	useEffect(() => {
 		setOpened(false);
