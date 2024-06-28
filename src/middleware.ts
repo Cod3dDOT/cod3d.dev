@@ -71,7 +71,7 @@ async function CSP(request: NextRequest) {
 		],
 		// unsafe-inline will override nonce and any hashes
 		style:
-			process.env.NODE_ENV !== 'development'
+			process.env.NODE_ENV === 'development'
 				? ["'unsafe-inline'"]
 				: [
 						`'nonce-${nonce}'`,
