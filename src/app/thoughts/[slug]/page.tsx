@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 		<ReactLenis root>
 			<main
 				className={
-					'bg-background md:px-24 px-10 relative xl:flex sm:pt-24 pt-8 font-sans'
+					'bg-background md:px-24 px-10 relative xl:flex sm:pt-24 py-8 font-sans'
 				}
 			>
 				{/* <TableofContents className="sticky top-24 self-start h-auto" /> */}
@@ -61,7 +61,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 							'prose-headings:font-semibold',
 							'prose-img:w-full prose-img:rounded-xl',
 							'prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-a:transition-colors',
-							'prose-pre:bg-background-dark prose-pre:text-current'
+							'prose-pre:bg-background-dark prose-pre:text-current',
+							'pb-8'
 						)}
 					>
 						<h1 className="md:w-4/5">{thought.name}</h1>
