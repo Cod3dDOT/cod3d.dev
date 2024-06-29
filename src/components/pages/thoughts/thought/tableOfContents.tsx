@@ -1,7 +1,8 @@
 'use client';
 
+import { useLenis } from '@/lib/lenis';
 import { clsx } from 'clsx';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 type Heading = {
 	text: string;
@@ -12,27 +13,55 @@ export const TableofContents: React.FC<{ className?: string }> = ({
 	className
 }) => {
 	const [headings, setHeadings] = useState<Heading[]>([]);
-	const [activeIndex, setActiveIndex] = useState(0);
+	const [active, setActive] = useState<number[]>([]);
+
+	const lenis = useLenis();
+
+	const onLinkClick = useCallback(
+		(e: MouseEvent, href: string) => {
+			e.preventDefault();
+			const relativeHref = '#' + href?.split('#').at(-1);
+
+			lenis?.scrollTo(relativeHref);
+		},
+		[lenis]
+	);
+
+	const onIntersect = useCallback(
+		(entries: IntersectionObserverEntry[]) => {
+			const activeCopy = active;
+
+			entries.forEach((entry) => {
+				const index = headings.findIndex(
+					(heading) => heading.id === entry.target.id
+				);
+				if (entry.isIntersecting) {
+					activeCopy.push(index);
+				} else {
+					activeCopy.splice(activeCopy.indexOf(index), 1);
+				}
+			});
+
+			setActive([...activeCopy]);
+		},
+		[headings, active]
+	);
 
 	useEffect(() => {
 		const options = {
 			root: document,
 			rootMargin: '0px',
-			threshold: 1.0
+			threshold: 0.1
 		};
 
-		const observer = new IntersectionObserver(
-			(entries: IntersectionObserverEntry[]) => {
-				const last = entries.findLast((el) => el.isIntersecting);
-				const index = headings.findIndex((el) => el.id == last?.target.id);
-				if (index != -1) setActiveIndex(index);
-			},
-			options
-		);
+		const observer = new IntersectionObserver(onIntersect, options);
+
 		headings.forEach(({ id }) => {
 			const element = document.getElementById(id);
 			if (element) observer.observe(element);
 		});
+
+		return () => observer.disconnect();
 	}, [headings]);
 
 	useEffect(() => {
@@ -52,17 +81,36 @@ export const TableofContents: React.FC<{ className?: string }> = ({
 		setHeadings(headingsText);
 	}, []);
 
+	useEffect(() => {
+		const tableOfContents = document.getElementById('table-of-contents');
+		const anchorLinks = Array.from(
+			tableOfContents?.getElementsByTagName('a') || []
+		).filter((link) => link.getAttribute('href')?.includes('#'));
+
+		for (const link of anchorLinks) {
+			link.addEventListener('click', (e) => onLinkClick(e, link.href));
+		}
+
+		return () => {
+			for (const link of anchorLinks) {
+				link.removeEventListener('click', (e) => onLinkClick(e, link.href));
+			}
+		};
+	}, [lenis]);
+
 	return (
-		<div className={clsx('space-y-8 xl:block hidden', className)}>
-			<span className="">Table of Contents</span>
-			<ul className="text-sm">
+		<div
+			id="table-of-contents"
+			className={clsx('space-y-8 2xl:block hidden', className)}
+		>
+			<ul>
 				{headings.map((heading, index) => {
 					return (
 						<li
 							key={heading.id}
 							className={clsx(
 								'transition-all hover:scale-105',
-								index == activeIndex && ' text-blue-500'
+								active.includes(index) && ' text-blue-500'
 							)}
 						>
 							<a

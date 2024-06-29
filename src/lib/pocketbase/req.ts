@@ -12,7 +12,12 @@ export async function getThought(slug: string) {
 		redirect(`/404`);
 	}
 
-	return items[0];
+	const thought = items[0];
+	thought.hero = pb.files.getUrl(thought, thought.hero, {
+		thumb: '100x100'
+	});
+
+	return thought;
 }
 
 export async function getThoughts(

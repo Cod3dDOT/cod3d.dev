@@ -19,7 +19,7 @@ export interface Thought {
 	slug: string;
 	name: string;
 	body: string;
-	preview: string;
+	hero: string;
 }
 
 export interface TypedPocketBase extends PocketBase {

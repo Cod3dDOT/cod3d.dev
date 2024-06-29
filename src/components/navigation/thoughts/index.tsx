@@ -52,7 +52,7 @@ const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = async ({
 											{dateToString(thought.created)}
 										</h3>
 										<br />
-										<h5>{thought.name}</h5>
+										<h4>{thought.name}</h4>
 									</div>
 									<div className="absolute w-36 h-36 rounded-full -top-16 -right-16 bg-blue-500 blur-xl" />
 								</div>

@@ -43,25 +43,15 @@ export const CodeBlock: React.FC<CodeProps> = ({
 }) => {
 	const lang = language ? language : getLanguageFromFilename(filename || '');
 
-	// const onCopyClick = () => copy(code);
-
 	const highlighted = hljs.highlightAuto(code, [lang]).value;
 
 	return (
 		<figure>
-			<figcaption className="flex justify-between px-4 bg-background-dark border border-neutral-700 rounded-t-lg">
+			<figcaption className="px-4 bg-background-dark border border-neutral-700 rounded-t-lg">
 				<p className="text-foreground !my-3 font-mono">{filename}</p>
-				<button>
-					<CopyIcon
-						aria-hidden="true"
-						focusable="false"
-						className="fill-foreground h-full aspect-square"
-					/>
-					<span className="sr-only">Copy contents of {filename}</span>
-				</button>
 			</figcaption>
 			<pre className="flex !rounded-t-none border border-neutral-700">
-				<ol className="!my-0 mx-3 lg:!text-[0.89em]">
+				<ol className="!my-0 mx-3 lg:!text-[0.904em]">
 					{highlighted.split('\n').map((_, i) => (
 						<li key={_.substring(2) + i} className="!m-0" />
 					))}
