@@ -4,7 +4,10 @@ import clsx from 'clsx';
 import { memo } from 'react';
 
 import { GridPattern } from '@/components/effects/gridPattern';
-import { randomIntFromIntervalPredicted, stringToUniqueId } from '@/lib/math';
+import {
+	randomIntFromIntervalPredicted,
+	stringToUniqueId
+} from '@/lib/utils/math';
 import { Project } from '@/lib/pocketbase/types';
 
 export const ProjectGridEffect: React.FC<{ id: Project['id'] }> = ({ id }) => {

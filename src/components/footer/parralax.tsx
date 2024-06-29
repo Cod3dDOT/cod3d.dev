@@ -1,6 +1,6 @@
 'use client';
 
-import { remapRange } from '@/lib/math';
+import { remapRange } from '@/lib/utils/math';
 import { useLenis } from 'lenis/react';
 import { useState } from 'react';
 import { FooterMon } from './pokemon';

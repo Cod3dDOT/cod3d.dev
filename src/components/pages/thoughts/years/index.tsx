@@ -1,6 +1,6 @@
 import '@/app/styles/thoughts.css';
 
-import { getGroupedBy } from '@/lib/array';
+import { getGroupedBy } from '@/lib/utils/array';
 import { Thought } from '@/lib/pocketbase/types';
 
 import { ThoughtsYear } from './year';

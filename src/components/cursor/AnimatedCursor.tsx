@@ -8,7 +8,7 @@ import {
 	useState
 } from 'react';
 
-import { findInArray } from '@/lib/array';
+import { findInArray } from '@/lib/utils/array';
 import { useEventListener } from '@/lib/hooks/useEventListener';
 import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
 
