@@ -105,7 +105,7 @@ export const ThoughtsTextReveal = () => {
 		>
 			{(tokens, progress, skip) => (
 				<div className="sticky top-0 flex h-screen items-center">
-					<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight lg:text-[9vw] xl:text-[8rem]">
+					<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight lg:text-[9vw] xl:text-[8rem] sm:text-[5.65rem] text-[4rem]">
 						{tokens.map((token, index) => (
 							<TextReveal.Token key={index} index={index}>
 								{(isActive) => (

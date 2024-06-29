@@ -6,16 +6,14 @@
 	--foreground: 18 18 18;
 	--background-dark: 232 232 232;
 	--background: 220 220 220;
+
+	@apply bg-background text-foreground overscroll-y-none;
 }
 
 .dark {
 	--foreground: 232 232 232;
 	--background-dark: 18 18 18;
 	--background: 34 34 34;
-}
-
-div {
-	display: block;
 }
 
 @layer components {

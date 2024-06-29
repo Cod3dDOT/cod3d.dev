@@ -6,7 +6,8 @@ import parse, {
 
 import { Thought } from '@/lib/pocketbase/types';
 
-import { CodeInline, CodeBlock } from './code';
+import { CodeBlock } from './code/block';
+import { CodeInline } from './code/inline';
 
 const options: HTMLReactParserOptions = {
 	replace(domNode) {

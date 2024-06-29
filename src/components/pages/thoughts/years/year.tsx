@@ -30,7 +30,9 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 
 	return (
 		<div className="space-y-10 py-8">
-			<h2>{year}</h2>
+			<h2 className="md:text-[5.65rem] sm:text-[4rem] text-[2.83rem]">
+				{year}
+			</h2>
 			<div className={clsx(gridClasses, className)}>
 				{thoughts.map((th) => (
 					<SpotlightCard
@@ -41,7 +43,9 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 						className={cardClasses}
 					>
 						<Link href={'/thoughts/' + th.slug} className={contentClasses}>
-							<h4>{th.name}</h4>
+							<h3 className="md:text-[2rem] sm:text-[1.44rem] text-[1.22rem]">
+								{th.name}
+							</h3>
 						</Link>
 					</SpotlightCard>
 				))}

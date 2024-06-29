@@ -16,8 +16,8 @@ const config: Config = {
 		extend: {
 			fontFamily: {
 				pixelify: ['var(--font-pixelify)'],
-				roboto: ['var(--font-roboto)'],
-				poppins: ['var(--font-poppins)']
+				sans: ['var(--font-geist-sans)'],
+				mono: ['var(--font-geist-mono)']
 			},
 			colors: {
 				transparent: 'transparent',

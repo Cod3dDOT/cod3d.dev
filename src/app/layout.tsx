@@ -1,5 +1,4 @@
 import './styles/globals.css';
-import './styles/typography.css';
 import './styles/glitch.css';
 
 import clsx from 'clsx';
@@ -17,6 +16,9 @@ const font = Pixelify_Sans({
 	display: 'swap',
 	variable: '--font-pixelify'
 });
+
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 
 export const viewport: Viewport = {
 	width: 'device-width',
@@ -98,7 +100,14 @@ export default async function RootLayout({
 					data-host-url="https://cod3d.dev"
 				></script>
 			</head>
-			<body className={clsx(font.variable, 'font-pixelify')}>
+			<body
+				className={clsx(
+					font.variable,
+					GeistSans.variable,
+					GeistMono.variable,
+					'font-pixelify'
+				)}
+			>
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

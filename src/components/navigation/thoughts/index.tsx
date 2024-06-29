@@ -48,7 +48,9 @@ const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = async ({
                                                 absolute inset-1 bg-background p-8 md:py-10 flex flex-col justify-between "
 								>
 									<div>
-										<h4>{dateToString(thought.created)}</h4>
+										<h3 className="md:text-[2rem] sm:text-[1.44rem] text-[1.22rem]">
+											{dateToString(thought.created)}
+										</h3>
 										<br />
 										<h5>{thought.name}</h5>
 									</div>

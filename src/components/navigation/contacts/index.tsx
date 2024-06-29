@@ -6,7 +6,9 @@ import { ContactButton, ContactLink } from './link';
 const NavContactsShowcase: React.FC = () => {
 	return (
 		<div className="group space-y-4">
-			<h2>Catch Me</h2>
+			<h2 className="md:text-[5.65rem] sm:text-[4rem] text-[2.83rem]">
+				Catch Me
+			</h2>
 			<div className="flex gap-4">
 				<ContactLink href="https://github.com/cod3ddot" text="GitHub">
 					<GithubIcon

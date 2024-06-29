@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { CSP } from './middleware/csp';
-import { CORS, CORS_PREFLIGHT } from './middleware/cors';
-import { PERMISSIONS } from './middleware/permissions';
-import { REWRITES } from './middleware/rewrites';
+import { CSP } from './lib/middleware/csp';
+import { CORS, CORS_PREFLIGHT } from './lib/middleware/cors';
+import { PERMISSIONS } from './lib/middleware/permissions';
+import { REWRITES } from './lib/middleware/rewrites';
 
 export const config = {
 	matcher: [

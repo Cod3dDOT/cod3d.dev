@@ -3,13 +3,9 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
 
 import CopyIcon from '@/components/icons/copy';
-import parse, {
-	Element,
-	HTMLReactParserOptions,
-	Text
-} from 'html-react-parser';
+import parse from 'html-react-parser';
 
-type CodeProps = {
+export type CodeProps = {
 	code: string;
 	language?: string;
 	filename?: string;
@@ -49,10 +45,12 @@ export const CodeBlock: React.FC<CodeProps> = ({
 
 	// const onCopyClick = () => copy(code);
 
+	const highlighted = hljs.highlightAuto(code, [lang]).value;
+
 	return (
-		<div className="*:m-0 border-2 dark:border-background-dark border-foreground rounded-lg">
-			<div className="flex justify-between p-4">
-				<p className="m-0">{filename}</p>
+		<figure>
+			<figcaption className="flex justify-between px-4 bg-background-dark border border-neutral-700 rounded-t-lg">
+				<p className="text-foreground !my-3 font-mono">{filename}</p>
 				<button>
 					<CopyIcon
 						aria-hidden="true"
@@ -61,24 +59,15 @@ export const CodeBlock: React.FC<CodeProps> = ({
 					/>
 					<span className="sr-only">Copy contents of {filename}</span>
 				</button>
-			</div>
-			<pre>
-				<code className={`language-${lang}`}>
-					{parse(hljs.highlightAuto(code, [lang]).value)}
-				</code>
+			</figcaption>
+			<pre className="flex !rounded-t-none border border-neutral-700">
+				<ol className="!my-0 mx-3 lg:!text-[0.89em]">
+					{highlighted.split('\n').map((_, i) => (
+						<li key={_.substring(2) + i} className="!m-0" />
+					))}
+				</ol>
+				<code className={`language-${lang}`}>{parse(highlighted)}</code>
 			</pre>
-		</div>
-	);
-};
-
-export const CodeInline: React.FC<CodeProps> = ({ code, language }) => {
-	return (
-		<code
-			className={clsx(
-				'after:contents before:contents py-1 px-2 bg-background-dark rounded-md'
-			)}
-		>
-			{code}
-		</code>
+		</figure>
 	);
 };

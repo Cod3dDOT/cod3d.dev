@@ -1,5 +1,6 @@
 'use client';
 
+import CursorEditIcon from '../icons/cursor/edit';
 import AnimatedCursor from './AnimatedCursor';
 
 export const Cursor: React.FC<{ nonce?: string }> = ({ nonce }) => {
@@ -28,6 +29,14 @@ export const Cursor: React.FC<{ nonce?: string }> = ({ nonce }) => {
 					target: 'a,button',
 					outerSize: 12,
 					innerSize: 0
+				},
+				{
+					target: 'code',
+					outerSize: 0,
+					innerSize: 0,
+					innerScale: 0,
+					outerScale: 0,
+					children: <CursorEditIcon className="w-8 h-8 fill-current" />
 				}
 			]}
 		/>

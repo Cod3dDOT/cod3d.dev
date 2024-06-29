@@ -9,7 +9,9 @@ export default function Home() {
 	return (
 		<main className="h-full flex flex-col justify-center my-auto md:pl-24 sm:pl-16 pl-8 bg-grainy">
 			<GrainyBackground />
-			<h1>cod3d.dev</h1>
+			<h1 className="md:text-[8rem] sm:text-[5.65rem] text-[4rem]">
+				cod3d.dev
+			</h1>
 
 			<p className="whitespace-pre">
 				<span>Probably trying to hack you. </span>
