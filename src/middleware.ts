@@ -58,7 +58,7 @@ export async function middleware(request: NextRequest) {
 	withPermissions.responseHeaders.set('X-Content-Type-Options', 'nosniff');
 	withPermissions.responseHeaders.set(
 		'Strict-Transport-Security',
-		'max-age=15552000; includeSubDomains; preload'
+		'max-age=63072000; includeSubDomains; preload'
 	);
 
 	// we now have collected all desired request/response headers

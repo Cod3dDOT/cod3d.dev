@@ -28,6 +28,7 @@ const CSP_HASHES = {
 		"'sha256-3EP1piOo/O4YWqWO7mQYW6fCsMcX8uB/C/w3Cgomac4='",
 		"'sha256-DfDHsb01i3x8hjBF8augn/uMacvjKKf6ZvynOJD7J8o='",
 		"'sha256-geco2bDyS+Sc/wAKeVY5bwJ5ZiB4SsxkbgG2GqlY468='",
+		"'sha256-Y9g1vnU5ywyIwbIvwb3UvTiA2lo4N5nIBXfiMNClqYQ='",
 
 		// homepage
 		"'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='",
