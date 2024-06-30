@@ -4,11 +4,15 @@ import NavContactsShowcase from './contacts';
 import NavigationContainer from './container';
 import NavProjectsShowcase from './projects';
 import NavThoughtsShowcase from './thoughts';
+import { Project, Thought } from '@/lib/pocketbase/types';
 
-const projects = await getProjects(1, 3);
-const thoughts = await getThoughts(1, 2);
+export const Navigation: React.FC = async () => {
+	const projectResponse = await getProjects(1, 3);
+	const thoughtReponse = await getThoughts(1, 2);
 
-export const Navigation: React.FC = () => {
+	const thoughts = thoughtReponse as Thought[];
+	const projects = projectResponse as Project[];
+
 	return (
 		<NavigationContainer>
 			<NavThoughtsShowcase thoughts={thoughts} />

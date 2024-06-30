@@ -1,47 +1,67 @@
 import { redirect } from 'next/navigation';
-import { getPB } from './config';
+import { createServerClient } from './config';
+import { ClientResponseError } from './types';
 
 export async function getThought(slug: string) {
-	const pb = await getPB();
+	const client = await createServerClient();
 
-	const items = (
-		await pb.collection('thoughts').getList(1, 1, { filter: `slug='${slug}'` })
-	).items;
+	try {
+		const thoughts = await client
+			.collection('thoughts')
+			.getList(1, 1, { filter: `slug='${slug}'` });
 
-	if (items.length == 0) {
-		redirect(`/404`);
+		if (thoughts.items.length == 0) {
+			return {
+				url: '/thoughts',
+				status: 404,
+				response: {},
+				isAbort: false,
+				originalError: null
+			} as ClientResponseError;
+		}
+
+		const thought = thoughts.items[0];
+		thought.hero = client.files.getUrl(thought, thought.hero, {
+			thumb: '100x100'
+		});
+
+		return thought;
+	} catch (error: unknown) {
+		return error as ClientResponseError;
 	}
-
-	const thought = items[0];
-	thought.hero = pb.files.getUrl(thought, thought.hero, {
-		thumb: '100x100'
-	});
-
-	return thought;
 }
 
 export async function getThoughts(
 	page?: number | undefined,
 	perPage?: number | undefined
 ) {
-	const pb = await getPB();
+	const client = await createServerClient();
 
-	return (
-		await pb.collection('thoughts').getList(page, perPage, {
+	try {
+		const posts = await client.collection('thoughts').getList(page, perPage, {
 			sort: 'created'
-		})
-	).items;
+		});
+		return posts.items;
+	} catch (error: unknown) {
+		return error as ClientResponseError;
+	}
 }
 
 export async function getProjects(
 	page?: number | undefined,
 	perPage?: number | undefined
 ) {
-	const pb = await getPB();
-	return (
-		await pb.collection('projects').getList(page, perPage, {
-			filter: 'repo != null',
-			sort: 'status'
-		})
-	).items;
+	const client = await createServerClient();
+
+	try {
+		const projects = await client
+			.collection('projects')
+			.getList(page, perPage, {
+				filter: 'repo != null',
+				sort: 'status'
+			});
+		return projects.items;
+	} catch (error: unknown) {
+		return error as ClientResponseError;
+	}
 }

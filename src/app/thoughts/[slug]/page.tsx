@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { ThoughtBody } from '@/components/pages/thoughts/thought/body';
-import { TableofContents } from '@/components/pages/thoughts/thought/tableOfContents';
 import { getThought } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
 import { Footer } from '@/components/footer';
@@ -11,13 +10,41 @@ import BackIcon from '@/components/icons/back';
 import Image from 'next/image';
 import readingTime from '@/lib/readingTime';
 import { dateToString } from '@/lib/utils/date';
+import { isError } from '@/lib/pocketbase/utils';
+import { Thought } from '@/lib/pocketbase/types';
+import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+const DynamicTableOfContents = dynamic(
+	() =>
+		import('@/components/pages/thoughts/thought/tableOfContents').then(
+			(mod) => mod.TableOfContents
+		),
+	{ ssr: false }
+);
 
 export async function generateMetadata({
 	params
 }: {
 	params: { slug: string };
 }) {
-	const thought = await getThought(params.slug);
+	const thoughtResponse = await getThought(params.slug);
+
+	if (isError(thoughtResponse)) {
+		return {
+			title: "cod3d's thoughts",
+			description: "cod3d's thoughts",
+			openGraph: {
+				type: 'website',
+				url: 'https://cod3d.dev',
+				title: "cod3d's thoughts",
+				description: "cod3d's thoughts",
+				siteName: "cod3d's den"
+			}
+		};
+	}
+
+	const thought = thoughtResponse as Thought;
 
 	return {
 		title: "cod3d's thoughts",
@@ -45,7 +72,13 @@ const BackLink: React.FC = () => {
 };
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	const thought = await getThought(params.slug);
+	const thoughtResponse = await getThought(params.slug);
+
+	if (isError(thoughtResponse)) {
+		return notFound();
+	}
+
+	const thought = thoughtResponse as Thought;
 
 	return (
 		<ReactLenis root>
@@ -95,7 +128,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 							<section className="max-w-prose">
 								<ThoughtBody thought={thought} />
 							</section>
-							<TableofContents className="not-prose mt-[20rem] sticky top-[50vh] -translate-y-1/2 self-start h-auto" />
+							<DynamicTableOfContents className="not-prose mt-[20rem] sticky top-[50vh] -translate-y-1/2 self-start h-auto" />
 						</section>
 					</article>
 

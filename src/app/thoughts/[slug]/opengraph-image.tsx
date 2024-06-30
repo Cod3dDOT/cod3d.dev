@@ -2,6 +2,8 @@ import { ImageResponse } from 'next/og';
 
 import { getNonce } from '@/lib/nonce';
 import { getThought } from '@/lib/pocketbase/req';
+import { isError } from '@/lib/pocketbase/utils';
+import { Thought } from '@/lib/pocketbase/types';
 
 // Route segment config
 export const runtime = 'edge';
@@ -26,7 +28,7 @@ const getFont = async () => {
 
 // Image generation
 export default async function Image({ params }: { params: { slug: string } }) {
-	const thought = await getThought(params.slug);
+	const thoughtResponse = await getThought(params.slug);
 
 	return new ImageResponse(
 		(
@@ -47,18 +49,20 @@ export default async function Image({ params }: { params: { slug: string } }) {
 				}}
 			>
 				<span style={{ color: 'white' }}>cod3d.dev</span>
-				<div
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						fontSize: 64,
-						marginTop: 'auto'
-					}}
-				>
-					<span>Thought:</span>
-					<br />
-					<span>{thought.name}</span>
-				</div>
+				{!isError(thoughtResponse) && (
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							fontSize: 64,
+							marginTop: 'auto'
+						}}
+					>
+						<span>Thought:</span>
+						<br />
+						<span>{(thoughtResponse as Thought).name}</span>
+					</div>
+				)}
 				<div
 					style={{
 						position: 'absolute',
@@ -80,7 +84,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 			...size,
 			fonts: [
 				{
-					name: 'Inter',
+					name: 'PixelifySans',
 					data: await getFont(),
 					style: 'normal',
 					weight: 400

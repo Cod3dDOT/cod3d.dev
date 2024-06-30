@@ -27,3 +27,11 @@ export interface TypedPocketBase extends PocketBase {
 	collection(idOrName: 'projects'): RecordService<Project>;
 	collection(idOrName: 'thoughts'): RecordService<Thought>;
 }
+
+export interface ClientResponseError {
+	url: string; // requested url
+	status: number; // response status code
+	response: unknown; // the API JSON error response
+	isAbort: boolean; // is abort/cancellation error
+	originalError: Error | null; // the original non-normalized error
+}

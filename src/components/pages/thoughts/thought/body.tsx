@@ -37,6 +37,5 @@ type ThoughtBodyProps = {
 };
 
 export const ThoughtBody: React.FC<ThoughtBodyProps> = async ({ thought }) => {
-	// console.log(thought.body);
 	return parse(thought.body, options);
 };

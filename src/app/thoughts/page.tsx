@@ -5,6 +5,9 @@ import { Years } from '@/components/pages/thoughts/years';
 import { getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
 import { Footer } from '@/components/footer';
+import { isError } from '@/lib/pocketbase/utils';
+import { Thought } from '@/lib/pocketbase/types';
+import { PageError } from '@/components/error';
 
 export const metadata: Metadata = {
 	title: "cod3d's thoughts",
@@ -27,7 +30,13 @@ export const metadata: Metadata = {
 };
 
 const ThoughtsPage: React.FC = async () => {
-	const thoughts = await getThoughts(1, 20);
+	const thoughtsResponse = await getThoughts(1, 20);
+
+	if (isError(thoughtsResponse)) {
+		return <PageError />;
+	}
+
+	const thoughts = thoughtsResponse as Thought[];
 
 	return (
 		<ReactLenis root>

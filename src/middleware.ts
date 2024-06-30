@@ -51,18 +51,7 @@ export async function middleware(request: NextRequest) {
 		withCORS.responseHeaders
 	);
 
-	// In order: embed, browser xss checks, ???, don't guess content type, hsts
-	withPermissions.responseHeaders.set('X-Frame-Options', 'DENY');
-	withPermissions.responseHeaders.set('X-XSS-Protection', '1; mode=block');
-	withPermissions.responseHeaders.set('Referrer-Policy', 'same-origin');
-	withPermissions.responseHeaders.set('X-Content-Type-Options', 'nosniff');
-	withPermissions.responseHeaders.set(
-		'Strict-Transport-Security',
-		'max-age=63072000; includeSubDomains; preload'
-	);
-
 	// we now have collected all desired request/response headers
-
 	const response = NextResponse.next({
 		request: {
 			headers: withPermissions.requestHeaders

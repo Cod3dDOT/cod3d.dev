@@ -9,7 +9,7 @@ type Heading = {
 	id: string;
 };
 
-export const TableofContents: React.FC<{ className?: string }> = ({
+export const TableOfContents: React.FC<{ className?: string }> = ({
 	className
 }) => {
 	const [headings, setHeadings] = useState<Heading[]>([]);
