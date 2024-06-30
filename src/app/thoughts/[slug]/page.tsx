@@ -13,15 +13,7 @@ import { dateToString } from '@/lib/utils/date';
 import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
 import { notFound } from 'next/navigation';
-import dynamic from 'next/dynamic';
-
-const DynamicTableOfContents = dynamic(
-	() =>
-		import('@/components/pages/thoughts/thought/tableOfContents').then(
-			(mod) => mod.TableOfContents
-		),
-	{ ssr: false }
-);
+import { TableOfContents } from '@/components/pages/thoughts/thought/tableOfContents';
 
 export async function generateMetadata({
 	params
@@ -63,13 +55,21 @@ const BackLink: React.FC = () => {
 	return (
 		<Link
 			href="/thoughts"
-			className="flex w-fit items-center space-x-2 group hover:underline"
+			className="inline-flex items-center space-x-2 hover:underline"
 		>
 			<BackIcon className="h-full aspect-square" />
 			<span>All thoughts</span>
 		</Link>
 	);
 };
+
+// export const dynamic = 'force-static';
+
+// // CDN cache currently only works on nodejs runtime
+// export const runtime = 'nodejs';
+
+// // Revalidate in seconds
+// export const revalidate = 60;
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const thoughtResponse = await getThought(params.slug);
@@ -128,7 +128,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 							<section className="max-w-prose">
 								<ThoughtBody thought={thought} />
 							</section>
-							<DynamicTableOfContents className="not-prose mt-[20rem] sticky top-[50vh] -translate-y-1/2 self-start h-auto" />
+							<TableOfContents className="not-prose mt-[20rem] sticky top-[50vh] -translate-y-1/2 self-start h-auto" />
 						</section>
 					</article>
 

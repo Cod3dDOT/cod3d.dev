@@ -113,10 +113,7 @@ export const TableOfContents: React.FC<{ className?: string }> = ({
 								active.includes(index) && ' text-blue-500'
 							)}
 						>
-							<a
-								className="thoughts-table-of-contents py-2 block"
-								href={'#' + heading.id}
-							>
+							<a className="py-2 block" href={'#' + heading.id}>
 								{heading.text}
 							</a>
 						</li>

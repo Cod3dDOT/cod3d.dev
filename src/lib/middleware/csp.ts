@@ -37,7 +37,12 @@ const CSP_HASHES = {
 		//hello
 		"'sha256-HGYbL7c7YTMNrtcUQBvASpkCpnhcLdlW/2pKHJ8sJ98='",
 		"'sha256-YYxElkDlCygmA+y95zmjQUGyfjKfYNAlVBuOlwC16mU='",
-		"'sha256-sf+AfSpoX2wAlbPSwhwe8fvuXnxOevh3pN6J2u1XdVE='"
+		"'sha256-sf+AfSpoX2wAlbPSwhwe8fvuXnxOevh3pN6J2u1XdVE='",
+
+		// cursor
+		"'sha256-h14ZocMjvlcPo0RlyzkMhmsQ2HjTk21A1RX0+q5TW8Y='",
+		"'sha256-OYTtywsUdsBNKzgSAB0Mz6Ps68b3a5wwLwsu/VAXh9g='",
+		"'sha256-QK1IoiuZocpcP5AzPpxMR+jB8b3AquuyzStFABAgUFY='"
 	]
 };
 

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CSP } from './lib/middleware/csp';
-import { CORS, CORS_PREFLIGHT } from './lib/middleware/cors';
-import { PERMISSIONS } from './lib/middleware/permissions';
-import { REWRITES } from './lib/middleware/rewrites';
+import { CORS } from './lib/middleware/cors';
 
 export const config = {
 	matcher: [
@@ -27,37 +25,23 @@ export const config = {
 export async function middleware(request: NextRequest) {
 	const customResponseHeaders = new Headers();
 
+	const withCORS = CORS(request.headers, customResponseHeaders);
+
 	// Handle preflighted requests
 	const isPreflight = request.method === 'OPTIONS';
 	if (isPreflight) {
-		const withCORS = CORS_PREFLIGHT(request.headers, customResponseHeaders);
 		return NextResponse.json({}, { headers: withCORS.responseHeaders });
 	}
 
-	const rewrite = REWRITES(request);
-	if (rewrite.rewrite) {
-		if (rewrite.destination === 'not-found') {
-			return NextResponse.next({
-				status: 404
-			});
-		}
-		return NextResponse.redirect(rewrite.destination);
-	}
-
-	const withCSP = CSP(request.headers, customResponseHeaders);
-	const withCORS = CORS(withCSP.requestHeaders, withCSP.responseHeaders);
-	const withPermissions = PERMISSIONS(
-		withCORS.requestHeaders,
-		withCORS.responseHeaders
-	);
+	const withCSP = CSP(withCORS.requestHeaders, withCORS.responseHeaders);
 
 	// we now have collected all desired request/response headers
 	const response = NextResponse.next({
 		request: {
-			headers: withPermissions.requestHeaders
+			headers: withCSP.requestHeaders
 		}
 	});
-	for (const [key, value] of withPermissions.responseHeaders) {
+	for (const [key, value] of withCSP.responseHeaders) {
 		response.headers.set(key, value);
 	}
 

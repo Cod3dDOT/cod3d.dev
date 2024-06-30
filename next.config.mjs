@@ -38,6 +38,19 @@ const nextConfig = {
 					{
 						key: 'Strict-Transport-Security',
 						value: 'max-age=63072000; includeSubDomains; preload'
+					},
+					{
+						key: 'Permissions-Policy',
+						value:
+							'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
+					},
+					{
+						key: 'Access-Control-Allow-Methods',
+						value: 'GET, POST, PUT, DELETE, OPTIONS'
+					},
+					{
+						key: 'Access-Control-Allow-Headers',
+						value: 'Content-Type, Authorization'
 					}
 				]
 			}
