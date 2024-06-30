@@ -5,15 +5,7 @@ import { Thought } from '@/lib/pocketbase/types';
 import { SpotlightCard } from '../../effects/spotlightCard';
 import { SectionLink } from '../section-link';
 import { getNonce } from '@/lib/nonce';
-
-const dateToString = (date: string) => {
-	const d = new Date(date);
-	return d.toLocaleDateString('en-us', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric'
-	});
-};
+import { dateToString } from '@/lib/utils/date';
 
 const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = async ({
 	thoughts

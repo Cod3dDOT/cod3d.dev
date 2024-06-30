@@ -10,6 +10,7 @@ import BackIcon from '@/components/icons/back';
 
 import Image from 'next/image';
 import readingTime from '@/lib/readingTime';
+import { dateToString } from '@/lib/utils/date';
 
 export async function generateMetadata({
 	params
@@ -35,7 +36,7 @@ const BackLink: React.FC = () => {
 	return (
 		<Link
 			href="/thoughts"
-			className="flex w-fit items-center space-x-2 mb-8 group hover:underline"
+			className="flex w-fit items-center space-x-2 group hover:underline"
 		>
 			<BackIcon className="h-full aspect-square" />
 			<span>All thoughts</span>
@@ -57,26 +58,36 @@ export default async function Page({ params }: { params: { slug: string } }) {
 					<BackLink />
 					<article
 						className={clsx(
-							'prose lg:prose-xl prose-neutral max-w-none dark:prose-invert',
-							'prose-headings:font-semibold',
+							'prose lg:prose-xl prose-neutral prose-amber max-w-none dark:prose-invert',
+							'prose-headings:font-light prose-headings:w-4/5 prose-h1:text-[5vw]',
 							'prose-img:w-full prose-img:rounded-xl',
-							'prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-a:transition-colors',
+							'hover:prose-a:text-blue-500 prose-a:transition-colors',
 							'prose-pre:bg-background-dark prose-pre:text-current',
 							'pb-8'
 						)}
 					>
-						<h1>{thought.name}</h1>
-						<section className="flex flex-wrap gap-4 *:rounded-full *:bg-background-dark *:p-4">
-							<span>
-								Reading time:{' '}
-								{readingTime(thought.body, { wordsPerMinute: 100 }).minutes}{' '}
-								mins
-							</span>
+						<section className="uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12">
+							<div>
+								<span className="font-extralight">Reading time</span>
+								<br />
+								{readingTime(thought.body, { wordsPerMinute: 100 }).minutes}
+								<span> minutes</span>
+							</div>
+							<div>
+								<span className="font-extralight">Published</span>
+								<br />
+								<time dateTime={thought.created}>
+									{dateToString(thought.created)}
+								</time>
+							</div>
 						</section>
+						<h1>{thought.name}</h1>
+
 						<Image
 							src={thought.hero}
 							width={1920}
 							height={1080}
+							sizes="(max-width: 768px) 100vw, 90vw"
 							alt={thought.name + ' hero image'}
 							className="w-full aspect-video"
 						/>
