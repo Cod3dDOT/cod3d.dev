@@ -3,7 +3,6 @@
 import clsx from 'clsx';
 import React, { useMemo, useRef } from 'react';
 import { useMouse } from 'react-use';
-import Tilt from 'react-parallax-tilt';
 import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
 
 interface SpotlightCardProps {
@@ -83,30 +82,23 @@ export function SpotlightCard({
 	}
 
 	return (
-		<Tilt
-			glareEnable={true}
-			glareBorderRadius="0.75rem"
-			tiltMaxAngleX={3}
-			tiltMaxAngleY={3}
-			className={className}
+		<Component
+			nonce={nonce}
+			ref={container}
+			className={clsx(
+				`relative transform-gpu h-full spotlight-card-${id}`,
+				classes,
+				className
+			)}
+			style={{
+				'--spotlight-color-stops': spotlightColorStops,
+				'--spotlight-size': `${size}px`,
+				'--spotlight-x': `${elX}px`,
+				'--spotlight-y': `${elY}px`
+			}}
+			{...props}
 		>
-			<Component
-				nonce={nonce}
-				ref={container}
-				className={clsx(
-					`relative transform-gpu h-full spotlight-card-${id}`,
-					classes
-				)}
-				style={{
-					'--spotlight-color-stops': spotlightColorStops,
-					'--spotlight-size': `${size}px`,
-					'--spotlight-x': `${elX}px`,
-					'--spotlight-y': `${elY}px`
-				}}
-				{...props}
-			>
-				{children}
-			</Component>
-		</Tilt>
+			{children}
+		</Component>
 	);
 }
