@@ -7,9 +7,12 @@ import { Pixelify_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import { Cursor } from '@/components/cursor';
-import { Navigation } from '@/components/navigation';
 import { FadeTransition } from '@/components/transitions';
 import { getNonce } from '@/lib/nonce';
+
+const DynamicNavigation = dynamic(() => import('@/components/navigation'), {
+	loading: () => <p>Loading...</p>
+});
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -19,6 +22,7 @@ const font = Pixelify_Sans({
 
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import dynamic from 'next/dynamic';
 
 export const viewport: Viewport = {
 	width: 'device-width',
@@ -98,7 +102,7 @@ export default async function RootLayout({
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
 					data-domains="cod3d.dev"
 					data-host-url="https://cod3d.dev"
-				></script>
+				/>
 			</head>
 			<body
 				className={clsx(
@@ -115,7 +119,7 @@ export default async function RootLayout({
 
 				<ThemeProvider attribute="class">
 					<Cursor nonce={nonce} />
-					<Navigation />
+					<DynamicNavigation />
 
 					<FadeTransition>{children}</FadeTransition>
 				</ThemeProvider>

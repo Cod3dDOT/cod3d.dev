@@ -6,11 +6,12 @@ import { SpotlightCard } from '../../effects/spotlightCard';
 import { SectionLink } from '../section-link';
 import { getNonce } from '@/lib/nonce';
 import { dateToString } from '@/lib/utils/date';
+import { getThoughts } from '@/lib/pocketbase/req';
 
-const NavThoughtsShowcase: React.FC<{ thoughts: Thought[] }> = async ({
-	thoughts
-}) => {
+const NavThoughtsShowcase: React.FC = async () => {
 	const nonce = await getNonce();
+	const thoughtReponse = await getThoughts(1, 2);
+	const thoughts = thoughtReponse as Thought[];
 
 	return (
 		<section>
