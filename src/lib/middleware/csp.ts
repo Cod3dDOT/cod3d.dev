@@ -91,7 +91,7 @@ export function CSP(
 		.join('; ');
 
 	if (!IS_DEV && !isThought)
-		cspHeader += "; require-trusted-types-for: 'script';";
+		cspHeader += "; require-trusted-types-for 'script';";
 
 	// Replace newline characters and spaces
 	const cspHeaderSafe = cspHeader.replace(/\s{2,}/g, ' ').trim();
