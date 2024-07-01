@@ -24,6 +24,7 @@ const NavThoughtsShowcase: React.FC = async () => {
 				{thoughts.map((thought, i) => {
 					return (
 						<Link
+							hrefLang="en"
 							key={thought.id}
 							href={'/thoughts/' + thought.slug}
 							className="cursor-thoughts-nav"

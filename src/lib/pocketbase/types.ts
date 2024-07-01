@@ -18,6 +18,7 @@ export interface Thought {
 	updated: string;
 	slug: string;
 	name: string;
+	description: string;
 	body: string;
 	hero: string;
 }

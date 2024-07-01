@@ -20,6 +20,7 @@ export const DesktopOpener: React.FC<{
 				)}
 			/>
 			<Link
+				hrefLang="en"
 				href="/"
 				className={clsx(
 					'transition-transform w-full aspect-square p-4 hover:scale-95',

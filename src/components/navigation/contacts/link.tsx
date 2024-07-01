@@ -50,7 +50,7 @@ export const ContactLink: React.FC<{
 	}, [protectedBytes]);
 
 	return (
-		<Link ref={linkRef} className={style} href={href}>
+		<Link hrefLang="en" ref={linkRef} className={style} href={href}>
 			{children}
 			<span>{text}</span>
 		</Link>

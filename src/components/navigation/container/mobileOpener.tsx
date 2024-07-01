@@ -20,6 +20,7 @@ export const MobileOpener: React.FC<{
 			)}
 		>
 			<Link
+				hrefLang="en"
 				href="/"
 				className={clsx(
 					'ml-auto transition-transform hover:scale-95',

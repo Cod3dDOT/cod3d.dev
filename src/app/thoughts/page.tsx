@@ -10,20 +10,35 @@ import { Thought } from '@/lib/pocketbase/types';
 import { PageError } from '@/components/error';
 
 export const metadata: Metadata = {
-	title: "cod3d's thoughts",
+	title: "cod3d's thoughts | A place where I share my struggles",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
 	creator: 'cod3d',
 	keywords: 'blog, projects, coding',
 	robots: 'index, nofollow',
 	openGraph: {
 		type: 'website',
-		url: 'https://cod3d.dev',
-		title: "cod3d's thoughts",
+		url: 'https://cod3d.dev/thoughts',
+		title: "cod3d's thoughts | A place where I share my struggles",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		siteName: "cod3d's den",
 		images: [
 			{
 				url: '/og.webp'
+			}
+		]
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: "cod3d's thoughts | A place where I share my struggles",
+		description: 'Probably trying to hack you. Or sleeping. Or both.',
+		creator: '@cod3ddot',
+		site: "cod3d's den",
+		images: [
+			{
+				url: '/og.webp',
+				width: 1200,
+				height: 675,
+				alt: "cod3d's den twitter image"
 			}
 		]
 	}

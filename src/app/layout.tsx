@@ -1,6 +1,8 @@
 import './styles/globals.css';
 import './styles/glitch.css';
 
+import { WebSite, WithContext } from 'schema-dts';
+
 import clsx from 'clsx';
 import type { Metadata, Viewport } from 'next';
 import { Pixelify_Sans } from 'next/font/google';
@@ -31,21 +33,15 @@ export const viewport: Viewport = {
 	themeColor: '#121212' // remove when updating next-themes to v1.0.0
 };
 
-const jsonLd = {
-	'@context': 'https://schema.org/',
-	'@type': 'WebSite',
-	name: "cod3d's den",
-	url: 'cod3d.dev',
-	image: 'https://cod3d.dev/og.png',
-	description: 'Probably trying to hack you. Or sleeping. Or both.'
-};
-
 export const metadata: Metadata = {
 	metadataBase: new URL('https://cod3d.dev'), // takes effect only in production
 	title: "cod3d's den",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
 	creator: 'cod3d',
 	keywords: 'blog, projects, coding',
+	alternates: {
+		canonical: 'https://cod3d.dev'
+	},
 	robots: {
 		index: true,
 		follow: true,
@@ -73,7 +69,7 @@ export const metadata: Metadata = {
 		card: 'summary_large_image',
 		title: "cod3d's den",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
-		// creator: '@cod3ddot',
+		creator: '@cod3ddot',
 		site: "cod3d's den",
 		images: [
 			{
@@ -84,6 +80,15 @@ export const metadata: Metadata = {
 			}
 		]
 	}
+};
+
+const jsonLd: WithContext<WebSite> = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name: "cod3d's den | A place where I try, fail, and learn.",
+	url: 'cod3d.dev',
+	image: 'https://cod3d.dev/og.png',
+	description: 'Probably trying to hack you. Or sleeping. Or both.'
 };
 
 export default async function RootLayout({
@@ -119,10 +124,9 @@ export default async function RootLayout({
 				/>
 
 				<ThemeProvider attribute="class">
+					<FadeTransition>{children}</FadeTransition>
 					<Cursor nonce={nonce} />
 					<DynamicNavigation />
-
-					<FadeTransition>{children}</FadeTransition>
 				</ThemeProvider>
 			</body>
 		</html>

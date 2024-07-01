@@ -42,7 +42,11 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 						key={th.id}
 						className={cardClasses}
 					>
-						<Link href={'/thoughts/' + th.slug} className={contentClasses}>
+						<Link
+							hrefLang="en"
+							href={'/thoughts/' + th.slug}
+							className={contentClasses}
+						>
 							<h3 className="md:text-[2rem] sm:text-[1.44rem] text-[1.22rem]">
 								{th.name}
 							</h3>
