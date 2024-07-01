@@ -73,7 +73,7 @@ export function CSP(
 	scriptSrc = ADD_NONCE(scriptSrc, nonce);
 
 	let styleSrc = '';
-	if (!IS_DEV) {
+	if (IS_DEV) {
 		styleSrc = "'unsafe-inline'";
 	} else {
 		styleSrc = ADD_HASHES(styleSrc, CSP_HASHES.style);
