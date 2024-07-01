@@ -30,15 +30,15 @@ export default function Home() {
 					<Image
 						priority
 						src={Blue}
-						width={256}
-						height={256}
+						width={32}
+						height={32}
 						alt="Blue blob"
 						className="absolute -left-16 -top-16"
 					/>
 					<Image
 						src={Yellow}
-						width={256}
-						height={256}
+						width={32}
+						height={32}
 						alt="Yellow blob"
 						className="absolute -right-16 -bottom-16"
 					/>

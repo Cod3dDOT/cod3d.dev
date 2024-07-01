@@ -29,7 +29,8 @@ export const metadata: Metadata = {
 	}
 };
 
-export const revalidate = 3600; // revalidate at most every hour
+// revalidate at most every 2 hours, in seconds
+export const revalidate = 7200;
 
 const ThoughtsPage: React.FC = async () => {
 	const thoughtsResponse = await getThoughts(1, 20);

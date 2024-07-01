@@ -3,30 +3,6 @@ import PocketBase from 'pocketbase';
 import { TypedPocketBase } from './types';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 
-// const pbUrl = process.env.PB_URL;
-// const pbUser = process.env.PB_USER;
-// const pbPass = process.env.PB_PASS;
-
-// if (!pbUrl || !pbUser || !pbPass)
-// 	throw new Error('Invalid .env database config');
-
-// export let pb: TypedPocketBase;
-
-// export const getPB = async () => {
-// 	if (pb && pb.authStore.isValid) return pb;
-
-// 	pb = new PocketBase(pbUrl) as TypedPocketBase;
-// 	pb.autoCancellation(false); // if (process.env.NODE_ENV === 'development')
-
-// 	const authData = await pb
-// 		.collection('users')
-// 		.authWithPassword(pbUser, pbPass, { requestKey: null });
-
-// 	pb.authStore.save(authData.token);
-
-// 	return pb;
-// };
-
 let singletonClient: TypedPocketBase | null = null;
 
 export function createBrowserClient() {
@@ -80,7 +56,7 @@ export async function createServerClient(cookieStore?: ReadonlyRequestCookies) {
 	} else {
 		const authData = await client
 			.collection('users')
-			.authWithPassword(pbUser, pbPass, { requestKey: null });
+			.authWithPassword(pbUser, pbPass);
 
 		client.authStore.save(authData.token);
 	}

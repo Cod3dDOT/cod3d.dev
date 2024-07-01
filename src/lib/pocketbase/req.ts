@@ -21,9 +21,7 @@ export async function getThought(slug: string) {
 		}
 
 		const thought = thoughts.items[0];
-		thought.hero = client.files.getUrl(thought, thought.hero, {
-			thumb: '100x100'
-		});
+		thought.hero = client.files.getUrl(thought, thought.hero);
 
 		return thought;
 	} catch (error: unknown) {

@@ -65,11 +65,11 @@ const BackLink: React.FC = () => {
 
 // export const dynamic = 'force-static';
 
-// // CDN cache currently only works on nodejs runtime
+// CDN cache currently only works on nodejs runtime
 // export const runtime = 'nodejs';
 
-// // Revalidate in seconds
-// export const revalidate = 60;
+// revalidate at most every day, in seconds
+export const revalidate = 86400;
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const thoughtResponse = await getThought(params.slug);
