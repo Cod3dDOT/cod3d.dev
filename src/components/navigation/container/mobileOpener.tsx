@@ -5,30 +5,12 @@ import HomeIcon from '@/components/icons/home';
 import { ThemeSwitch } from '@/components/themeSwitch';
 import { clsx } from 'clsx';
 import Link from 'next/link';
-import { useCallback, useEffect, useRef } from 'react';
 
 export const MobileOpener: React.FC<{
 	setOpened?: (open: boolean) => void;
 	opened: boolean;
 	pathname: string;
 }> = ({ setOpened, opened, pathname }) => {
-	const openRef = useRef<HTMLButtonElement>(null);
-
-	const onClick = useCallback(() => {
-		if (setOpened) setOpened(!opened);
-	}, [opened]);
-
-	useEffect(() => {
-		const open = openRef.current;
-		if (!open) return;
-
-		open.addEventListener('click', onClick);
-
-		return () => {
-			open.removeEventListener('click', onClick);
-		};
-	}, [openRef]);
-
 	return (
 		<div
 			className={clsx(
@@ -52,7 +34,7 @@ export const MobileOpener: React.FC<{
 				<span className="sr-only">Home</span>
 			</Link>
 			<ThemeSwitch id="theme-switch-mobile" className="h-12 w-12 p-3" />
-			<button type="button" ref={openRef}>
+			<button onClick={() => setOpened && setOpened(!opened)} type="button">
 				<ChevronIcon
 					className={clsx(
 						'h-12 w-12 p-4 fill-foreground transition-transform duration-300',

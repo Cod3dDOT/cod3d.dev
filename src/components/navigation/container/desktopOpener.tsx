@@ -4,30 +4,12 @@ import HomeIcon from '@/components/icons/home';
 import { ThemeSwitch } from '@/components/themeSwitch';
 import { clsx } from 'clsx';
 import Link from 'next/link';
-import { useCallback, useEffect, useRef } from 'react';
 
 export const DesktopOpener: React.FC<{
 	setOpened?: (open: boolean) => void;
 	opened: boolean;
 	pathname: string;
 }> = ({ setOpened, opened, pathname }) => {
-	const openRef = useRef<HTMLButtonElement>(null);
-
-	const onClick = useCallback(() => {
-		if (setOpened) setOpened(!opened);
-	}, [opened]);
-
-	useEffect(() => {
-		const open = openRef.current;
-		if (!open) return;
-
-		open.addEventListener('click', onClick);
-
-		return () => {
-			open.removeEventListener('click', onClick);
-		};
-	}, [openRef]);
-
 	return (
 		<div className="hidden sm:flex flex-col items-center h-full sm:w-16 w-12 shadow-lg">
 			<ThemeSwitch
@@ -52,7 +34,8 @@ export const DesktopOpener: React.FC<{
 				<span className="sr-only">Home</span>
 			</Link>
 			<button
-				ref={openRef}
+				type="button"
+				onClick={() => setOpened && setOpened(!opened)}
 				className="relative group h-1/2 my-auto w-16 *:absolute *:w-1 *:h-16 *:bg-foreground *:top-1/2 *:left-1/2 *:-translate-y-1/2"
 			>
 				<span
