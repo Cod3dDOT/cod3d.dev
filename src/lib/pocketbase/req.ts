@@ -6,9 +6,9 @@ export async function getThought(slug: string) {
 	const client = await createServerClient();
 
 	try {
-		const thoughts = await client
-			.collection('thoughts')
-			.getList(1, 1, { filter: `slug='${slug}'` });
+		const thoughts = await client.collection('thoughts').getList(1, 1, {
+			filter: client.filter('slug={:slug}', { slug: slug })
+		});
 
 		if (thoughts.items.length == 0) {
 			return {
@@ -55,7 +55,7 @@ export async function getProjects(
 		const projects = await client
 			.collection('projects')
 			.getList(page, perPage, {
-				filter: 'repo != null',
+				filter: 'repo!=null',
 				sort: 'status'
 			});
 		return projects.items;
