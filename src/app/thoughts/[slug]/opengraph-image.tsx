@@ -37,7 +37,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 				nonce={await getNonce()}
 				style={{
 					fontSize: 128,
-					backgroundColor: '#111',
+					backgroundColor: '#222',
 					padding: '7rem 8rem',
 					color: 'white',
 					width: '100%',

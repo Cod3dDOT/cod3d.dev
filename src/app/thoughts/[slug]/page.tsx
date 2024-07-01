@@ -42,7 +42,7 @@ export async function generateMetadata({
 
 	return {
 		title: thought.name,
-		description: thought.name,
+		description: thought.description,
 		openGraph: {
 			type: 'website',
 			url: 'https://cod3d.dev',
@@ -55,15 +55,7 @@ export async function generateMetadata({
 			title: thought.name,
 			description: thought.description,
 			creator: '@cod3ddot',
-			site: "cod3d's den",
-			images: [
-				{
-					url: '/og.webp',
-					width: 1200,
-					height: 675,
-					alt: 'cod3d'
-				}
-			]
+			site: "cod3d's den"
 		}
 	};
 }
