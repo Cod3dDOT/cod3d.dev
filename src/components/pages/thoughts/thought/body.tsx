@@ -1,4 +1,5 @@
 import parse, {
+	DOMNode,
 	Element,
 	HTMLReactParserOptions,
 	Text
@@ -14,20 +15,16 @@ const options: HTMLReactParserOptions = {
 		if (!(domNode instanceof Element) || !domNode.attribs) return;
 
 		if (domNode.tagName == 'pre') {
-			const children = domNode.children
-				.filter((child) => child instanceof Text)
-				.map((child) => (child as Text).data);
-			const filename = children.shift();
-			const code = children.join('\n');
-			return <CodeBlock code={code} filename={filename} />;
+			const language = domNode.attribs['class'].substring(9);
+			const filename = domNode.attribs['title'];
+			const codeBlock = domNode.firstChild;
+			const code = ((codeBlock as Element).firstChild as Text).data;
+			return <CodeBlock code={code} language={language} filename={filename} />;
 		}
 
 		if (domNode.tagName == 'code') {
-			const children = domNode.children
-				.filter((child) => child instanceof Text)
-				.map((child) => (child as Text).data);
-			const code = children.join('');
-			return <CodeInline code={code} />;
+			const code = (domNode.firstChild as Text).data;
+			return <CodeInline code={code} language="text" />;
 		}
 	}
 };
@@ -38,4 +35,6 @@ type ThoughtBodyProps = {
 
 export const ThoughtBody: React.FC<ThoughtBodyProps> = async ({ thought }) => {
 	return parse(thought.body, options);
+
+	// return (await processor2.process(thought.body)).result;
 };

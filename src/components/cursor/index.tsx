@@ -26,7 +26,7 @@ export const Cursor: React.FC<{ nonce?: string }> = ({ nonce }) => {
 					innerSize: 0
 				},
 				{
-					target: 'code',
+					target: 'pre',
 					outerSize: 0,
 					innerSize: 0,
 					innerScale: 0,
