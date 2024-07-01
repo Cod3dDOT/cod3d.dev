@@ -2,7 +2,7 @@
 
 import { clsx } from 'clsx';
 import { useTheme } from 'next-themes';
-import { memo } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 
 interface ThemeSwitchProps {
 	id?: string;
@@ -15,11 +15,28 @@ const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
 }: ThemeSwitchProps) => {
 	const { resolvedTheme, setTheme } = useTheme();
 
+	const switchRef = useRef<HTMLButtonElement>(null);
+
+	const onClick = useCallback(() => {
+		setTheme(resolvedTheme == 'dark' ? 'light' : 'dark');
+	}, [resolvedTheme]);
+
+	useEffect(() => {
+		const switchBtn = switchRef.current;
+		if (!switchBtn) return;
+
+		switchBtn.addEventListener('click', onClick);
+
+		return () => {
+			switchBtn.removeEventListener('click', onClick);
+		};
+	}, [switchRef]);
+
 	return (
 		<button
 			id={id}
+			ref={switchRef}
 			type="button"
-			onClick={() => setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')}
 			className={clsx(
 				'group hover:scale-95 aspect-square touch-manipulation',
 				className

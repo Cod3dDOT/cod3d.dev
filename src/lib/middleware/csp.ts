@@ -23,26 +23,28 @@ const CSP_HASHES = {
 		"'sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg='" // umami analytics
 	],
 	style: [
-		// thoughts
+		// thoughts thought cards
 		"'sha256-OXJWNkqOzUVYLtMkGQ9uevLQsgCZb/Y+Q6ypWpD5ai8='",
 		"'sha256-3EP1piOo/O4YWqWO7mQYW6fCsMcX8uB/C/w3Cgomac4='",
 		"'sha256-DfDHsb01i3x8hjBF8augn/uMacvjKKf6ZvynOJD7J8o='",
 		"'sha256-geco2bDyS+Sc/wAKeVY5bwJ5ZiB4SsxkbgG2GqlY468='",
 		"'sha256-Y9g1vnU5ywyIwbIvwb3UvTiA2lo4N5nIBXfiMNClqYQ='",
 
-		// homepage
+		// homepage thought cards
 		"'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='",
+
+		// fade transition
 		"'sha256-tTgjrFAQDNcRW/9ebtwfDewCTgZMFnKpGa9tcHFyvcs='",
 
 		//hello
 		"'sha256-HGYbL7c7YTMNrtcUQBvASpkCpnhcLdlW/2pKHJ8sJ98='",
 		"'sha256-YYxElkDlCygmA+y95zmjQUGyfjKfYNAlVBuOlwC16mU='",
-		"'sha256-sf+AfSpoX2wAlbPSwhwe8fvuXnxOevh3pN6J2u1XdVE='",
+		"'sha256-sf+AfSpoX2wAlbPSwhwe8fvuXnxOevh3pN6J2u1XdVE='"
 
 		// cursor
-		"'sha256-h14ZocMjvlcPo0RlyzkMhmsQ2HjTk21A1RX0+q5TW8Y='",
-		"'sha256-OYTtywsUdsBNKzgSAB0Mz6Ps68b3a5wwLwsu/VAXh9g='",
-		"'sha256-QK1IoiuZocpcP5AzPpxMR+jB8b3AquuyzStFABAgUFY='"
+		// "'sha256-h14ZocMjvlcPo0RlyzkMhmsQ2HjTk21A1RX0+q5TW8Y='",
+		// "'sha256-OYTtywsUdsBNKzgSAB0Mz6Ps68b3a5wwLwsu/VAXh9g='",
+		// "'sha256-QK1IoiuZocpcP5AzPpxMR+jB8b3AquuyzStFABAgUFY='"
 	]
 };
 
@@ -71,7 +73,7 @@ export function CSP(
 	scriptSrc = ADD_NONCE(scriptSrc, nonce);
 
 	let styleSrc = '';
-	if (IS_DEV) {
+	if (!IS_DEV) {
 		styleSrc = "'unsafe-inline'";
 	} else {
 		styleSrc = ADD_HASHES(styleSrc, CSP_HASHES.style);

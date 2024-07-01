@@ -10,8 +10,13 @@ import { Cursor } from '@/components/cursor';
 import { FadeTransition } from '@/components/transitions';
 import { getNonce } from '@/lib/nonce';
 
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+import dynamic from 'next/dynamic';
+import { NavigationContainerPreview } from '@/components/navigation/container/preview';
+
 const DynamicNavigation = dynamic(() => import('@/components/navigation'), {
-	loading: () => <p>Loading...</p>
+	loading: () => <NavigationContainerPreview />
 });
 
 const font = Pixelify_Sans({
@@ -19,10 +24,6 @@ const font = Pixelify_Sans({
 	display: 'swap',
 	variable: '--font-pixelify'
 });
-
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-import dynamic from 'next/dynamic';
 
 export const viewport: Viewport = {
 	width: 'device-width',
