@@ -123,7 +123,7 @@ export default async function RootLayout({
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 				/>
 
-				<ThemeProvider attribute="class">
+				<ThemeProvider attribute="class" nonce={nonce}>
 					<FadeTransition>{children}</FadeTransition>
 					<Cursor nonce={nonce} />
 					<DynamicNavigation />

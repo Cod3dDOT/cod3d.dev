@@ -19,7 +19,7 @@ const CSP_BASE = {
 
 const CSP_HASHES = {
 	script: [
-		"'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='", // next/themes
+		// "'sha256-eMuh8xiwcX72rRYNAGENurQBAcH7kLlAUQcoOri3BIo='", // next/themes
 		"'sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg='" // umami analytics
 	],
 	style: [
@@ -80,7 +80,11 @@ export function CSP(
 		styleSrc = ADD_NONCE(styleSrc, nonce);
 	}
 
-	const trustedScript = IS_DEV ? '' : "'script'";
+	const isReffered = requestHeaders
+		.get('referer')
+		?.includes('https://cod3d.dev');
+
+	const trustedScript = IS_DEV || isReffered ? '' : "'script'";
 
 	const cspDict = { ...CSP_BASE };
 	cspDict['script-src'] += ' ' + scriptSrc;
