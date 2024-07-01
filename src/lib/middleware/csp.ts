@@ -13,8 +13,7 @@ const CSP_BASE = {
 	'base-uri': "'self'",
 	'form-action': "'self'",
 	'frame-ancestors': "'none'",
-	'upgrade-insecure-requests': '',
-	'require-trusted-types-for': ''
+	'upgrade-insecure-requests': ''
 };
 
 const CSP_HASHES = {
@@ -63,6 +62,7 @@ const ADD_HASHES = (header: string, hashes: string[]) => {
 // Am I mad about it? Yes. Yes I am.
 // Can I do anything about it? Probably not, as it will require removing all inline styles.
 export function CSP(
+	pathname: string,
 	requestHeaders: Headers,
 	responseHeaders: Headers
 ): middlewareFunctionReturn {
@@ -80,20 +80,18 @@ export function CSP(
 		styleSrc = ADD_NONCE(styleSrc, nonce);
 	}
 
-	const isReffered = requestHeaders
-		.get('Referer')
-		?.includes('https://cod3d.dev');
-
-	const trustedScript = IS_DEV || isReffered ? '' : "'script'";
+	const isThought = pathname.includes('/thoughts/');
 
 	const cspDict = { ...CSP_BASE };
 	cspDict['script-src'] += ' ' + scriptSrc;
 	cspDict['style-src'] += ' ' + styleSrc;
-	cspDict['require-trusted-types-for'] = trustedScript;
 
-	const cspHeader = Object.entries(cspDict)
+	let cspHeader = Object.entries(cspDict)
 		.map(([key, value]) => `${key} ${value}`)
 		.join('; ');
+
+	if (!IS_DEV && !isThought)
+		cspHeader += "; require-trusted-types-for: 'script';";
 
 	// Replace newline characters and spaces
 	const cspHeaderSafe = cspHeader.replace(/\s{2,}/g, ' ').trim();
