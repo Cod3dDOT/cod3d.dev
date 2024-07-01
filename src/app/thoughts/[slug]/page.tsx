@@ -125,8 +125,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
 					>
 						<script
 							type="application/ld+json"
-							dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+							dangerouslySetInnerHTML={{
+								__html: JSON.stringify(jsonLd)
+							}}
 						/>
+
 						<section className="uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12">
 							<div>
 								<span className="font-extralight">Reading time</span>

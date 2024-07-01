@@ -2,6 +2,7 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	reactStrictMode: true,
 	async rewrites() {
 		return [
 			{
@@ -14,6 +15,7 @@ const nextConfig = {
 			}
 		];
 	},
+	poweredByHeader: false,
 	async headers() {
 		return [
 			{

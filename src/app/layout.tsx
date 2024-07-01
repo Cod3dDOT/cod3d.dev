@@ -16,6 +16,7 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import dynamic from 'next/dynamic';
 import { NavigationContainerPreview } from '@/components/navigation/container/preview';
+import '@/lib/trustedTypes';
 
 const DynamicNavigation = dynamic(() => import('@/components/navigation'), {
 	loading: () => <NavigationContainerPreview />

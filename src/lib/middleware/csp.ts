@@ -90,8 +90,7 @@ export function CSP(
 		.map(([key, value]) => `${key} ${value}`)
 		.join('; ');
 
-	if (!IS_DEV && !isThought)
-		cspHeader += "; require-trusted-types-for 'script';";
+	if (!IS_DEV) cspHeader += "; require-trusted-types-for 'script';";
 
 	// Replace newline characters and spaces
 	const cspHeaderSafe = cspHeader.replace(/\s{2,}/g, ' ').trim();
