@@ -81,7 +81,7 @@ export function CSP(
 	}
 
 	const isReffered = requestHeaders
-		.get('referer')
+		.get('Referer')
 		?.includes('https://cod3d.dev');
 
 	const trustedScript = IS_DEV || isReffered ? '' : "'script'";
