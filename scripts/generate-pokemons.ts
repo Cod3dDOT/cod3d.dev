@@ -123,7 +123,7 @@ function savePokemons(path: string, pokemons: Pokemon[]): void {
 		return {
 			n: pokemon.name,
 			d: pokemon.description,
-			c: pokemon.colorHex || '#ffffff'
+			c: pokemon.className?.substring(3) || 'mon0'
 		};
 	});
 

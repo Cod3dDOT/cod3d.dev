@@ -1,6 +1,7 @@
 import { extractColors } from 'extract-colors';
 import sharp from 'sharp';
 import fs from 'fs';
+import { FinalColor } from 'extract-colors/lib/types/Color';
 
 export class Color {
 	r: number;
@@ -54,8 +55,28 @@ export async function colorFromImage(path: string): Promise<Color> {
 		height: info.height
 	});
 
-	const [r, g, b] = [colors[0].blue, colors[0].green, colors[0].red];
-	return new Color(r, g, b);
+	const sortedByArea = colors.sort((a, b) => b.area - a.area);
+
+	// select the most vibrant color out of the top 2 if the difference in area is not large
+	// considering that pokemons are 96x96 and usually have 2 or 3 primary colors, we can
+	// allow a 30% difference in area
+
+	let vibrant: FinalColor;
+
+	if (
+		sortedByArea.length > 1 &&
+		Math.abs(sortedByArea[0].area - sortedByArea[1].area) < 0.3
+	) {
+		vibrant =
+			sortedByArea[0].saturation * sortedByArea[0].intensity >
+			sortedByArea[1].saturation * sortedByArea[1].intensity
+				? sortedByArea[0]
+				: sortedByArea[1];
+	} else {
+		vibrant = sortedByArea[0];
+	}
+
+	return new Color(vibrant.red, vibrant.green, vibrant.blue);
 }
 
 export const writeFile = (path: string, data: string): void => {
