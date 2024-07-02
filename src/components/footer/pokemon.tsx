@@ -9,11 +9,18 @@ export const FooterMon: React.FC<{
 }> = ({ pokemon }) => {
 	return (
 		<>
-			<div className="max-w-prose px-24 space-y-4">
-				<div className={clsx('text-4xl sm:text-7xl', pokemon.class)}>
+			<div>
+				<div
+					className={clsx(
+						'left-24 text-justify text-6xl md:text-[10vw] font-medium',
+						'bg-gradient-to-b from-[var(--c)] via-[var(--c)] to-foreground bg-clip-text text-transparent',
+						pokemon.class
+					)}
+				>
 					{pokemon.name}
 				</div>
-				<div>{pokemon.description}</div>
+
+				<p className="xl:text-xl md:w-[50vw] mt-4">{pokemon.description}</p>
 			</div>
 			<Image
 				loading="lazy"
@@ -22,7 +29,11 @@ export const FooterMon: React.FC<{
 				width={96}
 				height={96}
 				quality={100}
-				className="w-[50vw] max-w-96 pixelated"
+				className={clsx(
+					'h-[60vg] w-[60vh] pixelated -z-10',
+					'absolute scale-150 right-0 translate-x-1/3 opacity-20 md:opacity-50 md:scale-125',
+					'xl:translate-x-0 xl:opacity-100 xl:scale-110'
+				)}
 			/>
 		</>
 	);

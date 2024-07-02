@@ -20,12 +20,12 @@ export const AsideFooter: React.FC<{
 	);
 
 	return (
-		<aside className="sticky bottom-0 w-full bg-background-dark py-16 -z-10 overflow-clip">
+		<aside className="sticky bottom-0 w-full bg-background-dark -z-10 overflow-clip px-12 md:px-24">
 			<div
 				style={{
 					transform: `translate3d(0px, ${progress}%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`
 				}}
-				className="will-change-transform flex flex-col md:flex-row justify-center items-center z-10"
+				className="will-change-transform flex flex-col md:flex-row z-10 h-[50vh] justify-center md:justify-normal items-center"
 			>
 				{children}
 			</div>

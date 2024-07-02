@@ -41,7 +41,7 @@ const generateCSSFile = async (path: string, mons: Pokemon[]) => {
 	}
 
 	let cssContent = Object.entries(colorToClass)
-		.map(([color, className]) => `.${className}{color:${color}}`)
+		.map(([color, className]) => `.${className}{--c:${color}}`)
 		.join('');
 
 	writeFile(path, cssContent);
