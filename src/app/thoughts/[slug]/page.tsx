@@ -148,10 +148,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
 						<h1>{thought.name}</h1>
 
 						<Image
+							priority
 							src={thought.hero}
 							width={1920}
 							height={1080}
-							sizes="(max-width: 768px) 100vw, 90vw"
+							sizes="90vw"
 							alt={thought.name + ' hero image'}
 							className="w-full aspect-video"
 						/>

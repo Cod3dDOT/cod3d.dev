@@ -79,8 +79,6 @@ export function CSP(
 		styleSrc = ADD_NONCE(styleSrc, nonce);
 	}
 
-	const isThought = pathname.includes('/thoughts/');
-
 	const cspDict = { ...CSP_BASE };
 	cspDict['script-src'] += ' ' + scriptSrc;
 	cspDict['style-src'] += ' ' + styleSrc;
