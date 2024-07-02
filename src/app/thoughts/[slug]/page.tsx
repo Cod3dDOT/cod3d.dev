@@ -73,8 +73,8 @@ const BackLink: React.FC = () => {
 	);
 };
 
-// revalidate at most every day, in seconds
-export const revalidate = 5;
+// revalidate at most every half a day, in seconds
+export const revalidate = 43200;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
