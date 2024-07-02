@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { ThoughtBody } from '@/components/pages/thoughts/thought/body';
-import { getThought } from '@/lib/pocketbase/req';
+import { getThought, getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
 import { Footer } from '@/components/footer';
 import clsx from 'clsx';
@@ -75,6 +75,21 @@ const BackLink: React.FC = () => {
 
 // revalidate at most every day, in seconds
 export const revalidate = 86400;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
+
+	if (isError(thoughtsResponse)) {
+		return [];
+	}
+
+	const thoughts = thoughtsResponse as Thought[];
+
+	return thoughts.map((thought) => ({
+		slug: thought.slug
+	}));
+}
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const thoughtResponse = await getThought(params.slug);
