@@ -74,8 +74,8 @@ const BackLink: React.FC = () => {
 };
 
 // revalidate at most every day, in seconds
-export const revalidate = 86400;
-export const dynamicParams = true;
+export const revalidate = 5;
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
