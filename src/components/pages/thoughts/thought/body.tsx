@@ -15,14 +15,24 @@ const options: HTMLReactParserOptions = {
 		if (!(domNode instanceof Element) || !domNode.attribs) return;
 
 		if (domNode.tagName == 'pre') {
-			const language = domNode.attribs['class'].substring(9);
-			const filename = domNode.attribs['title'];
+			const classAttr =
+				'class' in domNode.attribs ? domNode.attribs['class'] : '';
+			const titleAttr =
+				'title' in domNode.attribs ? domNode.attribs['title'] : '';
+
+			const language = classAttr.substring(9) || 'text';
+			const filename = titleAttr;
+
 			const codeBlock = domNode.firstChild;
-			const code = ((codeBlock as Element).firstChild as Text).data;
+			const code = ((codeBlock as Element).firstChild as Text)?.data;
+
+			if (!code) return;
 			return <CodeBlock code={code} language={language} filename={filename} />;
 		}
 
 		if (domNode.tagName == 'code') {
+			if ((domNode.parent as Element).tagName === 'pre') return;
+
 			const code = (domNode.firstChild as Text).data;
 			return <CodeInline code={code} language="text" />;
 		}

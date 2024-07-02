@@ -36,6 +36,12 @@
 	@apply col-span-1 row-span-2;
 }
 
+.grid-item:nth-child(7n + 3) {
+	--gradient-from: rgb(141, 180, 225);
+	--gradient-to: rgb(70, 136, 202);
+	--spotlight-from: var(--gradient-from);
+}
+
 .grid-item:nth-child(7n + 4) {
 	@apply col-span-1 row-span-2;
 }

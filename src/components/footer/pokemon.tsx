@@ -16,8 +16,9 @@ export const FooterMon: React.FC<{
 				<div>{pokemon.description}</div>
 			</div>
 			<Image
+				loading="lazy"
 				src={pokemon.sprite}
-				alt={pokemon.name}
+				alt={'Picture of the ' + pokemon.name}
 				width={96}
 				height={96}
 				quality={100}

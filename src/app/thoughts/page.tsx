@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 export const revalidate = 7200;
 
 const ThoughtsPage: React.FC = async () => {
-	const thoughtsResponse = await getThoughts(1, 20);
+	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
 
 	if (isError(thoughtsResponse)) {
 		return <PageError />;

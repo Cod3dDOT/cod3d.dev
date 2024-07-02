@@ -10,7 +10,7 @@ import { getThoughts } from '@/lib/pocketbase/req';
 
 const NavThoughtsShowcase: React.FC = async () => {
 	const nonce = await getNonce();
-	const thoughtReponse = await getThoughts(1, 2);
+	const thoughtReponse = await getThoughts(1, 2, { sort: '-created' });
 	const thoughts = thoughtReponse as Thought[];
 
 	return (

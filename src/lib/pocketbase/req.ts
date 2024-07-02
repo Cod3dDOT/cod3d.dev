@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { createServerClient } from './config';
 import { ClientResponseError } from './types';
+import { RecordListOptions } from 'pocketbase';
 
 export async function getThought(slug: string) {
 	const client = await createServerClient();
@@ -31,14 +32,15 @@ export async function getThought(slug: string) {
 
 export async function getThoughts(
 	page?: number | undefined,
-	perPage?: number | undefined
+	perPage?: number | undefined,
+	options?: RecordListOptions
 ) {
 	const client = await createServerClient();
 
 	try {
-		const posts = await client.collection('thoughts').getList(page, perPage, {
-			sort: 'created'
-		});
+		const posts = await client
+			.collection('thoughts')
+			.getList(page, perPage, options);
 		return posts.items;
 	} catch (error: unknown) {
 		return error as ClientResponseError;
