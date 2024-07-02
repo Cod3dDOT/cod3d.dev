@@ -47,7 +47,7 @@ export const CodeBlock: React.FC<CodeProps> = async ({
 					filename && '!rounded-t-none'
 				)}
 			>
-				<ol className="!my-0 mx-3 lg:!text-[0.904em]">
+				<ol className="hidden md:block !my-0 mx-3 lg:!text-[0.904em]">
 					{highlighted.split('\n').map((_, i) => (
 						<li key={_.substring(2) + i} className="!m-0" />
 					))}

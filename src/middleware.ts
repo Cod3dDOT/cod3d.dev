@@ -45,6 +45,7 @@ export async function middleware(request: NextRequest) {
 			headers: withCSP.requestHeaders
 		}
 	});
+
 	for (const [key, value] of withCSP.responseHeaders) {
 		response.headers.set(key, value);
 	}
