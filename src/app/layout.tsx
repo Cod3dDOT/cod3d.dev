@@ -98,6 +98,7 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }>) {
 	const nonce = await getNonce();
+
 	return (
 		<html lang="en" className="scrollbar-thin">
 			<head>

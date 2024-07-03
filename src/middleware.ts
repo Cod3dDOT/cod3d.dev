@@ -33,11 +33,7 @@ export async function middleware(request: NextRequest) {
 		return NextResponse.json({}, { headers: withCORS.responseHeaders });
 	}
 
-	const withCSP = CSP(
-		request.nextUrl.pathname,
-		withCORS.requestHeaders,
-		withCORS.responseHeaders
-	);
+	const withCSP = CSP(withCORS.requestHeaders, withCORS.responseHeaders);
 
 	// we now have collected all desired request/response headers
 	const response = NextResponse.next({

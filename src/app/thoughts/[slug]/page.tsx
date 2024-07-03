@@ -73,23 +73,20 @@ const BackLink: React.FC = () => {
 	);
 };
 
-// revalidate at most every half a day, in seconds
-export const revalidate = 43200;
-export const dynamicParams = false;
+// doesn't work with headers
+// export async function generateStaticParams() {
+// 	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
 
-export async function generateStaticParams() {
-	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
+// 	if (isError(thoughtsResponse)) {
+// 		return [];
+// 	}
 
-	if (isError(thoughtsResponse)) {
-		return [];
-	}
+// 	const thoughts = thoughtsResponse as Thought[];
 
-	const thoughts = thoughtsResponse as Thought[];
-
-	return thoughts.map((thought) => ({
-		slug: thought.slug
-	}));
-}
+// 	return thoughts.map((thought) => ({
+// 		slug: thought.slug
+// 	}));
+// }
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const thoughtResponse = await getThought(params.slug);

@@ -61,7 +61,6 @@ const ADD_HASHES = (header: string, hashes: string[]) => {
 // Am I mad about it? Yes. Yes I am.
 // Can I do anything about it? Probably not, as it will require removing all inline styles.
 export function CSP(
-	pathname: string,
 	requestHeaders: Headers,
 	responseHeaders: Headers
 ): middlewareFunctionReturn {
@@ -72,7 +71,7 @@ export function CSP(
 	scriptSrc = ADD_NONCE(scriptSrc, nonce);
 
 	let styleSrc = '';
-	if (IS_DEV) {
+	if (!IS_DEV) {
 		styleSrc = "'unsafe-inline'";
 	} else {
 		styleSrc = ADD_HASHES(styleSrc, CSP_HASHES.style);
@@ -87,7 +86,7 @@ export function CSP(
 		.map(([key, value]) => `${key} ${value}`)
 		.join('; ');
 
-	if (!IS_DEV) cspHeader += "; require-trusted-types-for 'script';";
+	if (IS_DEV) cspHeader += "; require-trusted-types-for 'script';";
 
 	// Replace newline characters and spaces
 	const cspHeaderSafe = cspHeader.replace(/\s{2,}/g, ' ').trim();
