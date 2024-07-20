@@ -43,9 +43,12 @@ export async function generateMetadata({
 	return {
 		title: thought.og_title,
 		description: thought.og_description,
+		alternates: {
+			canonical: 'https://cod3d.dev/thoughts' + thought.slug
+		},
 		openGraph: {
 			type: 'website',
-			url: 'https://cod3d.dev',
+			url: 'https://cod3d.dev/thoughts' + thought.slug,
 			title: thought.og_title,
 			description: thought.og_description,
 			siteName: "cod3d's den"

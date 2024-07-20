@@ -21,6 +21,9 @@ export const metadata: Metadata = {
 		nosnippet: false,
 		noimageindex: false
 	},
+	alternates: {
+		canonical: 'https://cod3d.dev/thoughts'
+	},
 	openGraph: {
 		type: 'website',
 		url: 'https://cod3d.dev/thoughts',

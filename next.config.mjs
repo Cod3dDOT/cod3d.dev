@@ -67,7 +67,7 @@ const nextConfig = {
 					},
 					{
 						key: 'Cross-Origin-Resource-Policy', // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy
-						value: 'same-origin'
+						value: 'cross-origin'
 					},
 					{
 						key: 'Access-Control-Allow-Methods',
