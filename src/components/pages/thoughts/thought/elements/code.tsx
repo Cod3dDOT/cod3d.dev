@@ -15,7 +15,7 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 	return (
 		<figure className="rounded-lg">
 			{filename && (
-				<figcaption className="px-4 border-b border-neutral-700 m-0">
+				<figcaption className="px-4 border-b border-neutral-700 !mt-0">
 					<p className="text-foreground !my-3 font-mono">{filename}</p>
 				</figcaption>
 			)}
