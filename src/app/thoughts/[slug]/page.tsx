@@ -117,7 +117,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	};
 
 	return (
-		<ReactLenis root>
+		<ReactLenis className="h-screen overflow-auto">
 			<main
 				className={
 					'bg-background md:px-24 px-10 relative xl:flex sm:pt-24 py-8 font-sans'
@@ -128,9 +128,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
 					<article
 						className={clsx(
 							'prose lg:prose-xl prose-neutral prose-amber max-w-none dark:prose-invert',
-							'prose-headings:font-light prose-headings:w-4/5 prose-h1:text-[5vw]',
-							'prose-img:w-full prose-img:rounded-xl',
+							'prose-headings:font-light md:prose-headings:w-4/5',
 							'hover:prose-a:text-blue-500 prose-a:transition-colors',
+							'prose-pre:bg-background-dark prose-pre:text-foreground',
+							'prose-figure:bg-background-dark prose-figure:border prose-figure:border-neutral-700',
 							'pb-8'
 						)}
 					>
@@ -140,7 +141,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 								__html: JSON.stringify(jsonLd)
 							}}
 						/>
-						<section className="uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12">
+						<header className="uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12">
 							<div>
 								<span className="font-extralight">Reading time</span>
 								<br />
@@ -154,10 +155,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
 									{dateToString(thought.created)}
 								</time>
 							</div>
-						</section>
-						<section className="relative">
-							<ThoughtMarkdown images={thought.images} markdown={markdown} />
-						</section>
+						</header>
+
+						<ThoughtMarkdown images={thought.images} markdown={markdown} />
 					</article>
 
 					<BackLink />

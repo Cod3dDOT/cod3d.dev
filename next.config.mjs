@@ -4,6 +4,9 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 const nextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
+	experimental: {
+		ppr: 'incremental'
+	},
 	async rewrites() {
 		return [
 			{

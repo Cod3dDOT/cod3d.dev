@@ -9,7 +9,8 @@ export async function getThought(slug: string) {
 	try {
 		const thoughts = await client.collection('thoughts').getList(1, 1, {
 			filter: client.filter('slug={:slug}&&published=true', { slug: slug }),
-			next: { revalidate: 3600 }
+			next: { revalidate: 3600 },
+			cache: 'force-cache'
 		});
 
 		if (thoughts.items.length == 0) {
@@ -47,7 +48,8 @@ export async function getThoughts(
 		const posts = await client.collection('thoughts').getList(page, perPage, {
 			...options,
 			filter: 'published=true',
-			next: { revalidate: 3600 }
+			next: { revalidate: 3600 },
+			cache: 'force-cache'
 		});
 		return posts.items;
 	} catch (error: unknown) {
@@ -67,7 +69,8 @@ export async function getProjects(
 			.getList(page, perPage, {
 				filter: 'repo!=null',
 				sort: 'status',
-				next: { revalidate: 3600 }
+				next: { revalidate: 3600 },
+				cache: 'force-cache'
 			});
 		return projects.items;
 	} catch (error: unknown) {

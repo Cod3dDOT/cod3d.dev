@@ -3,7 +3,6 @@
 import { remapRange } from '@/lib/utils/math';
 import { useLenis } from 'lenis/react';
 import { useState } from 'react';
-import { FooterMon } from './pokemon';
 
 export const AsideFooter: React.FC<{
 	children?: React.ReactNode;
@@ -13,7 +12,7 @@ export const AsideFooter: React.FC<{
 		({ progress: p }) => {
 			if (p < 0.5) return;
 			const mapped = remapRange(p, 0.5, 1, 100, 0);
-			if (Math.abs(mapped - progress) < 0.5) return;
+			if (Math.abs(mapped - progress) < 0.25) return;
 			setProgress(mapped);
 		},
 		[progress]

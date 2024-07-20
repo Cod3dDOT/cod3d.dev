@@ -5,11 +5,12 @@ import Yellow from '@/../public/yellow.webp';
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 
-export const revalidate = 3600;
+export const experimental_ppr = true;
+export const revalidate = 7200;
 
 export default function Home() {
 	return (
-		<main className="h-full flex flex-col justify-center my-auto md:pl-24 sm:pl-16 pl-8 bg-grainy">
+		<main className="h-screen flex flex-col justify-center my-auto md:pl-24 sm:pl-16 pl-8 bg-grainy">
 			<GrainyBackground />
 			<h1 className="md:text-[8rem] sm:text-[5.65rem] text-[4rem]">
 				cod3d.dev

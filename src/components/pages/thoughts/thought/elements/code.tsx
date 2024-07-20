@@ -1,25 +1,26 @@
-import 'highlight.js/styles/atom-one-dark.css';
-import { CustomElementProps } from '.';
+import { ClassAttributes, HTMLAttributes } from 'react';
+import { ExtraProps } from 'react-markdown';
+
+type Props = ClassAttributes<HTMLPreElement> &
+	HTMLAttributes<HTMLPreElement> &
+	ExtraProps;
 
 type Data = {
 	meta?: string;
 };
 
-export const MarkdownCodeBlock: React.FC<CustomElementProps> = ({
-	children,
-	node
-}) => {
+export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 	const filename = (node?.children[0].data as Data)?.meta;
 
 	return (
-		<figure>
+		<figure className="rounded-lg">
 			{filename && (
-				<figcaption className="px-4 bg-background-dark border border-neutral-700 rounded-t-lg">
+				<figcaption className="px-4 border-b border-neutral-700 m-0">
 					<p className="text-foreground !my-3 font-mono">{filename}</p>
 				</figcaption>
 			)}
 
-			<pre className="border border-neutral-700">{children}</pre>
+			<pre>{children}</pre>
 		</figure>
 	);
 };

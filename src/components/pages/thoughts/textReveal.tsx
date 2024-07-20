@@ -105,6 +105,12 @@ export const ThoughtsTextReveal = () => {
 		>
 			{(tokens, progress, skip) => (
 				<div className="sticky top-0 flex h-screen items-center">
+					<button className="absolute top-0 mt-[1.15rem] z-20" onClick={skip}>
+						<ScrollIcon
+							className="fill-foreground h-12 w-12 p-2"
+							style={{ opacity: 1 - progress || 0 }}
+						/>
+					</button>
 					<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight lg:text-[9vw] xl:text-[8rem] sm:text-[5.65rem] text-[4rem]">
 						{tokens.map((token, index) => (
 							<TextReveal.Token key={index} index={index}>
@@ -124,13 +130,6 @@ export const ThoughtsTextReveal = () => {
 							</TextReveal.Token>
 						))}
 					</h1>
-
-					<button className="absolute bottom-12 z-20" onClick={skip}>
-						<ScrollIcon
-							className={'fill-foreground/50'}
-							style={{ opacity: 1 - progress || 0 }}
-						/>
-					</button>
 				</div>
 			)}
 		</TextReveal>

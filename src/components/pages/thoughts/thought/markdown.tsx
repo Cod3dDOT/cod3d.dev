@@ -1,5 +1,3 @@
-import { Thought } from '@/lib/pocketbase/types';
-
 import { MarkdownCodeBlock } from './elements/code';
 import { MarkdownImage } from './elements/image';
 
@@ -9,6 +7,7 @@ import rehypeSanitize from 'rehype-sanitize';
 
 import rehypeHighlight from 'rehype-highlight';
 import rehypeHighlightCodeLines from 'rehype-highlight-code-lines';
+import { MarkdownTitle } from './elements/title';
 
 type ThoughtBodyProps = {
 	images: string[];
@@ -24,6 +23,9 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 	return (
 		<Markdown
 			components={{
+				h1(props) {
+					return <MarkdownTitle {...props} />;
+				},
 				pre(props) {
 					return <MarkdownCodeBlock {...props} />;
 				},

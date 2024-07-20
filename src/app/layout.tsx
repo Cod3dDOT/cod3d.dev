@@ -9,8 +9,6 @@ import { Pixelify_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
 import { Cursor } from '@/components/cursor';
-import { FadeTransition } from '@/components/transitions';
-import { getNonce } from '@/lib/nonce';
 
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
@@ -123,7 +121,7 @@ export default async function RootLayout({
 				/>
 
 				<ThemeProvider attribute="class">
-					<FadeTransition>{children}</FadeTransition>
+					{children}
 					<Cursor />
 					<DynamicNavigation />
 				</ThemeProvider>
