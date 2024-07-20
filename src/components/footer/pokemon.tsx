@@ -13,7 +13,7 @@ export const FooterMon: React.FC<{
 				<div
 					className={clsx(
 						'left-24 text-justify text-6xl md:text-[10vw] font-medium',
-						'bg-gradient-to-b from-[var(--c)] via-[var(--c)] to-foreground bg-clip-text text-transparent',
+						'bg-gradient-to-br from-[var(--c)] via-[var(--c)] bg-clip-text text-transparent',
 						pokemon.class
 					)}
 				>

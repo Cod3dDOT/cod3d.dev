@@ -4,12 +4,10 @@ import { Thought } from '@/lib/pocketbase/types';
 
 import { SpotlightCard } from '../../effects/spotlightCard';
 import { SectionLink } from '../section-link';
-import { getNonce } from '@/lib/nonce';
 import { dateToString } from '@/lib/utils/date';
 import { getThoughts } from '@/lib/pocketbase/req';
 
 const NavThoughtsShowcase: React.FC = async () => {
-	const nonce = await getNonce();
 	const thoughtReponse = await getThoughts(1, 2, { sort: '-created' });
 	const thoughts = thoughtReponse as Thought[];
 
@@ -31,7 +29,6 @@ const NavThoughtsShowcase: React.FC = async () => {
 						>
 							<SpotlightCard
 								id={'spotlight-nav-' + i}
-								nonce={nonce}
 								from="#1cd1c6"
 								via="#407cff"
 								size={200}
