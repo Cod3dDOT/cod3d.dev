@@ -8,7 +8,8 @@ export async function getThought(slug: string) {
 
 	try {
 		const thoughts = await client.collection('thoughts').getList(1, 1, {
-			filter: client.filter('slug={:slug}', { slug: slug })
+			filter: client.filter('slug={:slug}&&published=true', { slug: slug }),
+			next: { revalidate: 3600 }
 		});
 
 		if (thoughts.items.length == 0) {
@@ -22,7 +23,12 @@ export async function getThought(slug: string) {
 		}
 
 		const thought = thoughts.items[0];
-		thought.hero = client.files.getUrl(thought, thought.hero);
+		thought.markdown = client.files.getUrl(thought, thought.markdown);
+		thought.images = thought.images.map((image) =>
+			client.files
+				.getUrl(thought, image)
+				.replace('https://cod3d.pockethost.io', '')
+		);
 
 		return thought;
 	} catch (error: unknown) {
@@ -38,9 +44,11 @@ export async function getThoughts(
 	const client = await createServerClient();
 
 	try {
-		const posts = await client
-			.collection('thoughts')
-			.getList(page, perPage, options);
+		const posts = await client.collection('thoughts').getList(page, perPage, {
+			...options,
+			filter: 'published=true',
+			next: { revalidate: 3600 }
+		});
 		return posts.items;
 	} catch (error: unknown) {
 		return error as ClientResponseError;
@@ -58,7 +66,8 @@ export async function getProjects(
 			.collection('projects')
 			.getList(page, perPage, {
 				filter: 'repo!=null',
-				sort: 'status'
+				sort: 'status',
+				next: { revalidate: 3600 }
 			});
 		return projects.items;
 	} catch (error: unknown) {

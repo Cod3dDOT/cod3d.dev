@@ -46,10 +46,9 @@ export const metadata: Metadata = {
 	robots: {
 		index: true,
 		follow: true,
-		'max-image-preview': 'large',
-		'max-snippet': -1,
-		'max-video-preview': -1,
-		googleBot: 'index, follow'
+		noarchive: true,
+		nosnippet: false,
+		noimageindex: false
 	},
 	openGraph: {
 		type: 'website',
@@ -97,8 +96,6 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const nonce = await getNonce();
-
 	return (
 		<html lang="en" className="scrollbar-thin">
 			<head>
@@ -125,9 +122,9 @@ export default async function RootLayout({
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 				/>
 
-				<ThemeProvider attribute="class" nonce={nonce}>
+				<ThemeProvider attribute="class">
 					<FadeTransition>{children}</FadeTransition>
-					<Cursor nonce={nonce} />
+					<Cursor />
 					<DynamicNavigation />
 				</ThemeProvider>
 			</body>

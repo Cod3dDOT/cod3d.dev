@@ -1,20 +1,20 @@
 import Link from 'next/link';
 
-import { ThoughtBody } from '@/components/pages/thoughts/thought/body';
+import { ThoughtMarkdown } from '@/components/pages/thoughts/thought/markdown';
 import { getThought, getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
 import { Footer } from '@/components/footer';
 import clsx from 'clsx';
 import BackIcon from '@/components/icons/back';
 
-import Image from 'next/image';
 import readingTime from '@/lib/readingTime';
 import { dateToString } from '@/lib/utils/date';
 import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
 import { notFound } from 'next/navigation';
-import { TableOfContents } from '@/components/pages/thoughts/thought/tableOfContents';
 import { TechArticle, WithContext } from 'schema-dts';
+
+import '@/app/styles/blog.css';
 
 export async function generateMetadata({
 	params
@@ -41,19 +41,19 @@ export async function generateMetadata({
 	const thought = thoughtResponse as Thought;
 
 	return {
-		title: thought.name,
-		description: thought.description,
+		title: thought.og_title,
+		description: thought.og_description,
 		openGraph: {
 			type: 'website',
 			url: 'https://cod3d.dev',
-			title: thought.name,
-			description: thought.description,
+			title: thought.og_title,
+			description: thought.og_description,
 			siteName: "cod3d's den"
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: thought.name,
-			description: thought.description,
+			title: thought.og_title,
+			description: thought.og_description,
 			creator: '@cod3ddot',
 			site: "cod3d's den"
 		}
@@ -73,20 +73,19 @@ const BackLink: React.FC = () => {
 	);
 };
 
-// doesn't work with headers
-// export async function generateStaticParams() {
-// 	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
+export async function generateStaticParams() {
+	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
 
-// 	if (isError(thoughtsResponse)) {
-// 		return [];
-// 	}
+	if (isError(thoughtsResponse)) {
+		return [];
+	}
 
-// 	const thoughts = thoughtsResponse as Thought[];
+	const thoughts = thoughtsResponse as Thought[];
 
-// 	return thoughts.map((thought) => ({
-// 		slug: thought.slug
-// 	}));
-// }
+	return thoughts.map((thought) => ({
+		slug: thought.slug
+	}));
+}
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const thoughtResponse = await getThought(params.slug);
@@ -96,6 +95,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	}
 
 	const thought = thoughtResponse as Thought;
+	const markdown = await (await fetch(thought.markdown)).text();
 
 	const jsonLd: WithContext<TechArticle> = {
 		'@context': 'https://schema.org',
@@ -105,8 +105,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			'@type': 'WebPage',
 			'@id': 'https://cod3d.dev/thoughts/' + thought.slug
 		},
-		headline: thought.name,
-		image: thought.hero,
+		headline: thought.og_title,
+		image: thought.og_description,
 		author: {
 			'@type': 'Person',
 			name: 'cod3d',
@@ -131,7 +131,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 							'prose-headings:font-light prose-headings:w-4/5 prose-h1:text-[5vw]',
 							'prose-img:w-full prose-img:rounded-xl',
 							'hover:prose-a:text-blue-500 prose-a:transition-colors',
-							'prose-pre:bg-background-dark prose-pre:text-current',
 							'pb-8'
 						)}
 					>
@@ -141,12 +140,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
 								__html: JSON.stringify(jsonLd)
 							}}
 						/>
-
 						<section className="uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12">
 							<div>
 								<span className="font-extralight">Reading time</span>
 								<br />
-								{readingTime(thought.body, { wordsPerMinute: 100 }).minutes}
+								{readingTime(markdown, { wordsPerMinute: 100 }).minutes}
 								<span> minutes</span>
 							</div>
 							<div>
@@ -157,22 +155,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 								</time>
 							</div>
 						</section>
-						<h1>{thought.name}</h1>
-
-						<Image
-							priority
-							src={thought.hero}
-							width={1920}
-							height={1080}
-							sizes="90vw"
-							alt={thought.name + ' hero image'}
-							className="w-full aspect-video"
-						/>
-						<section className="relative 2xl:flex 2xl:justify-between">
-							<section className="max-w-prose">
-								<ThoughtBody thought={thought} />
-							</section>
-							<TableOfContents className="not-prose mt-[20rem] sticky top-[50vh] -translate-y-1/2 self-start h-auto" />
+						<section className="relative">
+							<ThoughtMarkdown images={thought.images} markdown={markdown} />
 						</section>
 					</article>
 

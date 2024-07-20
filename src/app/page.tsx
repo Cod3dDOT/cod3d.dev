@@ -5,6 +5,8 @@ import Yellow from '@/../public/yellow.webp';
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 
+export const revalidate = 3600;
+
 export default function Home() {
 	return (
 		<main className="h-full flex flex-col justify-center my-auto md:pl-24 sm:pl-16 pl-8 bg-grainy">

@@ -34,21 +34,21 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 				{year}
 			</h2>
 			<div className={clsx(gridClasses, className)}>
-				{thoughts.map((th) => (
+				{thoughts.map((thought) => (
 					<SpotlightCard
-						id={`year-${year}-thought-${th.id}`}
+						id={`year-${year}-thought-${thought.id}`}
 						from="var(--spotlight-from)"
 						size={200}
-						key={th.id}
+						key={thought.id}
 						className={cardClasses}
 					>
 						<Link
 							hrefLang="en"
-							href={'/thoughts/' + th.slug}
+							href={'/thoughts/' + thought.slug}
 							className={contentClasses}
 						>
 							<h3 className="md:text-[2rem] sm:text-[1.44rem] text-[1.22rem]">
-								{th.name}
+								{thought.og_title}
 							</h3>
 						</Link>
 					</SpotlightCard>

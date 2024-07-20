@@ -1,9 +1,9 @@
 import { ImageResponse } from 'next/og';
 
-import { getNonce } from '@/lib/nonce';
 import { getThought } from '@/lib/pocketbase/req';
 import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
+import { ImageResponseOptions } from 'next/server';
 
 // Route segment config
 export const runtime = 'edge';
@@ -29,14 +29,30 @@ const getFont = async () => {
 // Image generation
 export default async function Image({ params }: { params: { slug: string } }) {
 	const thoughtResponse = await getThought(params.slug);
+	const fonts: ImageResponseOptions['fonts'] = [
+		{
+			name: 'PixelifySans',
+			data: await getFont(),
+			style: 'normal',
+			weight: 400
+		}
+	];
+
+	let fontSize = 128;
+	if (isError(thoughtResponse)) {
+		fontSize = 256;
+	}
+
+	const thought = isError(thoughtResponse)
+		? null
+		: (thoughtResponse as Thought);
 
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
 			<div
-				nonce={await getNonce()}
 				style={{
-					fontSize: 128,
+					fontSize: fontSize,
 					backgroundColor: '#222',
 					padding: '7rem 8rem',
 					color: 'white',
@@ -49,7 +65,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 				}}
 			>
 				<span style={{ color: 'white' }}>cod3d.dev</span>
-				{!isError(thoughtResponse) && (
+				{thought && (
 					<div
 						style={{
 							display: 'flex',
@@ -60,7 +76,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 					>
 						<span>Thought:</span>
 						<br />
-						<span>{(thoughtResponse as Thought).name}</span>
+						<span>{thought.og_title}</span>
 					</div>
 				)}
 				<div
@@ -82,14 +98,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 			// For convenience, we can re-use the exported opengraph-image
 			// size config to also set the ImageResponse's width and height.
 			...size,
-			fonts: [
-				{
-					name: 'PixelifySans',
-					data: await getFont(),
-					style: 'normal',
-					weight: 400
-				}
-			]
+			fonts: fonts
 		}
 	);
 }

@@ -3,6 +3,7 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
+	poweredByHeader: false,
 	async rewrites() {
 		return [
 			{
@@ -12,10 +13,13 @@ const nextConfig = {
 			{
 				source: '/api/send',
 				destination: 'https://api-gateway.umami.dev/api/send'
+			},
+			{
+				source: '/api/files/:path*',
+				destination: 'https://cod3d.pockethost.io/api/files/:path*'
 			}
 		];
 	},
-	poweredByHeader: false,
 	async headers() {
 		return [
 			{
@@ -45,6 +49,22 @@ const nextConfig = {
 						key: 'Permissions-Policy',
 						value:
 							'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
+					},
+					{
+						key: 'Access-Control-Allow-Origin',
+						value: 'cod3d.dev'
+					},
+					{
+						key: 'Cross-Origin-Embedder-Policy', // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy
+						value: 'require-corp'
+					},
+					{
+						key: 'Cross-Origin-Opener-Policy', // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy
+						value: 'same-origin'
+					},
+					{
+						key: 'Cross-Origin-Resource-Policy', // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy
+						value: 'same-origin'
 					},
 					{
 						key: 'Access-Control-Allow-Methods',

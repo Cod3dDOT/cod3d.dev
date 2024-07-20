@@ -1,5 +1,3 @@
-import { getProjects, getThoughts } from '@/lib/pocketbase/req';
-
 import NavContactsShowcase from './contacts';
 import { NavigationContainer } from './container';
 import NavProjectsShowcase from './projects';

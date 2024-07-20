@@ -14,7 +14,13 @@ export const metadata: Metadata = {
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
 	creator: 'cod3d',
 	keywords: 'blog, projects, coding',
-	robots: 'index, nofollow',
+	robots: {
+		index: true,
+		follow: true,
+		noarchive: true,
+		nosnippet: false,
+		noimageindex: false
+	},
 	openGraph: {
 		type: 'website',
 		url: 'https://cod3d.dev/thoughts',

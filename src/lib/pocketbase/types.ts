@@ -16,11 +16,14 @@ export interface Thought {
 	id: string;
 	created: string;
 	updated: string;
+
 	slug: string;
-	name: string;
-	description: string;
-	body: string;
-	hero: string;
+
+	markdown: string;
+	images: string[];
+
+	og_title: string;
+	og_description: string;
 }
 
 export interface TypedPocketBase extends PocketBase {
