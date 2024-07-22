@@ -89,7 +89,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 					pathname={pathname}
 				/>
 
-				<ReactLenis className="h-screen overflow-y-auto w-full p-8 sm:pt-8 pt-24 *:space-y-16">
+				<ReactLenis className="overflow-y-auto w-full p-8 sm:pt-8 pt-24 *:space-y-16">
 					{children}
 				</ReactLenis>
 			</div>
