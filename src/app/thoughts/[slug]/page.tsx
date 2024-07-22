@@ -120,7 +120,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	};
 
 	return (
-		<ReactLenis className="h-screen overflow-auto">
+		<ReactLenis root className="h-screen overflow-y-auto">
 			<main
 				className={
 					'bg-background md:px-24 px-10 relative xl:flex sm:pt-24 py-8 font-sans'

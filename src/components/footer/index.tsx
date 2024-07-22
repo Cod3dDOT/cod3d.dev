@@ -2,7 +2,7 @@ import { getRandomPokemon } from '@/lib/poke';
 import { AsideFooter } from './parralax';
 import { FooterMon } from './pokemon';
 
-export const Footer: React.FC = async () => {
+export const Footer: React.FC = () => {
 	const pokemon = getRandomPokemon();
 
 	return (

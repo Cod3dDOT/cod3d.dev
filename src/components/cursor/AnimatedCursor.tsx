@@ -276,14 +276,12 @@ function CursorCore({
 				.map((clickable) =>
 					typeof clickable === 'object' && clickable?.target
 						? clickable.target
-						: clickable ?? ''
+						: (clickable ?? '')
 				)
 				.join(',')
 		);
 
 		clickableEls.forEach((el) => {
-			if (!showSystemCursor) el.style.cursor = 'none';
-
 			const clickableOptions =
 				typeof clickables === 'object'
 					? findInArray(
@@ -357,12 +355,6 @@ function CursorCore({
 			});
 		};
 	}, [isActive, clickables, showSystemCursor, defaultOptions]);
-
-	useEffect(() => {
-		if (typeof window === 'object' && !showSystemCursor) {
-			document.body.style.cursor = 'none';
-		}
-	}, [showSystemCursor]);
 
 	const coreStyles: CSSProperties = {
 		zIndex: 999,

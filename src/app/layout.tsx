@@ -12,13 +12,10 @@ import { Cursor } from '@/components/cursor';
 
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
-import dynamic from 'next/dynamic';
 import { NavigationContainerPreview } from '@/components/navigation/container/preview';
 import '@/lib/trustedTypes';
-
-const DynamicNavigation = dynamic(() => import('@/components/navigation'), {
-	loading: () => <NavigationContainerPreview />
-});
+import { Suspense } from 'react';
+import Navigation from '@/components/navigation';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -112,7 +109,7 @@ export default async function RootLayout({
 					font.variable,
 					GeistSans.variable,
 					GeistMono.variable,
-					'font-pixelify'
+					'font-pixelify cursor-none'
 				)}
 			>
 				<script
@@ -123,7 +120,9 @@ export default async function RootLayout({
 				<ThemeProvider attribute="class">
 					{children}
 					<Cursor />
-					<DynamicNavigation />
+					<Suspense fallback={<NavigationContainerPreview />}>
+						<Navigation />
+					</Suspense>
 				</ThemeProvider>
 			</body>
 		</html>

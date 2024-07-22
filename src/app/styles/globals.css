@@ -16,6 +16,12 @@
 	--background: 34 34 34;
 }
 
+a,
+button,
+pre {
+	cursor: none;
+}
+
 @layer components {
 	.bg-grainy::before,
 	.bg-grainy::after {

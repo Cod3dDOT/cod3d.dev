@@ -1,11 +1,14 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
+const IS_DEV = process.env.NODE_ENV === 'development';
+const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; trusted-types default nextjs#bundler;`;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
 	experimental: {
-		ppr: 'incremental'
+		ppr: true
 	},
 	async rewrites() {
 		return [
@@ -28,6 +31,10 @@ const nextConfig = {
 			{
 				source: '/(.*)',
 				headers: [
+					{
+						key: 'Content-Security-Policy',
+						value: IS_DEV ? '' : cspHeader
+					},
 					{
 						key: 'X-Frame-Options',
 						value: 'DENY'

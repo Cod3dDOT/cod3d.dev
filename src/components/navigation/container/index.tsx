@@ -71,7 +71,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 				ref={menu}
 				className={clsx(
 					'z-50 fixed flex transition-transform duration-300 will-change-transform inset-0 xl:left-1/2',
-					'bg-background bg-grainy md:bg-not-grainy md:bg-transparent md:backdrop-blur-xl',
+					'bg-background bg-grainy md:bg-not-grainy md:bg-background/50 md:backdrop-blur-xl',
 					opened
 						? 'translate-x-0'
 						: 'sm:translate-x-[calc(100%-4rem)] translate-x-full'
@@ -89,7 +89,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 					pathname={pathname}
 				/>
 
-				<ReactLenis className="overflow-y-auto w-full p-8 sm:pt-8 pt-24 *:space-y-16">
+				<ReactLenis className="h-screen overflow-y-auto w-full p-8 sm:pt-8 pt-24 *:space-y-16">
 					{children}
 				</ReactLenis>
 			</div>
