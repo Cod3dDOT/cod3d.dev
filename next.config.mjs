@@ -1,7 +1,7 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
-const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; trusted-types default nextjs#bundler;`;
+const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; connect-src 'self' https://cloudflareinsights.com/; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; trusted-types default nextjs#bundler;`;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -19,6 +19,10 @@ const nextConfig = {
 			{
 				source: '/api/send',
 				destination: 'https://api-gateway.umami.dev/api/send'
+			},
+			{
+				source: '/cl.js',
+				destination: 'https://static.cloudflareinsights.com/beacon.min.js'
 			},
 			{
 				source: '/api/files/:path*',

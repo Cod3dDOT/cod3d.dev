@@ -9,6 +9,8 @@ import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
 import { PageError } from '@/components/error';
 
+import '@/app/styles/thoughts.css';
+
 export const metadata: Metadata = {
 	title: "cod3d's thoughts | A place where I share my struggles",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',

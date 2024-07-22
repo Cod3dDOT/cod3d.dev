@@ -16,6 +16,7 @@ import { NavigationContainerPreview } from '@/components/navigation/container/pr
 import '@/lib/trustedTypes';
 import { Suspense } from 'react';
 import Navigation from '@/components/navigation';
+import Script from 'next/script';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -93,17 +94,7 @@ export default async function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="scrollbar-thin">
-			<head>
-				<script
-					integrity="sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg="
-					crossOrigin="anonymous"
-					defer
-					src="/um.js"
-					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
-					data-domains="cod3d.dev"
-					data-host-url="https://cod3d.dev"
-				/>
-			</head>
+			<head></head>
 			<body
 				className={clsx(
 					font.variable,
@@ -124,6 +115,21 @@ export default async function RootLayout({
 						<Navigation />
 					</Suspense>
 				</ThemeProvider>
+
+				<Script
+					defer
+					src="/cl.js"
+					data-cf-beacon='{"token": "47d8843e086d4c2892e9dc1dda82ea11"}'
+				/>
+				<Script
+					integrity="sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg="
+					crossOrigin="anonymous"
+					defer
+					src="/um.js"
+					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
+					data-domains="cod3d.dev"
+					data-host-url="https://cod3d.dev"
+				/>
 			</body>
 		</html>
 	);
