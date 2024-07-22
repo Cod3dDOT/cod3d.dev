@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
 		rules: {
 			userAgent: '*',
 			allow: '/',
-			disallow: ['/*.json$', '/security.txt']
+			disallow: ['/_next', '/security.txt', '/*opengraph-image']
 		},
 		sitemap: 'https://cod3d.dev/sitemap.xml'
 	};
