@@ -10,7 +10,7 @@ export const revalidate = 7200;
 
 export default function Home() {
 	return (
-		<main className="h-screen flex flex-col justify-center my-auto md:pl-24 sm:pl-16 pl-8 bg-grainy">
+		<main className="h-screen flex flex-col justify-center my-auto bg-grainy md:px-24 px-10">
 			<GrainyBackground />
 			<h1 className="md:text-[8rem] sm:text-[5.65rem] text-[4rem]">
 				cod3d.dev

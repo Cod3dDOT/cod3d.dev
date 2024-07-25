@@ -7,7 +7,7 @@
 	--background-dark: 232 232 232;
 	--background: 220 220 220;
 
-	@apply bg-background text-foreground overscroll-y-none;
+	@apply bg-background text-foreground overscroll-y-none selection:bg-foreground/30;
 }
 
 .dark {

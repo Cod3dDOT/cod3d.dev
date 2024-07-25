@@ -2,7 +2,7 @@ import React from 'react';
 
 export const GrainyBackground: React.FC = () => {
 	return (
-		<svg className="fixed h-screen w-screen -z-30">
+		<svg className="fixed inset-0 -z-30">
 			<filter id="noiseFilter-dark">
 				<feTurbulence
 					type="fractalNoise"

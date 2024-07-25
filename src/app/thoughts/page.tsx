@@ -70,7 +70,7 @@ const ThoughtsPage: React.FC = async () => {
 
 	return (
 		<ReactLenis root>
-			<main className="bg-background md:px-24 px-10 relative">
+			<main className="bg-background relative md:px-24 px-10">
 				<ThoughtsTextReveal />
 				<Years thoughts={thoughts} />
 			</main>

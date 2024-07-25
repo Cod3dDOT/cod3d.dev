@@ -36,6 +36,10 @@ interface RootProps {
 	as?: React.ElementType;
 }
 
+function convertRemToPixels(rem: number) {
+	return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
 function Root({
 	body = '',
 	children,
@@ -60,7 +64,7 @@ function Root({
 		return rect?.height || 0;
 	}, [container.current]);
 
-	const skip = () => lenis?.scrollTo(height);
+	const skip = () => lenis?.scrollTo(height + convertRemToPixels(3.5));
 
 	const tokens = useMemo(() => body.match(/\S+|\s+/g) || [], [body]);
 

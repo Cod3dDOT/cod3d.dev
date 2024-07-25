@@ -15,6 +15,7 @@ import { notFound } from 'next/navigation';
 import { TechArticle, WithContext } from 'schema-dts';
 
 import '@/app/styles/blog.css';
+import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
 
 export async function generateMetadata({
 	params
@@ -68,7 +69,7 @@ const BackLink: React.FC = () => {
 		<Link
 			hrefLang="en"
 			href="/thoughts"
-			className="inline-flex items-center space-x-2 hover:underline"
+			className="inline-flex items-center space-x-2 hover:underline opacity-0 animate-blog-in"
 		>
 			<BackIcon className="h-full aspect-square" />
 			<span>All thoughts</span>
@@ -115,8 +116,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			name: 'cod3d',
 			url: 'https://github.com/cod3ddot'
 		},
-		datePublished: dateToString(thought.created),
-		dateModified: dateToString(thought.updated)
+		datePublished: dateToString(new Date(thought.created)),
+		dateModified: dateToString(new Date(thought.updated))
 	};
 
 	return (
@@ -132,9 +133,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 						className={clsx(
 							'prose lg:prose-xl prose-neutral prose-amber max-w-none dark:prose-invert',
 							'prose-headings:font-light md:prose-headings:w-4/5',
+							'prose-h1:animate-blog-in prose-h1:delay-500 prose-h1:opacity-0',
 							'hover:prose-a:text-blue-500 prose-a:transition-colors',
-							'prose-pre:bg-background-dark prose-pre:text-foreground',
-							'prose-figure:bg-background-dark prose-figure:border prose-figure:border-neutral-700',
 							'pb-8'
 						)}
 					>
@@ -144,21 +144,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 								__html: JSON.stringify(jsonLd)
 							}}
 						/>
-						<header className="uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12">
-							<div>
-								<span className="font-extralight">Reading time</span>
-								<br />
-								{readingTime(markdown, { wordsPerMinute: 100 }).minutes}
-								<span> minutes</span>
-							</div>
-							<div>
-								<span className="font-extralight">Published</span>
-								<br />
-								<time dateTime={thought.created}>
-									{dateToString(thought.created)}
-								</time>
-							</div>
-						</header>
+
+						<ThoughtHeader thought={thought} markdown={markdown} />
 
 						<ThoughtMarkdown images={thought.images} markdown={markdown} />
 					</article>

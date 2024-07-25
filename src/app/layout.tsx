@@ -27,7 +27,11 @@ const font = Pixelify_Sans({
 export const viewport: Viewport = {
 	width: 'device-width',
 	initialScale: 1,
-	themeColor: '#121212' // remove when updating next-themes to v1.0.0
+	themeColor: [
+		{ media: '(prefers-color-scheme: light)', color: '#fff' },
+		{ media: '(prefers-color-scheme: dark)', color: '#222' }
+	],
+	colorScheme: 'dark light'
 };
 
 export const metadata: Metadata = {
@@ -94,7 +98,6 @@ export default async function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="scrollbar-thin">
-			<head></head>
 			<body
 				className={clsx(
 					font.variable,

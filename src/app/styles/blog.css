@@ -1,25 +1,5 @@
-figure {
-	display: grid; /* in order { overflow-x: auto; } works in child <pre> */
-}
-
-pre,
-pre code {
-	direction: ltr;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	line-height: 1.2;
-	tab-size: 2;
-	hyphens: none;
-}
-
 pre {
-	padding: 0.5rem 1rem;
-	border: 1px solid var(--color-text-weak);
-	border-radius: 5px;
-
-	overflow-x: auto;
+	padding: 0rem 1rem;
 }
 
 pre > code {
@@ -72,13 +52,25 @@ span.code-line {
 	display: inline-block;
 }
 
-pre code.hljs {
-	padding: 0 1rem;
-	background: none;
+pre code.hljs .code-line {
+	padding: 0 1rem 0 1.5rem;
 }
 
-pre code.hljs .code-line {
-	padding: 0 0 0 1rem;
+@media screen and (max-width: 768px) {
+	pre > code {
+		margin-left: 0;
+	}
+
+	.numbered-code-line::before {
+		content: '';
+		margin: 0;
+		width: 0;
+	}
+
+	pre .code-line {
+		border: 0;
+		padding: 0 1rem 0 1rem !important;
+	}
 }
 
 /*
@@ -125,7 +117,7 @@ hue-6-2: #e6c07b
 .hljs-addition,
 .hljs-attribute,
 .hljs-meta .hljs-string {
-	color: #98c379;
+	@apply dark:text-[#98c379] text-lime-600;
 }
 .hljs-attr,
 .hljs-variable,
