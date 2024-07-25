@@ -48,7 +48,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 							className={contentClasses}
 						>
 							<h3 className="md:text-[2rem] sm:text-[1.44rem] text-[1.22rem]">
-								{thought.og_title}
+								{thought.title}
 							</h3>
 						</Link>
 					</SpotlightCard>

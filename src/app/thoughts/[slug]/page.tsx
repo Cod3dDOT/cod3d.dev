@@ -7,7 +7,6 @@ import { Footer } from '@/components/footer';
 import clsx from 'clsx';
 import BackIcon from '@/components/icons/back';
 
-import readingTime from '@/lib/readingTime';
 import { dateToString } from '@/lib/utils/date';
 import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
@@ -42,22 +41,22 @@ export async function generateMetadata({
 	const thought = thoughtResponse as Thought;
 
 	return {
-		title: thought.og_title,
-		description: thought.og_description,
+		title: thought.title,
+		description: thought.description,
 		alternates: {
 			canonical: 'https://cod3d.dev/thoughts' + thought.slug
 		},
 		openGraph: {
 			type: 'website',
 			url: 'https://cod3d.dev/thoughts' + thought.slug,
-			title: thought.og_title,
-			description: thought.og_description,
+			title: thought.title,
+			description: thought.description,
 			siteName: "cod3d's den"
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: thought.og_title,
-			description: thought.og_description,
+			title: thought.title,
+			description: thought.description,
 			creator: '@cod3ddot',
 			site: "cod3d's den"
 		}
@@ -109,8 +108,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			'@type': 'WebPage',
 			'@id': 'https://cod3d.dev/thoughts/' + thought.slug
 		},
-		headline: thought.og_title,
-		image: thought.og_description,
+		headline: thought.title,
+		image: thought.description,
 		author: {
 			'@type': 'Person',
 			name: 'cod3d',
@@ -121,19 +120,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	};
 
 	return (
-		<ReactLenis root className="h-screen overflow-y-auto">
+		<ReactLenis root>
 			<main
 				className={
-					'bg-background md:px-24 px-10 relative xl:flex sm:pt-24 py-8 font-sans'
+					'bg-background md:px-24 px-10 xl:flex sm:pt-24 py-8 font-sans'
 				}
 			>
-				<div className="relative block mx-auto container">
+				<div className="block mx-auto container z-10">
 					<BackLink />
 					<article
 						className={clsx(
 							'prose lg:prose-xl prose-neutral prose-amber max-w-none dark:prose-invert',
 							'prose-headings:font-light md:prose-headings:w-4/5',
-							'prose-h1:animate-blog-in prose-h1:delay-500 prose-h1:opacity-0',
 							'hover:prose-a:text-blue-500 prose-a:transition-colors',
 							'pb-8'
 						)}
@@ -147,7 +145,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 						<ThoughtHeader thought={thought} markdown={markdown} />
 
-						<ThoughtMarkdown images={thought.images} markdown={markdown} />
+						<ThoughtMarkdown
+							title={thought.title}
+							description={thought.description}
+							hero={thought.hero}
+							images={thought.markdown_images}
+							markdown={markdown}
+						/>
 					</article>
 
 					<BackLink />

@@ -24,8 +24,9 @@ export async function getThought(slug: string) {
 		}
 
 		const thought = thoughts.items[0];
+		thought.hero = client.files.getUrl(thought, thought.hero);
 		thought.markdown = client.files.getUrl(thought, thought.markdown);
-		thought.images = thought.images.map((image) =>
+		thought.markdown_images = thought.markdown_images.map((image) =>
 			client.files
 				.getUrl(thought, image)
 				.replace('https://cod3d.pockethost.io', '')

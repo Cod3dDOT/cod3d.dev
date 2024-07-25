@@ -76,7 +76,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 					>
 						<span>Thought:</span>
 						<br />
-						<span>{thought.og_title}</span>
+						<span>{thought.title}</span>
 					</div>
 				)}
 				<div

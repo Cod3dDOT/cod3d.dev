@@ -47,6 +47,12 @@ const config: Config = {
 					'0%': { opacity: '0', transform: 'translateY(-5px)' },
 					'100%': { opacity: '1' }
 				}
+			},
+			transitionTimingFunction: {
+				'in-out-expo': 'cubic-bezier(0.87, 0, 0.13, 1)'
+			},
+			transitionDuration: {
+				'2000': '2000ms'
 			}
 		}
 	},

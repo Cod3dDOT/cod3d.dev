@@ -27,10 +27,10 @@ const CopyIcon = React.forwardRef<SVGSVGElement, Props>(
 			{...props}
 			className={className}
 			viewBox="0 0 24 24"
-			stroke-width="1.5"
+			strokeWidth="1.5"
 			fill="none"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		>
 			<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 			<path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
@@ -38,7 +38,7 @@ const CopyIcon = React.forwardRef<SVGSVGElement, Props>(
 			<path
 				d="M11 14l2 2l4 -4"
 				stroke={checkColor}
-				stroke-width="1.5"
+				strokeWidth="1.5"
 				strokeDasharray={100}
 				strokeDashoffset={showCheck ? 0 : 100}
 				className="transition-all duration-300 ease-in-out"

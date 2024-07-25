@@ -1,14 +1,21 @@
-'use client';
+type Props = {
+	title: string;
+};
 
-import { ClassAttributes, HTMLAttributes } from 'react';
-import { ExtraProps } from 'react-markdown';
-
-type Props = ClassAttributes<HTMLHeadingElement> &
-	HTMLAttributes<HTMLHeadingElement> &
-	ExtraProps;
-
-export const MarkdownTitle: React.FC<Props> = ({ children }) => (
-	<h1 className="relative bg-gradient-to-br from-foreground via-foreground to-background bg-clip-text text-transparent">
-		{children}
-	</h1>
-);
+export const MarkdownTitle: React.FC<Props> = ({ title }) => {
+	const words = title.split(' ');
+	const spans = words.map((word, index) => (
+		<span
+			key={index}
+			className="inline-block animate-blog-in opacity-0 fill-mode-forwards"
+			style={{ animationDelay: `${500 + index * 100}ms` }}
+		>
+			{word}
+			&nbsp;
+		</span>
+	));
+	// bg-gradient-to-br from-foreground via-foreground to-background bg-clip-text text-transparent
+	return (
+		<h1 className="xl:w-2/3 2xl:!text-9xl xl:!text-8xl relative">{spans}</h1>
+	);
+};

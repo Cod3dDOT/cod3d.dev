@@ -43,7 +43,7 @@ const NavThoughtsShowcase: React.FC = async () => {
 											{dateToString(new Date(thought.created))}
 										</h3>
 										<br />
-										<h4>{thought.og_title}</h4>
+										<h4>{thought.title}</h4>
 									</div>
 									<div className="absolute w-36 h-36 rounded-full -top-16 -right-16 bg-blue-500 blur-xl" />
 								</div>

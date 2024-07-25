@@ -46,8 +46,8 @@ const ReadingTime: React.FC<{
 		<div className="relative overflow-hidden inline-block">
 			<span className="invisible">{minutes}</span>
 			<span className="left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000">
-				{minArray.map((m) => {
-					return <span>{m}</span>;
+				{minArray.map((m, i) => {
+					return <span key={i}>{m}</span>;
 				})}
 			</span>
 		</div>

@@ -19,11 +19,13 @@ export interface Thought {
 
 	slug: string;
 
-	markdown: string;
-	images: string[];
+	title: string;
+	description: string;
 
-	og_title: string;
-	og_description: string;
+	hero: string;
+
+	markdown: string;
+	markdown_images: string[];
 }
 
 export interface TypedPocketBase extends PocketBase {
