@@ -25,7 +25,7 @@ const DateScroll: React.FC<{
 			<span className="invisible">{dateToString(original)}</span>
 			<div
 				className={clsx(
-					'left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000',
+					'left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out',
 					delay
 				)}
 			>
@@ -45,7 +45,7 @@ const ReadingTime: React.FC<{
 	return (
 		<div className="relative overflow-hidden inline-block">
 			<span className="invisible">{minutes}</span>
-			<span className="left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000">
+			<span className="left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out">
 				{minArray.map((m, i) => {
 					return <span key={i}>{m}</span>;
 				})}
@@ -59,7 +59,7 @@ export const ThoughtHeader: React.FC<{
 	markdown: string;
 }> = ({ markdown, thought }) => {
 	return (
-		<header className="uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12 opacity-0 animate-blog-in delay-300">
+		<header className="px-10 uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12 opacity-0 animate-blog-in delay-300">
 			<div className="*:align-middle">
 				<span className="font-extralight">Reading time</span>
 				<br />

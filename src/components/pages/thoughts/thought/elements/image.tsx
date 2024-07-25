@@ -28,7 +28,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				alt={alt || ''}
 				width={1920}
 				height={1080}
-				className="!m-0 rounded-lg xl:rounded-none"
+				className="!m-0 md:rounded-lg xl:rounded-none"
 			/>
 		</div>
 	);

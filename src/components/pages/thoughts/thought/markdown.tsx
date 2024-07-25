@@ -36,10 +36,10 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 	return (
 		<>
 			<MarkdownTitle title={title} />
-			<p>{description}</p>
+			<p className="px-10">{description}</p>
 			<HeroImage src={hero} alt={'Hero image'} />
 			<Markdown
-				className="max-w-prose"
+				className="max-w-prose [&>*:not(figure)]:px-10"
 				components={{
 					pre(props) {
 						return <MarkdownCodeBlock {...props} />;

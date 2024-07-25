@@ -68,7 +68,7 @@ const BackLink: React.FC = () => {
 		<Link
 			hrefLang="en"
 			href="/thoughts"
-			className="inline-flex items-center space-x-2 hover:underline opacity-0 animate-blog-in"
+			className="inline-flex items-center space-x-2 hover:underline opacity-0 animate-blog-in px-10"
 		>
 			<BackIcon className="h-full aspect-square" />
 			<span>All thoughts</span>
@@ -122,11 +122,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	return (
 		<ReactLenis root>
 			<main
-				className={
-					'bg-background md:px-24 px-10 xl:flex sm:pt-24 py-8 font-sans'
-				}
+				className={'bg-background md:px-10 xl:flex sm:pt-24 py-8 font-sans'}
 			>
-				<div className="block mx-auto container z-10">
+				<div className="block mx-auto md:container z-10">
 					<BackLink />
 					<article
 						className={clsx(

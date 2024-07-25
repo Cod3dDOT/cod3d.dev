@@ -9,9 +9,9 @@ type HeroImageProps = {
 export const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
 	return (
 		<div
-			className="xl:absolute xl:w-2/3 xl:opacity-50 xl:aspect-video xl:top-[30vh] xl:-translate-y-1/2 xl:right-0 xl:rounded-none
+			className="xl:absolute xl:w-2/3 xl:opacity-50 xl:top-0 2xl:-translate-y-1/2 xl:right-0 xl:rounded-none
             2xl:w-1/2 2xl:top-[50vh]
-            -z-10 rounded-lg"
+            -z-10 md:px-10"
 		>
 			<MarkdownImage src={src} alt={alt} className="w-full h-full" />
 		</div>
