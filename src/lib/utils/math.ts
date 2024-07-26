@@ -1,4 +1,10 @@
-function splitmix32(a: number) {
+/**
+ * Generates a random 32-bit integer using the splitmix32 algorithm.
+ *
+ * @param {number} a - seed
+ * @return {number} a random 32-bit integer between 0 and 1.
+ */
+export function splitmix32(a: number = Date.now() * Math.random()): number {
 	a |= 0;
 	a = (a + 0x9e3779b9) | 0;
 	let t = a ^ (a >>> 16);

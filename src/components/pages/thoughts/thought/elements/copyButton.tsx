@@ -1,17 +1,30 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import CopyIcon from '../../../../icons/copy';
-import ChevronIcon from '../../../../icons/chevron';
 import { clsx } from 'clsx';
 
-export const CopyButton: React.FC<{ className?: string }> = ({ className }) => {
+export const CopyButton: React.FC<{
+	id?: string;
+	content?: string;
+	className?: string;
+}> = ({ id, content: _content, className }) => {
+	const [content, setContent] = useState(_content || '');
 	const [copied, setCopied] = useState(false);
 
-	const handleClick = () => {
-		// navigator.clipboard.writeText('https://cod3d.dev');
+	const handleClick = useCallback(() => {
+		navigator.clipboard.writeText(content);
 		setCopied(true);
-	};
+	}, [content]);
+
+	useEffect(() => {
+		if (content || !id) return;
+
+		const element = document.getElementById(id);
+		if (!element) return;
+
+		setContent(element.textContent || '');
+	}, []);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {

@@ -62,7 +62,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 		<nav className="relative" role="navigation">
 			<div
 				className={clsx(
-					'fixed inset-0 hidden lg:block -z-10 opacity-0 duration-300 bg-black transition-all',
+					'fixed inset-0 hidden lg:block -z-10 opacity-0 duration-300 bg-black transition-all ease-in-out',
 					opened && 'opacity-10 z-50 right-1/2'
 				)}
 			/>
@@ -70,7 +70,8 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 			<div
 				ref={menu}
 				className={clsx(
-					'z-50 fixed flex transition-transform duration-300 will-change-transform inset-0 xl:left-1/2',
+					'z-50 fixed flex inset-0 xl:left-1/2',
+					'transition-transform duration-300 will-change-transform ease-in-out',
 					'bg-background bg-grainy md:bg-not-grainy md:bg-background/50 md:backdrop-blur-xl',
 					opened
 						? 'translate-x-0'

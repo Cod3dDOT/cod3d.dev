@@ -48,9 +48,7 @@ export async function getThoughts(
 	try {
 		const posts = await client.collection('thoughts').getList(page, perPage, {
 			...options,
-			filter: 'published=true',
-			next: { revalidate: 3600 },
-			cache: 'force-cache'
+			filter: 'published=true'
 		});
 		return posts.items;
 	} catch (error: unknown) {
@@ -69,9 +67,7 @@ export async function getProjects(
 			.collection('projects')
 			.getList(page, perPage, {
 				filter: 'repo!=null',
-				sort: 'status',
-				next: { revalidate: 3600 },
-				cache: 'force-cache'
+				sort: 'status'
 			});
 		return projects.items;
 	} catch (error: unknown) {

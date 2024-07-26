@@ -2,6 +2,7 @@ import { clsx } from 'clsx';
 import { CopyButton } from './copyButton';
 import { ClassAttributes, HTMLAttributes } from 'react';
 import { ExtraProps } from 'react-markdown';
+import { splitmix32, stringToUniqueId } from '@/lib/utils/math';
 
 type Props = ClassAttributes<HTMLPreElement> &
 	HTMLAttributes<HTMLPreElement> &
@@ -21,10 +22,17 @@ const extensionToColor = {
 	py: 'bg-[#3572A5]'
 };
 
-export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
+export const MarkdownCodeBlock: React.FC<Props> = ({
+	children,
+	node,
+	...props
+}) => {
 	const filename = (node?.children[0].data as Data)?.meta;
 	const name = filename?.split('.').at(0) || '';
 	const extension = filename?.split('.').at(1) || 'js';
+
+	const random = stringToUniqueId(splitmix32().toString());
+	const id = `code-${name}-${random}`;
 
 	return (
 		<figure className="bg-background-dark md:border border-neutral-700 md:rounded-lg md:mx-10">
@@ -41,11 +49,13 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 							.{extension}
 						</span>
 					</span>
-					<CopyButton className="w-6 h-6" />
+					<CopyButton id={id} className="w-6 h-6" />
 				</figcaption>
 			)}
 
-			<pre className="bg-transparent text-foreground">{children}</pre>
+			<pre className="bg-transparent text-foreground" id={id}>
+				{children}
+			</pre>
 		</figure>
 	);
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { useLenis } from 'lenis/react';
+import { useLenis } from '@/lib/lenis';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 

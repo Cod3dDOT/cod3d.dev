@@ -7,15 +7,17 @@ type MarkdownImageProps = {
 	src: string;
 	alt?: string;
 	className?: string;
+	hideCaption?: boolean;
 };
 
 export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	src,
 	alt,
-	className
+	className,
+	hideCaption = false
 }) => {
 	return (
-		<div className={clsx('relative overflow-hidden', className)}>
+		<figure className={clsx('relative overflow-hidden', className)}>
 			{new Array(5).fill(0).map((_, index) => (
 				<span
 					key={index}
@@ -30,7 +32,10 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				height={1080}
 				className="!m-0 md:rounded-lg xl:rounded-none"
 			/>
-		</div>
+			<figcaption className={clsx({ 'sr-only': hideCaption })}>
+				{alt}
+			</figcaption>
+		</figure>
 	);
 };
 
