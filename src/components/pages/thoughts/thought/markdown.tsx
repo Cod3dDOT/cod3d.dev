@@ -59,7 +59,8 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 							return <MarkdownImage src={props.src} alt={props.alt} />;
 						},
 						p(props) {
-							const content = props.children?.toString() || '';
+							if (!props.children) return <></>;
+							const content = props.children.toString() || '';
 							const regex = new RegExp('\\[\\[(.+?)\\]\\]');
 							const match = content.match(regex);
 							if (!match || !match?.at(1)) {
