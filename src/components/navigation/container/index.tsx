@@ -91,7 +91,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 					pathname={pathname}
 				/>
 
-				<ReactLenis className="overflow-y-auto w-full p-8 sm:pt-6 [&>div]:space-y-16 scrollbar-none">
+				<ReactLenis className="overflow-y-auto w-full p-8 sm:pt-6 [&>div]:space-y-16 2xl:scrollbar-none">
 					<ProgressBar />
 					{children}
 				</ReactLenis>

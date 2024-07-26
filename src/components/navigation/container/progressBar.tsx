@@ -12,7 +12,7 @@ export const ProgressBar: React.FC = () => {
 
 	return (
 		<span
-			className="fixed w-1 z-10 top-0 left-16 h-full bg-foreground/50 rounded-md !mb-0"
+			className="hidden 2xl:block fixed w-1 z-10 top-0 left-16 h-full bg-foreground/50 rounded-md !mb-0"
 			ref={progressBarRef}
 		/>
 	);
