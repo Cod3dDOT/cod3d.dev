@@ -12,7 +12,7 @@ const NavThoughtsShowcase: React.FC = async () => {
 	const thoughts = thoughtReponse as Thought[];
 
 	return (
-		<section className="!mt-0">
+		<section className="sm:!mt-0">
 			<SectionLink link="/thoughts" text="Thoughts" />
 
 			<div
