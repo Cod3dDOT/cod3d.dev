@@ -18,7 +18,6 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
 	}, []);
 
 	const { width } = useWindowSize();
-	console.log(width);
 
 	return (
 		<div

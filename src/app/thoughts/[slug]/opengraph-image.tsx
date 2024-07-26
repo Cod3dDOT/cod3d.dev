@@ -38,14 +38,9 @@ export default async function Image({ params }: { params: { slug: string } }) {
 		}
 	];
 
-	let fontSize = 128;
-	if (isError(thoughtResponse)) {
-		fontSize = 256;
-	}
-
-	const thought = isError(thoughtResponse)
-		? null
-		: (thoughtResponse as Thought);
+	const errored = isError(thoughtResponse);
+	const fontSize = errored ? 256 : 128;
+	const thought = errored ? null : (thoughtResponse as Thought);
 
 	return new ImageResponse(
 		(
