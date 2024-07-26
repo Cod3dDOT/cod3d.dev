@@ -107,7 +107,7 @@ hue-6-2: #e6c07b
 .hljs-selector-tag,
 .hljs-deletion,
 .hljs-subst {
-	color: #e06c75;
+	@apply text-[#d1525c] dark:text-[#e06c75;];
 }
 .hljs-literal {
 	@apply text-[#54acb8] dark:text-[#56b6c2];
@@ -117,7 +117,7 @@ hue-6-2: #e6c07b
 .hljs-addition,
 .hljs-attribute,
 .hljs-meta .hljs-string {
-	@apply text-lime-600 dark:text-[#98c379];
+	@apply text-[#5D9114] dark:text-[#98c379];
 }
 .hljs-attr,
 .hljs-variable,
@@ -127,7 +127,7 @@ hue-6-2: #e6c07b
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-number {
-	@apply text-[#cc792c] dark:text-[#d19a66];
+	@apply text-[#AB5709] dark:text-[#d19a66];
 }
 .hljs-symbol,
 .hljs-bullet,
@@ -135,7 +135,7 @@ hue-6-2: #e6c07b
 .hljs-meta,
 .hljs-selector-id,
 .hljs-title {
-	@apply text-[#3898e6] dark:text-[#61aeee];
+	@apply text-[#0469BB] dark:text-[#61aeee];
 }
 .hljs-built_in,
 .hljs-title.class_,

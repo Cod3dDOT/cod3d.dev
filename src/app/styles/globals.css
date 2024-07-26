@@ -4,8 +4,8 @@
 
 :root {
 	--foreground: 18 18 18;
-	--background-dark: 232 232 232;
-	--background: 220 220 220;
+	--background-dark: 238 238 238;
+	--background: 230 230 230;
 
 	@apply bg-background text-foreground overscroll-y-none selection:bg-foreground/30;
 }
