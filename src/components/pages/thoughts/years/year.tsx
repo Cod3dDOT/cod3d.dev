@@ -7,14 +7,12 @@ import { Thought } from '@/lib/pocketbase/types';
 import { SpotlightCard } from '@/components/effects/spotlightCard';
 
 type ThoughtsBodyProps = {
-	nonce?: string;
 	year: number;
 	thoughts: Thought[];
 	className?: string;
 };
 
 export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
-	nonce,
 	year,
 	thoughts,
 	className

@@ -6,7 +6,7 @@ import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 
 export const experimental_ppr = true;
-export const revalidate = 7200;
+export const revalidate = 3600;
 
 export default function Home() {
 	return (

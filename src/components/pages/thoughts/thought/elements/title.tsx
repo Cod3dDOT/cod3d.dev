@@ -16,7 +16,7 @@ export const MarkdownTitle: React.FC<Props> = ({ title }) => {
 	));
 	// bg-gradient-to-br from-foreground via-foreground to-background bg-clip-text text-transparent
 	return (
-		<h1 className="px-10 md:px-0 xl:w-2/3 2xl:!text-9xl xl:!text-8xl relative">
+		<h1 className="px-10 xl:px-0 xl:w-2/3 2xl:!text-9xl xl:!text-8xl relative">
 			{spans}
 		</h1>
 	);

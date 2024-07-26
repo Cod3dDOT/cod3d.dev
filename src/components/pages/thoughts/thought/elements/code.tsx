@@ -27,7 +27,7 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 	const extension = filename?.split('.').at(1) || 'js';
 
 	return (
-		<figure className="bg-background-dark md:border border-neutral-700 md:rounded-lg">
+		<figure className="bg-background-dark md:border border-neutral-700 md:rounded-lg md:mx-10">
 			{filename && (
 				<figcaption className="relative overflow-hidden items-center font-mono flex justify-between px-4 border-b border-neutral-700 !mt-0">
 					<span className="text-foreground space-x-3">

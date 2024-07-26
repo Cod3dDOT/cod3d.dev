@@ -16,6 +16,9 @@ import { TechArticle, WithContext } from 'schema-dts';
 import '@/app/styles/blog.css';
 import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
 
+export const experimental_ppr = true;
+export const revalidate = 3600;
+
 export async function generateMetadata({
 	params
 }: {
