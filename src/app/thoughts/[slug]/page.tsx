@@ -119,14 +119,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			'@id': 'https://cod3d.dev/thoughts/' + thought.slug
 		},
 		headline: thought.title,
-		image: thought.description,
+		image: thought.markdown_images[0] || 'https://cod3d.dev/favicon.png',
 		author: {
 			'@type': 'Person',
 			name: 'cod3d',
 			url: 'https://github.com/cod3ddot'
 		},
-		datePublished: dateToString(new Date(thought.created)),
-		dateModified: dateToString(new Date(thought.updated))
+		datePublished: thought.created,
+		dateModified: thought.updated
 	};
 
 	return (
