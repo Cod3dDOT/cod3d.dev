@@ -30,7 +30,7 @@ const DateScroll: React.FC<{
 				)}
 			>
 				{dates.map((date, i) => (
-					<span key={i}>{date}</span>
+					<span key={i + '-date-scroll'}>{date}</span>
 				))}
 			</div>
 		</time>
@@ -47,7 +47,7 @@ const ReadingTime: React.FC<{
 			<span className="invisible">{minutes}</span>
 			<span className="left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out">
 				{minArray.map((m, i) => {
-					return <span key={i}>{m}</span>;
+					return <span key={i + '-reading-time'}>{m}</span>;
 				})}
 			</span>
 		</div>

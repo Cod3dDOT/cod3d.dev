@@ -64,6 +64,7 @@ export const TableOfContents: React.FC<{ markdown: string }> = ({
 			<ul className="list-none">
 				{headings.map(({ content: heading, id }, index) => (
 					<TableOFContentsLi
+						key={'toc-' + id}
 						heading={heading}
 						id={id}
 						index={index}

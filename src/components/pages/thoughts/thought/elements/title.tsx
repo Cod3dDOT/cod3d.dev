@@ -6,7 +6,7 @@ export const MarkdownTitle: React.FC<Props> = ({ title }) => {
 	const words = title.split(' ');
 	const spans = words.map((word, index) => (
 		<span
-			key={index}
+			key={index + '-markdown-title'}
 			className="inline-block animate-blog-in opacity-0 fill-mode-forwards"
 			style={{ animationDelay: `${500 + index * 100}ms` }}
 		>

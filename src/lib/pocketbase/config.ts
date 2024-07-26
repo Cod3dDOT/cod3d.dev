@@ -1,7 +1,6 @@
 import PocketBase from 'pocketbase';
 
 import { TypedPocketBase } from './types';
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 
 export async function createServerClient() {
 	const pbUrl = process.env.PB_URL;

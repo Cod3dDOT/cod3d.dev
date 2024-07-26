@@ -101,7 +101,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	}
 
 	const thought = thoughtResponse as Thought;
-	const markdown = await (await fetch(thought.markdown)).text();
+	const markdownResponse = await fetch(thought.markdown);
+
+	console.log(markdownResponse);
+	if (!markdownResponse.ok || isError(markdownResponse)) {
+		return notFound();
+	}
+
+	const markdown = await markdownResponse.text();
 
 	const jsonLd: WithContext<TechArticle> = {
 		'@context': 'https://schema.org',
