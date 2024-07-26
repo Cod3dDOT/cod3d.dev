@@ -1,6 +1,7 @@
 import { getRandomPokemon } from '@/lib/poke';
 import { FooterMon } from './pokemon';
 import dynamic from 'next/dynamic';
+import { PrintFooter } from './printFooter';
 
 const AsideFooter = dynamic(() => import('./parralax'), { ssr: false });
 
@@ -9,7 +10,7 @@ export const Footer: React.FC = () => {
 
 	return (
 		<>
-			<footer className="relative md:px-24 px-10 py-8 bg-background">
+			<footer className="print:hidden relative md:px-24 px-10 py-8 bg-background">
 				<div className="flex mx-auto justify-between container xl:max-w-full">
 					<p>
 						<span>cod3d.dev</span>
@@ -21,6 +22,7 @@ export const Footer: React.FC = () => {
 			<AsideFooter>
 				<FooterMon pokemon={pokemon} />
 			</AsideFooter>
+			<PrintFooter />
 		</>
 	);
 };

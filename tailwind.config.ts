@@ -10,6 +10,7 @@ const config: Config = {
 	],
 	theme: {
 		screens: {
+			print: { raw: 'print' },
 			xs: '400px',
 			...defaultTheme.screens
 		},

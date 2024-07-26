@@ -60,7 +60,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 	useAutoClose({ setOpened, menu });
 
 	return (
-		<nav className="relative" role="navigation">
+		<nav className="relative print:hidden" role="navigation">
 			<div
 				className={clsx(
 					'fixed inset-0 hidden lg:block -z-10 opacity-0 duration-300 bg-black transition-all ease-in-out',

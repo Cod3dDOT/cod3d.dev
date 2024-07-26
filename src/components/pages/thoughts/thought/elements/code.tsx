@@ -38,11 +38,12 @@ export const MarkdownCodeBlock: React.FC<Props> = ({
 		<figure className="bg-background-dark md:border border-neutral-700 md:rounded-lg md:mx-10">
 			{filename && (
 				<figcaption className="relative overflow-hidden items-center font-mono flex justify-between px-4 border-b border-neutral-700 !mt-0">
-					<span className="text-foreground space-x-3">
+					<span className="text-foreground space-x-3 print:space-x-0">
 						<span>{name}</span>
 						<span
 							className={clsx(
 								'py-3 px-3 inline-block dark:text-background',
+								'print:p-0 print:bg-transparent',
 								extensionToColor[extension as keyof typeof extensionToColor]
 							)}
 						>
