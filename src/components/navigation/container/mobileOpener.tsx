@@ -4,7 +4,7 @@ import ChevronIcon from '@/components/icons/chevron';
 import HomeIcon from '@/components/icons/home';
 import { ThemeSwitch } from '@/components/themeSwitch';
 import { clsx } from 'clsx';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 
 export const MobileOpener: React.FC<{
 	setOpened?: (open: boolean) => void;

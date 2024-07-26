@@ -4,7 +4,7 @@ import { remapRange } from '@/lib/utils/math';
 import { useLenis } from 'lenis/react';
 import { useState } from 'react';
 
-export const AsideFooter: React.FC<{
+const AsideFooter: React.FC<{
 	children?: React.ReactNode;
 }> = ({ children }) => {
 	const [progress, setProgress] = useState(0);
@@ -31,3 +31,5 @@ export const AsideFooter: React.FC<{
 		</aside>
 	);
 };
+
+export default AsideFooter;

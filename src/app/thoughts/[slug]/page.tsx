@@ -1,20 +1,20 @@
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 
 import { ThoughtMarkdown } from '@/components/pages/thoughts/thought/markdown';
 import { getThought, getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
-import { Footer } from '@/components/footer';
 import clsx from 'clsx';
 import BackIcon from '@/components/icons/back';
 
-import { dateToString } from '@/lib/utils/date';
 import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
 import { notFound } from 'next/navigation';
 import { TechArticle, WithContext } from 'schema-dts';
 
-import '@/app/styles/blog.css';
 import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
+import { Footer } from '@/components/footer';
+
+import '@/app/styles/blog.css';
 
 export const experimental_ppr = true;
 export const revalidate = 3600;
@@ -71,7 +71,7 @@ const BackLink: React.FC = () => {
 		<Link
 			hrefLang="en"
 			href="/thoughts"
-			className="inline-flex items-center space-x-2 hover:underline opacity-0 animate-blog-in px-10"
+			className="inline-flex items-center space-x-2 hover:underline animate-in slide-in-from-top-1 px-10 duration-1000"
 		>
 			<BackIcon className="h-full aspect-square" />
 			<span>All thoughts</span>
@@ -103,7 +103,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	const thought = thoughtResponse as Thought;
 	const markdownResponse = await fetch(thought.markdown);
 
-	console.log(markdownResponse);
 	if (!markdownResponse.ok || isError(markdownResponse)) {
 		return notFound();
 	}

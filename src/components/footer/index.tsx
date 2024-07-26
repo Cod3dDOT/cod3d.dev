@@ -1,6 +1,8 @@
 import { getRandomPokemon } from '@/lib/poke';
-import { AsideFooter } from './parralax';
 import { FooterMon } from './pokemon';
+import dynamic from 'next/dynamic';
+
+const AsideFooter = dynamic(() => import('./parralax'), { ssr: false });
 
 export const Footer: React.FC = () => {
 	const pokemon = getRandomPokemon();

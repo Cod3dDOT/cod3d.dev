@@ -3,7 +3,7 @@
 import HomeIcon from '@/components/icons/home';
 import { ThemeSwitch } from '@/components/themeSwitch';
 import { clsx } from 'clsx';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 
 export const DesktopOpener: React.FC<{
 	setOpened?: (open: boolean) => void;

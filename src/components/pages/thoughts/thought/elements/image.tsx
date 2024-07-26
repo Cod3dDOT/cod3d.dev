@@ -8,24 +8,20 @@ type MarkdownImageProps = {
 	alt?: string;
 	className?: string;
 	hideCaption?: boolean;
+	priority?: boolean;
 };
 
 export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	src,
 	alt,
 	className,
-	hideCaption = false
+	hideCaption = false,
+	priority = false
 }) => {
 	return (
-		<figure className={clsx('relative overflow-hidden', className)}>
-			{new Array(5).fill(0).map((_, index) => (
-				<span
-					key={index + '-markdown-image'}
-					className="absolute -inset-y-1 w-[22%] bg-background animate-out ease-in-out-expo slide-out-to-bottom-full fill-mode-forwards duration-2000"
-					style={{ left: `${index * 20}%`, animationDelay: `${index * 100}ms` }}
-				/>
-			))}
+		<figure className={className}>
 			<Image
+				priority={priority}
 				src={src}
 				alt={alt || ''}
 				width={1920}

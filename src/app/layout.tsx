@@ -18,6 +18,8 @@ import { Suspense } from 'react';
 import Navigation from '@/components/navigation';
 import Script from 'next/script';
 
+import { ViewTransitions } from 'next-view-transitions';
+
 const font = Pixelify_Sans({
 	subsets: ['latin'],
 	display: 'swap',
@@ -97,43 +99,45 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className="scrollbar-thin">
-			<body
-				className={clsx(
-					font.variable,
-					GeistSans.variable,
-					GeistMono.variable,
-					'font-pixelify cursor-none'
-				)}
-			>
-				<script
-					type="application/ld+json"
-					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-				/>
+		<ViewTransitions>
+			<html lang="en" className="scrollbar-thin">
+				<body
+					className={clsx(
+						font.variable,
+						GeistSans.variable,
+						GeistMono.variable,
+						'font-pixelify cursor-none'
+					)}
+				>
+					<script
+						type="application/ld+json"
+						dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+					/>
 
-				<ThemeProvider attribute="class">
-					{children}
-					<Cursor />
-					<Suspense fallback={<NavigationContainerPreview />}>
-						<Navigation />
-					</Suspense>
-				</ThemeProvider>
+					<ThemeProvider attribute="class">
+						{children}
+						<Cursor />
+						<Suspense fallback={<NavigationContainerPreview />}>
+							<Navigation />
+						</Suspense>
+					</ThemeProvider>
 
-				<Script
-					defer
-					src="/cl.js"
-					data-cf-beacon='{"token": "47d8843e086d4c2892e9dc1dda82ea11"}'
-				/>
-				<Script
-					integrity="sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg="
-					crossOrigin="anonymous"
-					defer
-					src="/um.js"
-					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
-					data-domains="cod3d.dev"
-					data-host-url="https://cod3d.dev"
-				/>
-			</body>
-		</html>
+					<Script
+						defer
+						src="/cl.js"
+						data-cf-beacon='{"token": "47d8843e086d4c2892e9dc1dda82ea11"}'
+					/>
+					<Script
+						integrity="sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg="
+						crossOrigin="anonymous"
+						defer
+						src="/um.js"
+						data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
+						data-domains="cod3d.dev"
+						data-host-url="https://cod3d.dev"
+					/>
+				</body>
+			</html>
+		</ViewTransitions>
 	);
 }

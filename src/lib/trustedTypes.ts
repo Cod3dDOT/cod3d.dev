@@ -1,6 +1,6 @@
 'use client';
 
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 window.trustedTypes?.createPolicy('default', {
 	createHTML: (input: string) => {

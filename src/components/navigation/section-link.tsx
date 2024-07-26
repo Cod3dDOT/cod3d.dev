@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import ChevronIcon from '../icons/chevron';
 
 export const SectionLink: React.FC<{ link: string; text: string }> = ({

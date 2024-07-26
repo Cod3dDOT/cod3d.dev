@@ -4,12 +4,12 @@ import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
 import { Years } from '@/components/pages/thoughts/years';
 import { getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
-import { Footer } from '@/components/footer';
 import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
 import { PageError } from '@/components/error';
 
 import '@/app/styles/thoughts.css';
+import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
 	title: "cod3d's thoughts | A place where I share my struggles",
