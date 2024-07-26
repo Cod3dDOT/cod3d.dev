@@ -110,14 +110,14 @@ hue-6-2: #e6c07b
 	color: #e06c75;
 }
 .hljs-literal {
-	color: #56b6c2;
+	@apply text-[#54acb8] dark:text-[#56b6c2];
 }
 .hljs-string,
 .hljs-regexp,
 .hljs-addition,
 .hljs-attribute,
 .hljs-meta .hljs-string {
-	@apply dark:text-[#98c379] text-lime-600;
+	@apply text-lime-600 dark:text-[#98c379];
 }
 .hljs-attr,
 .hljs-variable,
@@ -127,7 +127,7 @@ hue-6-2: #e6c07b
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-number {
-	color: #d19a66;
+	@apply text-[#cc792c] dark:text-[#d19a66];
 }
 .hljs-symbol,
 .hljs-bullet,
@@ -135,12 +135,12 @@ hue-6-2: #e6c07b
 .hljs-meta,
 .hljs-selector-id,
 .hljs-title {
-	color: #61aeee;
+	@apply text-[#3898e6] dark:text-[#61aeee];
 }
 .hljs-built_in,
 .hljs-title.class_,
 .hljs-class .hljs-title {
-	color: #e6c07b;
+	@apply text-[#d19a66] dark:text-[#e6c07b];
 }
 .hljs-emphasis {
 	font-style: italic;
