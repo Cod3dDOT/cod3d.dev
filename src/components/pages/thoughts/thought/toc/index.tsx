@@ -1,6 +1,7 @@
 'use client';
 
 import { useLenis } from '@/lib/lenis';
+import { remapRange } from '@/lib/utils/math';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -55,8 +56,15 @@ export const TableOfContents: React.FC<{ markdown: string }> = ({
 	}, []);
 
 	const [progress, setProgress] = useState(0);
-	useLenis(({ progress }) => {
-		setProgress(progress);
+	useLenis(({ scroll, dimensions }) => {
+		const scrollProgress = remapRange(
+			scroll,
+			dimensions.height,
+			dimensions.scrollHeight - dimensions.height,
+			0,
+			dimensions.scrollHeight
+		);
+		setProgress(scrollProgress / dimensions.scrollHeight);
 	}, []);
 
 	return (

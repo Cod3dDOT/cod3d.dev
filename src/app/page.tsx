@@ -5,7 +5,7 @@ import Yellow from '@/../public/yellow.webp';
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 
-export const experimental_ppr = true;
+// export const experimental_ppr = true;
 export const revalidate = 3600;
 
 export default function Home() {

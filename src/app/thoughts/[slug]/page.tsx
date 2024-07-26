@@ -16,7 +16,7 @@ import { Footer } from '@/components/footer';
 
 import '@/app/styles/blog.css';
 
-export const experimental_ppr = true;
+// export const experimental_ppr = true;
 export const revalidate = 3600;
 
 export async function generateMetadata({

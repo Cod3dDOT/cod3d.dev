@@ -9,20 +9,16 @@ export const SectionLink: React.FC<{ link: string; text: string }> = ({
 		<Link
 			hrefLang="en"
 			href={link}
-			className="relative flex group w-full justify-between items-center mb-8 overflow-hidden
-            hover:px-8 hover:rounded-full transition-all duration-500"
+			className="relative flex group w-full justify-between items-center mb-8 overflow-hidden leading-none
+            hover:-skew-x-12 transition-transform"
 		>
-			<h2 className="md:text-[5.65rem] sm:text-[4rem] text-[2.83rem]">
+			<h2 className="md:text-[5.65rem] sm:text-[4rem] text-[2.83rem] group-hover:[text-shadow:4_4_0_#407cff] transition-all">
 				{text}
 			</h2>
 			<div className="relative w-8 h-8 group-hover:opacity-100 lg:opacity-0 transition-opacity">
 				<ChevronIcon className="absolute aspect-square h-full fill-foreground animate-arrows left-1" />
 				<ChevronIcon className="absolute aspect-square h-full fill-foreground animate-arrows delay-75" />
 			</div>
-			<span
-				className="absolute left-0 bottom-0 bg-white dark:mix-blend-exclusion mix-blend-multiply w-0 h-2 transition-all
-                            group-hover:animate-link-hover"
-			/>
 		</Link>
 	);
 };

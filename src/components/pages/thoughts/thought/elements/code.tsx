@@ -53,7 +53,10 @@ export const MarkdownCodeBlock: React.FC<Props> = ({
 				</figcaption>
 			)}
 
-			<pre className="bg-transparent text-foreground" id={id}>
+			<pre
+				className="bg-transparent text-foreground scrollbar-thin scrollbar-track-background-dark scrollbar-thumb-foreground"
+				id={id}
+			>
 				{children}
 			</pre>
 		</figure>

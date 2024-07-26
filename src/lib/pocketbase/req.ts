@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { createServerClient } from './config';
 import { ClientResponseError } from './types';
 import { RecordListOptions } from 'pocketbase';

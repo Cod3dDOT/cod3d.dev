@@ -4,10 +4,11 @@ import { clsx } from 'clsx';
 import { usePathname } from 'next/navigation';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
-import { ReactLenis } from '@/lib/lenis';
+import { ReactLenis, useLenis } from '@/lib/lenis';
 import { eventBus } from '@/lib/eventbus';
 import { DesktopOpener } from './desktopOpener';
 import { MobileOpener } from './mobileOpener';
+import { ProgressBar } from './progressBar';
 
 type NavigationProps = {
 	children?: React.ReactNode;
@@ -90,7 +91,8 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 					pathname={pathname}
 				/>
 
-				<ReactLenis className="overflow-y-auto w-full p-8 sm:pt-8 pt-24 *:space-y-16">
+				<ReactLenis className="overflow-y-auto w-full p-8 sm:pt-6 [&>div]:space-y-16 scrollbar-none">
+					<ProgressBar />
 					{children}
 				</ReactLenis>
 			</div>

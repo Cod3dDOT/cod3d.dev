@@ -7,9 +7,9 @@ const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-inline'; style-
 const nextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
-	experimental: {
-		ppr: true
-	},
+	// experimental: {
+	// 	ppr: true
+	// },
 	async rewrites() {
 		return [
 			{

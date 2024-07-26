@@ -43,7 +43,7 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 
 			<section className="relative xl:flex">
 				<Markdown
-					className="max-w-prose [&>*:not(figure)]:px-10"
+					className="max-w-prose [&>*:not(figure)]:px-10 first-letter:float-left first-letter:text-7xl first-letter:font-pixelify first-letter:mx-3"
 					components={{
 						pre(props) {
 							return <MarkdownCodeBlock {...props} />;

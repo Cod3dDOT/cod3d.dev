@@ -100,7 +100,10 @@ export default async function RootLayout({
 }>) {
 	return (
 		<ViewTransitions>
-			<html lang="en" className="scrollbar-thin">
+			<html
+				lang="en"
+				className="scrollbar-thin scrollbar-track-background scrollbar-thumb-foreground"
+			>
 				<body
 					className={clsx(
 						font.variable,
