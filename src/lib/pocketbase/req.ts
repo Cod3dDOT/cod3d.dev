@@ -8,9 +8,7 @@ export async function getThought(slug: string) {
 
 	try {
 		const thoughts = await client.collection('thoughts').getList(1, 1, {
-			filter: client.filter('slug={:slug}&&published=true', { slug: slug }),
-			next: { revalidate: 3600 },
-			cache: 'force-cache'
+			filter: client.filter('slug={:slug}&&published=true', { slug: slug })
 		});
 
 		if (thoughts.items.length == 0) {
