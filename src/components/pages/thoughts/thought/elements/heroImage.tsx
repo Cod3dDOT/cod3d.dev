@@ -1,10 +1,10 @@
 'use client';
 
 import { useLenis } from '@/lib/lenis';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { remapRange } from '@/lib/utils/math';
-import { useWindowSize } from 'react-use';
 import Image from 'next/image';
+import { useWindowSize } from 'react-use';
 
 type HeroImageProps = {
 	src: string;
@@ -17,7 +17,10 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
 		setProgress(remapRange(progress, 0, 0.5, 0, 1));
 	}, []);
 
-	const { width } = useWindowSize();
+	const [width, setWidth] = useState(0);
+	useEffect(() => {
+		setWidth(window.screen.width);
+	}, []);
 
 	return (
 		<div

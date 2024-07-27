@@ -53,15 +53,13 @@ export async function generateMetadata({
 			type: 'website',
 			url: 'https://cod3d.dev/thoughts' + thought.slug,
 			title: thought.title,
-			description: thought.description,
-			siteName: "cod3d's den"
+			description: thought.description
 		},
 		twitter: {
 			card: 'summary_large_image',
 			title: thought.title,
 			description: thought.description,
-			creator: '@cod3ddot',
-			site: "cod3d's den"
+			creator: '@cod3ddot'
 		}
 	};
 }

@@ -26,6 +26,8 @@ export interface Thought {
 
 	markdown: string;
 	markdown_images: string[];
+
+	tags: string[];
 }
 
 export interface TypedPocketBase extends PocketBase {

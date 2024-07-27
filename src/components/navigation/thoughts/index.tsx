@@ -32,18 +32,30 @@ const NavThoughtsShowcase: React.FC = async () => {
 								from="#1cd1c6"
 								via="#407cff"
 								size={200}
-								className="relative h-full w-full rounded-xl overflow-hidden"
+								className="relative h-full w-full rounded-xl overflow-hidden bg-background-dark"
 							>
 								<div
 									className="rounded-xl overflow-hidden
-                                                absolute inset-1 bg-background p-8 md:py-10 flex flex-col justify-between "
+                                                absolute inset-1 bg-background px-4 py-4 flex flex-col"
 								>
-									<div>
-										<h3 className="md:text-[2rem] sm:text-[1.44rem] text-[1.22rem]">
+									<div className="flex space-x-2">
+										{thought.tags.map((tag, i) => (
+											<span
+												key={i + thought.id}
+												className="whitespace-nowrap backdrop-blur-lg bg-background-dark p-2 px-3 rounded-full"
+											>
+												{tag}
+											</span>
+										))}
+									</div>
+									<h3 className="mt-auto [font-size:larger] w-3/4 mb-1">
+										{thought.title}
+									</h3>
+									<div className="flex justify-between">
+										<time dateTime={thought.created}>
 											{dateToString(new Date(thought.created))}
-										</h3>
-										<br />
-										<h4>{thought.title}</h4>
+										</time>
+										<span>cod3d.dev</span>
 									</div>
 									<div className="absolute w-36 h-36 rounded-full -top-16 -right-16 bg-blue-500 blur-xl" />
 								</div>
