@@ -38,7 +38,7 @@ const NavThoughtsShowcase: React.FC = async () => {
 									className="rounded-xl overflow-hidden
                                                 absolute inset-1 bg-background px-4 py-4 flex flex-col"
 								>
-									<div className="flex space-x-2">
+									<div className="flex space-x-2 [font-size:smaller]">
 										{thought.tags.map((tag, i) => (
 											<span
 												key={i + thought.id}
@@ -48,7 +48,7 @@ const NavThoughtsShowcase: React.FC = async () => {
 											</span>
 										))}
 									</div>
-									<h3 className="mt-auto [font-size:larger] w-3/4 mb-1">
+									<h3 className="mt-auto mb-auto [font-size:larger] w-3/4 md:mb-1">
 										{thought.title}
 									</h3>
 									<div className="flex justify-between">
