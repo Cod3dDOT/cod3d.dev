@@ -20,7 +20,10 @@ export const contentType = 'image/png';
 
 const getFont = async () => {
 	const response = await fetch(
-		new URL('./PixelifySans-Regular.ttf', import.meta.url)
+		new URL(
+			'../../../../public/fonts/PixelifySans-Regular.ttf',
+			import.meta.url
+		)
 	);
 	const font = await response.arrayBuffer();
 

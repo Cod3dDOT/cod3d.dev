@@ -1,10 +1,4 @@
-'use client';
-
-import { useLenis } from '@/lib/lenis';
-import { useEffect, useState } from 'react';
-import { remapRange } from '@/lib/utils/math';
 import Image from 'next/image';
-import { useWindowSize } from 'react-use';
 
 type HeroImageProps = {
 	src: string;
@@ -12,27 +6,13 @@ type HeroImageProps = {
 };
 
 export const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
-	const [progress, setProgress] = useState(0);
-	useLenis(({ progress }) => {
-		setProgress(remapRange(progress, 0, 0.5, 0, 1));
-	}, []);
-
-	const [width, setWidth] = useState(0);
-	useEffect(() => {
-		setWidth(window.screen.width);
-	}, []);
-
 	return (
-		<div
-			className="print:hidden xl:absolute xl:w-2/3 xl:top-0 2xl:-translate-y-1/2 xl:right-0 xl:rounded-none
-            2xl:w-1/2 2xl:top-[50vh]
-            -z-10 md:px-10"
-			style={{
-				opacity: width > 1280 ? 0.5 - progress : 'unset',
-				translate: width > 1280 ? `0 ${progress * 50}%` : 'unset'
-			}}
+		<figure
+			className="xl:absolute xl:w-2/3 xl:top-0 xl:right-0 xl:rounded-none
+            2xl:w-1/2
+            md:px-10 relative block xl:-z-10 aspect-[3/2] print:hidden"
 		>
-			<figure className="relative overflow-hidden w-full h-full">
+			<div className="relative overflow-hidden w-full h-full">
 				{new Array(5).fill(0).map((_, index) => (
 					<span
 						key={index + '-markdown-image'}
@@ -43,16 +23,17 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
 						}}
 					/>
 				))}
-				<Image
-					priority
-					alt={alt}
-					src={src}
-					width={1920}
-					height={1080}
-					className="!m-0 md:rounded-lg xl:rounded-none"
-				/>
-				<figcaption className="sr-only">{alt}</figcaption>
-			</figure>
-		</div>
+			</div>
+
+			<Image
+				src={src}
+				alt={alt}
+				width={1000}
+				height={1000 * 0.75}
+				className="m-0 rounded-lg"
+			/>
+
+			<figcaption className="sr-only">{alt}</figcaption>
+		</figure>
 	);
 };
