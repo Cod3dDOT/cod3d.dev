@@ -13,7 +13,6 @@ import rehypeKatex from 'rehype-katex';
 import rehypeHighlightCodeLines from 'rehype-highlight-code-lines';
 
 import { MarkdownTitle } from './elements/title';
-import { HeroImage } from './elements/heroImage';
 import { TableOfContents } from './toc';
 
 type ThoughtBodyProps = {
@@ -37,9 +36,7 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 }) => {
 	return (
 		<>
-			<MarkdownTitle title={title} />
-			<p className="px-10">{description}</p>
-			<HeroImage src={hero} alt={'Hero image'} />
+			<MarkdownTitle title={title} hero={hero} description={description} />
 
 			<section className="relative xl:flex">
 				<Markdown

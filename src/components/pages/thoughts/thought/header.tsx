@@ -59,7 +59,7 @@ export const ThoughtHeader: React.FC<{
 	markdown: string;
 }> = ({ markdown, thought }) => {
 	return (
-		<header className="px-10 uppercase flex flex-col sm:flex-row py-20 text-base sm:gap-72 gap-12 opacity-0 animate-blog-in delay-300">
+		<header className="px-10 uppercase flex flex-col sm:flex-row pt-20 pb-6 text-base sm:gap-72 gap-12 opacity-0 animate-blog-in delay-300">
 			<div className="*:align-middle">
 				<span className="font-extralight">Reading time</span>
 				<br />
