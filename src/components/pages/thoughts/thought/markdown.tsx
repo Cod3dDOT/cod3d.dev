@@ -24,8 +24,6 @@ type ThoughtBodyProps = {
 	images: string[];
 };
 
-// <TableOfContents className="not-prose mt-[20rem] sticky top-[50vh] -translate-y-1/2 self-start h-auto" />
-
 export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 	title,
 	description,
@@ -40,7 +38,7 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 
 			<section className="relative xl:flex">
 				<Markdown
-					className="max-w-prose [&>*:not(figure)]:px-10 first-letter:float-left first-letter:text-7xl first-letter:font-pixelify first-letter:mx-3"
+					className="max-w-prose [&>*:not(figure)]:px-10 md:first-letter:text-6xl"
 					components={{
 						pre(props) {
 							return <MarkdownCodeBlock {...props} />;

@@ -15,6 +15,9 @@ const config: Config = {
 			...defaultTheme.screens
 		},
 		extend: {
+			backgroundImage: {
+				'plus-pattern': "url('/patterns/plus.svg')"
+			},
 			fontFamily: {
 				pixelify: ['var(--font-pixelify)'],
 				sans: ['var(--font-geist-sans)'],

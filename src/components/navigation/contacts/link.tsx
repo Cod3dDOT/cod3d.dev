@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { ReactNode, useCallback, useEffect, useRef } from 'react';
 
 const bytes = (str: string) => str.split('').map((c) => c.charCodeAt(0));

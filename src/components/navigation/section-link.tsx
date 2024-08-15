@@ -9,6 +9,7 @@ export const SectionLink: React.FC<{ link: string; text: string }> = ({
 		<Link
 			hrefLang="en"
 			href={link}
+			target="_top"
 			className="relative flex group w-full justify-between items-center mb-8 overflow-hidden leading-none
             hover:-skew-x-6 transition-transform"
 		>

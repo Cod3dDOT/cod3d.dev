@@ -69,12 +69,20 @@ interface BlockProps {
 	row?: number;
 	column?: number;
 	className?: string;
+	style?: React.CSSProperties;
 }
 
-function Block({ row = 0, column = 0, className }: BlockProps): JSX.Element {
+function Block({
+	row = 0,
+	column = 0,
+	className,
+	style
+}: BlockProps): JSX.Element {
 	const context = useContext(GridPatternContext);
 
 	if (!context) throw new Error('Block must be used within a Grid');
+
+	const position = getPosition(row, column, context);
 
 	return (
 		<rect
@@ -82,10 +90,22 @@ function Block({ row = 0, column = 0, className }: BlockProps): JSX.Element {
 			strokeWidth="0"
 			width={context.size - 1}
 			height={context.size - 1}
-			x={column * context.size + context.offsetX + 1}
-			y={row * context.size + context.offsetY + 1}
+			x={position.x}
+			y={position.y}
+			style={style}
 		/>
 	);
+}
+
+export function getPosition(
+	row: number,
+	column: number,
+	context: GridPatternContextType
+) {
+	return {
+		x: column * context.size + context.offsetX + 1,
+		y: row * context.size + context.offsetY + 1
+	};
 }
 
 export const GridPattern = Object.assign(Grid, { Block });

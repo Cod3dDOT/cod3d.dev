@@ -2,7 +2,7 @@
 
 import { useLenis } from '@/lib/lenis';
 import { remapRange } from '@/lib/utils/math';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { useEffect, useState } from 'react';
 
 const calculateScale = (

@@ -6,6 +6,7 @@
 	--foreground: 18 18 18;
 	--background-dark: 238 238 238;
 	--background: 230 230 230;
+	--accent: 88 101 242;
 
 	@apply bg-background text-foreground overscroll-y-none selection:bg-foreground/30;
 }
@@ -14,6 +15,7 @@
 	--foreground: 232 232 232;
 	--background-dark: 18 18 18;
 	--background: 34 34 34;
+	--accent: 88 101 242;
 }
 
 a,
