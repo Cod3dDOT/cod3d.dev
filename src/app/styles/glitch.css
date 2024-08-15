@@ -342,28 +342,23 @@
 
 @keyframes movement {
 	0% {
-		top: 0px;
-		left: -20px;
+		transform: translate(-20px, 0px);
 	}
 
 	15% {
-		top: 10px;
-		left: 10px;
+		transform: translate(10px, 10px);
 	}
 
 	60% {
-		top: 5px;
-		left: -10px;
+		transform: translate(-10px, 5px);
 	}
 
 	75% {
-		top: -5px;
-		left: 20px;
+		transform: translate(20px, -5px);
 	}
 
 	100% {
-		top: 10px;
-		left: 5px;
+		transform: translate(5px, 10px);
 	}
 }
 
@@ -412,31 +407,26 @@
 
 @keyframes font {
 	0% {
-		font-weight: 100;
 		color: #e0287d;
 		filter: blur(3px);
 	}
 
 	20% {
-		font-weight: 500;
 		color: var(--foreground);
 		filter: blur(0);
 	}
 
 	50% {
-		font-weight: 300;
 		color: #1bc7fb;
 		filter: blur(2px);
 	}
 
 	60% {
-		font-weight: 700;
 		color: var(--foreground);
 		filter: blur(0);
 	}
 
 	90% {
-		font-weight: 500;
 		color: #e0287d;
 		filter: blur(6px);
 	}

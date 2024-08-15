@@ -1,50 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const allowedOrigins = ['https://cod3d.dev'];
-
-const corsOptions = {
-	'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-	'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-};
-
 export const config = {
 	matcher: [
 		/*
 		 * Match all request paths except for the ones starting with:
+		 * - api (API routes)
 		 * - _next/static (static files)
 		 * - _next/image (image optimization files)
 		 * - favicon.ico (favicon file)
 		 */
-		'/((?!_next/static|_next/image|favicon.ico).*)'
+		{
+			source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+			missing: [
+				{ type: 'header', key: 'next-router-prefetch' },
+				{ type: 'header', key: 'purpose', value: 'prefetch' }
+			]
+		}
 	]
 };
 
 export function middleware(request: NextRequest) {
-	// Check the origin from the request
-	const origin = request.headers.get('origin') ?? '';
-	const isAllowedOrigin = allowedOrigins.includes(origin);
+	// eslint-disable-next-line no-undef
+	const IS_DEV = process.env.NODE_ENV === 'development';
+	const cspHeader = IS_DEV
+		? ''
+		: `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; connect-src 'self' https://cloudflareinsights.com/; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; trusted-types default nextjs#bundler;`;
 
-	// Handle preflighted requests
-	const isPreflight = request.method === 'OPTIONS';
+	const requestHeaders = new Headers(request.headers);
+	requestHeaders.set('Content-Security-Policy', cspHeader);
 
-	if (isPreflight) {
-		const preflightHeaders = {
-			...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin }),
-			...corsOptions
-		};
-		return NextResponse.json({}, { headers: preflightHeaders });
-	}
-
-	// Handle simple requests
-	const response = NextResponse.next();
-
-	if (isAllowedOrigin) {
-		response.headers.set('Access-Control-Allow-Origin', origin);
-	}
-
-	Object.entries(corsOptions).forEach(([key, value]) => {
-		response.headers.set(key, value);
+	const response = NextResponse.next({
+		request: {
+			headers: requestHeaders
+		}
 	});
+
+	response.headers.set('Content-Security-Policy', cspHeader);
 
 	return response;
 }

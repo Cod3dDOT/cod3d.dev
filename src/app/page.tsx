@@ -36,14 +36,20 @@ export default function Home() {
 						width={32}
 						height={32}
 						alt="Blue blob"
-						className="absolute -left-16 -top-16"
+						className="absolute -left-16 -top-16 text-transparent"
+						style={{
+							color: '' // This is required to prevent the inline style of `next/image`
+						}}
 					/>
 					<Image
 						src={Yellow}
 						width={32}
 						height={32}
 						alt="Yellow blob"
-						className="absolute -right-16 -bottom-16"
+						className="absolute -right-16 -bottom-16 text-transparent"
+						style={{
+							color: '' // This is required to prevent the inline style of `next/image`
+						}}
 					/>
 				</div>
 			</div>

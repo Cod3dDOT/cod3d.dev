@@ -35,10 +35,10 @@ const config: Config = {
 			},
 			keyframes: {
 				arrows: {
-					'0%': { translate: '-5px 0', opacity: '0' },
-					'30%': { translate: '0', opacity: '1' },
-					'60%': { translate: '0', opacity: '1' },
-					'100%': { translate: '5px 0', opacity: '0' }
+					'0%': { transform: 'translateX(-5px)', opacity: '0' },
+					'30%': { transform: 'translateX(0)', opacity: '1' },
+					'60%': { transform: 'translateX(0)', opacity: '1' },
+					'100%': { transform: 'translateX(5px)', opacity: '0' }
 				},
 				'blog-in': {
 					'0%': { opacity: '0', transform: 'translateY(-5px)' },

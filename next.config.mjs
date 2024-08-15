@@ -1,6 +1,5 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
-// eslint-disable-next-line no-undef
 const IS_DEV = process.env.NODE_ENV === 'development';
 const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; connect-src 'self' https://cloudflareinsights.com/; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; trusted-types default nextjs#bundler;`;
 
@@ -34,7 +33,8 @@ const nextConfig = {
 	async headers() {
 		return [
 			{
-				source: '/(.*)',
+				source:
+					'/((?!api|_next/static|_next/image|favicon.ico|manifest.webmanifest|icons/*).*)',
 				headers: [
 					{
 						key: 'Content-Security-Policy',
@@ -66,6 +66,10 @@ const nextConfig = {
 							'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
 					},
 					{
+						key: 'Access-Control-Allow-Origin',
+						value: 'cod3d.dev'
+					},
+					{
 						key: 'Cross-Origin-Embedder-Policy', // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy
 						value: 'require-corp'
 					},
@@ -76,6 +80,10 @@ const nextConfig = {
 					{
 						key: 'Cross-Origin-Resource-Policy', // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy
 						value: 'cross-origin'
+					},
+					{
+						key: 'Access-Control-Allow-Methods',
+						value: 'GET, POST, PUT, DELETE, OPTIONS'
 					},
 					{
 						key: 'Access-Control-Allow-Headers',
