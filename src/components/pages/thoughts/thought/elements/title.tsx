@@ -30,6 +30,7 @@ export const MarkdownTitle: React.FC<Props> = ({
 			</h1>
 			<p className="px-10 xl:pb-12">{description}</p>
 			<Image
+				priority
 				src={hero}
 				alt="Hero image"
 				width={1920}
