@@ -6,15 +6,14 @@ export const PrintFooter: React.FC = () => {
 	const pathName = usePathname();
 
 	return (
-		<div className="hidden print:block border-t-2 border-t-foreground">
-			This is a print out from{' '}
-			<a href={`https://cod3d.dev`}>https://cod3d.dev</a> <br />
-			You can check out this particular thought
-			<a href={`https://cod3d.dev${pathName}`}>
-				https://cod3d.dev${pathName}
-			</a>{' '}
+		<p className="hidden print:block border-t-2 border-t-foreground">
+			<span>This is a print out from </span>
+			<a href={`https://cod3d.dev`}>https://cod3d.dev</a>
 			<br />
-			Thank you for reading.
-		</div>
+			<span>You can check out this particular thought at </span>
+			<a href={`https://cod3d.dev${pathName}`}>https://cod3d.dev${pathName}</a>
+			<br />
+			<span>Thank you for reading.</span>
+		</p>
 	);
 };
