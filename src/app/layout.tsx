@@ -126,12 +126,14 @@ export default async function RootLayout({
 					</ThemeProvider>
 
 					<Script
+						integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+						crossOrigin="anonymous"
 						defer
 						src="/cl.js"
 						data-cf-beacon='{"token": "47d8843e086d4c2892e9dc1dda82ea11"}'
 					/>
 					<Script
-						integrity="sha256-6lqB9Ygbzi0wO4IM0J1KCpaYEpW1FhaT5YlCocflnyg="
+						integrity="sha512-JyQHWOBVarMJFNIkFUtJLxQDEOyB7e9V/MnwpSsRw5ryTUVUveuaUwb5JTSbvUXsTa4PJW1SKFTJw85uDt4DwQ=="
 						crossOrigin="anonymous"
 						defer
 						src="/um.js"
