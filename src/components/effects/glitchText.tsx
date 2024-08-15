@@ -1,5 +1,7 @@
 import { clsx } from 'clsx';
 
+import './styles/glitch.css';
+
 type GlitchTextProps = {
 	text: string;
 	className?: string;

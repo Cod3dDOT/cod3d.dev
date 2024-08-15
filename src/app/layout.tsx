@@ -1,5 +1,4 @@
 import './styles/globals.css';
-import './styles/glitch.css';
 
 import { WebSite, WithContext } from 'schema-dts';
 
