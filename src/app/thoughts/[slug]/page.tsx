@@ -140,6 +140,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 							'prose lg:prose-xl prose-neutral prose-amber max-w-none dark:prose-invert',
 							'prose-headings:font-light md:prose-headings:w-4/5',
 							'hover:prose-a:text-blue-500 prose-a:transition-colors',
+							'prose-code:before:content-none prose-code:after:content-none',
+							'prose-code:bg-background-dark prose-code:p-2 prose-code:rounded-md prose-code:border prose-code:border-neutral-700',
 							'pb-8'
 						)}
 					>

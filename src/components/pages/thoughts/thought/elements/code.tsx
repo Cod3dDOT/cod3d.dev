@@ -55,7 +55,10 @@ export const MarkdownCodeBlock: React.FC<Props> = ({
 			)}
 
 			<pre
-				className="bg-transparent text-foreground scrollbar-thin scrollbar-track-background-dark scrollbar-thumb-foreground"
+				className={
+					'bg-transparent text-foreground scrollbar-thin scrollbar-track-background-dark scrollbar-thumb-foreground' +
+					' [&>code]:p-0 [&>code]:border-none'
+				}
 				id={id}
 				tabIndex={0}
 			>

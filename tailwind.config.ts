@@ -27,7 +27,8 @@ const config: Config = {
 				transparent: 'transparent',
 				foreground: 'rgb(var(--foreground) / <alpha-value>)',
 				background: 'rgb(var(--background) / <alpha-value>)',
-				'background-dark': 'rgb(var(--background-dark) / <alpha-value>)'
+				'background-dark': 'rgb(var(--background-dark) / <alpha-value>)',
+				accent: 'rgb(var(--accent) / <alpha-value>)'
 			},
 			animation: {
 				arrows: 'arrows 2s infinite',
