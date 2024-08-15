@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 
-import './styles/glitch.css';
+import '@/app/styles/glitch.css';
 
 type GlitchTextProps = {
 	text: string;
