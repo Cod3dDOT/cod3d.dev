@@ -9,8 +9,8 @@ Preferred-Languages: en
 Canonical: https://cod3d.dev/security.txt
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQRgbyCUGT0rsAH8a4OoAaaUB6W61wUCZno/OQAKCRCoAaaUB6W6
-1wi9AP0VjVUdO1H3iVze5Q3F6j1eIDpWzK3ML0JwJ75yJl3uGQEAk857HbV9xhAk
-rs2+GhayPbPA6i4zF4WRAIx37fppygk=
-=Odev
+iHUEARYKAB0WIQSs2vr7UtOQpZPpB+n4VJWbKeHbKQUCZvtwWQAKCRD4VJWbKeHb
+KaDbAP9tDwuE/ccAwT2zfb4895JcHE8sBa7wfhzc5A5fBW2FSgD/ctTU3ZzZtQ1z
+srm5tUwTR9ulvtMHZ0GouPaTlgbTUgQ=
+=orhX
 -----END PGP SIGNATURE-----
