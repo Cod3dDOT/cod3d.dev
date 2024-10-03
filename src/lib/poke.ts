@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-const __dirname = path.resolve('./public');
-const filePath = path.join(__dirname, 'pokemons.json');
+const __dirname = path.resolve('./public/pokemon/');
+const filePath = path.join(__dirname, '_mons.json');
 const mons = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 export interface Pokemon {

@@ -10,10 +10,12 @@ import { PageError } from '@/components/error';
 
 import { Footer } from '@/components/footer';
 
-import '@/app/styles/thoughts.css';
+import Image from 'next/image';
+
+import Gif from '@/../public/img/working-on-it.gif';
 
 export const metadata: Metadata = {
-	title: "cod3d's thoughts | A place where I share my struggles",
+	title: "cod3d's projects",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
 	creator: 'cod3d',
 	keywords: 'blog, projects, coding',
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		type: 'website',
 		url: 'https://cod3d.dev/thoughts',
-		title: "cod3d's thoughts | A place where I share my struggles",
+		title: "cod3d's projects",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		siteName: "cod3d's den",
 		images: [
@@ -41,7 +43,7 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: "cod3d's thoughts | A place where I share my struggles",
+		title: "cod3d's projects",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		creator: '@cod3ddot',
 		site: "cod3d's den",
@@ -60,24 +62,32 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 // export const experimental_ppr = true;
 
-const ThoughtsPage: React.FC = async () => {
-	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
+const ProjectsPage: React.FC = () => {
+	// const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
 
-	if (isError(thoughtsResponse)) {
-		return <PageError />;
-	}
+	// if (isError(thoughtsResponse)) {
+	// 	return <PageError />;
+	// }
 
-	const thoughts = thoughtsResponse as Thought[];
+	// const thoughts = thoughtsResponse as Thought[];
 
 	return (
 		<ReactLenis root>
-			<main className="bg-background relative md:px-24 px-10">
-				<ThoughtsTextReveal />
-				<Years thoughts={thoughts} />
-			</main>
-			<Footer />
+			<div className="h-screen">
+				<main className="h-full bg-background relative md:px-24 px-10">
+					<Image
+						unoptimized
+						src={Gif}
+						alt="Working on it gif"
+						width={1200}
+						height={675}
+						className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
+					/>
+				</main>
+				<Footer />
+			</div>
 		</ReactLenis>
 	);
 };
 
-export default ThoughtsPage;
+export default ProjectsPage;

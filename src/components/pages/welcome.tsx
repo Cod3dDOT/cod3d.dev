@@ -5,7 +5,7 @@ import { GridPattern } from '../effects/gridPattern';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
-import Pokeball from '@/../public/pokeball.png';
+import Pokeball from '@/../public/img/pokeball.png';
 
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';

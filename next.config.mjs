@@ -1,8 +1,5 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
-const IS_DEV = process.env.NODE_ENV === 'development';
-const cspHeader = `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; connect-src 'self' https://cloudflareinsights.com/; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; trusted-types default nextjs#bundler;`;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
@@ -24,6 +21,10 @@ const nextConfig = {
 				source: '/cl.js',
 				destination: 'https://static.cloudflareinsights.com/beacon.min.js'
 			},
+			// {
+			//     source: '/api/files',
+			//     destination: 'https://cod3d.pockethost.io/api/files'
+			// },
 			{
 				source: '/api/files/:path*',
 				destination: 'https://cod3d.pockethost.io/api/files/:path*'
@@ -36,10 +37,6 @@ const nextConfig = {
 				source:
 					'/((?!api|_next/static|_next/image|favicon.ico|manifest.webmanifest|icons/*).*)',
 				headers: [
-					{
-						key: 'Content-Security-Policy',
-						value: IS_DEV ? '' : cspHeader
-					},
 					{
 						key: 'X-Frame-Options',
 						value: 'DENY'
@@ -112,6 +109,7 @@ const nextConfig = {
 };
 
 const withBundleAnalyzerConfig = withBundleAnalyzer({
+	// eslint-disable-next-line no-undef
 	enabled: process.env.ANALYZE === 'true'
 });
 

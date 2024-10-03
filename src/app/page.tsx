@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
-import Blue from '@/../public/blue.webp';
-import Yellow from '@/../public/yellow.webp';
+import Blue from '@/../public/img/blue.webp';
+import Yellow from '@/../public/img/yellow.webp';
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 

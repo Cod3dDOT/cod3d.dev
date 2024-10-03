@@ -18,6 +18,7 @@ import Navigation from '@/components/navigation';
 import Script from 'next/script';
 
 import { ViewTransitions } from 'next-view-transitions';
+import { Welcome } from '@/components/pages/welcome';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -127,14 +128,14 @@ export default async function RootLayout({
 					<Script
 						integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
 						crossOrigin="anonymous"
-						defer
+						strategy="afterInteractive"
 						src="/cl.js"
 						data-cf-beacon='{"token": "47d8843e086d4c2892e9dc1dda82ea11"}'
 					/>
 					<Script
-						integrity="sha512-JyQHWOBVarMJFNIkFUtJLxQDEOyB7e9V/MnwpSsRw5ryTUVUveuaUwb5JTSbvUXsTa4PJW1SKFTJw85uDt4DwQ=="
+						integrity="sha512-JyQHWOBVarMJFNIkFUtJLxQDEOyB7e9V/MnwpSsRw5ryTUVUveuaUwb5JTSbvUXsTa4PJW1SKFTJw85uDt4DwQ== sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP+DGNKHfuwvY7kxvUdBeoGlODJ6+SfaPg== sha512-FGTnKDAoE776tp3VSR7Z8isyE8Xh38237gCvrH2oRV4uwc9sLxKysDSGFnQnbkheeUpSrZdGzoW+QGBkZB4PNg=="
 						crossOrigin="anonymous"
-						defer
+						strategy="afterInteractive"
 						src="/um.js"
 						data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
 						data-domains="cod3d.dev"

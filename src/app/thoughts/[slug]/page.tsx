@@ -47,11 +47,11 @@ export async function generateMetadata({
 		title: thought.title,
 		description: thought.description,
 		alternates: {
-			canonical: 'https://cod3d.dev/thoughts' + thought.slug
+			canonical: 'https://cod3d.dev/thoughts/' + thought.slug
 		},
 		openGraph: {
 			type: 'website',
-			url: 'https://cod3d.dev/thoughts' + thought.slug,
+			url: 'https://cod3d.dev/thoughts/' + thought.slug,
 			title: thought.title,
 			description: thought.description
 		},

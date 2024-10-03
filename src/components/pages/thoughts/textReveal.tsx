@@ -104,29 +104,34 @@ export const TextReveal: React.FC<RootProps> & { Token: React.FC<TokenProps> } =
 export const ThoughtsTextReveal = () => {
 	return (
 		<TextReveal
-			body="Archiving thoughts so that my brain doesn't have to"
+			body="Archiving 💭 so that my 🧠 doesn't have to"
 			className="relative h-[200vh] text-foreground w-full max-w-[96rem]"
 		>
 			{(tokens, progress, skip) => (
 				<div className="sticky top-0 flex h-screen items-center">
-					<button className="absolute top-0 mt-[1.15rem] z-20" onClick={skip}>
+					<button
+						className="absolute top-0 my-[1.15rem] md:bottom-0 md:top-[unset] z-20"
+						onClick={skip}
+					>
 						<ScrollIcon
 							className="fill-foreground h-12 w-12 p-2"
 							style={{ opacity: 1 - progress || 0 }}
 						/>
+						<span className="sr-only">Scroll down</span>
 					</button>
 					<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight lg:text-[9vw] xl:text-[8rem] sm:text-[5.65rem] text-[4rem]">
 						{tokens.map((token, index) => (
 							<TextReveal.Token key={index} index={index}>
 								{(isActive) => (
 									<span
-										className={clsx('transition-all [font-size:inherit]', {
-											'opacity-10': !isActive,
-											'[text-shadow:3px_3px_#558ABB] md:[text-shadow:5px_5px_#558ABB]':
-												token == 'brain' && isActive,
-											'[text-shadow:3px_3px_#BB2649] md:[text-shadow:5px_5px_#BB2649]':
-												token == 'thoughts' && isActive
-										})}
+										className={clsx(
+											'transition-all grayscale [font-size:inherit]',
+											{
+												'opacity-10': !isActive,
+												'[text-shadow:5px_5px_rgb(var(--accent))] saturate-50 grayscale-0':
+													(token == '💭' || token == '🧠') && isActive
+											}
+										)}
 									>
 										{token}
 									</span>

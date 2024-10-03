@@ -104,7 +104,7 @@ async function fetchFromPokeAPI(): Promise<void> {
 	generateCSSFile('pokemons.css', pokemons);
 
 	console.log('Saving pokemon data...');
-	savePokemons('public/pokemons.json', pokemons);
+	savePokemons('public/pokemon/_mons.json', pokemons);
 }
 
 function loadFromSave(path: string): Pokemon[] {
@@ -138,7 +138,7 @@ async function regenerateColors(savePath: string): Promise<void> {
 		pokemons
 	);
 
-	savePokemons('public/pokemons.json', withColors);
+	savePokemons('public/pokemon/_mons.json', withColors);
 }
 
-regenerateColors('public/pokemons.json');
+regenerateColors('public/pokemon/_mons.json');
