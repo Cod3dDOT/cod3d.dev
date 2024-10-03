@@ -24,7 +24,7 @@ export async function GET() {
 		description: 'A place where I share my struggles',
 		site_url: siteUrl,
 		feed_url: `${siteUrl}/feed.xml`,
-		image_url: `${siteUrl}/og.webp`,
+		image_url: `${siteUrl}/img/og/og.webp`,
 		pubDate: new Date().toUTCString(),
 		copyright: `All rights reserved - ${new Date().getFullYear()}`
 	};

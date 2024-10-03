@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
-import { Years } from '@/components/pages/thoughts/years';
 import { getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
 import { isError } from '@/lib/pocketbase/utils';
@@ -27,17 +25,17 @@ export const metadata: Metadata = {
 		noimageindex: false
 	},
 	alternates: {
-		canonical: 'https://cod3d.dev/thoughts'
+		canonical: 'https://cod3d.dev/projects'
 	},
 	openGraph: {
 		type: 'website',
-		url: 'https://cod3d.dev/thoughts',
+		url: 'https://cod3d.dev/projects',
 		title: "cod3d's projects",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		siteName: "cod3d's den",
 		images: [
 			{
-				url: '/og.webp'
+				url: '/img/og/og.webp'
 			}
 		]
 	},
@@ -49,7 +47,7 @@ export const metadata: Metadata = {
 		site: "cod3d's den",
 		images: [
 			{
-				url: '/og.webp',
+				url: 'img/og/og.webp',
 				width: 1200,
 				height: 675,
 				alt: "cod3d's den twitter image"

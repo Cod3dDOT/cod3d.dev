@@ -60,7 +60,7 @@ export const metadata: Metadata = {
 		siteName: "cod3d's den",
 		images: [
 			{
-				url: '/og.webp',
+				url: '/img/og/og.webp',
 				width: 1200,
 				height: 675,
 				alt: 'cod3d'
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
 		site: "cod3d's den",
 		images: [
 			{
-				url: '/og.webp',
+				url: '/img/og/og.webp',
 				width: 1200,
 				height: 675,
 				alt: 'cod3d'
