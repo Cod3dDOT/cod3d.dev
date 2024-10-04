@@ -42,6 +42,10 @@ export function SpotlightCard({
 	const container = useRef<HTMLDivElement>(null);
 	const { elX, elY, elW, elH } = useMouse(container);
 
+	const centerX = elW ? elW / 2 : 0;
+	const centerY = elH ? elH / 2 : 0;
+	const thresholdDistance = size * 2;
+
 	const spotlightColorStops = useMemo(() => {
 		if (hsl) {
 			const margin = hslMax - hslMin;
@@ -53,6 +57,18 @@ export function SpotlightCard({
 
 		return [from, via, to].filter((value) => !!value).join(',');
 	}, [hsl, hslMax, hslMin, from, via, to, elY, elX, elH, elW]);
+
+	const { x, y } = useMemo(() => {
+		const distance = Math.sqrt(
+			Math.pow(elX - centerX, 2) + Math.pow(elY - centerY, 2)
+		);
+		if (distance > thresholdDistance) return { x: -size * 2, y: -size * 2 };
+
+		return {
+			x: elX,
+			y: elY
+		};
+	}, [size, elY, elX, elH, elW]);
 
 	const classes =
 		mode === 'before'
@@ -93,8 +109,8 @@ export function SpotlightCard({
 			style={{
 				'--spotlight-color-stops': spotlightColorStops,
 				'--spotlight-size': `${size}px`,
-				'--spotlight-x': `${elX}px`,
-				'--spotlight-y': `${elY}px`
+				'--spotlight-x': `${x}px`,
+				'--spotlight-y': `${y}px`
 			}}
 			{...props}
 		>

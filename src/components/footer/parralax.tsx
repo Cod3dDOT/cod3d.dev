@@ -22,7 +22,7 @@ const AsideFooter: React.FC<{
 		<aside className="sticky bottom-0 w-full bg-background-dark -z-10 overflow-clip px-12 md:px-24">
 			<div
 				style={{
-					transform: `translate3d(0px, ${progress}%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`
+					transform: `translate3d(0px, ${progress}%, 0px)`
 				}}
 				className="will-change-transform flex flex-col md:flex-row z-10 h-[50vh] justify-center md:justify-normal items-center"
 			>

@@ -40,7 +40,7 @@ export const ProjectGridEffect: React.FC<{ id: Project['id'] }> = ({ id }) => {
 					row={row}
 					column={column}
 					className={clsx(
-						'fill-foreground opacity-70 transition animate-pulse',
+						'fill-foreground',
 						animationDelay[randomIntFromIntervalPredicted(0, 4, idn + index)]
 					)}
 				/>

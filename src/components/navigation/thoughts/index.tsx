@@ -25,7 +25,6 @@ const NavThoughtsShowcase: React.FC = async () => {
 							hrefLang="en"
 							key={thought.id}
 							href={'/thoughts/' + thought.slug}
-							className="cursor-thoughts-nav"
 						>
 							<SpotlightCard
 								id={'spotlight-nav-' + i}
