@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-const __dirname = path.resolve('./public/pokemon/');
-const filePath = path.join(__dirname, '_mons.json');
-const mons = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+const __directory = path.resolve('./public/pokemon/');
+const __path = path.join(__directory, '_mons.json');
+const mons = JSON.parse(fs.readFileSync(__path, 'utf8'));
 
 export interface Pokemon {
 	name: string;
@@ -19,7 +19,7 @@ export function getRandomPokemon(): Pokemon {
 	return {
 		name: pokemon.n,
 		description: pokemon.d,
-		sprite: `/pokemon/${pokemon.n}.png`,
+		sprite: `/pokemon/${pokemon.n}.webp`,
 		class: 'mon' + pokemon.c
 	};
 }

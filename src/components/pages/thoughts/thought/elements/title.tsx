@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { MarkdownImage } from './image';
 
 type Props = {
 	title: string;
@@ -29,13 +30,13 @@ export const MarkdownTitle: React.FC<Props> = ({
 				{spans}
 			</h1>
 			<p className="px-10 xl:pb-12">{description}</p>
-			<Image
+			<MarkdownImage
 				priority
 				src={hero}
+				hideCaption
 				alt="Hero image"
-				width={1920}
-				height={1080}
 				className="relative sm:rounded-lg xl:absolute xl:w-2/3 xl:top-0 xl:left-1/3 xl:right-0 h-full object-cover xl:!m-0 xl:mask-linear xl:mask-dir-to-l"
+				sizes="(max-width: 1200px) 100vw, 50vw"
 			/>
 		</div>
 	);

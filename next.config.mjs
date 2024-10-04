@@ -91,6 +91,8 @@ const nextConfig = {
 		];
 	},
 	images: {
+		formats: ['image/avif', 'image/webp'],
+		contentDispositionType: 'attachment',
 		remotePatterns: [
 			{
 				protocol: 'https',

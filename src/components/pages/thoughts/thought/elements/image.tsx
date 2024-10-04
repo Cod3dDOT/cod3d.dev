@@ -9,6 +9,7 @@ type MarkdownImageProps = {
 	className?: string;
 	hideCaption?: boolean;
 	priority?: boolean;
+	sizes?: string;
 };
 
 export const MarkdownImage: React.FC<MarkdownImageProps> = ({
@@ -16,7 +17,8 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	alt,
 	className,
 	hideCaption = false,
-	priority = false
+	priority = false,
+	sizes = '100vw'
 }) => {
 	return (
 		<figure className={className}>
@@ -26,6 +28,8 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				alt={alt || ''}
 				width={1920}
 				height={1080}
+				quality={100}
+				sizes={sizes}
 				className="!m-0 md:rounded-lg xl:rounded-none"
 			/>
 			<figcaption className={clsx({ 'sr-only': hideCaption })}>

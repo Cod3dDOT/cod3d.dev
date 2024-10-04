@@ -1,5 +1,4 @@
 import { Pokemon } from '@/lib/poke';
-import Image from 'next/image';
 
 import '@/app/styles/pokemons.css';
 import { clsx } from 'clsx';
@@ -22,13 +21,12 @@ export const FooterMon: React.FC<{
 
 				<p className="xl:text-xl md:w-[50vw] mt-4">{pokemon.description}</p>
 			</div>
-			<Image
+			<img
 				loading="lazy"
 				src={pokemon.sprite}
 				alt={'Picture of the ' + pokemon.name}
 				width={96}
 				height={96}
-				quality={100}
 				className={clsx(
 					'h-[60vg] w-[60vh] pixelated -z-10',
 					'absolute scale-150 right-0 translate-x-1/3 opacity-20 md:opacity-50 md:scale-125',
