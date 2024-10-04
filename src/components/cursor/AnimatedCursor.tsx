@@ -129,8 +129,7 @@ function CursorCore({
 		const { clientX, clientY } = event;
 		setCoords({ x: clientX, y: clientY });
 		if (cursorInnerRef.current !== null) {
-			cursorInnerRef.current.style.top = `${clientY}px`;
-			cursorInnerRef.current.style.left = `${clientX}px`;
+			cursorInnerRef.current.style.translate = `${coords.x}px ${coords.y}px`;
 		}
 		endX.current = clientX;
 		endY.current = clientY;
@@ -143,8 +142,7 @@ function CursorCore({
 				coords.x += (endX.current - coords.x) / trailingSpeed;
 				coords.y += (endY.current - coords.y) / trailingSpeed;
 				if (cursorOuterRef.current !== null) {
-					cursorOuterRef.current.style.top = `${coords.y}px`;
-					cursorOuterRef.current.style.left = `${coords.x}px`;
+					cursorOuterRef.current.style.translate = `${coords.x}px ${coords.y}px`;
 				}
 			}
 			previousTimeRef.current = time;
@@ -392,8 +390,8 @@ function CursorCore({
 	return (
 		<>
 			<style nonce={nonce}>
-				{`#cursor-outer { ${convertObjectToCSS(styles.cursorOuter)} }
-                #cursor-inner { ${convertObjectToCSS(styles.cursorInner)} }
+				{`#cursor-outer { ${convertObjectToCSS(styles.cursorOuter)} left: 0; top: 0; }
+                #cursor-inner { ${convertObjectToCSS(styles.cursorInner)} left: 0; top: 0; }
                 #cursor-inner div { ${convertObjectToCSS({
 									opacity: !options.children ? 0 : 1,
 									transition: 'opacity 0.3s ease-in-out'

@@ -37,6 +37,7 @@ export const CopyButton: React.FC<{
 	return (
 		<>
 			<button
+				type="button"
 				className={clsx(
 					'relative hover:scale-110 transition-all duration-200 z-10',
 					className
