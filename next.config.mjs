@@ -93,20 +93,7 @@ const nextConfig = {
 	images: {
 		formats: ['image/avif', 'image/webp'],
 		contentDispositionType: 'attachment',
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: process.env.POCKETBASE_HOST,
-				port: '',
-				pathname: '/**'
-			},
-			{
-				protocol: 'https',
-				hostname: 'cod3d.dev',
-				port: '',
-				pathname: '/**'
-			}
-		]
+		remotePatterns: []
 	}
 };
 
