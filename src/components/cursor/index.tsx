@@ -44,6 +44,10 @@ export const Cursor: React.FC = () => {
 		return <></>;
 	}
 
+	return <DesktopCursor />;
+};
+
+export const DesktopCursor: React.FC = () => {
 	const pathname = usePathname();
 
 	const [hoveredTarget, setHoveredTarget] = useState<Target | undefined>();
