@@ -15,6 +15,9 @@ const config: Config = {
 			...defaultTheme.screens
 		},
 		extend: {
+			transitionProperty: {
+				cursor: 'color,background-color,transform,width,height,opacity'
+			},
 			fontFamily: {
 				pixelify: ['var(--font-pixelify)'],
 				sans: ['var(--font-geist-sans)'],

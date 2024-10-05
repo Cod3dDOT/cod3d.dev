@@ -118,8 +118,8 @@ export default async function RootLayout({
 					/>
 
 					<ThemeProvider attribute="class">
-						{children}
 						<Cursor />
+						{children}
 						<Suspense fallback={<NavigationContainerPreview />}>
 							<Navigation />
 						</Suspense>

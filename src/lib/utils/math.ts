@@ -52,3 +52,7 @@ export function stringToUniqueId(str: string, seed = 0) {
 
 	return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 }
+
+export const lerp = (start: number, end: number, factor: number) => {
+	return start + (end - start) * factor;
+};

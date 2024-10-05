@@ -4,8 +4,7 @@ import { clsx } from 'clsx';
 import { usePathname } from 'next/navigation';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
-import { ReactLenis, useLenis } from '@/lib/lenis';
-import { eventBus } from '@/lib/eventbus';
+import { ReactLenis } from '@/lib/lenis';
 import { DesktopOpener } from './desktopOpener';
 import { MobileOpener } from './mobileOpener';
 import { ProgressBar } from './progressBar';
@@ -48,10 +47,6 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 	const pathname = usePathname();
 	const menu = useRef<HTMLDivElement>(null);
 	const [opened, setOpened] = useState(false);
-
-	useEffect(() => {
-		eventBus.dispatch('nav:toggle', { on: opened });
-	}, [opened]);
 
 	useEffect(() => {
 		setOpened(false);
