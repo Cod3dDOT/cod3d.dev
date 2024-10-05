@@ -35,6 +35,12 @@ const config: Config = {
 				'blog-in': 'blog-in 1s forwards'
 			},
 			keyframes: {
+				arrows: {
+					'0%': { transform: 'translateX(0)', opacity: '1' },
+					'49%': { transform: 'translateX(5px)', opacity: '0' },
+					'51%': { transform: 'translateX(-5px)', opacity: '0' },
+					'100%': { transform: 'translateX(0)', opacity: '1' }
+				},
 				'blog-in': {
 					'0%': { opacity: '0', transform: 'translateY(-5px)' },
 					'100%': { opacity: '1' }

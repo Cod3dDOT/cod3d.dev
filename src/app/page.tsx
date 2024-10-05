@@ -28,7 +28,7 @@ export default function Home() {
 				<div
 					className="relative h-full aspect-square sm:ml-auto min-h-[62rem]
                     animate-spin [animation-duration:32s]
-                    sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]" //
+                    sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]"
 				>
 					<Image
 						priority

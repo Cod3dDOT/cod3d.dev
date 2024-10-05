@@ -17,8 +17,8 @@ export const SectionLink: React.FC<{ link: string; text: string }> = ({
 				{text}
 			</h2>
 			<div className="relative w-8 h-8 group-hover:opacity-100 lg:opacity-0 transition-opacity">
-				<ChevronIcon className="absolute aspect-square h-full fill-foreground left-1" />
-				<ChevronIcon className="absolute aspect-square h-full fill-foreground" />
+				<ChevronIcon className="absolute aspect-square h-full fill-foreground group-hover:animate-arrows left-1" />
+				<ChevronIcon className="absolute aspect-square h-full fill-foreground group-hover:animate-arrows delay-75" />
 			</div>
 		</Link>
 	);
