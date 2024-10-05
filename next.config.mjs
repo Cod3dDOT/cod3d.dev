@@ -96,7 +96,7 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: 'cod3d.pockethost.io',
+				hostname: process.env.POCKETBASE_HOST,
 				port: '',
 				pathname: '/**'
 			},

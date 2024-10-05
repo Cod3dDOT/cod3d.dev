@@ -21,14 +21,10 @@ export async function getThought(slug: string) {
 		}
 
 		const thought = thoughts.items[0];
-		thought.hero = client.files
-			.getUrl(thought, thought.hero)
-			.replace('https://cod3d.pockethost.io', '');
+		thought.hero = new URL(client.files.getUrl(thought, thought.hero)).pathname;
 		thought.markdown = client.files.getUrl(thought, thought.markdown);
-		thought.markdown_images = thought.markdown_images.map((image) =>
-			client.files
-				.getUrl(thought, image)
-				.replace('https://cod3d.pockethost.io', '')
+		thought.markdown_images = thought.markdown_images.map(
+			(image) => new URL(client.files.getUrl(thought, image)).pathname
 		);
 
 		return thought;

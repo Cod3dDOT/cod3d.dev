@@ -3,7 +3,7 @@ import PocketBase from 'pocketbase';
 import { TypedPocketBase } from './types';
 
 export async function createServerClient() {
-	const pbUrl = process.env.PB_URL;
+	const pbUrl = 'https://' + process.env.POCKETBASE_HOST;
 
 	if (!pbUrl) throw new Error('Invalid .env database config');
 
