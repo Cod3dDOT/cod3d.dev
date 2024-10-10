@@ -1,7 +1,8 @@
+import { clsx } from 'clsx';
+
 import { Thought } from '@/lib/pocketbase/types';
 import readingTime from '@/lib/readingTime';
 import { dateToString } from '@/lib/utils/date';
-import { clsx } from 'clsx';
 
 const DateScroll: React.FC<{
 	date: string;

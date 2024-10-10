@@ -1,8 +1,9 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import CopyIcon from '../../../../icons/copy';
 import { clsx } from 'clsx';
+import { useCallback, useEffect, useState } from 'react';
+
+import CopyIcon from '../../../../icons/copy';
 
 export const CopyButton: React.FC<{
 	id?: string;
@@ -24,7 +25,7 @@ export const CopyButton: React.FC<{
 		if (!element) return;
 
 		setContent(element.textContent || '');
-	}, []);
+	}, [content, id]);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {

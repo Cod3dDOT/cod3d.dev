@@ -1,8 +1,9 @@
+import { Suspense } from 'react';
+
 import NavContactsShowcase from './contacts';
 import { NavigationContainer } from './container';
 import NavProjectsShowcase from './projects';
 import NavThoughtsShowcase from './thoughts';
-import { Suspense } from 'react';
 
 export const Navigation: React.FC = async () => {
 	return (

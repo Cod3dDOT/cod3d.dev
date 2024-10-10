@@ -1,6 +1,8 @@
-import { getRandomPokemon } from '@/lib/poke';
-import { FooterMon } from './pokemon';
 import dynamic from 'next/dynamic';
+
+import { getRandomPokemon } from '@/lib/poke';
+
+import { FooterMon } from './pokemon';
 import { PrintFooter } from './printFooter';
 
 const AsideFooter = dynamic(() => import('./parralax'), { ssr: false });
@@ -16,7 +18,7 @@ export const Footer: React.FC = () => {
 						<span>cod3d.dev</span>
 						<span> @ 2024</span>
 					</p>
-					<p>Made with ❤️ and ☕</p>
+					<p>Made with ☕</p>
 				</div>
 			</footer>
 			<AsideFooter>

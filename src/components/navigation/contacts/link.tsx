@@ -43,8 +43,8 @@ export const ContactLink: React.FC<{
 		linkRef.current.addEventListener('click', (e) => {
 			e.preventDefault();
 
-			let host = bytes(location.hostname);
-			let email = str(byte_xor(ebytes, host));
+			const host = bytes(location.hostname);
+			const email = str(byte_xor(ebytes, host));
 			window.location.href = 'mailto:' + email;
 		});
 	}, [protectedBytes]);

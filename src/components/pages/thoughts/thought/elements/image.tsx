@@ -1,7 +1,7 @@
+import clsx from 'clsx';
 import Image from 'next/image';
 
 import SadTogepi from '@/../public/img/togepi-sad.svg';
-import clsx from 'clsx';
 
 type MarkdownImageProps = {
 	src: string;

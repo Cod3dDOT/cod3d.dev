@@ -1,5 +1,8 @@
+import typography from '@tailwindcss/typography';
+import tailwindScrollbar from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
+import animate from 'tailwindcss-animate';
 
 const config: Config = {
 	darkMode: 'class',
@@ -56,9 +59,9 @@ const config: Config = {
 	},
 	plugins: [
 		require('@pyncz/tailwind-mask-image'),
-		require('@tailwindcss/typography'),
-		require('tailwindcss-animate'),
-		require('tailwind-scrollbar')
+		typography,
+		animate,
+		tailwindScrollbar
 	]
 };
 export default config;

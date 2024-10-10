@@ -20,7 +20,6 @@ export const config = {
 };
 
 export function middleware(request: NextRequest) {
-	// eslint-disable-next-line no-undef
 	const IS_DEV = process.env.NODE_ENV === 'development';
 	const cspHeader = IS_DEV
 		? ''

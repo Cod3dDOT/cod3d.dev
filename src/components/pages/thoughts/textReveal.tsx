@@ -3,15 +3,15 @@
 import { clsx } from 'clsx';
 import React, {
 	createContext,
+	useCallback,
 	useContext,
 	useMemo,
 	useRef,
 	useState
 } from 'react';
 
-import { useLenis } from '@/lib/lenis';
-
 import ScrollIcon from '@/components/icons/scroll';
+import { useLenis } from '@/lib/lenis';
 
 interface TextRevealContextType {
 	tokens: string[];
@@ -62,9 +62,12 @@ function Root({
 	const height = useMemo(() => {
 		const rect = container.current?.getBoundingClientRect();
 		return rect?.height || 0;
-	}, [container.current]);
+	}, []);
 
-	const skip = () => lenis?.scrollTo(height + convertRemToPixels(3.5));
+	const skip = useCallback(
+		() => lenis?.scrollTo(height + convertRemToPixels(3.5)),
+		[lenis, height]
+	);
 
 	const tokens = useMemo(() => body.match(/\S+|\s+/g) || [], [body]);
 
@@ -92,7 +95,7 @@ function Token({ index, children }: TokenProps) {
 
 	const isActive = useMemo(
 		() => index / context.tokens.length < context.progress - 0.1,
-		[index, context.progress]
+		[index, context.tokens.length, context.progress]
 	);
 
 	return <>{children(isActive)}</>;

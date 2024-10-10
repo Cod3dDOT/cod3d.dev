@@ -1,16 +1,9 @@
 import { Metadata } from 'next';
-
-import { getThoughts } from '@/lib/pocketbase/req';
-import { ReactLenis } from '@/lib/lenis';
-import { isError } from '@/lib/pocketbase/utils';
-import { Thought } from '@/lib/pocketbase/types';
-import { PageError } from '@/components/error';
-
-import { Footer } from '@/components/footer';
-
 import Image from 'next/image';
 
 import Gif from '@/../public/img/working-on-it.gif';
+import { Footer } from '@/components/footer';
+import { ReactLenis } from '@/lib/lenis';
 
 export const metadata: Metadata = {
 	title: "cod3d's projects",

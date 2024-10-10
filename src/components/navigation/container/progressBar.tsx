@@ -1,5 +1,6 @@
-import { useLenis } from '@/lib/lenis';
 import { useRef } from 'react';
+
+import { useLenis } from '@/lib/lenis';
 
 export const ProgressBar: React.FC = () => {
 	const progressBarRef = useRef<HTMLSpanElement>(null);

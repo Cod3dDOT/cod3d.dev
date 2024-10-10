@@ -1,5 +1,5 @@
-import { getGroupedBy } from '@/lib/utils/array';
 import { Thought } from '@/lib/pocketbase/types';
+import { getGroupedBy } from '@/lib/utils/array';
 
 import { ThoughtsYear } from './year';
 

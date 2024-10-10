@@ -1,14 +1,14 @@
 'use client';
 
-import { useWindowSize } from 'react-use';
-import { GridPattern } from '../effects/gridPattern';
 import clsx from 'clsx';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useWindowSize } from 'react-use';
 
 import Pokeball from '@/../public/img/pokeball.png';
 
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { GridPattern } from '../effects/gridPattern';
 
 const I = (x: number, y: number) => [
 	[x, y],
@@ -54,7 +54,8 @@ const M = (x: number, y: number) => [
 ];
 const E = (x: number, y: number) => C(x, y);
 
-const C = (x: number, y: number, flip: boolean = false) => [
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const C = (x: number, y: number, _flip: boolean = false) => [
 	[x + 1, y + 1],
 	[x, y + 1],
 	[x - 1, y + 1],
@@ -93,6 +94,7 @@ export const Welcome = () => {
 	const { width, height } = useWindowSize(1920, 1080);
 
 	const [blockSize, setBlockSize] = useState<number | undefined>(undefined);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [opacity, setOpacity] = useState(0);
 
 	const [center, setCenter] = useState({
@@ -111,15 +113,15 @@ export const Welcome = () => {
 		setCenter(c);
 
 		setOpacity(1);
-	}, [width]);
+	}, [height, width]);
 
 	useEffect(() => {
 		setBlocks(getBlocks(pathname, center));
-	}, [center]);
+	}, [center, pathname]);
 
 	useEffect(() => {
 		setBlocks(getBlocks(pathname, center));
-	}, [pathname]);
+	}, [center, pathname]);
 
 	return (
 		<div className="bg-background [perspective:2000px] transition-opacity overflow-hidden duration-1000 w-full h-screen">

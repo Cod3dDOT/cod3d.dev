@@ -1,8 +1,8 @@
+import { getProjects } from '@/lib/pocketbase/req';
 import { Project } from '@/lib/pocketbase/types';
 
-import { NavProject } from './project/project';
 import { SectionLink } from '../section-link';
-import { getProjects } from '@/lib/pocketbase/req';
+import { NavProject } from './project/project';
 
 const NavProjectsShowcase: React.FC = async () => {
 	const projectResponse = await getProjects(1, 3);

@@ -1,9 +1,10 @@
 'use client';
 
-import HomeIcon from '@/components/icons/home';
-import { ThemeSwitch } from '@/components/themeSwitch';
 import { clsx } from 'clsx';
 import { Link } from 'next-view-transitions';
+
+import HomeIcon from '@/components/icons/home';
+import { ThemeSwitch } from '@/components/themeSwitch';
 
 export const DesktopOpener: React.FC<{
 	setOpened?: (open: boolean) => void;

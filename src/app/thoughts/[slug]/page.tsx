@@ -1,20 +1,18 @@
-import { Link } from 'next-view-transitions';
+import '@/app/styles/blog.css';
 
-import { ThoughtMarkdown } from '@/components/pages/thoughts/thought/markdown';
-import { getThought, getThoughts } from '@/lib/pocketbase/req';
-import { ReactLenis } from '@/lib/lenis';
 import clsx from 'clsx';
-import BackIcon from '@/components/icons/back';
-
-import { isError } from '@/lib/pocketbase/utils';
-import { Thought } from '@/lib/pocketbase/types';
 import { notFound } from 'next/navigation';
+import { Link } from 'next-view-transitions';
 import { TechArticle, WithContext } from 'schema-dts';
 
-import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
 import { Footer } from '@/components/footer';
-
-import '@/app/styles/blog.css';
+import BackIcon from '@/components/icons/back';
+import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
+import { ThoughtMarkdown } from '@/components/pages/thoughts/thought/markdown';
+import { ReactLenis } from '@/lib/lenis';
+import { getThought, getThoughts } from '@/lib/pocketbase/req';
+import { Thought } from '@/lib/pocketbase/types';
+import { isError } from '@/lib/pocketbase/utils';
 
 // export const experimental_ppr = true;
 export const revalidate = 3600;

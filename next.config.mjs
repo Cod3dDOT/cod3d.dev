@@ -4,6 +4,14 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 const nextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
+	eslint: {
+		ignoreDuringBuilds: true
+	},
+	images: {
+		formats: ['image/avif', 'image/webp'],
+		contentDispositionType: 'attachment',
+		remotePatterns: []
+	},
 	// experimental: {
 	// 	ppr: true
 	// },
@@ -89,16 +97,10 @@ const nextConfig = {
 				]
 			}
 		];
-	},
-	images: {
-		formats: ['image/avif', 'image/webp'],
-		contentDispositionType: 'attachment',
-		remotePatterns: []
 	}
 };
 
 const withBundleAnalyzerConfig = withBundleAnalyzer({
-	// eslint-disable-next-line no-undef
 	enabled: process.env.ANALYZE === 'true'
 });
 

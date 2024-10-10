@@ -1,9 +1,10 @@
 'use client';
 
-import { useLenis } from '@/lib/lenis';
-import { remapRange } from '@/lib/utils/math';
 import { Link } from 'next-view-transitions';
 import { useEffect, useState } from 'react';
+
+import { useLenis } from '@/lib/lenis';
+import { remapRange } from '@/lib/utils/math';
 
 const calculateScale = (
 	scrollProgress: number,

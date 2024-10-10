@@ -1,9 +1,9 @@
 import { ImageResponse } from 'next/og';
+import { ImageResponseOptions } from 'next/server';
 
 import { getThought } from '@/lib/pocketbase/req';
-import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
-import { ImageResponseOptions } from 'next/server';
+import { isError } from '@/lib/pocketbase/utils';
 import { dateToString } from '@/lib/utils/date';
 
 // Route segment config

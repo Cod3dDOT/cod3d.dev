@@ -1,8 +1,10 @@
 import { clsx } from 'clsx';
-import { CopyButton } from './copyButton';
 import { ClassAttributes, HTMLAttributes } from 'react';
 import { ExtraProps } from 'react-markdown';
+
 import { splitmix32, stringToUniqueId } from '@/lib/utils/math';
+
+import { CopyButton } from './copyButton';
 
 type Props = ClassAttributes<HTMLPreElement> &
 	HTMLAttributes<HTMLPreElement> &
@@ -22,11 +24,7 @@ const extensionToColor = {
 	py: 'bg-[#3572A5]'
 };
 
-export const MarkdownCodeBlock: React.FC<Props> = ({
-	children,
-	node,
-	...props
-}) => {
+export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 	const filename = (node?.children[0].data as Data)?.meta;
 	const name = filename?.split('.').at(0) || '';
 	const extension = filename?.split('.').at(1) || 'js';
@@ -60,7 +58,6 @@ export const MarkdownCodeBlock: React.FC<Props> = ({
 					' [&>code]:p-0 [&>code]:border-none'
 				}
 				id={id}
-				tabIndex={0}
 			>
 				{children}
 			</pre>

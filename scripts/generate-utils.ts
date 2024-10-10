@@ -1,7 +1,7 @@
 import { extractColors } from 'extract-colors';
-import sharp from 'sharp';
-import fs from 'fs';
 import { FinalColor } from 'extract-colors/lib/types/Color';
+import fs from 'fs';
+import sharp from 'sharp';
 
 export class Color {
 	r: number;

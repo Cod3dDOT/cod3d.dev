@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import CursorEditIcon from '../icons/cursor/edit';
 import { clsx } from 'clsx';
-import { lerp } from '@/lib/utils/math';
-import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
 import { usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+
+import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
+import { lerp } from '@/lib/utils/math';
+
+import CursorEditIcon from '../icons/cursor/edit';
 
 interface Target {
 	classOrTag: string;
@@ -52,7 +54,7 @@ export const DesktopCursor: React.FC = () => {
 
 	const [hoveredTarget, setHoveredTarget] = useState<Target | undefined>();
 	const [visible, setVisible] = useState(true);
-	const [_lerp, _setLerp] = useState<number>(defaultTarget.lerp);
+	const [_lerp] = useState<number>(defaultTarget.lerp);
 
 	const cursorRef = useRef<HTMLDivElement>(null);
 	const targetPosition = useRef({ x: 0, y: 0 });
@@ -93,7 +95,7 @@ export const DesktopCursor: React.FC = () => {
 		return () => {
 			window.removeEventListener('mousemove', handleMouseMove);
 		};
-	}, []);
+	}, [_lerp]);
 
 	useEffect(() => {
 		const targetElements = document.querySelectorAll<HTMLElement>(
@@ -135,7 +137,7 @@ export const DesktopCursor: React.FC = () => {
 				});
 			});
 		};
-	}, [targets, pathname]);
+	}, [pathname]);
 
 	useEffect(() => {
 		const onMouseEnterViewport = () => setVisible(true);

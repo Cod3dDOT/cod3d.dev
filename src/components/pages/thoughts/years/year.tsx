@@ -3,8 +3,8 @@
 import { clsx } from 'clsx';
 import { Link } from 'next-view-transitions';
 
-import { Thought } from '@/lib/pocketbase/types';
 import { SpotlightCard } from '@/components/effects/spotlightCard';
+import { Thought } from '@/lib/pocketbase/types';
 
 type ThoughtsBodyProps = {
 	year: number;

@@ -1,17 +1,14 @@
+import Markdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeHighlightCodeLines from 'rehype-highlight-code-lines';
+import rehypeKatex from 'rehype-katex';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkHeadingId from 'remark-heading-id';
+import remarkMath from 'remark-math';
+
 import { MarkdownCodeBlock } from './elements/code';
 import { MarkdownImage, MarkdownImageFailed } from './elements/image';
-
-import Markdown from 'react-markdown';
-
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkMath from 'remark-math';
-import remarkHeadingId from 'remark-heading-id';
-
-import rehypeSanitize from 'rehype-sanitize';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeKatex from 'rehype-katex';
-import rehypeHighlightCodeLines from 'rehype-highlight-code-lines';
-
 import { MarkdownTitle } from './elements/title';
 import { TableOfContents } from './toc';
 
@@ -64,10 +61,10 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 
 							try {
 								const name = match.at(1) || '';
-								const [filename, extension] = name.split('.');
+								const [filename] = name.split('.');
 								const url = images.find((url) => url.includes(filename)) || '';
 								return <MarkdownImage src={url} alt={content} />;
-							} catch (error) {
+							} catch {
 								return <MarkdownImageFailed />;
 							}
 						}

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 import { ReactLenis } from '@/lib/lenis';
+
 import { DesktopOpener } from './desktopOpener';
 import { MobileOpener } from './mobileOpener';
 import { ProgressBar } from './progressBar';

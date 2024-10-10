@@ -1,14 +1,14 @@
-#!/usr/bin/env sh
+#!/bin/sh
+
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo 'Styling, testing and building your project before committing...'
+echo 'Pre commit hook running...'
 
-pnpm lint-staged
-pnpm lint
+bun run lint-staged
 
-echo 'Trying to build...'
+echo 'Building...'
 
-pnpm build ||
+bun run build ||
     (
         echo 'Next build failed: View the errors above to see why.'
         false

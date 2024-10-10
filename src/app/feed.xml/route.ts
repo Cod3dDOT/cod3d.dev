@@ -1,7 +1,8 @@
 import RSS from 'rss';
+
 import { getThoughts } from '@/lib/pocketbase/req';
-import { isError } from '@/lib/pocketbase/utils';
 import { Thought } from '@/lib/pocketbase/types';
+import { isError } from '@/lib/pocketbase/utils';
 
 export async function GET() {
 	const thoughtsResponse = await getThoughts();

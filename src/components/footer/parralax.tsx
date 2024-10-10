@@ -1,8 +1,9 @@
 'use client';
 
-import { remapRange } from '@/lib/utils/math';
-import { useLenis } from '@/lib/lenis';
 import { useState } from 'react';
+
+import { useLenis } from '@/lib/lenis';
+import { remapRange } from '@/lib/utils/math';
 
 const AsideFooter: React.FC<{
 	children?: React.ReactNode;

@@ -1,6 +1,7 @@
+import { RecordListOptions } from 'pocketbase';
+
 import { createServerClient } from './config';
 import { ClientResponseError } from './types';
-import { RecordListOptions } from 'pocketbase';
 
 export async function getThought(slug: string) {
 	const client = await createServerClient();

@@ -4,11 +4,11 @@ import clsx from 'clsx';
 import { memo } from 'react';
 
 import { GridPattern } from '@/components/effects/gridPattern';
+import { Project } from '@/lib/pocketbase/types';
 import {
 	randomIntFromIntervalPredicted,
 	stringToUniqueId
 } from '@/lib/utils/math';
-import { Project } from '@/lib/pocketbase/types';
 
 export const ProjectGridEffect: React.FC<{ id: Project['id'] }> = ({ id }) => {
 	const idn = stringToUniqueId(id);

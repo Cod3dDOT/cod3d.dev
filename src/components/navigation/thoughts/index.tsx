@@ -1,11 +1,11 @@
 import { Link } from 'next-view-transitions';
 
+import { getThoughts } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
+import { dateToString } from '@/lib/utils/date';
 
 import { SpotlightCard } from '../../effects/spotlightCard';
 import { SectionLink } from '../section-link';
-import { dateToString } from '@/lib/utils/date';
-import { getThoughts } from '@/lib/pocketbase/req';
 
 const NavThoughtsShowcase: React.FC = async () => {
 	const thoughtReponse = await getThoughts(1, 2, { sort: '-created' });

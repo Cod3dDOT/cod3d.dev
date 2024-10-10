@@ -1,24 +1,20 @@
 import './styles/globals.css';
-
-import { WebSite, WithContext } from 'schema-dts';
+import '@/lib/trustedTypes';
 
 import clsx from 'clsx';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 import type { Metadata, Viewport } from 'next';
 import { Pixelify_Sans } from 'next/font/google';
+import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
+import { ViewTransitions } from 'next-view-transitions';
+import { Suspense } from 'react';
+import { WebSite, WithContext } from 'schema-dts';
 
 import { Cursor } from '@/components/cursor';
-
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-import { NavigationContainerPreview } from '@/components/navigation/container/preview';
-import '@/lib/trustedTypes';
-import { Suspense } from 'react';
 import Navigation from '@/components/navigation';
-import Script from 'next/script';
-
-import { ViewTransitions } from 'next-view-transitions';
-import { Welcome } from '@/components/pages/welcome';
+import { NavigationContainerPreview } from '@/components/navigation/container/preview';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],

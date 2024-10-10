@@ -1,16 +1,15 @@
+import '@/app/styles/thoughts.css';
+
 import { Metadata } from 'next';
 
+import { PageError } from '@/components/error';
+import { Footer } from '@/components/footer';
 import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
 import { Years } from '@/components/pages/thoughts/years';
-import { getThoughts } from '@/lib/pocketbase/req';
 import { ReactLenis } from '@/lib/lenis';
-import { isError } from '@/lib/pocketbase/utils';
+import { getThoughts } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
-import { PageError } from '@/components/error';
-
-import { Footer } from '@/components/footer';
-
-import '@/app/styles/thoughts.css';
+import { isError } from '@/lib/pocketbase/utils';
 
 export const metadata: Metadata = {
 	title: "cod3d's thoughts | A place where I share my struggles",

@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from 'fs';
+
 import { colorFromImage, writeFile } from './generate-utils.ts';
 import {
 	API_getAllPokemonSpecies,
@@ -40,7 +42,7 @@ const generateCSSFile = async (path: string, mons: Pokemon[]) => {
 		pokemon.className = colorToClass[reducedHex];
 	}
 
-	let cssContent = Object.entries(colorToClass)
+	const cssContent = Object.entries(colorToClass)
 		.map(([color, className]) => `.${className}{--c:${color}}`)
 		.join('');
 
@@ -108,7 +110,7 @@ async function fetchFromPokeAPI(): Promise<void> {
 }
 
 function loadFromSave(path: string): Pokemon[] {
-	let savedPokemons = JSON.parse(fs.readFileSync(path, 'utf8'));
+	const savedPokemons = JSON.parse(fs.readFileSync(path, 'utf8'));
 
 	return savedPokemons.map((pokemon: PokemonSave) => {
 		return {
@@ -130,15 +132,15 @@ function savePokemons(path: string, pokemons: Pokemon[]): void {
 	writeFile(path, JSON.stringify(savePokemons));
 }
 
-async function regenerateColors(savePath: string): Promise<void> {
-	const pokemons: Pokemon[] = loadFromSave(savePath);
+async function regenerateColors(
+	jsonPath: string,
+	cssPath: string
+): Promise<void> {
+	const pokemons: Pokemon[] = loadFromSave(jsonPath);
 
-	const withColors = await generateCSSFile(
-		'src/app/styles/pokemons.css',
-		pokemons
-	);
+	const withColors = await generateCSSFile(cssPath, pokemons);
 
-	savePokemons('public/pokemon/_mons.json', withColors);
+	savePokemons(jsonPath, withColors);
 }
 
-regenerateColors('public/pokemon/_mons.json');
+regenerateColors('public/pokemon/_mons.json', 'pokemons.css');
