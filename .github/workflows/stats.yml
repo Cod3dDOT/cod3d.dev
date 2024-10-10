@@ -22,7 +22,7 @@ jobs:
       - run: bun i
 
       # Build and output bundle stats to webpack-stats.json
-      - run: bun run analyze
+      - run: bun run --bun analyze
 
       # Send bundle stats and build information to RelativeCI
       - name: Send bundle stats to RelativeCI
