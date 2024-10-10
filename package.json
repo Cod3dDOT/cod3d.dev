@@ -20,7 +20,7 @@
 		"generate-pokemons": "bun scripts/generate-pokemons.ts",
 		"format": "prettier --check .",
 		"format:fix": "prettier --write --list-different .",
-		"analyze": "ANALYZE=true bun run build",
+		"analyze": "ANALYZE=true bun run --bun build",
 		"prepare": "husky"
 	},
 	"dependencies": {
@@ -57,7 +57,6 @@
 		"@eslint/compat": "^1.2.0",
 		"@eslint/eslintrc": "^3.1.0",
 		"@eslint/js": "^9.12.0",
-		"@next/bundle-analyzer": "^14.2.15",
 		"@next/eslint-plugin-next": "^14.2.15",
 		"@pyncz/tailwind-mask-image": "^2.0.0",
 		"@tailwindcss/typography": "^0.5.15",
