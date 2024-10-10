@@ -30,7 +30,7 @@ const config = [
 	...ts.configs.recommended,
 	prettierConfigRecommended, // must come last
 	{
-		ignores: ['.next/'],
+		ignores: ['.next/', './husky'],
 		languageOptions: {
 			ecmaVersion: 'latest',
 			sourceType: 'module',

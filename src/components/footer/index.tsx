@@ -5,7 +5,7 @@ import { getRandomPokemon } from '@/lib/poke';
 import { FooterMon } from './pokemon';
 import { PrintFooter } from './printFooter';
 
-const AsideFooter = dynamic(() => import('./parralax'), { ssr: false });
+const ParallaxFooter = dynamic(() => import('./parralax'), { ssr: false });
 
 export const Footer: React.FC = () => {
 	const pokemon = getRandomPokemon();
@@ -21,9 +21,9 @@ export const Footer: React.FC = () => {
 					<p>Made with ☕</p>
 				</div>
 			</footer>
-			<AsideFooter>
+			<ParallaxFooter>
 				<FooterMon pokemon={pokemon} />
-			</AsideFooter>
+			</ParallaxFooter>
 			<PrintFooter />
 		</>
 	);

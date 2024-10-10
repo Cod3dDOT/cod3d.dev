@@ -1,31 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import { useLenis } from '@/lib/lenis';
-import { remapRange } from '@/lib/utils/math';
 
 const AsideFooter: React.FC<{
 	children?: React.ReactNode;
 }> = ({ children }) => {
+	const container = useRef<HTMLBaseElement>(null);
 	const [progress, setProgress] = useState(0);
+
+	const height = useMemo(() => {
+		const rect = container.current?.getBoundingClientRect();
+		return rect?.height || 0;
+	}, [container.current]);
+
 	useLenis(
-		({ progress: p }) => {
-			if (p < 0.5) return;
-			const mapped = remapRange(p, 0.5, 1, 100, 0);
-			if (Math.abs(mapped - progress) < 0.25) return;
-			setProgress(mapped);
+		({ scroll, dimensions }) => {
+			if (scroll < dimensions.limit.y - height) return;
+			const p = (dimensions.limit.y - scroll) / height;
+
+			setProgress(p * 20);
 		},
-		[progress]
+		[height]
 	);
 
 	return (
-		<aside className="sticky bottom-0 w-full bg-background-dark -z-10 overflow-clip px-12 md:px-24">
+		<aside
+			ref={container}
+			className="sticky bottom-0 w-full bg-background-dark -z-10 overflow-clip px-12 md:px-24"
+		>
 			<div
 				style={{
 					transform: `translate3d(0px, ${progress}%, 0px)`
 				}}
-				className="will-change-transform flex flex-col md:flex-row z-10 h-[50vh] justify-center md:justify-normal items-center"
+				className="will-change-transform transition-transform ease-linear duration-75 flex flex-col md:flex-row z-10 h-[50vh] justify-center md:justify-normal items-center"
 			>
 				{children}
 			</div>

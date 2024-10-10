@@ -52,8 +52,10 @@ function Root({
 
 	const lenis = useLenis(
 		({ scroll }) => {
-			const newProgress = (scroll / height) * 2 * 1.1;
+			const newProgress = (scroll / height) * 2;
 			if (Math.abs(newProgress - progress) < 0.05 || newProgress > 1.1) return;
+
+			console.log(newProgress, height);
 			setProgress(newProgress);
 		},
 		[progress]
@@ -62,7 +64,7 @@ function Root({
 	const height = useMemo(() => {
 		const rect = container.current?.getBoundingClientRect();
 		return rect?.height || 0;
-	}, []);
+	}, [container.current]);
 
 	const skip = useCallback(
 		() => lenis?.scrollTo(height + convertRemToPixels(3.5)),
