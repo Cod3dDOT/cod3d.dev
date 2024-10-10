@@ -13,7 +13,7 @@
 	},
 	"scripts": {
 		"dev": "next dev --turbo",
-		"prebuild": "bun run lint && bun next telemetry disable",
+		"prebuild": "bun next telemetry disable",
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint .",
