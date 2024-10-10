@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { fixupConfigRules, includeIgnoreFile } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
+// @ts-expect-error eslint-plugin-import is not typed
 import importPlugin from 'eslint-plugin-import';
 import prettierConfigRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';

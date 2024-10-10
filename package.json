@@ -81,6 +81,7 @@
 		"extract-colors": "^4.0.8",
 		"husky": "^9.1.6",
 		"lint-staged": "^15.2.10",
+		"next-plugin-bundle-stats": "^4.15.1",
 		"postcss": "^8.4.47",
 		"prettier": "^3.3.3",
 		"schema-dts": "^1.1.2",

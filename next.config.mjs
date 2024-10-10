@@ -1,4 +1,4 @@
-import withBundleAnalyzer from '@next/bundle-analyzer';
+import withBundleStats from 'next-plugin-bundle-stats';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -100,8 +100,9 @@ const nextConfig = {
 	}
 };
 
-const withBundleAnalyzerConfig = withBundleAnalyzer({
-	enabled: process.env.ANALYZE === 'true'
-});
+const withStats = process.env.ANALYZE === 'true';
+const config = withStats
+	? withBundleStats({ outDir: '../.bundle-stats/', json: true }, nextConfig)
+	: nextConfig;
 
-export default withBundleAnalyzerConfig(nextConfig);
+export default config;
