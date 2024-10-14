@@ -14,6 +14,8 @@ import { ReactLenis } from '@/lib/lenis';
 import { getThought, getThoughts } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
 import { isError } from '@/lib/pocketbase/utils';
+import readingTime from '@/lib/readingTime';
+import { minutesToDuration } from '@/lib/utils/date';
 
 // export const experimental_ppr = true;
 export const revalidate = 3600;
@@ -48,6 +50,7 @@ export async function generateMetadata({
 		alternates: {
 			canonical: 'https://cod3d.dev/thoughts/' + thought.slug
 		},
+		keywords: thought.tags,
 		robots: {
 			index: true,
 			follow: true,
@@ -117,6 +120,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	}
 
 	const markdown = await markdownResponse.text();
+	const time = readingTime(markdown);
 
 	const jsonLd: WithContext<TechArticle> = {
 		'@context': 'https://schema.org',
@@ -135,7 +139,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
 		},
 		datePublished: thought.created,
 		dateModified: thought.updated,
-		articleBody: markdown
+		wordCount: time.words.total,
+		timeRequired: minutesToDuration(time.minutes),
+		inLanguage: 'English',
+		keywords: thought.tags
 	};
 
 	const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {

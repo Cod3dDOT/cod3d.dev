@@ -113,7 +113,7 @@ export function readingTimeWithCount(
 	words: WordCountStats,
 	options: Options = {}
 ): ReadingTimeStats {
-	const { wordsPerMinute = 200 } = options;
+	const { wordsPerMinute = 180 } = options;
 	// reading time stats
 	const minutes = words.total / wordsPerMinute;
 	// Math.round used to resolve floating point funkiness

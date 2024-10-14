@@ -41,7 +41,7 @@ const DateScroll: React.FC<{
 const ReadingTime: React.FC<{
 	markdown: string;
 }> = ({ markdown }) => {
-	const minutes = readingTime(markdown, { wordsPerMinute: 100 }).minutes;
+	const minutes = readingTime(markdown).minutes;
 	const minArray = Array.from({ length: minutes }, (_, i) => i + 1);
 	return (
 		<div className="relative overflow-hidden inline-block">
