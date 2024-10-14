@@ -1,7 +1,7 @@
 import '@/app/styles/thoughts.css';
 
 import { Metadata } from 'next';
-import { WebPage, WithContext } from 'schema-dts';
+import { BreadcrumbList, WebPage, WithContext } from 'schema-dts';
 
 import { PageError } from '@/components/error';
 import { Footer } from '@/components/footer';
@@ -74,6 +74,25 @@ const jsonLd: WithContext<WebPage> = {
 	}
 };
 
+const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'cod3d.dev',
+			item: 'https://cod3d.dev'
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'thoughts',
+			item: 'https://cod3d.dev/thoughts'
+		}
+	]
+};
+
 const ThoughtsPage: React.FC = async () => {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
 
@@ -89,6 +108,12 @@ const ThoughtsPage: React.FC = async () => {
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd)
+				}}
+			/>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(jsonLdBreadcrumbList)
 				}}
 			/>
 			<main className="bg-background relative md:px-24 px-10">

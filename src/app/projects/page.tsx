@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
+import { BreadcrumbList, WebPage, WithContext } from 'schema-dts';
 
 import Gif from '@/../public/img/working-on-it.gif';
 import { Footer } from '@/components/footer';
@@ -49,6 +50,43 @@ export const metadata: Metadata = {
 	}
 };
 
+const jsonLd: WithContext<WebPage> = {
+	'@context': 'https://schema.org',
+	'@type': 'WebPage',
+	url: 'https://cod3d.dev/projects/',
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': 'https://cod3d.dev/projects/'
+	},
+	name: "cod3d's projects",
+	description: 'Probably trying to hack you. Or sleeping. Or both.',
+	image: 'https://cod3d.dev/img/og/og.webp',
+	author: {
+		'@type': 'Person',
+		name: 'cod3d',
+		url: 'https://github.com/cod3ddot'
+	}
+};
+
+const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'cod3d.dev',
+			item: 'https://cod3d.dev'
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'projects',
+			item: 'https://cod3d.dev/projects'
+		}
+	]
+};
+
 // revalidate at most every hour, in seconds
 export const revalidate = 3600;
 // export const experimental_ppr = true;
@@ -64,6 +102,18 @@ const ProjectsPage: React.FC = () => {
 
 	return (
 		<ReactLenis root>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(jsonLd)
+				}}
+			/>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(jsonLdBreadcrumbList)
+				}}
+			/>
 			<div className="h-screen">
 				<main className="h-full bg-background relative md:px-24 px-10">
 					<Image

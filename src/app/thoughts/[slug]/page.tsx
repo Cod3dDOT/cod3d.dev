@@ -1,9 +1,10 @@
 import '@/app/styles/blog.css';
 
 import clsx from 'clsx';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Link } from 'next-view-transitions';
-import { TechArticle, WithContext } from 'schema-dts';
+import { BreadcrumbList, TechArticle, WithContext } from 'schema-dts';
 
 import { Footer } from '@/components/footer';
 import BackIcon from '@/components/icons/back';
@@ -21,7 +22,7 @@ export async function generateMetadata({
 	params
 }: {
 	params: { slug: string };
-}) {
+}): Promise<Metadata> {
 	const thoughtResponse = await getThought(params.slug);
 
 	if (isError(thoughtResponse)) {
@@ -46,6 +47,14 @@ export async function generateMetadata({
 		description: thought.description,
 		alternates: {
 			canonical: 'https://cod3d.dev/thoughts/' + thought.slug
+		},
+		robots: {
+			index: true,
+			follow: true,
+			noarchive: true,
+			nosnippet: false,
+			noimageindex: false,
+			'max-image-preview': 'large'
 		},
 		openGraph: {
 			locale: 'en_US',
@@ -118,14 +127,39 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			'@id': 'https://cod3d.dev/thoughts/' + thought.slug
 		},
 		headline: thought.title,
-		image: thought.markdown_images[0] || 'https://cod3d.dev/favicon.png',
+		image: thought.markdown_images,
 		author: {
 			'@type': 'Person',
 			name: 'cod3d',
 			url: 'https://github.com/cod3ddot'
 		},
 		datePublished: thought.created,
-		dateModified: thought.updated
+		dateModified: thought.updated,
+		articleBody: markdown
+	};
+
+	const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'cod3d.dev',
+				item: 'https://cod3d.dev'
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: 'thoughts',
+				item: 'https://cod3d.dev/thoughts'
+			},
+			{
+				'@type': 'ListItem',
+				position: 3,
+				name: thought.title
+			}
+		]
 	};
 
 	return (
@@ -151,6 +185,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
 							type="application/ld+json"
 							dangerouslySetInnerHTML={{
 								__html: JSON.stringify(jsonLd)
+							}}
+						/>
+
+						<script
+							type="application/ld+json"
+							dangerouslySetInnerHTML={{
+								__html: JSON.stringify(jsonLdBreadcrumbList)
 							}}
 						/>
 
