@@ -1,6 +1,7 @@
 import '@/app/styles/thoughts.css';
 
 import { Metadata } from 'next';
+import { WebPage, WithContext } from 'schema-dts';
 
 import { PageError } from '@/components/error';
 import { Footer } from '@/components/footer';
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
 		canonical: 'https://cod3d.dev/thoughts'
 	},
 	openGraph: {
+		locale: 'en_US',
 		type: 'website',
 		url: 'https://cod3d.dev/thoughts',
 		title: "cod3d's thoughts | A place where I share my struggles",
@@ -40,24 +42,37 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: 'summary_large_image',
-		title: "cod3d's thoughts | A place where I share my struggles",
+		title: "cod3d's thoughts",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		creator: '@cod3ddot',
-		site: "cod3d's den",
-		images: [
-			{
-				url: '/img/og/og.webp',
-				width: 1200,
-				height: 675,
-				alt: "cod3d's den twitter image"
-			}
-		]
+		images: {
+			url: 'https://cod3d.dev/img/og/og.webp', // Must be an absolute URL
+			alt: 'cod3d'
+		}
 	}
 };
 
 // revalidate at most every hour, in seconds
 export const revalidate = 3600;
 // export const experimental_ppr = true;
+
+const jsonLd: WithContext<WebPage> = {
+	'@context': 'https://schema.org',
+	'@type': 'WebPage',
+	url: 'https://cod3d.dev/thoughts/',
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': 'https://cod3d.dev/thoughts/'
+	},
+	name: "cod3d's thoughts | A place where I share my struggles",
+	description: 'Probably trying to hack you. Or sleeping. Or both.',
+	image: 'https://cod3d.dev/img/og/og.webp',
+	author: {
+		'@type': 'Person',
+		name: 'cod3d',
+		url: 'https://github.com/cod3ddot'
+	}
+};
 
 const ThoughtsPage: React.FC = async () => {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
@@ -70,6 +85,12 @@ const ThoughtsPage: React.FC = async () => {
 
 	return (
 		<ReactLenis root>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(jsonLd)
+				}}
+			/>
 			<main className="bg-background relative md:px-24 px-10">
 				<ThoughtsTextReveal />
 				<Years thoughts={thoughts} />

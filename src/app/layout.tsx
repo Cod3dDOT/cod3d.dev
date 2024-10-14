@@ -10,7 +10,6 @@ import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
 import { ViewTransitions } from 'next-view-transitions';
 import { Suspense } from 'react';
-import { WebSite, WithContext } from 'schema-dts';
 
 import { Cursor } from '@/components/cursor';
 import Navigation from '@/components/navigation';
@@ -37,9 +36,15 @@ export const metadata: Metadata = {
 	title: "cod3d's den",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
 	creator: 'cod3d',
-	keywords: 'blog, projects, coding',
+	keywords: ['blog', 'projects', 'coding', 'Next.js'],
 	alternates: {
-		canonical: 'https://cod3d.dev'
+		canonical: '/',
+		languages: {
+			'en-US': '/'
+		},
+		types: {
+			'application/rss+xml': 'https://cod3d.dev/feed'
+		}
 	},
 	robots: {
 		index: true,
@@ -50,6 +55,7 @@ export const metadata: Metadata = {
 	},
 	openGraph: {
 		type: 'website',
+		locale: 'en_US',
 		url: 'https://cod3d.dev',
 		title: "cod3d's den",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
@@ -69,24 +75,12 @@ export const metadata: Metadata = {
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		creator: '@cod3ddot',
 		site: "cod3d's den",
-		images: [
-			{
-				url: '/img/og/og.webp',
-				width: 1200,
-				height: 675,
-				alt: 'cod3d'
-			}
-		]
-	}
-};
-
-const jsonLd: WithContext<WebSite> = {
-	'@context': 'https://schema.org',
-	'@type': 'WebSite',
-	name: "cod3d's den | A place where I try, fail, and learn.",
-	url: 'cod3d.dev',
-	image: 'https://cod3d.dev/og.png',
-	description: 'Probably trying to hack you. Or sleeping. Or both.'
+		images: {
+			url: 'https://cod3d.dev/img/og/og.webp', // Must be an absolute URL
+			alt: 'cod3d'
+		}
+	},
+	verification: {}
 };
 
 export default async function RootLayout({
@@ -108,11 +102,6 @@ export default async function RootLayout({
 						'font-pixelify cursor-none'
 					)}
 				>
-					<script
-						type="application/ld+json"
-						dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-					/>
-
 					<ThemeProvider attribute="class">
 						<Cursor />
 						{children}

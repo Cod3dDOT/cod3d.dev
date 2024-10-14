@@ -48,16 +48,20 @@ export async function generateMetadata({
 			canonical: 'https://cod3d.dev/thoughts/' + thought.slug
 		},
 		openGraph: {
-			type: 'website',
+			locale: 'en_US',
+			type: 'article',
 			url: 'https://cod3d.dev/thoughts/' + thought.slug,
 			title: thought.title,
-			description: thought.description
+			description: thought.description,
+			publishedTime: thought.created,
+			authors: ['cod3d']
 		},
 		twitter: {
 			card: 'summary_large_image',
 			title: thought.title,
 			description: thought.description,
-			creator: '@cod3ddot'
+			creator: '@cod3ddot',
+			site: "cod3d's den"
 		}
 	};
 }

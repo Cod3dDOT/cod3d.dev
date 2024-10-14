@@ -55,7 +55,6 @@ function Root({
 			const newProgress = (scroll / height) * 2;
 			if (Math.abs(newProgress - progress) < 0.05 || newProgress > 1.1) return;
 
-			console.log(newProgress, height);
 			setProgress(newProgress);
 		},
 		[progress]

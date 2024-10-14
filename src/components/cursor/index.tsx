@@ -37,19 +37,14 @@ const defaultTarget = {
 	lerp: 0.9
 };
 
-const defaultClassname =
-	'w-2 h-2 rounded-full bg-foreground border border-foreground';
-
 export const Cursor: React.FC = () => {
 	const isTouchdevice = useIsTouchdevice();
-	if (typeof window !== 'undefined' && isTouchdevice) {
-		return <></>;
-	}
+	if (isTouchdevice) return <></>;
 
 	return <DesktopCursor />;
 };
 
-export const DesktopCursor: React.FC = () => {
+const DesktopCursor: React.FC = () => {
 	const pathname = usePathname();
 
 	const [hoveredTarget, setHoveredTarget] = useState<Target | undefined>();
@@ -140,6 +135,10 @@ export const DesktopCursor: React.FC = () => {
 	}, [pathname]);
 
 	useEffect(() => {
+		setHoveredTarget(undefined);
+	}, [pathname]);
+
+	useEffect(() => {
 		const onMouseEnterViewport = () => setVisible(true);
 		const onMouseLeaveViewport = () => setVisible(false);
 
@@ -157,7 +156,7 @@ export const DesktopCursor: React.FC = () => {
 			ref={cursorRef}
 			className={clsx(
 				'fixed left-0 right-0 z-[1000] pointer-events-none transition-cursor -translate-x-1/2 -translate-y-1/2',
-				defaultClassname,
+				'w-2 h-2 rounded-full bg-foreground border border-foreground',
 				visible ? 'opacity-100' : 'opacity-0',
 				hoveredTarget !== undefined && hoveredTarget.className
 			)}
