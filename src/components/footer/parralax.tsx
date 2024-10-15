@@ -34,7 +34,7 @@ const AsideFooter: React.FC<{
 				style={{
 					transform: `translate3d(0px, ${progress}%, 0px)`
 				}}
-				className="will-change-transform transition-transform ease-linear duration-75 flex flex-col md:flex-row z-10 h-[50vh] justify-center md:justify-normal items-center"
+				className="will-change-transform lg:transition-transform ease-linear duration-75 flex flex-col md:flex-row z-10 h-[50vh] justify-center md:justify-normal items-center"
 			>
 				{children}
 			</div>
