@@ -25,7 +25,10 @@ export const metadata: Metadata = {
 		noimageindex: false
 	},
 	alternates: {
-		canonical: 'https://cod3d.dev/thoughts'
+		canonical: 'https://cod3d.dev/thoughts',
+		types: {
+			'application/rss+xml': 'https://cod3d.dev/feed.xml'
+		}
 	},
 	openGraph: {
 		locale: 'en_US',

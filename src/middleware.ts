@@ -23,7 +23,18 @@ export function middleware(request: NextRequest) {
 	const IS_DEV = process.env.NODE_ENV === 'development';
 	const cspHeader = IS_DEV
 		? ''
-		: `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; connect-src 'self' https://cloudflareinsights.com/; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests; trusted-types default nextjs#bundler;`;
+		: `default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self';
+        font-src 'self';
+        object-src 'none';
+        connect-src 'self';
+        base-uri 'none';
+        form-action 'self';
+        frame-ancestors 'none';
+        upgrade-insecure-requests;
+        trusted-types default nextjs#bundler;`.replaceAll('\n', ' ');
 
 	const requestHeaders = new Headers(request.headers);
 	requestHeaders.set('Content-Security-Policy', cspHeader);

@@ -48,7 +48,10 @@ export async function generateMetadata({
 		title: thought.title,
 		description: thought.description,
 		alternates: {
-			canonical: 'https://cod3d.dev/thoughts/' + thought.slug
+			canonical: 'https://cod3d.dev/thoughts/' + thought.slug,
+			types: {
+				'application/rss+xml': 'https://cod3d.dev/feed.xml'
+			}
 		},
 		keywords: thought.tags,
 		robots: {

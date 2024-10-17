@@ -26,13 +26,9 @@ const nextConfig = {
 				destination: 'https://api-gateway.umami.dev/api/send'
 			},
 			{
-				source: '/cl.js',
-				destination: 'https://static.cloudflareinsights.com/beacon.min.js'
+				source: '/api/cf',
+				destination: 'https://cloudflareinsights.com/cdn-cgi/rum'
 			},
-			// {
-			//     source: '/api/files',
-			//     destination: 'https://cod3d.pockethost.io/api/files'
-			// },
 			{
 				source: '/api/files/:path*',
 				destination: 'https://cod3d.pockethost.io/api/files/:path*'
