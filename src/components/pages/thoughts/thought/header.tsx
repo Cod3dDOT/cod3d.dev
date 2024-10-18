@@ -5,15 +5,14 @@ import readingTime from '@/lib/readingTime';
 import { dateToString } from '@/lib/utils/date';
 
 const DateScroll: React.FC<{
-	date: string;
+	date: Date;
 	delay?: 'delay-500' | 'delay-1000' | 'delay-2000';
 }> = ({ date, delay = 'delay-500' }) => {
-	const original = new Date(date);
 	const startDate = new Date(date);
 	startDate.setDate(startDate.getDate() - 7); // Start from 7 days ago
 
 	const dates = Array.from(
-		{ length: original.getDate() - startDate.getDate() },
+		{ length: date.getDate() - startDate.getDate() + 1 },
 		(_, i) => {
 			const d = new Date(startDate);
 			d.setDate(d.getDate() + i);
@@ -22,13 +21,17 @@ const DateScroll: React.FC<{
 	);
 
 	return (
-		<time dateTime={date} className="relative inline-block overflow-hidden">
-			<span className="invisible">{dateToString(original)}</span>
+		<time
+			dateTime={date.toISOString()}
+			className="relative inline-block overflow-hidden"
+		>
+			<span className="invisible">{dateToString(date)}</span>
 			<div
 				className={clsx(
 					'left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out',
 					delay
 				)}
+				aria-hidden="true"
 			>
 				{dates.map((date, i) => (
 					<span key={i + '-date-scroll'}>{date}</span>
@@ -44,14 +47,18 @@ const ReadingTime: React.FC<{
 	const minutes = readingTime(markdown).minutes;
 	const minArray = Array.from({ length: minutes }, (_, i) => i + 1);
 	return (
-		<div className="relative overflow-hidden inline-block">
-			<span className="invisible">{minutes}</span>
-			<span className="left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out">
-				{minArray.map((m, i) => {
-					return <span key={i + '-reading-time'}>{m}</span>;
-				})}
-			</span>
-		</div>
+		<>
+			<div className="relative overflow-hidden inline-block" aria-hidden="true">
+				<span className="invisible">{minutes}</span>
+				<span className="left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out">
+					{minArray.map((m, i) => {
+						return <span key={i + '-reading-time'}>{m}</span>;
+					})}
+				</span>
+				<span> minutes</span>
+			</div>
+			<span className="sr-only">{minutes} minutes</span>
+		</>
 	);
 };
 
@@ -65,7 +72,6 @@ export const ThoughtHeader: React.FC<{
 				<span className="font-extralight">Reading time</span>
 				<br />
 				<ReadingTime markdown={markdown} />
-				<span> minutes</span>
 			</div>
 			<div className="w-fit">
 				<div className="font-extralight flex justify-between">

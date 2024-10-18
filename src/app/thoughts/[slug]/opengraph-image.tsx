@@ -102,10 +102,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
 							fontSize: '2rem'
 						}}
 					>
-						<time dateTime={thought?.created}>
-							{thought
-								? dateToString(new Date(thought.created))
-								: 'At the end of times'}
+						<time dateTime={thought?.created.toISOString()}>
+							{thought ? dateToString(thought.created) : 'At the end of times'}
 						</time>
 
 						<span>cod3d.dev</span>

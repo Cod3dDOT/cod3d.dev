@@ -68,7 +68,7 @@ export async function generateMetadata({
 			url: 'https://cod3d.dev/thoughts/' + thought.slug,
 			title: thought.title,
 			description: thought.description,
-			publishedTime: thought.created,
+			publishedTime: thought.created.toISOString(),
 			authors: ['cod3d']
 		},
 		twitter: {
@@ -140,8 +140,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			name: 'cod3d',
 			url: 'https://github.com/cod3ddot'
 		},
-		datePublished: thought.created,
-		dateModified: thought.updated,
+		datePublished: thought.created.toISOString(),
+		dateModified: thought.updated.toISOString(),
 		wordCount: time.words.total,
 		timeRequired: minutesToDuration(time.minutes),
 		inLanguage: 'English',

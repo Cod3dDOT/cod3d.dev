@@ -1,22 +1,29 @@
 import PocketBase, { RecordService } from 'pocketbase';
 
-export interface Project {
+export interface PBProject {
 	id: string;
 	created: string;
 	updated: string;
-	published: boolean;
+
 	name: string;
 	description: string;
-	color: string;
-	repo: URL;
+
 	status: 'stale' | 'dev' | 'idea' | 'archived';
+
+	repo: URL;
+	tags: PBTag['id'][];
+
+	expand?: {
+		tags: PBTag[];
+	};
 }
 
-export interface Thought {
+export interface PBThought {
 	id: string;
 	created: string;
 	updated: string;
 
+	published: boolean;
 	slug: string;
 
 	title: string;
@@ -27,13 +34,39 @@ export interface Thought {
 	markdown: string;
 	markdown_images: string[];
 
+	tags: PBTag['id'][];
+
+	expand?: {
+		tags: PBTag[];
+	};
+}
+
+export interface PBTag {
+	id: string;
+	created: string;
+	updated: string;
+	tag: string;
+}
+
+export interface Project
+	extends Omit<PBProject, 'tags' | 'created' | 'updated' | 'expand'> {
+	created: Date;
+	updated: Date;
+	tags: string[];
+}
+
+export interface Thought
+	extends Omit<PBThought, 'tags' | 'created' | 'updated' | 'expand'> {
+	created: Date;
+	updated: Date;
 	tags: string[];
 }
 
 export interface TypedPocketBase extends PocketBase {
 	collection(idOrName: string): RecordService; // default fallback for any other collection
-	collection(idOrName: 'projects'): RecordService<Project>;
-	collection(idOrName: 'thoughts'): RecordService<Thought>;
+	collection(idOrName: 'projects'): RecordService<PBProject>;
+	collection(idOrName: 'thoughts'): RecordService<PBThought>;
+	collection(idOrName: 'tags'): RecordService<PBTag>;
 }
 
 export interface ClientResponseError {

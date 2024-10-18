@@ -51,8 +51,8 @@ const NavThoughtsShowcase: React.FC = async () => {
 										{thought.title}
 									</h3>
 									<div className="flex justify-between">
-										<time dateTime={thought.created}>
-											{dateToString(new Date(thought.created))}
+										<time dateTime={thought.created.toISOString()}>
+											{dateToString(thought.created)}
 										</time>
 										<span>cod3d.dev</span>
 									</div>
