@@ -24,7 +24,7 @@ export const NavProject: React.FC<{
 					className="h-full transition-all lg:w-0 lg:mr-0 mr-2 lg:group-hover:w-14 sm:group-hover:ml-2 flex justify-center items-center overflow-hidden"
 					target="_blank"
 					rel="noreferrer"
-					aria-label="Link to repository"
+					aria-label={'Github link to the source code of ' + project.name}
 				>
 					<GithubIcon
 						aria-hidden="true"

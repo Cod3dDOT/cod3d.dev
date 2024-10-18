@@ -25,6 +25,7 @@ const NavThoughtsShowcase: React.FC = async () => {
 							hrefLang="en"
 							key={thought.id}
 							href={'/thoughts/' + thought.slug}
+							aria-label={'Thought: ' + thought.title}
 						>
 							<SpotlightCard
 								id={'spotlight-nav-' + i}

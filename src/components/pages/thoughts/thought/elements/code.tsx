@@ -48,7 +48,7 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 							.{extension}
 						</span>
 					</span>
-					<CopyButton id={id} className="w-6 h-6" />
+					<CopyButton id={id} contentName={filename} className="w-6 h-6" />
 				</figcaption>
 			)}
 

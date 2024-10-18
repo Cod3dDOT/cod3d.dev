@@ -8,8 +8,9 @@ import CopyIcon from '../../../../icons/copy';
 export const CopyButton: React.FC<{
 	id?: string;
 	content?: string;
+	contentName: string;
 	className?: string;
-}> = ({ id, content: _content, className }) => {
+}> = ({ id, content: _content, contentName, className }) => {
 	const [content, setContent] = useState(_content || '');
 	const [copied, setCopied] = useState(false);
 
@@ -45,7 +46,7 @@ export const CopyButton: React.FC<{
 				)}
 				onClick={handleClick}
 				title="Copy to clipboard"
-				aria-label="Copy to clipboard"
+				aria-label={'Copy ' + contentName + ' to clipboard'}
 			>
 				<CopyIcon
 					showCheck={copied}

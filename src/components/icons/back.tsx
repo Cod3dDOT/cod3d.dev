@@ -16,6 +16,7 @@ const BackIcon = forwardRef<SVGSVGElement, IconProps>(
 			strokeWidth="2"
 			strokeLinecap="round"
 			strokeLinejoin="round"
+			aria-hidden="true"
 			className={className}
 		>
 			<path d="M3 19V5"></path>
