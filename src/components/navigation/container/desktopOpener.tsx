@@ -17,7 +17,9 @@ export const DesktopOpener: React.FC<{
 				id="theme-switch-desktop"
 				className={clsx(
 					'w-full p-4 transition-transform duration-300 translate-y-4',
-					opened && pathname == '/' && 'translate-y-[3.3rem]'
+					opened &&
+						pathname == '/' &&
+						'translate-y-[1.5rem] lg:translate-y-[2.5rem]'
 				)}
 			/>
 			<Link
@@ -27,6 +29,7 @@ export const DesktopOpener: React.FC<{
 					'transition-transform w-full aspect-square p-4 hover:scale-95',
 					pathname == '/' && '!scale-0'
 				)}
+				aria-label="Link to homepage"
 			>
 				<HomeIcon
 					aria-hidden="true"

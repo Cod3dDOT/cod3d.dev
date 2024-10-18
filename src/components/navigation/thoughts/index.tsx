@@ -37,11 +37,16 @@ const NavThoughtsShowcase: React.FC = async () => {
 									className="rounded-xl overflow-hidden
                                                 absolute inset-1 bg-background px-4 py-4 flex flex-col"
 								>
-									<div className="flex space-x-2 [font-size:smaller]">
+									<div
+										className="flex space-x-2 [font-size:smaller]"
+										role="Tag list"
+										aria-label={'Thought tags: ' + thought.tags.join(', ')}
+									>
 										{thought.tags.map((tag, i) => (
 											<span
 												key={i + thought.id}
 												className="whitespace-nowrap backdrop-blur-lg bg-background-dark p-2 px-3 rounded-full"
+												aria-hidden="true"
 											>
 												{tag}
 											</span>
