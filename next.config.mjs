@@ -68,7 +68,7 @@ const nextConfig = {
 					},
 					{
 						key: 'Access-Control-Allow-Origin',
-						value: 'cod3d.dev'
+						value: 'https://cod3d.dev https://wave.webaim.org'
 					},
 					{
 						key: 'Cross-Origin-Embedder-Policy', // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy
