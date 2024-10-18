@@ -118,7 +118,7 @@ export default async function RootLayout({
 						data-cf-beacon='{"token": "47d8843e086d4c2892e9dc1dda82ea11"}'
 					/>
 					<Script
-						integrity="sha512-erPxyAEnHOPM9OXtBLQtnrv9TXI/hT1f2iQmnLRO9YtWKe10EGMFeZe1hhqgnYSas4WyLXEK9bmzAmjQNHlT7g=="
+						integrity="sha512-erPxyAEnHOPM9OXtBLQtnrv9TXI/hT1f2iQmnLRO9YtWKe10EGMFeZe1hhqgnYSas4WyLXEK9bmzAmjQNHlT7g== sha512-44N6VqDI1uV8iS4+5961t1T4b7H4p0Vnl5X9lseRNHEOU56LoVnir374Y0K/3N1wpmDZwTnZClFi6IrbD0w0FQ=="
 						crossOrigin="anonymous"
 						strategy="afterInteractive"
 						src="/um.js"
