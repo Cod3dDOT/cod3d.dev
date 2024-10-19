@@ -19,6 +19,8 @@ export const config = {
 	]
 };
 
+const allowedOrigins = ['https://wave.webaim.org'];
+
 export function middleware(request: NextRequest) {
 	const IS_DEV = process.env.NODE_ENV === 'development';
 	const cspHeader = IS_DEV
@@ -39,6 +41,17 @@ export function middleware(request: NextRequest) {
 	const requestHeaders = new Headers(request.headers);
 	requestHeaders.set('Content-Security-Policy', cspHeader);
 
+	const origin = request.headers.get('origin') ?? '';
+	const isAllowedOrigin = allowedOrigins.includes(origin);
+
+	const isPreflight = request.method === 'OPTIONS';
+	if (isPreflight) {
+		const preflightHeaders = {
+			...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin })
+		};
+		return NextResponse.json({}, { headers: preflightHeaders });
+	}
+
 	const response = NextResponse.next({
 		request: {
 			headers: requestHeaders
@@ -46,6 +59,9 @@ export function middleware(request: NextRequest) {
 	});
 
 	response.headers.set('Content-Security-Policy', cspHeader);
+	if (isAllowedOrigin) {
+		response.headers.set('Access-Control-Allow-Origin', origin);
+	}
 
 	return response;
 }

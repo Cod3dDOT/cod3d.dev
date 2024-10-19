@@ -67,10 +67,6 @@ const nextConfig = {
 							'fullscreen=(self),picture-in-picture=(self),clipboard-write=(self),attribution-reporting=(self),compute-pressure=(self),accelerometer=(),autoplay=(),bluetooth=(),browsing-topics=(),camera=(),display-capture=(),gamepad=(),geolocation=(),gyroscope=(),hid=(),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),serial=(),usb=(),xr-spatial-tracking=()'
 					},
 					{
-						key: 'Access-Control-Allow-Origin',
-						value: 'https://cod3d.dev https://wave.webaim.org'
-					},
-					{
 						key: 'Cross-Origin-Embedder-Policy', // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy
 						value: 'require-corp'
 					},
