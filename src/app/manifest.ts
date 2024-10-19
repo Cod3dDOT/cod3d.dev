@@ -38,12 +38,14 @@ export default function manifest(): MetadataRoute.Manifest {
 				src: '/pwa/screenshots/mobile.png',
 				sizes: '363x811',
 				type: 'image/png',
+				// @ts-expect-error Property 'label' does not exist
 				label: 'cod3d.dev'
 			},
 			{
 				src: '/pwa/screenshots/desktop.png',
 				sizes: '1647x923',
 				type: 'image/png',
+				// @ts-expect-error Property 'form_factor' does not exist
 				form_factor: 'wide',
 				label: 'cod3d.dev'
 			}
