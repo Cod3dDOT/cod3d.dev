@@ -12,18 +12,18 @@ export default function manifest(): MetadataRoute.Manifest {
 		theme_color: '#111111',
 		icons: [
 			{
-				src: '/icons/maskable-192x192.png',
+				src: '/pwa/icons/maskable-192x192.png',
 				sizes: '192x192',
 				type: 'image/png',
 				purpose: 'maskable'
 			},
 			{
-				src: '/icons/android-chrome-192x192.png',
+				src: '/pwa/icons/android-chrome-192x192.png',
 				sizes: '192x192',
 				type: 'image/png'
 			},
 			{
-				src: '/icons/android-chrome-512x512.png',
+				src: '/pwa/icons/android-chrome-512x512.png',
 				sizes: '512x512',
 				type: 'image/png'
 			},
@@ -31,6 +31,21 @@ export default function manifest(): MetadataRoute.Manifest {
 				src: '/favicon.ico',
 				sizes: '48x48 32x32 16x16',
 				type: 'image/x-icon'
+			}
+		],
+		screenshots: [
+			{
+				src: '/pwa/screenshots/mobile.png',
+				sizes: '363x811',
+				type: 'image/png',
+				label: 'cod3d.dev'
+			},
+			{
+				src: '/pwa/screenshots/desktop.png',
+				sizes: '1647x923',
+				type: 'image/png',
+				form_factor: 'wide',
+				label: 'cod3d.dev'
 			}
 		],
 		shortcuts: [
