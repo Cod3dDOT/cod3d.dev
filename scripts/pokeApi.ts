@@ -8,6 +8,7 @@ interface PokemonSpeciesData {
 	name: string;
 	names: Name[];
 	color: Color;
+	id: number;
 }
 
 interface FlavorTextEntry {

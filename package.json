@@ -17,7 +17,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint .",
-		"generate-pokemons": "bun scripts/generate-pokemons.ts",
+		"generate-pokemons": "bun scripts/generate-pokemons.ts generate",
 		"format": "prettier --check .",
 		"format:fix": "prettier --write --list-different .",
 		"analyze": "ANALYZE=true bun run --bun build",

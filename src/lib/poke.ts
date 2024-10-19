@@ -19,7 +19,7 @@ export function getRandomPokemon(): Pokemon {
 	return {
 		name: pokemon.n,
 		description: pokemon.d,
-		sprite: `/pokemon/${pokemon.n}.webp`,
+		sprite: `/pokemon/${pokemon.n}.png`,
 		class: 'mon' + pokemon.c
 	};
 }
