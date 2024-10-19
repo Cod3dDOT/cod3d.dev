@@ -1,8 +1,5 @@
-import Image from 'next/image';
 import { WebPage, WithContext } from 'schema-dts';
 
-import Blue from '@/../public/img/blue.webp';
-import Yellow from '@/../public/img/yellow.webp';
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 
@@ -51,33 +48,49 @@ export default function Home() {
 				</p>
 
 				<div className="absolute inset-0 right-0 -z-10 overflow-hidden flex lg:justify-center lg:items-center">
-					<div
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						xmlnsXlink="http://www.w3.org/1999/xlink"
+						viewBox="0 0 200 200"
 						className="relative h-full aspect-square sm:ml-auto min-h-[62rem]
-                    animate-spin [animation-duration:32s]
+                     [animation-duration:32s] will-change-transform animate-spin
                     sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]"
 					>
-						<Image
-							priority
-							src={Blue}
-							width={32}
-							height={32}
-							alt="Blue blob"
-							className="absolute -left-16 -top-16"
-							style={{
-								color: '' // This is required to prevent the inline style of `next/image`
-							}}
-						/>
-						<Image
-							src={Yellow}
-							width={32}
-							height={32}
-							alt="Yellow blob"
-							className="absolute -right-16 -bottom-16"
-							style={{
-								color: '' // This is required to prevent the inline style of `next/image`
-							}}
-						/>
-					</div>
+						<defs>
+							<filter
+								id="GaussianBlur"
+								filterUnits="objectBoundingBox"
+								primitiveUnits="userSpaceOnUse"
+								colorInterpolationFilters="sRGB"
+								x="-50%"
+								y="-50%"
+								width="200%"
+								height="200%"
+							>
+								<feGaussianBlur
+									stdDeviation="10"
+									in="SourceGraphic"
+									result="blur"
+								/>
+							</filter>
+						</defs>
+						<g filter="url(#GaussianBlur)">
+							<ellipse
+								rx="35"
+								ry="35"
+								cx="60"
+								cy="60"
+								className="fill-blue-400"
+							/>
+							<ellipse
+								rx="35"
+								ry="35"
+								cx="140"
+								cy="140"
+								className="fill-yellow-300"
+							/>
+						</g>
+					</svg>
 				</div>
 			</main>
 		</>

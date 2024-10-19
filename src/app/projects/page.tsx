@@ -1,8 +1,6 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
 import { BreadcrumbList, WebPage, WithContext } from 'schema-dts';
 
-import Gif from '@/../public/img/working-on-it.gif';
 import { Footer } from '@/components/footer';
 import { ReactLenis } from '@/lib/lenis';
 
@@ -116,9 +114,9 @@ const ProjectsPage: React.FC = () => {
 			/>
 			<div className="h-screen">
 				<main className="h-full bg-background relative md:px-24 px-10">
-					<Image
-						unoptimized
-						src={Gif}
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img
+						src="/img/working-on-it.gif"
 						alt="Working on it gif"
 						width={1200}
 						height={675}

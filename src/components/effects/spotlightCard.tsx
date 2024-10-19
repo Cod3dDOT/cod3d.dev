@@ -4,7 +4,8 @@ import clsx from 'clsx';
 import React, { useMemo, useRef } from 'react';
 import { useMouse } from 'react-use';
 
-import useIsTouchdevice from '@/lib/hooks/useIsTouchDevice';
+import useIsTouchDevice from '@/lib/hooks/useIsTouchDevice';
+import useIsVisible from '@/lib/hooks/useIsVisible';
 
 interface SpotlightCardProps {
 	id?: string;
@@ -38,58 +39,57 @@ export function SpotlightCard({
 	className,
 	...props
 }: SpotlightCardProps): JSX.Element {
-	const mobile = useIsTouchdevice();
-
+	const mobile = useIsTouchDevice();
 	const container = useRef<HTMLDivElement>(null);
 	const { elX, elY, elW, elH } = useMouse(container);
+	const isVisible = useIsVisible(container);
 
-	const centerX = elW ? elW / 2 : 0;
-	const centerY = elH ? elH / 2 : 0;
+	const centerX = elW / 2 || 0;
+	const centerY = elH / 2 || 0;
 	const thresholdDistance = size * 2;
 
+	// Memoize spotlight color stops only when necessary
 	const spotlightColorStops = useMemo(() => {
-		if (hsl) {
-			const margin = hslMax - hslMin;
-			const rate = (elY! + elX!) / (elH! + elW!);
-			const hue = Math.round(margin * rate + hslMin);
-
-			return `hsl(${hue} 80% 70%),transparent`;
+		if (!hsl) {
+			return [from, via, to].filter(Boolean).join(',');
 		}
+		const margin = hslMax - hslMin;
+		const rate = (elY + elX) / (elH + elW);
+		const hue = Math.round(margin * rate + hslMin);
+		return `hsl(${hue} 80% 70%), transparent`;
+	}, [hsl, hslMin, hslMax, from, via, to, elX, elY, elW, elH]);
 
-		return [from, via, to].filter((value) => !!value).join(',');
-	}, [hsl, hslMax, hslMin, from, via, to, elY, elX, elH, elW]);
-
+	// Calculate spotlight position and only update if visible
 	const { x, y } = useMemo(() => {
-		const distance = Math.sqrt(
-			Math.pow(elX - centerX, 2) + Math.pow(elY - centerY, 2)
-		);
-		if (distance > thresholdDistance) return { x: -size * 2, y: -size * 2 };
+		if (
+			!isVisible ||
+			Math.hypot(elX - centerX, elY - centerY) > thresholdDistance
+		) {
+			return { x: -size * 2, y: -size * 2 };
+		}
+		return { x: elX, y: elY };
+	}, [isVisible, elX, elY, centerX, centerY, thresholdDistance]);
 
-		return {
-			x: elX,
-			y: elY
-		};
-	}, [size, elY, elX, elH, elW]);
-
-	const classes =
+	const modeClass =
 		mode === 'before'
-			? `before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]`
-			: `after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]`;
+			? 'before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]'
+			: 'after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]';
 
+	// Simplify the mobile check return path
 	if (mobile) {
 		return (
 			<Component
 				nonce={nonce}
 				className={clsx(
 					`bg-background spotlight-card-${id}`,
-					classes,
+					modeClass,
 					className
 				)}
 				style={{
 					'--spotlight-color-stops': spotlightColorStops,
 					'--spotlight-size': `${size}px`,
-					'--spotlight-x': `0px`,
-					'--spotlight-y': `0px`
+					'--spotlight-x': '0px',
+					'--spotlight-y': '0px'
 				}}
 				{...props}
 			>
@@ -103,8 +103,8 @@ export function SpotlightCard({
 			nonce={nonce}
 			ref={container}
 			className={clsx(
-				`relative transform-gpu h-full spotlight-card-${id}`,
-				classes,
+				`relative transform-gpu spotlight-card-${id}`,
+				modeClass,
 				className
 			)}
 			style={{

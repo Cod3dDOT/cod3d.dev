@@ -15,7 +15,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			url: 'https://cod3d.dev/thoughts',
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
-			priority: 0.8
+			priority: 0.7
+		},
+		{
+			url: 'https://cod3d.dev/projects',
+			lastModified: new Date(),
+			changeFrequency: 'monthly',
+			priority: 0.5
 		}
 	];
 

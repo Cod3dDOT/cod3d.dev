@@ -5,7 +5,12 @@ export default function robots(): MetadataRoute.Robots {
 		rules: {
 			userAgent: '*',
 			allow: '/',
-			disallow: ['/_next/images', '/security.txt', '/*opengraph-image']
+			disallow: [
+				'/security.txt',
+				'/pgp-key.txt',
+				'/*opengraph-image',
+				'/pokemon'
+			]
 		},
 		sitemap: 'https://cod3d.dev/sitemap.xml'
 	};

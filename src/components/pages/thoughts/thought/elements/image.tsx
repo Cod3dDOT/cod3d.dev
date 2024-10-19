@@ -49,7 +49,9 @@ export const MarkdownImageFailed: React.FC = () => {
 				<br className="hidden md:block" />
 				<span className="hidden md:block">:dev sobbing in the back:</span>
 			</div>
-			<Image
+			{/* eslint-disable-next-line @next/next/no-img-element */}
+			<img
+				loading="lazy"
 				src={SadTogepi}
 				alt="Sad Togepi"
 				className="m-0 rounded-lg w-20 md:w-72"

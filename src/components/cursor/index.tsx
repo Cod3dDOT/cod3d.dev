@@ -55,13 +55,18 @@ const DesktopCursor: React.FC = () => {
 	const targetPosition = useRef({ x: 0, y: 0 });
 	const currentPosition = useRef({ x: 0, y: 0 });
 
-	useEffect(() => {
-		const handleMouseMove = (event: MouseEvent) => {
-			targetPosition.current = { x: event.clientX, y: event.clientY };
-		};
+	const handleMouseMove = (event: MouseEvent) => {
+		targetPosition.current = { x: event.clientX, y: event.clientY };
+	};
 
+	useEffect(() => {
 		// Animation function to update cursor position
 		const updatePosition = () => {
+			if (!cursorRef.current) {
+				requestAnimationFrame(updatePosition);
+				return;
+			}
+
 			// Smooth the cursor movement with linear interpolation
 			currentPosition.current.x = lerp(
 				currentPosition.current.x,
@@ -74,9 +79,7 @@ const DesktopCursor: React.FC = () => {
 				_lerp
 			);
 
-			if (cursorRef.current) {
-				cursorRef.current.style.translate = `${currentPosition.current.x}px ${currentPosition.current.y}px`;
-			}
+			cursorRef.current.style.translate = `${currentPosition.current.x}px ${currentPosition.current.y}px`;
 
 			// Call update function on the next animation frame
 			requestAnimationFrame(updatePosition);
