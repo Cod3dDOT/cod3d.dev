@@ -5,7 +5,8 @@ export const ColorfulBlobs: React.FC = () => {
 	const _ = headers();
 
 	const now = new Date();
-	const seconds = (now.getSeconds() + now.getMilliseconds() / 1000).toFixed(2);
+	const seconds = (now.getSeconds() + now.getMilliseconds() / 1000).toFixed(3);
+
 	return (
 		<>
 			<style>

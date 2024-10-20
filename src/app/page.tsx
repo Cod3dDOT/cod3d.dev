@@ -49,7 +49,7 @@ export default function Home() {
 					<GlitchText as="span" text="Or both." />
 				</p>
 
-				<div className="absolute inset-0 right-0 -z-10 overflow-hidden flex lg:justify-center lg:items-center">
+				<div className="fixed inset-0 -z-10 overflow-hidden flex lg:justify-center lg:items-center">
 					<Suspense>
 						<ColorfulBlobs />
 					</Suspense>

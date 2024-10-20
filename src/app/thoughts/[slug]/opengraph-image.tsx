@@ -7,6 +7,8 @@ import { Thought } from '@/lib/pocketbase/types';
 import { isError } from '@/lib/pocketbase/utils';
 import { dateToString } from '@/lib/utils/date';
 
+export const runtime = 'edge';
+
 // Image metadata
 export const alt = "Cod3d's thoughts";
 export const size = {
