@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from 'next-view-transitions';
 import { useEffect, useState } from 'react';
 
 import { useLenis } from '@/lib/lenis';
@@ -69,7 +68,7 @@ export const TableOfContents: React.FC<{ markdown: string }> = ({
 	}, []);
 
 	return (
-		<nav className="hidden xl:block not-prose left-full overflow-hidden -translate-y-1/2 sticky top-1/2 mt-60 self-start">
+		<nav>
 			<ul className="list-none">
 				{headings.map(({ content: heading, id }, index) => (
 					<TableOFContentsLi
@@ -113,9 +112,9 @@ export const TableOFContentsLi = ({
 				opacity: 0.5 + calculateScale(progress, index, total)
 			}}
 		>
-			<Link href={`#${id}`} onClick={onClick}>
+			<a href={`#${id}`} onClick={onClick}>
 				{heading}
-			</Link>
+			</a>
 		</li>
 	);
 };

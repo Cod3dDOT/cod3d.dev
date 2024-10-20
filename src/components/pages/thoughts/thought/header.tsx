@@ -1,5 +1,8 @@
 import { clsx } from 'clsx';
 
+import MarkdownIcon from '@/components/icons/markdown';
+import RssIcon from '@/components/icons/rss';
+import { Tooltip } from '@/components/tooltip';
 import { Thought } from '@/lib/pocketbase/types';
 import readingTime from '@/lib/readingTime';
 import { dateToString } from '@/lib/utils/date';
@@ -63,9 +66,10 @@ const ReadingTime: React.FC<{
 };
 
 export const ThoughtHeader: React.FC<{
+	slug: string;
 	thought: Thought;
 	markdown: string;
-}> = ({ markdown, thought }) => {
+}> = ({ slug, markdown, thought }) => {
 	return (
 		<header className="px-10 uppercase flex flex-col sm:flex-row pt-20 pb-6 text-base sm:gap-72 gap-12 opacity-0 animate-blog-in delay-300">
 			<div className="*:align-middle">
@@ -83,6 +87,40 @@ export const ThoughtHeader: React.FC<{
 					<DateScroll date={thought.created} delay="delay-2000" />
 					<span>/</span>
 					<DateScroll date={thought.updated} delay="delay-500" />
+				</div>
+			</div>
+			<div className="hidden md:block">
+				<span className="font-extralight">Available in</span>
+				<br />
+				<div className="flex space-x-2">
+					<Tooltip
+						id="md-download-tooltip"
+						content="Markdown"
+						position="bottom"
+					>
+						<a
+							href={`${slug}/download`}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-describedby="md-download-tooltip"
+						>
+							<MarkdownIcon className="w-[1lh] h-[1lh]" />
+						</a>
+					</Tooltip>
+					<Tooltip
+						id="blog-rss-link-tooltip"
+						content="RSS Feed"
+						position="bottom"
+					>
+						<a
+							href="/feed.xml"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-describedby="blog-rss-link-tooltip"
+						>
+							<RssIcon className="w-[1lh] h-[1lh]" />
+						</a>
+					</Tooltip>
 				</div>
 			</div>
 		</header>

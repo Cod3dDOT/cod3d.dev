@@ -16,6 +16,17 @@ export async function createServerClient(cookieStore?: ReadonlyRequestCookies) {
 
 	const client = new PocketBase(pbUrl) as TypedPocketBase;
 
+	// client.authStore.onChange(() => {
+	// 	const cookie = client.authStore.exportToCookie({
+	// 		httpOnly: true,
+	// 		secure: true,
+	// 		sameSite: 'strict',
+	// 		path: '/'
+	// 	});
+
+	// 	cookies().set('pb_auth', cookie.split('pb_auth=')[1]);
+	// });
+
 	if (cookieStore) {
 		const authCookie = cookieStore.get('pb_auth');
 

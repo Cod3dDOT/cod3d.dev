@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { ImageResponseOptions } from 'next/server';
 
+import { createServerClient } from '@/lib/pocketbase/config';
 import { getThought } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
 import { isError } from '@/lib/pocketbase/utils';
@@ -32,7 +33,8 @@ const getFont = async () => {
 
 // Image generation
 export default async function Image({ params }: { params: { slug: string } }) {
-	const thoughtResponse = await getThought(params.slug);
+	const client = await createServerClient();
+	const thoughtResponse = await getThought(client, params.slug);
 	const fonts: ImageResponseOptions['fonts'] = [
 		{
 			name: 'PixelifySans',

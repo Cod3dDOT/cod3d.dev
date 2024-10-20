@@ -31,7 +31,7 @@ const nextConfig = {
 			},
 			{
 				source: '/api/files/:path*',
-				destination: 'https://cod3d.pockethost.io/api/files/:path*'
+				destination: `https://${process.env.POCKETBASE_HOST}/api/files/:path*`
 			}
 		];
 	},

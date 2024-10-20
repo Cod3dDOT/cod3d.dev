@@ -37,6 +37,9 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 				<Markdown
 					className="max-w-prose [&>*:not(figure)]:px-10 md:first-letter:text-6xl"
 					components={{
+						h1() {
+							return <></>;
+						},
 						pre(props) {
 							return <MarkdownCodeBlock {...props} />;
 						},
@@ -88,8 +91,9 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 				>
 					{markdown}
 				</Markdown>
-
-				<TableOfContents markdown={markdown} />
+				<div className="hidden xl:block not-prose left-full overflow-hidden -translate-y-1/2 sticky top-1/2 mt-60 self-start">
+					<TableOfContents markdown={markdown} />
+				</div>
 			</section>
 		</>
 	);

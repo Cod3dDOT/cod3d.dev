@@ -11,6 +11,7 @@ import BackIcon from '@/components/icons/back';
 import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
 import { ThoughtMarkdown } from '@/components/pages/thoughts/thought/markdown';
 import { ReactLenis } from '@/lib/lenis';
+import { createServerClient } from '@/lib/pocketbase/config';
 import { getThought, getThoughts } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
 import { isError } from '@/lib/pocketbase/utils';
@@ -18,14 +19,15 @@ import readingTime from '@/lib/readingTime';
 import { minutesToDuration } from '@/lib/utils/date';
 
 // export const experimental_ppr = true;
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateMetadata({
 	params
 }: {
 	params: { slug: string };
 }): Promise<Metadata> {
-	const thoughtResponse = await getThought(params.slug);
+	const client = await createServerClient();
+	const thoughtResponse = await getThought(client, params.slug);
 
 	if (isError(thoughtResponse)) {
 		return {
@@ -109,14 +111,16 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	const thoughtResponse = await getThought(params.slug);
+	const client = await createServerClient();
+	const thoughtResponse = await getThought(client, params.slug);
 
 	if (isError(thoughtResponse)) {
 		return notFound();
 	}
 
 	const thought = thoughtResponse as Thought;
-	const markdownResponse = await fetch(thought.markdown);
+	//FIXME: remove hardcoded url
+	const markdownResponse = await fetch('https://cod3d.dev' + thought.markdown);
 
 	if (!markdownResponse.ok || isError(markdownResponse)) {
 		return notFound();
@@ -205,7 +209,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
 							}}
 						/>
 
-						<ThoughtHeader thought={thought} markdown={markdown} />
+						<ThoughtHeader
+							slug={thought.slug}
+							thought={thought}
+							markdown={markdown}
+						/>
 
 						<ThoughtMarkdown
 							title={thought.title}

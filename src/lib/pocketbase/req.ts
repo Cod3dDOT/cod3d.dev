@@ -9,6 +9,7 @@ import {
 	Thought,
 	TypedPocketBase
 } from './types';
+import { getUrl } from './utils';
 
 function processThoughts(
 	client: TypedPocketBase,
@@ -19,10 +20,10 @@ function processThoughts(
 			...thought,
 			created: new Date(thought.created),
 			updated: new Date(thought.updated),
-			hero: new URL(client.files.getUrl(thought, thought.hero)).pathname,
-			markdown: client.files.getUrl(thought, thought.markdown),
+			hero: getUrl(client, thought, thought.hero).pathname,
+			markdown: getUrl(client, thought, thought.markdown).pathname,
 			markdown_images: thought.markdown_images.map(
-				(image) => new URL(client.files.getUrl(thought, image)).pathname
+				(image) => getUrl(client, thought, image).pathname
 			),
 			tags: thought.expand?.tags.map((tag) => tag.tag) || []
 		};
@@ -44,10 +45,9 @@ function processProjects(
 }
 
 export async function getThought(
+	client: TypedPocketBase,
 	slug: string
 ): Promise<Thought | ClientResponseError> {
-	const client = await createServerClient();
-
 	try {
 		const thoughts = await client.collection('thoughts').getList(1, 1, {
 			filter: client.filter('slug={:slug}&&published=true', {
@@ -113,6 +113,29 @@ export async function getProjects(
 			});
 
 		return processProjects(client, projects.items);
+	} catch (error: unknown) {
+		return error as ClientResponseError;
+	}
+}
+
+export async function authenticate(client: TypedPocketBase) {
+	if (!process.env.POCKETBASE_USER || !process.env.POCKETBASE_PASS) {
+		throw new Error('Invalid .env auth config');
+	}
+
+	if (client.authStore.isValid) {
+		return;
+	}
+
+	try {
+		const authStore = await client
+			.collection('users')
+			.authWithPassword(
+				process.env.POCKETBASE_USER,
+				process.env.POCKETBASE_PASS
+			);
+
+		return authStore;
 	} catch (error: unknown) {
 		return error as ClientResponseError;
 	}
