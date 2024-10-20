@@ -3,11 +3,10 @@ import '@/app/styles/blog.css';
 import clsx from 'clsx';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Link } from 'next-view-transitions';
 import { BreadcrumbList, TechArticle, WithContext } from 'schema-dts';
 
 import { Footer } from '@/components/footer';
-import BackIcon from '@/components/icons/back';
+import { BackLink } from '@/components/pages/thoughts/thought/backLink';
 import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
 import { ThoughtMarkdown } from '@/components/pages/thoughts/thought/markdown';
 import { ReactLenis } from '@/lib/lenis';
@@ -23,11 +22,10 @@ export const revalidate = 86400;
 
 export async function generateMetadata({
 	params
-}: {
-	params: { slug: string };
-}): Promise<Metadata> {
+}: ThoughtPageProps): Promise<Metadata> {
+	const slug = (await params).slug;
 	const client = await createServerClient();
-	const thoughtResponse = await getThought(client, params.slug);
+	const thoughtResponse = await getThought(client, slug);
 
 	if (isError(thoughtResponse)) {
 		return {
@@ -83,19 +81,6 @@ export async function generateMetadata({
 	};
 }
 
-const BackLink: React.FC = () => {
-	return (
-		<Link
-			hrefLang="en"
-			href="/thoughts"
-			className="print:hidden inline-flex items-center space-x-2 hover:underline motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced px-10 duration-1000"
-		>
-			<BackIcon className="h-full aspect-square" />
-			<span>All thoughts</span>
-		</Link>
-	);
-};
-
 export async function generateStaticParams() {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
 
@@ -110,9 +95,15 @@ export async function generateStaticParams() {
 	}));
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+interface ThoughtPageProps {
+	params: Promise<{ slug: string }>;
+}
+
+const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
+	const slug = (await params).slug;
+
 	const client = await createServerClient();
-	const thoughtResponse = await getThought(client, params.slug);
+	const thoughtResponse = await getThought(client, slug);
 
 	if (isError(thoughtResponse)) {
 		return notFound();
@@ -185,6 +176,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			>
 				<div className="block mx-auto md:container z-10">
 					<BackLink />
+
 					<article
 						className={clsx(
 							'prose lg:prose-xl prose-neutral prose-amber max-w-none dark:prose-invert',
@@ -230,4 +222,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			<Footer />
 		</ReactLenis>
 	);
-}
+};
+
+export default Page;

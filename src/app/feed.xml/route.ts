@@ -4,6 +4,8 @@ import { getThoughts } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
 import { isError } from '@/lib/pocketbase/utils';
 
+export const revalidate = 86400;
+
 export async function GET() {
 	const thoughtsResponse = await getThoughts();
 

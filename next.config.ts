@@ -1,9 +1,11 @@
-import withBundleStats from 'next-plugin-bundle-stats';
+import { NextConfig } from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
+	experimental: {
+		ppr: 'incremental'
+	},
 	eslint: {
 		ignoreDuringBuilds: true
 	},
@@ -12,9 +14,6 @@ const nextConfig = {
 		contentDispositionType: 'attachment',
 		remotePatterns: []
 	},
-	// experimental: {
-	// 	ppr: true
-	// },
 	async rewrites() {
 		return [
 			{
@@ -93,8 +92,10 @@ const nextConfig = {
 };
 
 const withStats = process.env.ANALYZE === 'true';
-const config = withStats
-	? withBundleStats({ outDir: '../.bundle-stats/', json: true }, nextConfig)
-	: nextConfig;
+// const config = withStats
+// 	? withBundleStats({ outDir: '../.bundle-stats/', json: true }, nextConfig)
+// 	: nextConfig;
+
+const config = nextConfig;
 
 export default config;
