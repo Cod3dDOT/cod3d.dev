@@ -35,7 +35,8 @@ const config: Config = {
 			},
 			animation: {
 				arrows: 'arrows 2s infinite',
-				'blog-in': 'blog-in 1s forwards'
+				'blog-in': 'blog-in 1s forwards',
+				'blog-in-reduced': 'blog-in-reduced 1s forwards'
 			},
 			keyframes: {
 				arrows: {
@@ -46,6 +47,10 @@ const config: Config = {
 				},
 				'blog-in': {
 					'0%': { opacity: '0', transform: 'translateY(-5px)' },
+					'100%': { opacity: '1' }
+				},
+				'blog-in-reduced': {
+					'0%': { opacity: '0' },
 					'100%': { opacity: '1' }
 				}
 			},

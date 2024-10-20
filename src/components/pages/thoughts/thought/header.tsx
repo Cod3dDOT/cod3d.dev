@@ -31,7 +31,8 @@ const DateScroll: React.FC<{
 			<span className="invisible">{dateToString(date)}</span>
 			<div
 				className={clsx(
-					'left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out',
+					'left-0 absolute flex flex-col whitespace-nowrap motion-reduce:duration-0 animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out',
+					'motion-reduce:delay-0',
 					delay
 				)}
 				aria-hidden="true"
@@ -53,7 +54,7 @@ const ReadingTime: React.FC<{
 		<>
 			<div className="relative overflow-hidden inline-block" aria-hidden="true">
 				<span className="invisible">{minutes}</span>
-				<span className="left-0 absolute flex flex-col whitespace-nowrap animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out">
+				<span className="left-0 absolute flex flex-col whitespace-nowrap motion-reduce:duration-0 animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out">
 					{minArray.map((m, i) => {
 						return <span key={i + '-reading-time'}>{m}</span>;
 					})}
@@ -71,7 +72,7 @@ export const ThoughtHeader: React.FC<{
 	markdown: string;
 }> = ({ slug, markdown, thought }) => {
 	return (
-		<header className="px-10 uppercase flex flex-col sm:flex-row pt-20 pb-6 text-base sm:gap-72 gap-12 opacity-0 animate-blog-in delay-300">
+		<header className="px-10 uppercase flex flex-col sm:flex-row pt-20 pb-6 text-base sm:justify-between gap-12 opacity-0 motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced delay-300">
 			<div className="*:align-middle">
 				<span className="font-extralight">Reading time</span>
 				<br />
@@ -89,7 +90,7 @@ export const ThoughtHeader: React.FC<{
 					<DateScroll date={thought.updated} delay="delay-500" />
 				</div>
 			</div>
-			<div className="hidden md:block">
+			<div className="hidden lg:block">
 				<span className="font-extralight">Available in</span>
 				<br />
 				<div className="flex space-x-2">
@@ -123,6 +124,7 @@ export const ThoughtHeader: React.FC<{
 					</Tooltip>
 				</div>
 			</div>
+			<span className="hidden sm:block" />
 		</header>
 	);
 };

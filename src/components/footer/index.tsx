@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
 
 	return (
 		<>
-			<footer className="print:hidden relative md:px-24 px-10 py-8 bg-background">
+			<footer className="md:px-24 px-10 py-8 bg-background">
 				<div className="flex mx-auto justify-between container xl:max-w-full">
 					<p>
 						<span>cod3d.dev</span>
@@ -21,10 +21,11 @@ export const Footer: React.FC = () => {
 					<p>Made with ☕</p>
 				</div>
 			</footer>
+
+			<PrintFooter />
 			<ParallaxFooter>
 				<FooterMon pokemon={pokemon} />
 			</ParallaxFooter>
-			<PrintFooter />
 		</>
 	);
 };

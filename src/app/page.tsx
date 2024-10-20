@@ -25,6 +25,8 @@ const jsonLd: WithContext<WebPage> = {
 };
 
 export default function Home() {
+	const now = new Date();
+	const seconds = (now.getSeconds() + now.getMilliseconds() / 1000).toFixed(2);
 	return (
 		<>
 			<script
@@ -48,13 +50,20 @@ export default function Home() {
 				</p>
 
 				<div className="absolute inset-0 right-0 -z-10 overflow-hidden flex lg:justify-center lg:items-center">
+					<style>
+						{`
+                            svg {
+                                --delay: calc(${seconds} * -1s);
+                            }
+                        `}
+					</style>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						xmlnsXlink="http://www.w3.org/1999/xlink"
 						viewBox="0 0 200 200"
-						className="relative h-full aspect-square sm:ml-auto min-h-[62rem]
-                     [animation-duration:32s] will-change-transform animate-spin
-                    sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]"
+						className={`relative h-full aspect-square sm:ml-auto min-h-[62rem] [animation-delay:var(--delay)]
+                     motion-safe:[animation-duration:32s] motion-reduce:[animation-duration:512s] will-change-transform animate-spin
+                    sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]`}
 					>
 						<defs>
 							<filter

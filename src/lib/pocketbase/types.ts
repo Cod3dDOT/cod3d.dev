@@ -10,7 +10,7 @@ export interface PBProject {
 
 	status: 'stale' | 'dev' | 'idea' | 'archived';
 
-	repo: URL;
+	repo: string;
 	tags: PBTag['id'][];
 
 	expand?: {

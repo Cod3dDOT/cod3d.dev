@@ -23,7 +23,7 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ status }) => {
 		<div
 			className={clsx(
 				color,
-				'hidden sm:flex h-full w-0 transition-all group-hover:w-16 justify-center items-center overflow-hidden',
+				'hidden sm:flex h-full w-0 motion-reduce:w-16 transition-all group-hover:w-16 justify-center items-center overflow-hidden',
 				'text-foreground dark:text-background'
 			)}
 		>

@@ -30,7 +30,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				height={1080}
 				quality={100}
 				sizes={sizes}
-				className="!m-0 md:rounded-lg xl:rounded-none"
+				className="!m-0 md:rounded-lg xl:rounded-none object-contain"
 			/>
 			<figcaption className={clsx({ 'sr-only': hideCaption })}>
 				{alt}

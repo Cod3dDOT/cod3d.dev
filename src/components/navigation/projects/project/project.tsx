@@ -20,17 +20,13 @@ export const NavProject: React.FC<{
 
 			{project.repo && (
 				<a
-					href={String(project.repo)}
-					className="h-full transition-all lg:w-0 lg:mr-0 mr-2 lg:group-hover:w-14 sm:group-hover:ml-2 flex justify-center items-center overflow-hidden"
+					href={project.repo}
+					className="h-full aspect-square flex justify-center items-center"
 					target="_blank"
 					rel="noreferrer"
 					aria-label={'Github link to the source code of ' + project.name}
 				>
-					<GithubIcon
-						aria-hidden="true"
-						focusable="false"
-						className="h-8 w-8 fill-foreground"
-					/>
+					<GithubIcon focusable="false" className="h-8 w-8 fill-foreground" />
 				</a>
 			)}
 		</div>

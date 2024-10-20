@@ -25,7 +25,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 			<div
 				id="tooltip"
 				role="tooltip"
-				className={`absolute invisible opacity-0 group-hover:visible group-hover:opacity-100
+				className={`absolute invisible opacity-0 group-hover:visible group-focus-within:visible group-focus-within:opacity-100 group-hover:opacity-100
                     peer-focus:visible peer-focus:opacity-100 normal-case whitespace-nowrap
                     transition-opacity duration-200 ease-in-out p-2 text-foreground bg-background-dark border-foreground rounded shadow-lg ${positionClasses[position]}`}
 			>
