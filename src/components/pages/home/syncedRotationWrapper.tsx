@@ -11,7 +11,7 @@ export const SyncedRotationWrapper: React.FC<{ children: React.ReactNode }> = ({
 	const [seconds, setSeconds] = useState(0);
 
 	useEffect(() => {
-		setSeconds(new Date().getSeconds());
+		setSeconds(new Date().getSeconds() % 32);
 		setOpacity('opacity-100');
 	}, []);
 
