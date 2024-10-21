@@ -1,11 +1,10 @@
-import { Suspense } from 'react';
 import { WebPage, WithContext } from 'schema-dts';
 
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
+import { SyncedRotationWrapper } from '@/components/pages/home/syncedRotationWrapper';
 import { ColorfulBlobs } from '@/components/pages/home/blobs';
 
-export const experimental_ppr = true;
 export const revalidate = 3600;
 
 const jsonLd: WithContext<WebPage> = {
@@ -49,11 +48,9 @@ export default function Home() {
 					<GlitchText as="span" text="Or both." />
 				</p>
 
-				<div className="fixed inset-0 -z-10 overflow-hidden flex lg:justify-center lg:items-center">
-					<Suspense>
-						<ColorfulBlobs />
-					</Suspense>
-				</div>
+				<SyncedRotationWrapper>
+					<ColorfulBlobs />
+				</SyncedRotationWrapper>
 			</main>
 		</>
 	);
