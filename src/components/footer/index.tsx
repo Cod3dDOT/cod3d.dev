@@ -4,10 +4,18 @@ import { getRandomPokemon } from '@/lib/poke';
 
 import { FooterMon } from './pokemon';
 import { PrintFooter } from './printFooter';
-
-const ParallaxFooter = dynamic(() => import('./parralax'));
+import { Suspense } from 'react';
+import AsideFooter from './parralax';
 
 export const Footer: React.FC = () => {
+	return (
+		<Suspense>
+			<_Footer />
+		</Suspense>
+	);
+};
+
+const _Footer: React.FC = () => {
 	const pokemon = getRandomPokemon();
 
 	return (
@@ -23,9 +31,9 @@ export const Footer: React.FC = () => {
 			</footer>
 
 			<PrintFooter />
-			<ParallaxFooter>
+			<AsideFooter>
 				<FooterMon pokemon={pokemon} />
-			</ParallaxFooter>
+			</AsideFooter>
 		</>
 	);
 };

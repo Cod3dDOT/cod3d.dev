@@ -1,11 +1,10 @@
 import { headers } from 'next/headers';
 
 export const ColorfulBlobs: React.FC = () => {
-	// force dynamic rerender
+	// force dynamic
 	const _ = headers();
 
-	const now = new Date();
-	const seconds = (now.getSeconds() + now.getMilliseconds() / 1000).toFixed(3);
+	const seconds = Math.round(Date.now() / 1000);
 
 	return (
 		<>

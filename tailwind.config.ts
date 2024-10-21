@@ -52,6 +52,11 @@ const config: Config = {
 				'blog-in-reduced': {
 					'0%': { opacity: '0' },
 					'100%': { opacity: '1' }
+				},
+				shimmer: {
+					'100%': {
+						transform: 'translateX(100%)'
+					}
 				}
 			},
 			transitionTimingFunction: {

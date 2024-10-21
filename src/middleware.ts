@@ -8,9 +8,12 @@ export const config = {
 		 * - _next/static (static files)
 		 * - _next/image (image optimization files)
 		 * - favicon.ico (favicon file)
+		 * - pokemon (pokemon images)
+		 * - *.opengraph-image (opengraph image)
 		 */
 		{
-			source: '/((?!api|_next/static|_next/image|favicon.ico|pokemon).*)',
+			source:
+				'/((?!api|_next/static|_next/image|favicon.ico|pokemon|.*opengraph-image$).*)',
 			missing: [
 				{ type: 'header', key: 'next-router-prefetch' },
 				{ type: 'header', key: 'purpose', value: 'prefetch' }
@@ -36,7 +39,10 @@ export function middleware(request: NextRequest) {
         form-action 'self';
         frame-ancestors 'none';
         upgrade-insecure-requests;
-        trusted-types default nextjs#bundler;`.replaceAll('\n', ' ');
+        trusted-types default dompurify nextjs#bundler;
+        require-trusted-types-for 'script';`
+				.replace(/\s+/g, ' ')
+				.trim();
 
 	const requestHeaders = new Headers(request.headers);
 	requestHeaders.set('Content-Security-Policy', cspHeader);

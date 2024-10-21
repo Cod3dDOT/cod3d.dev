@@ -30,7 +30,6 @@ const getFont = async () => {
 	return font;
 };
 
-// Image generation
 export default async function Image({ params }: { params: { slug: string } }) {
 	const client = await createServerClient();
 	const thoughtResponse = await getThought(client, params.slug);

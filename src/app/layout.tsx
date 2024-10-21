@@ -9,11 +9,9 @@ import { Pixelify_Sans } from 'next/font/google';
 import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
 import { ViewTransitions } from 'next-view-transitions';
-import { Suspense } from 'react';
 
 import { Cursor } from '@/components/cursor';
-import Navigation from '@/components/navigation';
-import { NavigationContainerPreview } from '@/components/navigation/container/preview';
+import { Navigation } from '@/components/navigation';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -93,6 +91,7 @@ export default async function RootLayout({
 			<html
 				lang="en"
 				className="scrollbar-thin scrollbar-track-background scrollbar-thumb-foreground"
+				suppressHydrationWarning
 			>
 				<body
 					className={clsx(
@@ -104,10 +103,8 @@ export default async function RootLayout({
 				>
 					<ThemeProvider attribute="class">
 						<Cursor />
+						<Navigation />
 						{children}
-						<Suspense fallback={<NavigationContainerPreview />}>
-							<Navigation />
-						</Suspense>
 					</ThemeProvider>
 
 					<Script

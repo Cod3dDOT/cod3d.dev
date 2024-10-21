@@ -8,8 +8,10 @@ export default function robots(): MetadataRoute.Robots {
 			disallow: [
 				'/security.txt',
 				'/pgp-key.txt',
-				'/*opengraph-image',
-				'/pokemon'
+				'/pokemon',
+				'/img',
+				'/pwa',
+				'*/opengraph-image'
 			]
 		},
 		sitemap: 'https://cod3d.dev/sitemap.xml'

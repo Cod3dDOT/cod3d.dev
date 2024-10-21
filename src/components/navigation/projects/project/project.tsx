@@ -3,6 +3,7 @@ import { Project } from '@/lib/pocketbase/types';
 import GithubIcon from '../../../icons/github';
 import { ProjectBadge } from './badge';
 import { MemoProjectGridEffect } from './gridEffect';
+import clsx from 'clsx';
 
 export const NavProject: React.FC<{
 	project: Project;
@@ -10,7 +11,7 @@ export const NavProject: React.FC<{
 	return (
 		<div className="relative flex sm:h-16 items-center overflow-hidden group transition-shadow rounded-md hover:shadow-xl">
 			<ProjectBadge status={project.status} />
-			<div className="flex flex-col sm:w-fit p-2 flex-1 sm:flex-initial">
+			<div className="flex flex-col sm:w-fit p-2 flex-1 sm:flex-initial space-y-1">
 				<span className="text-xl">{project.name}</span>
 				<span className="text-sm">{project.description}</span>
 			</div>
@@ -29,6 +30,24 @@ export const NavProject: React.FC<{
 					<GithubIcon focusable="false" className="h-8 w-8 fill-foreground" />
 				</a>
 			)}
+		</div>
+	);
+};
+
+export const NavProjectSkeleton: React.FC = () => {
+	return (
+		<div
+			className={clsx(
+				'relative flex sm:h-16 items-center justify-between transition-shadow rounded-md overflow-hidden',
+				'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/10 before:to-transparent'
+			)}
+		>
+			<div className="flex flex-col sm:w-fit p-2 flex-1 sm:flex-initial space-y-1">
+				<span className="text-xl w-24 h-[1lh] bg-foreground/10 rounded-md shadow-sm" />
+				<span className="text-sm w-48 h-[1lh] bg-foreground/10 rounded-md shadow-sm" />
+			</div>
+
+			<span className="h-8 w-8 rounded-full bg-foreground/10 mr-4" />
 		</div>
 	);
 };
