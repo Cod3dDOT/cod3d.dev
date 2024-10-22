@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 import { createServerClient } from '@/lib/pocketbase/config';
@@ -9,16 +8,16 @@ import { isError } from '@/lib/pocketbase/utils';
 export const revalidate = 86400;
 
 export async function GET(request: Request) {
-	const _cookies = cookies();
-	console.log(_cookies);
+	const { pathname, origin } = new URL(request.url);
 
-	if (!request.headers.get('referer')?.includes('https://cod3d.dev')) {
+	const referer = request.headers.get('referer');
+	const refererUrl = referer ? new URL(referer) : null;
+
+	if (refererUrl?.origin != origin) {
 		return new Response(null, { status: 403 });
 	}
 
-	const { pathname } = new URL(request.url);
 	const slug = pathname.split('/').at(-2);
-
 	if (!slug) {
 		return notFound();
 	}

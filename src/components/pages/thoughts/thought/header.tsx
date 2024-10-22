@@ -102,7 +102,7 @@ export const ThoughtHeader: React.FC<{
 						<a
 							href={`${slug}/download`}
 							target="_blank"
-							rel="noopener noreferrer"
+							rel="noopener"
 							aria-describedby="md-download-tooltip"
 						>
 							<MarkdownIcon className="w-[1lh] h-[1lh]" />
