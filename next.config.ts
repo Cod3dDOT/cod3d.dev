@@ -4,16 +4,12 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
-	experimental: {
-		ppr: 'incremental'
-	},
 	eslint: {
 		ignoreDuringBuilds: true
 	},
 	images: {
 		formats: ['image/avif', 'image/webp'],
-		contentDispositionType: 'attachment',
-		remotePatterns: []
+		contentDispositionType: 'attachment'
 	},
 	async rewrites() {
 		return [
@@ -39,12 +35,8 @@ const nextConfig: NextConfig = {
 		return [
 			{
 				source:
-					'/((?!api|_next/static|_next/image|favicon.ico|manifest.webmanifest|icons/*).*)',
+					'/((?!api|_next/static|_next/image|favicon.ico|pwa|img|pokemon|.*opengraph-image$).*)',
 				headers: [
-					{
-						key: 'X-Frame-Options',
-						value: 'DENY'
-					},
 					{
 						key: 'X-XSS-Protection',
 						value: '1; mode=block'
