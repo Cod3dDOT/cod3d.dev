@@ -2,10 +2,10 @@ import Markdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeHighlightCodeLines from 'rehype-highlight-code-lines';
 import rehypeKatex from 'rehype-katex';
-import rehypeSanitize from 'rehype-sanitize';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkHeadingId from 'remark-heading-id';
 import remarkMath from 'remark-math';
+import remarkCallout from '@r4ai/remark-callout';
 
 import { MarkdownCodeBlock } from './elements/code';
 import { MarkdownImage, MarkdownImageFailed } from './elements/image';
@@ -44,41 +44,39 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 							return <MarkdownCodeBlock {...props} />;
 						},
 						img(props) {
-							if (!props.src)
+							const src = props.src;
+							if (!src || src === '')
 								return (
 									<div className="flex w-full aspect-video">
 										This was supposed to be an image. Oh well :dev sobbing in
 										the back:
 									</div>
 								);
-							return <MarkdownImage src={props.src} alt={props.alt} />;
+							const url = images.find((image) =>
+								image.includes(src.split('.')[0])
+							);
+							if (!url) return <MarkdownImageFailed />;
+							return <MarkdownImage src={url} alt={props.alt} />;
 						},
 						p(props) {
 							if (!props.children) return <></>;
-							const content = props.children.toString() || '';
-							const regex = new RegExp('\\[\\[(.+?)\\]\\]');
-							const match = content.match(regex);
-							if (!match || !match?.at(1)) {
-								return <p>{props.children}</p>;
-							}
 
-							try {
-								const name = match.at(1) || '';
-								const [filename] = name.split('.');
-								const url = images.find((url) => url.includes(filename)) || '';
-								return <MarkdownImage src={url} alt={content} />;
-							} catch {
-								return <MarkdownImageFailed />;
+							const type = props.node?.children[0].type;
+							if (type === 'element') {
+								if (props.node?.children[0].tagName === 'img') {
+									return <>{props.children}</>;
+								}
 							}
+							return <p>{props.children}</p>;
 						}
 					}}
 					remarkPlugins={[
 						remarkFrontmatter,
 						remarkMath,
+						remarkCallout,
 						[remarkHeadingId, { defaults: true }]
 					]}
 					rehypePlugins={[
-						rehypeSanitize,
 						[rehypeKatex, { output: 'mathml' }],
 						rehypeHighlight,
 						[
@@ -91,7 +89,7 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 				>
 					{markdown}
 				</Markdown>
-				<div className="hidden xl:block not-prose left-full overflow-hidden -translate-y-1/2 sticky top-1/2 mt-60 self-start">
+				<div className="hidden xl:block not-prose overflow-hidden sticky -translate-y-1/2 top-1/2 left-1/2 translate-x-8 2xl:translate-x-1/2 mt-60 self-start">
 					<TableOfContents markdown={markdown} />
 				</div>
 			</section>

@@ -22,10 +22,6 @@ const nextConfig: NextConfig = {
 				destination: 'https://api-gateway.umami.dev/api/send'
 			},
 			{
-				source: '/api/cf',
-				destination: 'https://cloudflareinsights.com/cdn-cgi/rum'
-			},
-			{
 				source: '/api/files/:path*',
 				destination: `https://${process.env.POCKETBASE_HOST}/api/files/:path*`
 			}

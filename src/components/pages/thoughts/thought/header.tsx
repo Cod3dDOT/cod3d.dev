@@ -14,14 +14,12 @@ const DateScroll: React.FC<{
 	const startDate = new Date(date);
 	startDate.setDate(startDate.getDate() - 7); // Start from 7 days ago
 
-	const dates = Array.from(
-		{ length: date.getDate() - startDate.getDate() + 1 },
-		(_, i) => {
-			const d = new Date(startDate);
-			d.setDate(d.getDate() + i);
-			return dateToString(d);
-		}
-	);
+	const dates = Array.from({ length: 8 }, (_, i) => {
+		const d = new Date(startDate);
+		d.setDate(d.getDate() + i);
+
+		return dateToString(d);
+	});
 
 	return (
 		<time
@@ -38,7 +36,7 @@ const DateScroll: React.FC<{
 				aria-hidden="true"
 			>
 				{dates.map((date, i) => (
-					<span key={i + '-date-scroll'}>{date}</span>
+					<span key={i + '-date-scroll-' + date}>{date}</span>
 				))}
 			</div>
 		</time>
@@ -101,7 +99,6 @@ export const ThoughtHeader: React.FC<{
 					>
 						<a
 							href={`${slug}/download`}
-							target="_blank"
 							rel="noopener"
 							aria-describedby="md-download-tooltip"
 						>

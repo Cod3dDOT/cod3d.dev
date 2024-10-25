@@ -108,13 +108,6 @@ export default async function RootLayout({
 					</ThemeProvider>
 
 					<Script
-						integrity="sha512-KV7Gp97zgMlgMhSVeNLapFRNrByIKoCH75HgC+8t/C9eBP1qFoRh4Ni/Ty2uJGxp8N/rgIyCAlHiHM8eht+lqw== sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
-						crossOrigin="anonymous"
-						strategy="afterInteractive"
-						src="/cl.js"
-						data-cf-beacon='{"token": "47d8843e086d4c2892e9dc1dda82ea11"}'
-					/>
-					<Script
 						integrity="sha512-erPxyAEnHOPM9OXtBLQtnrv9TXI/hT1f2iQmnLRO9YtWKe10EGMFeZe1hhqgnYSas4WyLXEK9bmzAmjQNHlT7g== sha512-44N6VqDI1uV8iS4+5961t1T4b7H4p0Vnl5X9lseRNHEOU56LoVnir374Y0K/3N1wpmDZwTnZClFi6IrbD0w0FQ=="
 						crossOrigin="anonymous"
 						strategy="afterInteractive"

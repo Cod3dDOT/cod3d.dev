@@ -7,11 +7,8 @@ const bytes = (str: string) => str.split('').map((c) => c.charCodeAt(0));
 const str = (bytes: number[]) =>
 	bytes.map((b) => String.fromCharCode(b)).join('');
 const byte_xor = (b1: number[], b2: number[]) => b1.map((b, i) => b ^ b2[i]);
-const ebytes = [0, 0, 0, 0, 0, 110, 7, 10, 18, 51, 100, 46, 100, 101, 118];
 
-const style = `relative flex items-center space-x-2
-	rounded-full border-foreground border-2 p-4 overflow-hidden
-    `;
+const style = `relative flex group w-full h-12 p-2 items-center space-x-2 bg-background rounded-md overflow-hidden`;
 
 export const ContactButton: React.FC<{
 	children: ReactNode;
@@ -44,7 +41,7 @@ export const ContactLink: React.FC<{
 			e.preventDefault();
 
 			const host = bytes(location.hostname);
-			const email = str(byte_xor(ebytes, host));
+			const email = str(byte_xor(protectedBytes, host));
 			window.location.href = 'mailto:' + email;
 		});
 	}, [protectedBytes]);

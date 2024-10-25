@@ -1,3 +1,28 @@
+[data-callout] {
+	@apply md:rounded-lg py-8 md:mx-8 border-[var(--color)] border-t-2 border-b-2 md:border-r-2 md:border-l-2
+    bg-background-dark;
+
+	p {
+		margin: 0;
+	}
+
+	[data-callout-title] {
+		@apply text-foreground font-bold mb-2;
+	}
+}
+
+[data-callout-type='warning'] {
+	--color: rgb(231, 176, 8);
+}
+
+[data-callout-type='tip'] {
+	--color: rgb(0, 140, 255);
+}
+
+[data-callout-type='error'] {
+	--color: rgb(255, 88, 88);
+}
+
 pre {
 	padding: 0rem 1rem;
 }

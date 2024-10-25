@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 
-import SadTogepi from '@/../public/img/togepi-sad.svg';
-
 type MarkdownImageProps = {
 	src: string;
 	alt?: string;
@@ -30,9 +28,11 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				height={1080}
 				quality={100}
 				sizes={sizes}
-				className="!m-0 md:rounded-lg xl:rounded-none object-contain"
+				className="!m-0 md:rounded-lg object-contain"
 			/>
-			<figcaption className={clsx({ 'sr-only': hideCaption })}>
+			<figcaption
+				className={clsx({ 'sr-only': hideCaption }, 'text-center md:text-left')}
+			>
 				{alt}
 			</figcaption>
 		</figure>
@@ -52,7 +52,7 @@ export const MarkdownImageFailed: React.FC = () => {
 			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
 				loading="lazy"
-				src={SadTogepi}
+				src="/img/togepi-sad.svg"
 				alt="Sad Togepi"
 				className="m-0 rounded-lg w-20 md:w-72"
 			/>

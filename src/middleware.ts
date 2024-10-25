@@ -30,10 +30,7 @@ export function middleware(request: NextRequest) {
 		: `default-src 'self';
         script-src 'self' 'unsafe-inline';
         style-src 'self' 'unsafe-inline';
-        img-src 'self';
-        font-src 'self';
         object-src 'none';
-        connect-src 'self';
         base-uri 'none';
         form-action 'self';
         frame-ancestors 'none';

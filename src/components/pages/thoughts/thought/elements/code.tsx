@@ -26,8 +26,8 @@ const extensionToColor = {
 
 export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 	const filename = (node?.children[0].data as Data)?.meta;
-	const name = filename?.split('.').at(0) || '';
-	const extension = filename?.split('.').at(1) || 'js';
+	const name = filename?.slice(0, filename.lastIndexOf('.')) || '';
+	const extension = filename?.split('.').at(-1) || 'js';
 
 	const random = stringToUniqueId(splitmix32().toString());
 	const id = `code-${name}-${random}`;
