@@ -1,13 +1,16 @@
 [data-callout] {
-	@apply md:rounded-lg py-8 md:mx-8 border-[var(--color)] border-t-2 border-b-2 md:border-r-2 md:border-l-2
-    bg-background-dark;
+	--background: rgb(from var(--color) r g b / 0.2);
+
+	@apply md:rounded-xl py-8 md:mx-8 !px-4 sm:!px-8
+		border-[var(--color)] border-t-2 border-b-2 md:border-r-2 md:border-l-2 bg-gradient-to-b
+		from-[var(--background)] to-background-dark;
 
 	p {
 		margin: 0;
 	}
 
 	[data-callout-title] {
-		@apply text-foreground font-bold mb-2;
+		@apply text-foreground font-bold mb-6 sm:mx-0 sm:mb-2;
 	}
 }
 
@@ -15,8 +18,16 @@
 	--color: rgb(231, 176, 8);
 }
 
-[data-callout-type='tip'] {
+[data-callout-type='info'] {
 	--color: rgb(0, 140, 255);
+}
+
+[data-callout-type='tip'] {
+	--color: rgb(114, 218, 114);
+}
+
+[data-callout-type='note'] {
+	--color: rgb(114, 218, 114);
 }
 
 [data-callout-type='error'] {

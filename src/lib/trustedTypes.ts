@@ -18,7 +18,7 @@ window.trustedTypes?.createPolicy('default', {
 		});
 	},
 	createScriptURL: (input: string) => {
-		const allowed = ['/cf.js', '/um.js'];
+		const allowed = ['/um.js'];
 		if (!allowed.includes(input)) return '';
 
 		return DOMPurify.sanitize(input, {
