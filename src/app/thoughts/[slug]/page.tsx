@@ -146,6 +146,7 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {
 		'@context': 'https://schema.org',
 		'@type': 'BreadcrumbList',
+		name: 'Breadcrumb for ' + thought.title,
 		itemListElement: [
 			{
 				'@type': 'ListItem',
@@ -162,7 +163,8 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 			{
 				'@type': 'ListItem',
 				position: 3,
-				name: thought.title
+				name: thought.title,
+				item: 'https://cod3d.dev/thoughts/' + thought.slug
 			}
 		]
 	};

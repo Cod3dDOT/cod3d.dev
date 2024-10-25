@@ -80,6 +80,7 @@ const jsonLd: WithContext<WebPage> = {
 const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {
 	'@context': 'https://schema.org',
 	'@type': 'BreadcrumbList',
+	name: 'BreadcrumbList',
 	itemListElement: [
 		{
 			'@type': 'ListItem',
