@@ -8,14 +8,19 @@ import remarkMath from 'remark-math';
 import remarkCallout from '@r4ai/remark-callout';
 
 import { MarkdownCodeBlock } from './elements/code';
-import { MarkdownImage, MarkdownImageFailed } from './elements/image';
+import {
+	findImagePaths,
+	MarkdownImage,
+	MarkdownImageFailed
+} from './elements/image';
 import { MarkdownTitle } from './elements/title';
 import { TableOfContents } from './toc';
+import { Thought } from '@/lib/pocketbase/types';
 
 type ThoughtBodyProps = {
 	title: string;
 	description: string;
-	hero: string;
+	hero: Thought['hero'];
 
 	markdown: string;
 	images: string[];
@@ -52,11 +57,15 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 										the back:
 									</div>
 								);
-							const url = images.find((image) =>
-								image.includes(src.split('.')[0])
+							const { lightImage, darkImage } = findImagePaths(src, images);
+							if (!lightImage) return <MarkdownImageFailed />;
+							return (
+								<MarkdownImage
+									src={lightImage}
+									srcDark={darkImage}
+									alt={props.alt}
+								/>
 							);
-							if (!url) return <MarkdownImageFailed />;
-							return <MarkdownImage src={url} alt={props.alt} />;
 						},
 						p(props) {
 							if (!props.children) return <></>;

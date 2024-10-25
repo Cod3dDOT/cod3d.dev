@@ -16,11 +16,16 @@ function processThoughts(
 	thoughts: PBThought[]
 ): Thought[] {
 	return thoughts.map((thought) => {
+		const dark = thought.hero.find((hero) => hero.includes('dark'));
+		const light = thought.hero.find((hero) => hero != dark)!;
 		return {
 			...thought,
 			created: new Date(thought.created),
 			updated: new Date(thought.updated),
-			hero: getUrl(client, thought, thought.hero).pathname,
+			hero: {
+				light: getUrl(client, thought, light).pathname,
+				dark: dark ? getUrl(client, thought, dark).pathname : undefined
+			},
 			markdown: getUrl(client, thought, thought.markdown).pathname,
 			markdown_images: thought.markdown_images.map(
 				(image) => getUrl(client, thought, image).pathname

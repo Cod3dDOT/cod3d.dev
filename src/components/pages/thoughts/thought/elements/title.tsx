@@ -1,8 +1,9 @@
+import { Thought } from '@/lib/pocketbase/types';
 import { MarkdownImage } from './image';
 
 type Props = {
 	title: string;
-	hero: string;
+	hero: Thought['hero'];
 	description: string;
 };
 
@@ -31,7 +32,8 @@ export const MarkdownTitle: React.FC<Props> = ({
 			<p className="px-10 xl:pb-12">{description}</p>
 			<MarkdownImage
 				priority
-				src={hero}
+				src={hero.light}
+				srcDark={hero.dark}
 				hideCaption
 				alt="Hero image"
 				className="relative max-h-[50vh] lg:max-h-full overflow-hidden sm:rounded-lg xl:absolute xl:w-2/3 xl:top-0 xl:left-1/3 xl:right-0 xl:h-full object-cover xl:!m-0 xl:mask-linear xl:mask-dir-to-l"

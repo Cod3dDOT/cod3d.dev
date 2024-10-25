@@ -29,7 +29,7 @@ export interface PBThought {
 	title: string;
 	description: string;
 
-	hero: string;
+	hero: string[];
 
 	markdown: string;
 	markdown_images: string[];
@@ -56,10 +56,14 @@ export interface Project
 }
 
 export interface Thought
-	extends Omit<PBThought, 'tags' | 'created' | 'updated' | 'expand'> {
+	extends Omit<PBThought, 'tags' | 'created' | 'updated' | 'expand' | 'hero'> {
 	created: Date;
 	updated: Date;
 	tags: string[];
+	hero: {
+		light: string;
+		dark: string | undefined;
+	};
 }
 
 export interface TypedPocketBase extends PocketBase {
