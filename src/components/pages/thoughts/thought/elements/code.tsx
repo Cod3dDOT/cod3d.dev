@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { ClassAttributes, HTMLAttributes } from 'react';
 import { ExtraProps } from 'react-markdown';
 
-import { splitmix32, stringToUniqueId } from '@/lib/utils/math';
+import { splitmix32, stringToUniqueId } from '@/lib/utils/crypto';
 
 import { CopyButton } from './copyButton';
 

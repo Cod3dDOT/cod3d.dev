@@ -4,22 +4,52 @@ import { createServerClient } from '@/lib/pocketbase/config';
 import { getThought } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
 import { isError } from '@/lib/pocketbase/utils';
+import { cookies } from 'next/headers';
+import { verifyToken } from '@/lib/utils/crypto';
 
 export const revalidate = 86400;
 
-export async function GET(request: Request) {
-	const { pathname, origin } = new URL(request.url);
+const SECRET = new TextEncoder().encode(process.env.PRIVATE_DOWNLOAD_KEY);
 
+const hasValidOrigin = (request: Request) => {
+	const { origin } = new URL(request.url);
 	const referer = request.headers.get('referer');
 	const refererUrl = referer ? new URL(referer) : null;
 
-	if (refererUrl?.origin != origin) {
+	return refererUrl?.origin == origin;
+};
+
+const hasValidToken = async (slug: string) => {
+	const tokenCookie = (await cookies()).get('token')?.value;
+
+	if (!tokenCookie) {
+		return new Response(null, { status: 401 });
+	}
+
+	const [expiresAt, signedToken] = tokenCookie.split('_');
+	const tokenData = `${slug}:${expiresAt}`;
+	const isValid = await verifyToken(tokenData, signedToken, SECRET);
+
+	const expired = new Date(expiresAt) > new Date();
+	return isValid && !expired;
+};
+
+export async function GET(request: Request) {
+	const { pathname } = new URL(request.url);
+	const slug = pathname.split('/').at(-2);
+
+	if (!slug) {
+		return notFound();
+	}
+
+	const validOrigin = hasValidOrigin(request);
+	if (!validOrigin) {
 		return new Response(null, { status: 403 });
 	}
 
-	const slug = pathname.split('/').at(-2);
-	if (!slug) {
-		return notFound();
+	const validToken = await hasValidToken(slug);
+	if (!validToken) {
+		return new Response(null, { status: 403 });
 	}
 
 	const client = await createServerClient();

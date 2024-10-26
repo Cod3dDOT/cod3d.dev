@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { signToken } from './lib/utils/crypto';
 
 export const config = {
 	matcher: [
@@ -21,9 +22,11 @@ export const config = {
 	]
 };
 
+const SECRET = new TextEncoder().encode(process.env.PRIVATE_DOWNLOAD_KEY);
+
 const allowedOrigins = ['https://wave.webaim.org'];
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
 	const IS_DEV = process.env.NODE_ENV === 'development';
 	const cspHeader = IS_DEV
 		? ''
@@ -63,6 +66,28 @@ export function middleware(request: NextRequest) {
 	response.headers.set('Content-Security-Policy', cspHeader);
 	if (isAllowedOrigin) {
 		response.headers.set('Access-Control-Allow-Origin', origin);
+	}
+
+	// Regex to match routes like /thoughts/[slug] but exclude /download
+	const THOUGHTS_REGEX = /^\/thoughts\/([^/]+)(?!\/download)$/;
+	const match = request.nextUrl.pathname.match(THOUGHTS_REGEX);
+	if (match) {
+		const VALID_FOR = 10; // minutes
+
+		const slug = match[1];
+		const expiresAt = Date.now() + VALID_FOR * 60 * 1000;
+		const tokenData = `${slug}:${expiresAt}`;
+		const signedToken = await signToken(tokenData, SECRET);
+
+		const path = request.nextUrl.pathname + `/download`;
+
+		response.cookies.set(`token`, `${expiresAt}_${signedToken}`, {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'strict',
+			maxAge: VALID_FOR * 60, // 10 minute expiration
+			path: path // Cookie applies only to the download route
+		});
 	}
 
 	return response;

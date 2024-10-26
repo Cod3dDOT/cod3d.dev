@@ -5,10 +5,8 @@ import { memo } from 'react';
 
 import { GridPattern } from '@/components/effects/gridPattern';
 import { Project } from '@/lib/pocketbase/types';
-import {
-	randomIntFromIntervalPredicted,
-	stringToUniqueId
-} from '@/lib/utils/math';
+import { randomIntFromIntervalPredicted } from '@/lib/utils/math';
+import { stringToUniqueId } from '@/lib/utils/crypto';
 
 export const ProjectGridEffect: React.FC<{ id: Project['id'] }> = ({ id }) => {
 	const idn = stringToUniqueId(id);
