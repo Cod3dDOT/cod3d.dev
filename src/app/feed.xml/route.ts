@@ -10,6 +10,7 @@ export async function GET() {
 	const thoughtsResponse = await getThoughts();
 
 	if (isError(thoughtsResponse)) {
+		console.error('Could not get thoughts while compiling feed.xml');
 		return new Response(null, {
 			status: 500
 		});

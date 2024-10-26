@@ -9,6 +9,9 @@ type MarkdownImageProps = {
 	hideCaption?: boolean;
 	priority?: boolean;
 	sizes?: string;
+
+	width?: number;
+	height?: number;
 };
 
 export function findImagePaths(imageName: string, paths: string[]) {
@@ -42,7 +45,10 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	className,
 	hideCaption = false,
 	priority = false,
-	sizes = '100vw'
+	sizes = '100vw',
+
+	width = 1080,
+	height = 1080
 }) => {
 	return (
 		<figure className={className}>
@@ -50,19 +56,22 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				priority={priority}
 				src={src}
 				alt={alt || ''}
-				width={1920}
-				height={1080}
-				quality={100}
+				width={width}
+				height={height}
 				sizes={sizes}
-				className="!m-0 md:rounded-lg object-contain dark:hidden"
+				quality={100}
+				className={clsx(
+					'!m-0 md:rounded-lg object-contain',
+					srcDark && 'dark:hidden'
+				)}
 			/>
 			{srcDark && (
 				<Image
 					priority={priority}
 					src={srcDark}
 					alt={alt || ''}
-					width={1920}
-					height={1080}
+					width={width}
+					height={height}
 					quality={100}
 					sizes={sizes}
 					className="!m-0 md:rounded-lg object-contain dark:block hidden"

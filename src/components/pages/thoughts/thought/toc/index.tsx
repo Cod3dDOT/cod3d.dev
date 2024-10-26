@@ -5,25 +5,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLenis } from '@/lib/lenis';
 import clsx from 'clsx';
 
-function lerpColor(color1: string, color2: string, t: number): string {
-	const c1 = parseInt(color1.slice(1), 16);
-	const c2 = parseInt(color2.slice(1), 16);
-
-	const r1 = (c1 >> 16) & 0xff;
-	const g1 = (c1 >> 8) & 0xff;
-	const b1 = c1 & 0xff;
-
-	const r2 = (c2 >> 16) & 0xff;
-	const g2 = (c2 >> 8) & 0xff;
-	const b2 = c2 & 0xff;
-
-	const r = Math.round(r1 + t * (r2 - r1));
-	const g = Math.round(g1 + t * (g2 - g1));
-	const b = Math.round(b1 + t * (b2 - b1));
-
-	return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-}
-
 interface Heading {
 	content: string;
 	id: string;
@@ -36,7 +17,7 @@ const calculateScale = (
 	index: number, // Index of the current heading
 	scrollY: number, // Current scroll position
 	factor: number = 800 // Sensitivity factor for scaling
-): { scale: number; color: string } => {
+): number => {
 	const currentHeading = headings[index];
 	const nextHeading = headings[index + 1] || {
 		top: document.body.scrollHeight
@@ -51,9 +32,7 @@ const calculateScale = (
 	const scale = Math.exp(-distanceFromScroll / factor);
 	const colorScale = Math.exp((-distanceFromScroll / factor) * 2);
 
-	const color = lerpColor('#ffffff', '#3b82f6', colorScale);
-
-	return { scale, color };
+	return scale;
 };
 
 export const TableOfContents: React.FC<{ markdown: string }> = ({
@@ -121,7 +100,7 @@ export const TableOFContentsLi = ({
 		lenis?.scrollTo(`#${heading.id}`);
 	};
 
-	const { scale, color } = calculateScale(headings, index, scrollY);
+	const scale = calculateScale(headings, index, scrollY);
 
 	return (
 		<li
@@ -135,10 +114,9 @@ export const TableOFContentsLi = ({
 			}}
 		>
 			<span
-				className="absolute top-1/2 -translate-y-1/2 -left-full -translate-x-4 w-full bg-foreground h-px"
+				className="absolute top-1/2 -translate-y-1/2 -left-full -translate-x-4 w-full h-px bg-blue-400"
 				style={{
-					opacity: scale,
-					backgroundColor: color
+					opacity: 0.25 + scale
 				}}
 			/>
 			<a href={`#${heading.id}`} onClick={onClick}>

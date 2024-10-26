@@ -94,6 +94,7 @@ export async function getThoughts(
 				filter: 'published=true',
 				expand: 'tags'
 			});
+
 		const thoughtsList = processThoughts(client, thoughts.items);
 
 		return thoughtsList;

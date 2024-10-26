@@ -211,9 +211,6 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 						/>
 
 						<ThoughtMarkdown
-							title={thought.title}
-							description={thought.description}
-							hero={thought.hero}
 							images={thought.markdown_images}
 							markdown={markdown}
 						/>

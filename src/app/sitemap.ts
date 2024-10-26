@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 
 import { getThoughts } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
+import { isError } from '@/lib/pocketbase/utils';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticSitemap: MetadataRoute.Sitemap = [
@@ -25,12 +26,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		}
 	];
 
-	const thoughtsResponse = await getThoughts(1, 20);
+	const thoughtsResponse = await getThoughts();
+
+	if (isError(thoughtsResponse)) {
+		console.error('Could not get thoughts while compiling sitemap.xml');
+		return staticSitemap;
+	}
+
 	const thoughts = thoughtsResponse as Thought[];
 
-	const withThoughts = thoughts.map((thought) => ({
+	console.log(thoughts);
+
+	const withThoughts: MetadataRoute.Sitemap = thoughts.map((thought) => ({
 		url: `https://cod3d.dev/thoughts/${thought.slug}`,
-		lastModified: new Date(thought.updated)
+		lastModified: thought.updated
 	}));
 
 	return staticSitemap.concat(withThoughts);
