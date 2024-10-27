@@ -34,10 +34,6 @@ const nextConfig: NextConfig = {
 					'/((?!api|_next/static|_next/image|favicon.ico|pwa|img|pokemon|.*opengraph-image$).*)',
 				headers: [
 					{
-						key: 'X-XSS-Protection',
-						value: '1; mode=block'
-					},
-					{
 						key: 'Referrer-Policy',
 						value: 'same-origin'
 					},

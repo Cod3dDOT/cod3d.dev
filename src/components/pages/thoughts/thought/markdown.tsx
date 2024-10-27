@@ -86,7 +86,7 @@ export const ThoughtMarkdown: React.FC<ThoughtBodyProps> = async ({
 				{markdown}
 			</Markdown>
 			<div className="hidden xl:block not-prose overflow-hidden sticky -translate-y-1/2 top-1/2 mt-60 left-1/2 translate-x-8 2xl:translate-x-1/2 self-start">
-				<TableOfContents markdown={markdown} />
+				<TableOfContents />
 			</div>
 		</section>
 	);

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Image from 'next/image';
+import Image, { getImageProps } from 'next/image';
 
 type MarkdownImageProps = {
 	src: string;
@@ -50,33 +50,41 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	width = 1080,
 	height = 1080
 }) => {
+	const {
+		props: { srcSet: light, style: _sl, ...rest }
+	} = getImageProps({
+		priority,
+		src,
+		alt: alt || '',
+		width,
+		height,
+		sizes,
+		quality: 100,
+		className: clsx(
+			'!m-0 md:rounded-lg object-contain',
+			srcDark && 'dark:hidden'
+		)
+	});
+
+	const {
+		props: { srcSet: dark, style: _sd, ...restDark }
+	}: any = srcDark
+		? getImageProps({
+				priority,
+				src: srcDark,
+				alt: alt || '',
+				width,
+				height,
+				sizes,
+				quality: 100,
+				className: '!m-0 md:rounded-lg object-contain dark:block hidden'
+			})
+		: {};
+
 	return (
 		<figure className={className}>
-			<Image
-				priority={priority}
-				src={src}
-				alt={alt || ''}
-				width={width}
-				height={height}
-				sizes={sizes}
-				quality={100}
-				className={clsx(
-					'!m-0 md:rounded-lg object-contain',
-					srcDark && 'dark:hidden'
-				)}
-			/>
-			{srcDark && (
-				<Image
-					priority={priority}
-					src={srcDark}
-					alt={alt || ''}
-					width={width}
-					height={height}
-					quality={100}
-					sizes={sizes}
-					className="!m-0 md:rounded-lg object-contain dark:block hidden"
-				/>
-			)}
+			<img {...rest} srcSet={light} />
+			{srcDark && <img {...restDark} srcSet={dark} />}
 			<figcaption
 				className={clsx({ 'sr-only': hideCaption }, 'text-center md:text-left')}
 			>

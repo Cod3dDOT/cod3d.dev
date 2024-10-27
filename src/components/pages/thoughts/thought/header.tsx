@@ -102,6 +102,25 @@ interface HeaderProps {
 	blurDataURL?: string;
 }
 
+const delays = [
+	'[--delay:500ms]',
+	'[--delay:600ms]',
+	'[--delay:700ms]',
+	'[--delay:800ms]',
+	'[--delay:900ms]',
+	'[--delay:1000ms]',
+	'[--delay:1100ms]',
+	'[--delay:1200ms]',
+	'[--delay:1300ms]',
+	'[--delay:1400ms]',
+	'[--delay:1500ms]',
+	'[--delay:1600ms]',
+	'[--delay:1700ms]',
+	'[--delay:1800ms]',
+	'[--delay:1900ms]',
+	'[--delay:2000ms]'
+];
+
 export const ThoughtHeader: React.FC<HeaderProps> = ({
 	slug,
 	markdown,
@@ -111,8 +130,11 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 	const spans = words.map((word, index) => (
 		<span
 			key={index + '-markdown-title'}
-			className="inline-block motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced motion-reduce:!delay-0 opacity-0 fill-mode-forwards"
-			style={{ animationDelay: `${500 + index * 100}ms` }}
+			className={clsx(
+				'inline-block motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced opacity-0',
+				`motion-reduce:!delay-0`,
+				delays[index]
+			)}
 		>
 			{word}
 			&nbsp;
@@ -124,7 +146,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 
 	return (
 		<header className="flex flex-col gap-12 pt-20 mb-16">
-			<div className="px-10 uppercase flex flex-col sm:flex-row text-base sm:justify-between gap-8 opacity-0 motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced delay-300">
+			<div className="px-10 uppercase flex flex-col sm:flex-row text-base sm:justify-between gap-8 opacity-0 motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced [--delay:300ms]">
 				<div className="*:align-middle">
 					<span className="font-extralight">Reading time</span>
 					<br />

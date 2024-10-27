@@ -76,3 +76,15 @@ export async function verifyToken(
 		new TextEncoder().encode(data)
 	);
 }
+
+export async function generateCspHash(input: string) {
+	// Hash the data using SHA-256
+	const hashBuffer = await crypto.subtle.digest(
+		'SHA-256',
+		new TextEncoder().encode(input)
+	);
+
+	const base64Hash = Buffer.from(hashBuffer).toString('base64');
+
+	return `sha256-${base64Hash}`;
+}

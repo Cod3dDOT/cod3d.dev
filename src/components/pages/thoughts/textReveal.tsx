@@ -5,6 +5,7 @@ import React, {
 	createContext,
 	useCallback,
 	useContext,
+	useEffect,
 	useMemo,
 	useRef,
 	useState
@@ -112,39 +113,63 @@ export const ThoughtsTextReveal = () => {
 			className="relative h-[200vh] text-foreground w-full max-w-[96rem]"
 		>
 			{(tokens, progress, skip) => (
-				<div className="sticky top-0 flex h-screen items-center">
-					<button
-						className="absolute top-0 my-[1.15rem] md:bottom-0 md:top-[unset] z-20"
-						onClick={skip}
-					>
-						<ScrollIcon
-							className="fill-foreground h-12 w-12 p-2"
-							style={{ opacity: 1 - progress || 0 }}
-						/>
-						<span className="sr-only">Scroll down</span>
-					</button>
-					<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight lg:text-[9vw] xl:text-[8rem] sm:text-[5.65rem] text-[4rem]">
-						{tokens.map((token, index) => (
-							<TextReveal.Token key={index} index={index}>
-								{(isActive) => (
-									<span
-										className={clsx(
-											'transition-all grayscale [font-size:inherit]',
-											{
-												'opacity-10': !isActive,
-												'[text-shadow:5px_5px_rgb(var(--accent))] saturate-50 grayscale-0':
-													(token == '💭' || token == '🧠') && isActive
-											}
-										)}
-									>
-										{token}
-									</span>
-								)}
-							</TextReveal.Token>
-						))}
-					</h1>
-				</div>
+				<TextRevealInner tokens={tokens} progress={progress} skip={skip} />
 			)}
 		</TextReveal>
+	);
+};
+
+const TextRevealInner: React.FC<TextRevealContextType> = ({
+	tokens,
+	progress,
+	skip
+}) => {
+	const ref = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		ref.current?.addEventListener('click', skip);
+		return () => ref.current?.removeEventListener('click', skip);
+	}, [skip]);
+
+	return (
+		<>
+			<div className="sticky top-0 flex h-screen items-center">
+				<button
+					ref={ref}
+					type="button"
+					className={clsx(
+						'absolute top-0 my-[1.15rem] md:bottom-0 md:top-[unset] z-20 duration-300 transition-opacity',
+						{
+							'opacity-50': progress > 0.3 && progress < 0.5,
+							'opacity-25': progress > 0.5 && progress < 0.7,
+							'opacity-0': progress > 0.7
+						}
+					)}
+				>
+					<ScrollIcon className={clsx('fill-foreground h-12 w-12 p-2')} />
+					<span className="sr-only">Scroll down</span>
+				</button>
+				<h1 className="font-medium leading-tight sm:leading-none xl:leading-tight lg:text-[9vw] xl:text-[8rem] sm:text-[5.65rem] text-[4rem]">
+					{tokens.map((token, index) => (
+						<TextReveal.Token key={index} index={index}>
+							{(isActive) => (
+								<span
+									className={clsx(
+										'transition-all grayscale [font-size:inherit]',
+										{
+											'opacity-10': !isActive,
+											'[text-shadow:5px_5px_rgb(var(--accent))] saturate-50 grayscale-0':
+												(token == '💭' || token == '🧠') && isActive
+										}
+									)}
+								>
+									{token}
+								</span>
+							)}
+						</TextReveal.Token>
+					))}
+				</h1>
+			</div>
+		</>
 	);
 };

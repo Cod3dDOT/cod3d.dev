@@ -15,12 +15,19 @@ export const ContactButton: React.FC<{
 	text: string;
 	copy: string;
 }> = ({ children, text, copy }) => {
+	const ref = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		ref.current?.addEventListener('click', copyCallback);
+		return () => ref.current?.removeEventListener('click', copyCallback);
+	}, [copy]);
+
 	const copyCallback = useCallback(() => {
 		navigator.clipboard.writeText(copy);
 	}, [copy]);
 
 	return (
-		<button className={style} onClick={copyCallback} type="button">
+		<button ref={ref} className={style} type="button">
 			{children}
 			<span>{text}</span>
 		</button>

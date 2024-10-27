@@ -1,7 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import CopyIcon from '../../../../icons/copy';
 
@@ -13,6 +13,7 @@ export const CopyButton: React.FC<{
 }> = ({ id, content: _content, contentName, className }) => {
 	const [content, setContent] = useState(_content || '');
 	const [copied, setCopied] = useState(false);
+	const ref = useRef<HTMLButtonElement>(null);
 
 	const handleClick = useCallback(() => {
 		navigator.clipboard.writeText(content);
@@ -26,6 +27,9 @@ export const CopyButton: React.FC<{
 		if (!element) return;
 
 		setContent(element.textContent || '');
+
+		ref.current?.addEventListener('click', handleClick);
+		return () => ref.current?.removeEventListener('click', handleClick);
 	}, [content, id]);
 
 	useEffect(() => {
@@ -39,12 +43,12 @@ export const CopyButton: React.FC<{
 	return (
 		<>
 			<button
+				ref={ref}
 				type="button"
 				className={clsx(
 					'relative hover:scale-110 transition-all duration-200 z-10',
 					className
 				)}
-				onClick={handleClick}
 				title="Copy to clipboard"
 				aria-label={'Copy ' + contentName + ' to clipboard'}
 			>

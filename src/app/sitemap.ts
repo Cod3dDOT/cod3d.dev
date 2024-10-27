@@ -35,8 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	const thoughts = thoughtsResponse as Thought[];
 
-	console.log(thoughts);
-
 	const withThoughts: MetadataRoute.Sitemap = thoughts.map((thought) => ({
 		url: `https://cod3d.dev/thoughts/${thought.slug}`,
 		lastModified: thought.updated

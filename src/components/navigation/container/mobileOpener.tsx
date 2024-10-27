@@ -6,12 +6,25 @@ import { Link } from 'next-view-transitions';
 import ChevronIcon from '@/components/icons/chevron';
 import HomeIcon from '@/components/icons/home';
 import { ThemeSwitch } from '@/components/themeSwitch';
+import { useCallback, useEffect, useRef } from 'react';
 
 export const MobileOpener: React.FC<{
 	setOpened?: (open: boolean) => void;
 	opened: boolean;
 	pathname: string;
 }> = ({ setOpened, opened, pathname }) => {
+	const ref = useRef<HTMLButtonElement>(null);
+
+	const handleClick = useCallback(
+		() => setOpened && setOpened(!opened),
+		[setOpened, opened]
+	);
+
+	useEffect(() => {
+		ref.current?.addEventListener('click', handleClick);
+		return () => ref.current?.removeEventListener('click', handleClick);
+	}, [handleClick]);
+
 	return (
 		<div
 			className={clsx(
@@ -36,7 +49,7 @@ export const MobileOpener: React.FC<{
 				<span className="sr-only">Home</span>
 			</Link>
 			<ThemeSwitch id="theme-switch-mobile" className="h-12 w-12 p-3" />
-			<button onClick={() => setOpened && setOpened(!opened)} type="button">
+			<button ref={ref} type="button">
 				<ChevronIcon
 					className={clsx(
 						'h-12 w-12 p-4 fill-foreground transition-transform duration-300',

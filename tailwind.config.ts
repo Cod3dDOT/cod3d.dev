@@ -35,8 +35,8 @@ const config: Config = {
 			},
 			animation: {
 				arrows: 'arrows 2s infinite',
-				'blog-in': 'blog-in 1s forwards',
-				'blog-in-reduced': 'blog-in-reduced 1s forwards'
+				'blog-in': 'blog-in 1s ease var(--delay, 0) forwards',
+				'blog-in-reduced': 'blog-in-reduced 1s ease var(--delay, 0) forwards'
 			},
 			keyframes: {
 				arrows: {

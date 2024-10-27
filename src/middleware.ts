@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { signToken } from './lib/utils/crypto';
+import { generateCspHash, signToken } from './lib/utils/crypto';
 
 export const config = {
 	matcher: [
@@ -28,6 +28,7 @@ const allowedOrigins = ['https://wave.webaim.org'];
 
 export async function middleware(request: NextRequest) {
 	const IS_DEV = process.env.NODE_ENV === 'development';
+
 	const cspHeader = IS_DEV
 		? ''
 		: `default-src 'self';

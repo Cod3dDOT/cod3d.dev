@@ -15,6 +15,7 @@
 		"dev": "next dev --turbo",
 		"prebuild": "bun next telemetry disable",
 		"build": "next build",
+		"clean-build": "rm -rf .next && bun run build",
 		"start": "next start",
 		"lint": "next lint",
 		"generate-pokemons": "bun scripts/generate-pokemons.ts generate",
