@@ -15,13 +15,13 @@ type Data = {
 };
 
 const extensionToColor = {
-	js: 'bg-[#f1e05a]',
-	css: 'bg-[#563d7c]',
-	html: 'bg-[#e34c26]',
+	js: 'bg-[#FFEA61]',
+	css: 'bg-[#8EB0FF]',
+	html: 'bg-[#FF7957]',
 	json: 'bg-[#b7b7b7]',
-	ts: 'bg-[#2b7489]',
-	tsx: 'bg-[#2b7489]',
-	py: 'bg-[#3572A5]'
+	ts: 'bg-[#39B0FF]',
+	tsx: 'bg-[#39B0FF]',
+	py: 'bg-[#FFDE57]'
 };
 
 export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
@@ -40,7 +40,7 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 						<span>{name}</span>
 						<span
 							className={clsx(
-								'py-3 px-3 inline-block dark:text-background',
+								'py-3 px-3 inline-block dark:text-background-dark',
 								'print:p-0 print:bg-transparent',
 								extensionToColor[extension as keyof typeof extensionToColor]
 							)}

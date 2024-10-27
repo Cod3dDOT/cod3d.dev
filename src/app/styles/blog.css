@@ -136,14 +136,14 @@ hue-6-2: #e6c07b
 .hljs-doctag,
 .hljs-keyword,
 .hljs-formula {
-	color: #c678dd;
+	@apply text-[#9b37ba] dark:text-[#c678dd];
 }
 .hljs-section,
 .hljs-name,
 .hljs-selector-tag,
 .hljs-deletion,
 .hljs-subst {
-	@apply text-[#d1525c] dark:text-[#e06c75;];
+	@apply text-[#c53e49] dark:text-[#e06c75];
 }
 .hljs-literal {
 	@apply text-[#54acb8] dark:text-[#56b6c2];
@@ -153,7 +153,7 @@ hue-6-2: #e6c07b
 .hljs-addition,
 .hljs-attribute,
 .hljs-meta .hljs-string {
-	@apply text-[#5D9114] dark:text-[#98c379];
+	@apply text-[#577f1f] dark:text-[#98c379];
 }
 .hljs-attr,
 .hljs-variable,
@@ -176,7 +176,7 @@ hue-6-2: #e6c07b
 .hljs-built_in,
 .hljs-title.class_,
 .hljs-class .hljs-title {
-	@apply text-[#d19a66] dark:text-[#e6c07b];
+	@apply text-[#c53e49] dark:text-[#e6c07b];
 }
 .hljs-emphasis {
 	font-style: italic;
