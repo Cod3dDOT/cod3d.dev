@@ -103,8 +103,9 @@ export default async function RootLayout({
 				>
 					<ThemeProvider attribute="class">
 						<Cursor />
-						<Navigation />
 						{children}
+						{/* make sure that navigation, which has headings, statys behind main content */}
+						<Navigation />
 					</ThemeProvider>
 
 					<Script
