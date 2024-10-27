@@ -129,7 +129,7 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 			'@id': 'https://cod3d.dev/thoughts/' + thought.slug
 		},
 		headline: thought.title,
-		image: thought.markdown_images,
+		image: 'https://cod3d.dev/' + thought.hero.light,
 		author: {
 			'@type': 'Person',
 			name: 'cod3d',
