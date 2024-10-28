@@ -59,11 +59,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 		width,
 		height,
 		sizes,
-		quality: 100,
-		className: clsx(
-			'!m-0 md:rounded-lg object-contain',
-			srcDark && 'dark:hidden'
-		)
+		quality: 100
 	});
 
 	const {
@@ -76,15 +72,29 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				width,
 				height,
 				sizes,
-				quality: 100,
-				className: '!m-0 md:rounded-lg object-contain dark:block hidden'
+				quality: 100
 			})
 		: {};
 
 	return (
 		<figure className={className}>
-			<img {...rest} srcSet={light} />
-			{srcDark && <img {...restDark} srcSet={dark} />}
+			<img
+				{...rest}
+				className={clsx(
+					'!m-0 md:rounded-lg object-contain max-h-[70vh]',
+					srcDark && 'dark:hidden'
+				)}
+				srcSet={light}
+			/>
+			{srcDark && (
+				<img
+					{...restDark}
+					className={
+						'!m-0 md:rounded-lg object-contain max-h-[70vh] dark:block hidden'
+					}
+					srcSet={dark}
+				/>
+			)}
 			<figcaption
 				className={clsx({ 'sr-only': hideCaption }, 'text-center md:text-left')}
 			>

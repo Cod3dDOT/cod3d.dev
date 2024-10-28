@@ -1,7 +1,7 @@
 [data-callout] {
 	--background: rgb(from var(--color) r g b / 0.2);
 
-	@apply md:rounded-xl py-8 md:mx-8 !px-4 sm:!px-8
+	@apply md:rounded-xl py-8 md:mx-10 !px-4 sm:!px-8
 		border-[var(--color)] border-t-2 border-b-2 md:border-r-2 md:border-l-2 bg-gradient-to-b
 		from-[var(--background)] to-background-dark;
 

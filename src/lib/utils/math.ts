@@ -1,4 +1,4 @@
-import { splitmix32 } from './crypto';
+import { splitmix32, stringToUniqueId } from './crypto';
 
 export function randomIntFromIntervalPredicted(
 	min: number,
@@ -10,6 +10,20 @@ export function randomIntFromIntervalPredicted(
 
 export function randomIntFromInterval(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+export function shuffleArray<T>(array: T[], seed: string) {
+	function random(seed: number) {
+		var x = Math.sin(seed++) * 10000;
+		return x - Math.floor(x);
+	}
+
+	for (let i = array.length - 1; i > 0; i--) {
+		const r = random(stringToUniqueId(seed));
+		const j = Math.floor(r * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+	return array;
 }
 
 export function remapRange(

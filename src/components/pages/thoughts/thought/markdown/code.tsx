@@ -33,7 +33,7 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 	const id = `code-${name}-${random}`;
 
 	return (
-		<figure className="bg-background-dark md:border border-neutral-700 md:rounded-lg md:mx-10">
+		<figure className="bg-background-dark md:border border-neutral-700 md:rounded-lg">
 			{filename && (
 				<figcaption className="relative overflow-hidden items-center font-mono flex justify-between px-4 border-b border-neutral-700 !mt-0">
 					<span className="text-foreground space-x-3 print:space-x-0">
@@ -53,10 +53,10 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 			)}
 
 			<pre
-				className={
-					'bg-transparent text-foreground scrollbar-thin scrollbar-track-background-dark scrollbar-thumb-foreground' +
-					' [&>code]:p-0 [&>code]:border-none'
-				}
+				className={clsx(
+					'bg-transparent text-foreground scrollbar-thin scrollbar-track-background-dark scrollbar-thumb-foreground',
+					'[&>code]:p-0 [&>code]:border-none max-h-[70vh] md:max-h-none'
+				)}
 				id={id}
 			>
 				{children}

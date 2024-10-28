@@ -8,7 +8,7 @@ import { BreadcrumbList, TechArticle, WithContext } from 'schema-dts';
 import { Footer } from '@/components/footer';
 import { BackLink } from '@/components/pages/thoughts/thought/backLink';
 import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
-import { ThoughtMarkdown } from '@/components/pages/thoughts/thought/markdown';
+import { MarkdownWrapper } from '@/components/pages/thoughts/thought/markdown/wrapper';
 import { ReactLenis } from '@/lib/lenis';
 import { createServerClient } from '@/lib/pocketbase/config';
 import { getThought, getThoughts } from '@/lib/pocketbase/req';
@@ -16,6 +16,8 @@ import { Thought } from '@/lib/pocketbase/types';
 import { isError } from '@/lib/pocketbase/utils';
 import readingTime from '@/lib/readingTime';
 import { minutesToDuration } from '@/lib/utils/date';
+import { AuroraBackgroundProvider } from '@nauverse/react-aurora-background';
+import { AuroraBackground } from '@/components/pages/thoughts/aurora';
 
 // export const experimental_ppr = true;
 export const revalidate = 86400;
@@ -171,53 +173,40 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 
 	return (
 		<ReactLenis root>
-			<main
-				className={
-					'bg-background md:px-10 xl:flex sm:pt-24 py-8 print:pt-8 font-sans'
-				}
-			>
-				<div className="block mx-auto md:container z-10">
-					<BackLink />
+			<main className="font-sans bg-background">
+				<article>
+					<script
+						type="application/ld+json"
+						dangerouslySetInnerHTML={{
+							__html: JSON.stringify(jsonLd)
+						}}
+					/>
 
-					<article
-						className={clsx(
-							'prose lg:prose-xl prose-neutral prose-amber max-w-none dark:prose-invert',
-							'prose-headings:font-light md:prose-headings:w-4/5',
-							'prose-h4:text-[larger]',
-							'hover:prose-a:text-blue-500 prose-a:transition-colors',
-							'prose-code:before:content-none prose-code:after:content-none',
-							'prose-code:bg-background-dark prose-code:p-2 prose-code:rounded-md prose-code:border prose-code:border-neutral-700',
-							'pb-8'
-						)}
-					>
-						<script
-							type="application/ld+json"
-							dangerouslySetInnerHTML={{
-								__html: JSON.stringify(jsonLd)
-							}}
-						/>
+					<script
+						type="application/ld+json"
+						dangerouslySetInnerHTML={{
+							__html: JSON.stringify(jsonLdBreadcrumbList)
+						}}
+					/>
 
-						<script
-							type="application/ld+json"
-							dangerouslySetInnerHTML={{
-								__html: JSON.stringify(jsonLdBreadcrumbList)
-							}}
-						/>
+					<AuroraBackground slug={thought.slug}>
+						<div className="md:px-10 bg-gradient-to-b from-transparent via-transparent to-background">
+							<BackLink />
+							<ThoughtHeader
+								slug={thought.slug}
+								thought={thought}
+								markdown={markdown}
+							/>
+						</div>
+					</AuroraBackground>
 
-						<ThoughtHeader
-							slug={thought.slug}
-							thought={thought}
-							markdown={markdown}
-						/>
+					<MarkdownWrapper
+						images={thought.markdown_images}
+						markdown={markdown}
+					/>
+				</article>
 
-						<ThoughtMarkdown
-							images={thought.markdown_images}
-							markdown={markdown}
-						/>
-					</article>
-
-					<BackLink />
-				</div>
+				<BackLink className="md:mx-10" />
 			</main>
 			<Footer />
 		</ReactLenis>

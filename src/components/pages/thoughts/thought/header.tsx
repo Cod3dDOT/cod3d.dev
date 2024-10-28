@@ -6,6 +6,7 @@ import { Tooltip } from '@/components/tooltip';
 import { Thought } from '@/lib/pocketbase/types';
 import readingTime from '@/lib/readingTime';
 import { dateToString } from '@/lib/utils/date';
+import { AuroraBackgroundProvider } from '@nauverse/react-aurora-background';
 
 const DateScroll: React.FC<{
 	date: Date;
@@ -72,17 +73,19 @@ export const HeroImage: React.FC<{
 	return (
 		<figure className={clsx('pixelated !m-0 xl:!my-6')}>
 			<img
+				fetchPriority="high"
 				loading="eager"
 				src={src}
 				alt={alt}
 				className={clsx(
-					'!m-0 md:rounded-lg w-full aspect-video object-cover xl:w-[25vw]',
+					'!m-0 md:rounded-lg w-full aspect-video object-cover lg:w-[25vw]',
 					srcDark && 'dark:hidden'
 				)}
 			/>
 			{srcDark && (
 				<img
-					loading="lazy"
+					fetchPriority="high"
+					loading="eager"
 					src={srcDark}
 					alt={alt}
 					className="!m-0 md:rounded-lg w-full aspect-video hidden dark:block object-cover xl:w-[25vw]"
@@ -141,11 +144,8 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 		</span>
 	));
 
-	// determine header size based on number of lines the title is going to occupy
-	let headerSize = 'sm:text-5xl lg:text-7xl';
-
 	return (
-		<header className="flex flex-col gap-12 pt-20 mb-16">
+		<header className="flex flex-col xs:gap-12 pt-20">
 			<div className="px-10 uppercase flex flex-col sm:flex-row text-base sm:justify-between gap-8 opacity-0 motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced [--delay:300ms]">
 				<div className="*:align-middle">
 					<span className="font-extralight">Reading time</span>
@@ -204,9 +204,11 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 				srcDark={thought.hero.dark}
 				alt="Hero image"
 			/>
-			<div className="px-10">
-				<h1 className={headerSize}>{spans}</h1>
-				<p>{thought.description}</p>
+			<div className="px-10 space-y-10">
+				<h1 className="text-3xl xs:text-5xl md:text-6xl xl:text-8xl font-light">
+					{spans}
+				</h1>
+				<p className="xs:text-lg lg:text-xl">{thought.description}</p>
 			</div>
 		</header>
 	);

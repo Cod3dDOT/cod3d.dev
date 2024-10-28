@@ -20,7 +20,7 @@ const _Footer: React.FC = () => {
 
 	return (
 		<>
-			<footer className="md:px-24 px-10 py-8 bg-background">
+			<footer className="md:px-20 px-10 py-8 bg-background">
 				<div className="flex mx-auto justify-between container xl:max-w-full">
 					<p>
 						<span>cod3d.dev</span>
