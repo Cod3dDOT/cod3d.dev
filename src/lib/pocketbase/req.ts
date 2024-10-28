@@ -56,9 +56,9 @@ export async function getThought(
 	try {
 		const thoughts = await client.collection('thoughts').getList(1, 1, {
 			filter: client.filter('slug={:slug}&&published=true', {
-				slug: slug,
-				expand: 'tags'
-			})
+				slug: slug
+			}),
+			expand: 'tags'
 		});
 
 		if (thoughts.items.length == 0) {

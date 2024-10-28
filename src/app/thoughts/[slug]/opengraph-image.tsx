@@ -1,38 +1,84 @@
 import { ImageResponse } from 'next/og';
-import { ImageResponseOptions } from 'next/server';
 
 import { createServerClient } from '@/lib/pocketbase/config';
-import { getThought } from '@/lib/pocketbase/req';
+import { getThought, getThoughts } from '@/lib/pocketbase/req';
 import { Thought } from '@/lib/pocketbase/types';
 import { isError } from '@/lib/pocketbase/utils';
+import clsx from 'clsx';
+import { ImageResponseOptions } from 'next/server';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+import path from 'path';
+import sharp, { kernel } from 'sharp';
 import { dateToString } from '@/lib/utils/date';
 
-export const runtime = 'edge';
+export async function generateStaticParams() {
+	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
 
-// Image metadata
-export const alt = "Cod3d's thoughts";
-export const size = {
-	width: 1200,
-	height: 675
-};
+	if (isError(thoughtsResponse)) {
+		return [];
+	}
 
-export const contentType = 'image/png';
+	const thoughts = thoughtsResponse as Thought[];
+
+	return thoughts.map((thought) => ({
+		slug: thought.slug
+	}));
+}
+
+const size = { width: 1200, height: 675 };
 
 const getFont = async () => {
-	const response = await fetch(
-		new URL(
-			'../../../../public/fonts/PixelifySans-Regular.ttf',
-			import.meta.url
+	const response = await fs.promises.readFile(
+		path.join(
+			fileURLToPath(import.meta.url),
+			'../../../../assets/fonts/PixelifySans-Regular.ttf'
 		)
 	);
-	const font = await response.arrayBuffer();
 
-	return font;
+	return new Uint8Array(response).buffer;
 };
 
-export default async function Image({ params }: { params: { slug: string } }) {
+const getImage = async (hero: string) => {
+	const response = await fetch('https://cod3d.dev/' + hero);
+
+	if (!response.ok) {
+		return null;
+	}
+
+	const buffer = await response.arrayBuffer();
+
+	return (
+		'data:image/png;base64,' +
+		(
+			await sharp(buffer)
+				.png()
+				.resize({
+					width: size.width,
+					height: size.height,
+					kernel: kernel.nearest
+				})
+				.toBuffer()
+		).toString('base64')
+	);
+};
+
+export const alt = 'OpenGraph image';
+export const contentType = 'image/png';
+
+export default async function Image({
+	params,
+	id
+}: {
+	params: { slug: string };
+	id: string;
+}) {
 	const client = await createServerClient();
 	const thoughtResponse = await getThought(client, params.slug);
+
+	const errored = isError(thoughtResponse);
+	const thought = errored ? null : (thoughtResponse as Thought);
+
 	const fonts: ImageResponseOptions['fonts'] = [
 		{
 			name: 'PixelifySans',
@@ -42,91 +88,87 @@ export default async function Image({ params }: { params: { slug: string } }) {
 		}
 	];
 
-	const errored = isError(thoughtResponse);
-	const thought = errored ? null : (thoughtResponse as Thought);
+	const image = await getImage(thought?.hero.light || '');
 
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
 			<div
+				tw={clsx('relative flex text-black w-full h-full bg-[#eee]')}
 				style={{
-					color: 'black',
-					backgroundColor: '#eee',
-					width: '100%',
-					height: '100%',
-					display: 'flex',
-					position: 'relative',
-					background:
-						'radial-gradient(circle at left top, rgb(59,130,246) 0%, white 100%)'
+					// background:
+					// 	'radial-gradient(circle at left top, #3B82F6 0%, #eeeeee 90%)'
+					backgroundColor: '#85b1f9',
+					backgroundImage: `linear-gradient(white 2px, transparent 2px),
+                                    linear-gradient(90deg, white 2px, transparent 2px),
+                                    linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+                                    linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)`,
+					backgroundSize: '100px 100px, 100px 100px, 20px 20px, 20px 20px',
+					backgroundPosition: '-2px -2px, -2px -2px, -1px -1px, -1px -1px'
 				}}
 			>
 				<div
+					tw="absolute inset-8"
 					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						position: 'absolute',
-						top: '2rem',
-						bottom: '2rem',
-						left: '2rem',
-						right: '2rem',
-						padding: '2rem',
-						backgroundColor: 'rgb(230,230,230)',
-						borderRadius: '2rem',
-						overflow: 'hidden'
+						filter: 'blur(5px)',
+						backgroundColor: '#85b1f9',
+						backgroundImage: `linear-gradient(white 2px, transparent 2px),
+                                    linear-gradient(90deg, white 2px, transparent 2px),
+                                    linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+                                    linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)`,
+						backgroundSize: '100px 100px, 100px 100px, 20px 20px, 20px 20px',
+						backgroundPosition:
+							'-34px -34px, -34px -34px, -33px -33px, -33px -33px'
+					}}
+				/>
+				<div
+					tw="absolute flex flex-col inset-8 p-8 rounded-[2rem] overflow-hidden shadow-lg border-[1px] border-black/5 bg-opacity-50"
+					style={{
+						background:
+							'radial-gradient(circle at right top, rgba(253,224,71,0.8) 0%, rgba(230,230,230,0.5) 60%)'
 					}}
 				>
-					<div style={{ display: 'flex', gap: '0.5rem' }}>
-						{thought?.tags.map((tag, i) => (
-							<div
-								key={tag + i}
+					<div tw="flex justify-between">
+						<div
+							tw="flex"
+							style={{
+								gap: '1rem'
+							}}
+						>
+							{thought?.tags.slice(0, 3).map((tag, i) => (
+								<div
+									key={tag + i}
+									tw="text-3xl bg-[#e6e6e6] border-4 border-[#3B82F6] py-5 px-10 rounded-full"
+								>
+									{tag}
+								</div>
+							))}
+						</div>
+						{image && (
+							<img
+								src={image}
+								tw="mt-auto w-36 h-full"
+								width={66}
+								height={38}
 								style={{
-									fontSize: '2rem',
-									whiteSpace: 'nowrap',
-									backdropFilter: 'blur(10px)',
-									backgroundColor: 'rgba(255, 255, 255)',
-									padding: '1rem 2rem',
-									borderRadius: '10rem'
+									imageRendering: 'pixelated'
 								}}
-							>
-								{tag}
-							</div>
-						))}
+							/>
+						)}
 					</div>
-					<h1 style={{ fontSize: '4rem', marginTop: 'auto', width: '80%' }}>
-						{thought?.title}
-					</h1>
-					<div
-						style={{
-							display: 'flex',
-							justifyContent: 'space-between',
-							fontSize: '2rem'
-						}}
-					>
+
+					<h1 tw="mt-auto w-4/5 text-7xl">{thought?.title}</h1>
+					<div tw="flex justify-between text-3xl">
 						<time dateTime={thought?.created.toISOString()}>
 							{thought ? dateToString(thought.created) : 'At the end of times'}
 						</time>
 
 						<span>cod3d.dev</span>
 					</div>
-
-					<div
-						style={{
-							position: 'absolute',
-							top: '-10rem',
-							right: '-10rem',
-							width: '40rem',
-							height: '40rem',
-							background:
-								'radial-gradient(circle at right top, rgb(59,130,246) 40%, rgba(230,230,230, 0) 70%)'
-						}}
-					/>
 				</div>
 			</div>
 		),
-		// ImageResponse options
 		{
-			// For convenience, we can re-use the exported opengraph-image
-			// size config to also set the ImageResponse's width and height.
 			...size,
 			fonts: fonts
 		}
