@@ -3,7 +3,9 @@
 import { clsx } from 'clsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import CopyIcon from '../../../../icons/copy';
+import CopyIcon from '@/components/icons/copy';
+
+type CopyState = null | 'success' | 'error';
 
 export const CopyButton: React.FC<{
 	id?: string;
@@ -12,12 +14,21 @@ export const CopyButton: React.FC<{
 	className?: string;
 }> = ({ id, content: _content, contentName, className }) => {
 	const [content, setContent] = useState(_content || '');
-	const [copied, setCopied] = useState(false);
+	const [copied, setCopied] = useState<CopyState>();
 	const ref = useRef<HTMLButtonElement>(null);
 
 	const handleClick = useCallback(() => {
-		navigator.clipboard.writeText(content);
-		setCopied(true);
+		navigator.clipboard
+			.writeText(content)
+			.then(() => {
+				setCopied('success');
+			})
+			.catch(() => {
+				setCopied('error');
+			})
+			.finally(() => {
+				setCopied(null);
+			});
 	}, [content]);
 
 	useEffect(() => {
@@ -32,14 +43,6 @@ export const CopyButton: React.FC<{
 		return () => ref.current?.removeEventListener('click', handleClick);
 	}, [content, id]);
 
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-			if (copied) setCopied(false);
-		}, 1000);
-
-		return () => clearTimeout(timeout);
-	}, [copied]);
-
 	return (
 		<>
 			<button
@@ -53,17 +56,20 @@ export const CopyButton: React.FC<{
 				aria-label={'Copy ' + contentName + ' to clipboard'}
 			>
 				<CopyIcon
-					showCheck={copied}
+					showCheck={copied === 'success'}
 					className={clsx(
 						'absolute stroke-foreground stroke-2 inset-0 w-full h-full transition-all',
-						copied && 'stroke-lime-500'
+						{
+							'bg-red-500': copied === 'error',
+							'bg-lime-500': copied === 'success'
+						}
 					)}
 				/>
 			</button>
 			<span
 				className={clsx(
 					'absolute bg-lime-500 w-20 h-20 right-0 top-0 translate-x-full -translate-y-full rounded-full',
-					copied && 'animate-ping'
+					copied === 'success' && 'animate-ping'
 				)}
 			/>
 		</>

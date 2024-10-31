@@ -1,5 +1,8 @@
-import '@/app/styles/thoughts.css';
+import '@app/styles/thoughts.css';
 
+import { getThoughts } from '@pocketbase/req';
+import { Thought } from '@pocketbase/types';
+import { isError } from '@pocketbase/utils';
 import { Metadata } from 'next';
 import { BreadcrumbList, WebPage, WithContext } from 'schema-dts';
 
@@ -8,9 +11,6 @@ import { Footer } from '@/components/footer';
 import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
 import { Years } from '@/components/pages/thoughts/years';
 import { ReactLenis } from '@/lib/lenis';
-import { getThoughts } from '@/lib/pocketbase/req';
-import { Thought } from '@/lib/pocketbase/types';
-import { isError } from '@/lib/pocketbase/utils';
 
 export const metadata: Metadata = {
 	title: "cod3d's thoughts | A place where I share my struggles",

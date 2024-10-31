@@ -2,10 +2,10 @@
 
 import { clsx } from 'clsx';
 import { Link } from 'next-view-transitions';
+import { useCallback, useEffect, useRef } from 'react';
 
 import HomeIcon from '@/components/icons/home';
 import { ThemeSwitch } from '@/components/themeSwitch';
-import { useCallback, useEffect, useRef } from 'react';
 
 export const DesktopOpener: React.FC<{
 	setOpened?: (open: boolean) => void;
@@ -14,10 +14,11 @@ export const DesktopOpener: React.FC<{
 }> = ({ setOpened, opened, pathname }) => {
 	const ref = useRef<HTMLButtonElement>(null);
 
-	const handleClick = useCallback(
-		() => setOpened && setOpened(!opened),
-		[setOpened, opened]
-	);
+	const handleClick = useCallback(() => {
+		if (!setOpened) return;
+
+		setOpened(!opened);
+	}, [setOpened, opened]);
 
 	useEffect(() => {
 		ref.current?.addEventListener('click', handleClick);

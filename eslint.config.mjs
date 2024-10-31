@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
-import nextPlugin from '@next/eslint-plugin-next';
+// import nextPlugin from '@next/eslint-plugin-next';
 // @ts-expect-error eslint-plugin-import is not typed
 import importPlugin from 'eslint-plugin-import';
 import prettierConfigRecommended from 'eslint-plugin-prettier/recommended';
@@ -36,15 +36,15 @@ const typeScriptConfig = [
 	}
 ];
 
-const nextConfig = {
-	plugins: {
-		'@next/next': nextPlugin
-	},
-	rules: {
-		...nextPlugin.configs.recommended.rules,
-		...nextPlugin.configs['core-web-vitals'].rules
-	}
-};
+// const nextConfig = {
+// 	plugins: {
+// 		'@next/next': nextPlugin
+// 	},
+// 	rules: {
+// 		...nextPlugin.configs.recommended.rules,
+// 		...nextPlugin.configs['core-web-vitals'].rules
+// 	}
+// };
 
 const importSortConfig = {
 	plugins: {
@@ -72,7 +72,7 @@ const config = [
 	includeIgnoreFile(gitignorePath),
 	js.configs.recommended,
 	...typeScriptConfig,
-	nextConfig,
+	// nextConfig,
 	importSortConfig,
 	prettierConfigRecommended, // must come last
 	{

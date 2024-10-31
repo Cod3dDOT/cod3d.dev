@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateCspHash, signToken } from './lib/utils/crypto';
+
+import { signToken } from './lib/utils/crypto';
 
 export const config = {
 	matcher: [
@@ -26,26 +27,30 @@ const SECRET = new TextEncoder().encode(process.env.PRIVATE_DOWNLOAD_KEY);
 
 const allowedOrigins = ['https://wave.webaim.org'];
 
+const CSP = {
+	BASE: `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline';
+    object-src 'none';
+    base-uri 'none';
+    form-action 'self';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;`,
+	TRUSTED_SCRIPT: `
+    trusted-types default dompurify nextjs#bundler;
+    require-trusted-types-for 'script';`
+};
+
 export async function middleware(request: NextRequest) {
 	const IS_DEV = process.env.NODE_ENV === 'development';
 
-	const cspHeader = IS_DEV
-		? ''
-		: `default-src 'self';
-        script-src 'self' 'unsafe-inline';
-        style-src 'self' 'unsafe-inline';
-        object-src 'none';
-        base-uri 'none';
-        form-action 'self';
-        frame-ancestors 'none';
-        upgrade-insecure-requests;
-        trusted-types default dompurify nextjs#bundler;
-        require-trusted-types-for 'script';`
-				.replace(/\s+/g, ' ')
-				.trim();
+	const csp = (IS_DEV ? CSP.BASE : CSP.BASE + CSP.TRUSTED_SCRIPT)
+		.replace(/\s+/g, ' ')
+		.trim();
 
 	const requestHeaders = new Headers(request.headers);
-	requestHeaders.set('Content-Security-Policy', cspHeader);
+	requestHeaders.set('Content-Security-Policy', csp);
 
 	const origin = request.headers.get('origin') ?? '';
 	const isAllowedOrigin = allowedOrigins.includes(origin);
@@ -64,7 +69,7 @@ export async function middleware(request: NextRequest) {
 		}
 	});
 
-	response.headers.set('Content-Security-Policy', cspHeader);
+	response.headers.set('Content-Security-Policy', csp);
 	if (isAllowedOrigin) {
 		response.headers.set('Access-Control-Allow-Origin', origin);
 	}
@@ -77,12 +82,12 @@ export async function middleware(request: NextRequest) {
 
 		const slug = match[1];
 		const expiresAt = Date.now() + VALID_FOR * 60 * 1000;
-		const tokenData = `${slug}:${expiresAt}`;
+		const tokenData = `${slug}:${expiresAt.toString()}`;
 		const signedToken = await signToken(tokenData, SECRET);
 
 		const path = request.nextUrl.pathname + `/download`;
 
-		response.cookies.set(`token`, `${expiresAt}_${signedToken}`, {
+		response.cookies.set(`token`, `${expiresAt.toString()}_${signedToken}`, {
 			httpOnly: true,
 			secure: true,
 			sameSite: 'strict',

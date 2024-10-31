@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-const __directory = path.resolve('./public/pokemon/');
-const __path = path.join(__directory, '_mons.json');
-const mons = JSON.parse(fs.readFileSync(__path, 'utf8'));
+interface PokemonSave {
+	n: string;
+	d: string;
+	c: string;
+}
 
 export interface Pokemon {
 	name: string;
@@ -11,6 +13,10 @@ export interface Pokemon {
 	sprite: string;
 	class: string;
 }
+
+const __directory = path.resolve('./public/pokemon/');
+const __path = path.join(__directory, '_mons.json');
+const mons = JSON.parse(fs.readFileSync(__path, 'utf8')) as PokemonSave[];
 
 export function getRandomPokemon(): Pokemon {
 	const index = Math.floor(Math.random() * mons.length);

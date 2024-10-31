@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+
 import { SectionLink } from '../section-link';
 import { ThoughtsCarousel, ThoughtsCarouselSkeleton } from './carousel';
 

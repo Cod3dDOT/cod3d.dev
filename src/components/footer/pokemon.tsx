@@ -1,4 +1,4 @@
-import '@/app/styles/pokemons.css';
+import '@app/styles/pokemons.css';
 
 import { clsx } from 'clsx';
 
@@ -22,7 +22,6 @@ export const FooterMon: React.FC<{
 
 				<p className="xl:text-xl md:w-[50vw] mt-4">{pokemon.description}</p>
 			</div>
-			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
 				loading="lazy"
 				src={pokemon.sprite}

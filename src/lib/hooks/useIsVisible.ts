@@ -6,9 +6,9 @@ export default function useIsVisible(ref: RefObject<HTMLElement>) {
 	const observer = useMemo(() => {
 		if (!ref.current) return;
 
-		return new IntersectionObserver(([entry]) =>
-			setIntersecting(entry.isIntersecting)
-		);
+		return new IntersectionObserver(([entry]) => {
+			setIntersecting(entry.isIntersecting);
+		});
 	}, [ref.current]);
 
 	useEffect(() => {

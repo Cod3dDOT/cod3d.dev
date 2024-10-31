@@ -1,5 +1,6 @@
-import clsx from 'clsx';
-import Image, { getImageProps } from 'next/image';
+import { clsx } from 'clsx';
+import { ImgProps } from 'next/dist/shared/lib/get-img-props';
+import { getImageProps } from 'next/image';
 
 type MarkdownImageProps = {
 	src: string;
@@ -41,7 +42,7 @@ export function findImagePaths(imageName: string, paths: string[]) {
 export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	src,
 	srcDark,
-	alt,
+	alt = '',
 	className,
 	hideCaption = false,
 	priority = false,
@@ -50,49 +51,53 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	width = 1080,
 	height = 1080
 }) => {
-	const {
-		props: { srcSet: light, style: _sl, ...rest }
-	} = getImageProps({
+	const lightProps = getImageProps({
 		priority,
 		src,
-		alt: alt || '',
+		alt,
 		width,
 		height,
 		sizes,
 		quality: 100
-	});
+	}).props;
 
-	const {
-		props: { srcSet: dark, style: _sd, ...restDark }
-	}: any = srcDark
+	const light = {
+		...lightProps,
+		style: undefined
+	};
+
+	const darkProps: ImgProps | undefined = srcDark
 		? getImageProps({
 				priority,
 				src: srcDark,
-				alt: alt || '',
+				alt,
 				width,
 				height,
 				sizes,
 				quality: 100
-			})
-		: {};
+			}).props
+		: undefined;
+
+	const dark = {
+		...darkProps,
+		style: undefined
+	};
 
 	return (
 		<figure className={className}>
 			<img
-				{...rest}
+				{...light}
 				className={clsx(
 					'!m-0 md:rounded-lg object-contain max-h-[70vh]',
 					srcDark && 'dark:hidden'
 				)}
-				srcSet={light}
 			/>
 			{srcDark && (
 				<img
-					{...restDark}
+					{...dark}
 					className={
 						'!m-0 md:rounded-lg object-contain max-h-[70vh] dark:block hidden'
 					}
-					srcSet={dark}
 				/>
 			)}
 			<figcaption
@@ -114,7 +119,6 @@ export const MarkdownImageFailed: React.FC = () => {
 				<br className="hidden md:block" />
 				<span className="hidden md:block">:dev sobbing in the back:</span>
 			</div>
-			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
 				loading="lazy"
 				src="/img/togepi-sad.svg"

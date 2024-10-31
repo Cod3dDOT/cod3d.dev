@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import React, { useMemo, useRef } from 'react';
 import { useMouse } from 'react-use';
 
@@ -38,7 +38,7 @@ export function SpotlightCard({
 	children,
 	className,
 	...props
-}: SpotlightCardProps): JSX.Element {
+}: SpotlightCardProps): React.JSX.Element {
 	const mobile = useIsTouchDevice();
 	const container = useRef<HTMLDivElement>(null);
 	const { elX, elY, elW, elH } = useMouse(container);
@@ -56,7 +56,7 @@ export function SpotlightCard({
 		const margin = hslMax - hslMin;
 		const rate = (elY + elX) / (elH + elW);
 		const hue = Math.round(margin * rate + hslMin);
-		return `hsl(${hue} 80% 70%), transparent`;
+		return `hsl(${hue.toString()} 80% 70%), transparent`;
 	}, [hsl, hslMin, hslMax, from, via, to, elX, elY, elW, elH]);
 
 	// Calculate spotlight position and only update if visible
@@ -87,7 +87,7 @@ export function SpotlightCard({
 				)}
 				style={{
 					'--spotlight-color-stops': spotlightColorStops,
-					'--spotlight-size': `${size}px`,
+					'--spotlight-size': `${size.toString()}px`,
 					'--spotlight-x': '0px',
 					'--spotlight-y': '0px'
 				}}
@@ -109,9 +109,9 @@ export function SpotlightCard({
 			)}
 			style={{
 				'--spotlight-color-stops': spotlightColorStops,
-				'--spotlight-size': `${size}px`,
-				'--spotlight-x': `${x}px`,
-				'--spotlight-y': `${y}px`
+				'--spotlight-size': `${size.toString()}px`,
+				'--spotlight-x': `${x.toString()}px`,
+				'--spotlight-y': `${y.toString()}px`
 			}}
 			{...props}
 		>

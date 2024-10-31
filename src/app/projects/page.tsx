@@ -114,7 +114,6 @@ const ProjectsPage: React.FC = () => {
 			/>
 			<div className="h-screen">
 				<main className="h-full bg-background relative md:px-24 px-10">
-					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img
 						src="/img/working-on-it.gif"
 						alt="Working on it gif"

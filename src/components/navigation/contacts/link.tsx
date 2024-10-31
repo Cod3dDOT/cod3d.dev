@@ -23,7 +23,8 @@ export const ContactButton: React.FC<{
 	}, [copy]);
 
 	const copyCallback = useCallback(() => {
-		navigator.clipboard.writeText(copy);
+		// TODO: add feedback
+		void navigator.clipboard.writeText(copy);
 	}, [copy]);
 
 	return (

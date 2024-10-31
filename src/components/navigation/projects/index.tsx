@@ -1,5 +1,6 @@
-import { SectionLink } from '../section-link';
 import { Suspense } from 'react';
+
+import { SectionLink } from '../section-link';
 import { NavProjectsList, NavProjectsListSkeleton } from './list';
 
 const NavProjectsShowcase: React.FC = () => {

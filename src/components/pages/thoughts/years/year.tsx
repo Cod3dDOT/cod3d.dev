@@ -1,10 +1,10 @@
 'use client';
 
+import { Thought } from '@pocketbase/types';
 import { clsx } from 'clsx';
 import { Link } from 'next-view-transitions';
 
 import { SpotlightCard } from '@/components/effects/spotlightCard';
-import { Thought } from '@/lib/pocketbase/types';
 
 type ThoughtsBodyProps = {
 	year: number;
@@ -34,7 +34,7 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 			<div className={clsx(gridClasses, className)}>
 				{thoughts.map((thought) => (
 					<SpotlightCard
-						id={`year-${year}-thought-${thought.id}`}
+						id={`year-${year.toString()}-thought-${thought.id}`}
 						from="var(--spotlight-from)"
 						size={200}
 						key={thought.id}
@@ -54,11 +54,11 @@ export const ThoughtsYear: React.FC<ThoughtsBodyProps> = ({
 				{Array.from({ length: 7 - thoughts.length }).map((v, i) => {
 					return (
 						<SpotlightCard
-							id={`year-${year}-unknown-${i}`}
+							id={`year-${year.toString()}-unknown-${i.toString()}`}
 							from="var(--spotlight-from)"
 							size={200}
 							className={cardClasses}
-							key={year + '-coming-soon-' + i}
+							key={year.toString() + '-coming-soon-' + i.toString()}
 						>
 							<div className={contentClasses}>???</div>
 						</SpotlightCard>

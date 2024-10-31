@@ -1,9 +1,10 @@
-import { Project } from '@/lib/pocketbase/types';
+import { Project } from '@pocketbase/types';
+import { clsx } from 'clsx';
 
-import GithubIcon from '../../../icons/github';
+import GithubIcon from '@/components/icons/github';
+
 import { ProjectBadge } from './badge';
 import { MemoProjectGridEffect } from './gridEffect';
-import clsx from 'clsx';
 
 export const NavProject: React.FC<{
 	project: Project;

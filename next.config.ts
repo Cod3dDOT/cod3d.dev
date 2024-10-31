@@ -1,18 +1,15 @@
-import { NextConfig } from 'next';
 import withBundleAnalyzer from '@next/bundle-analyzer';
+import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
-	eslint: {
-		ignoreDuringBuilds: true
-	},
 	images: {
 		formats: ['image/avif', 'image/webp'],
 		contentDispositionType: 'attachment'
 	},
 	async rewrites() {
-		return [
+		return Promise.resolve([
 			{
 				source: '/um.js',
 				destination: 'https://analytics.umami.is/script.js'
@@ -25,10 +22,10 @@ const nextConfig: NextConfig = {
 				source: '/api/files/:path*',
 				destination: `https://${process.env.POCKETBASE_HOST}/api/files/:path*`
 			}
-		];
+		]);
 	},
 	async headers() {
-		return [
+		return Promise.resolve([
 			{
 				source:
 					'/((?!api|_next/static|_next/image|favicon.ico|pwa|img|pokemon|.*opengraph-image$).*)',
@@ -72,7 +69,7 @@ const nextConfig: NextConfig = {
 					}
 				]
 			}
-		];
+		]);
 	}
 };
 

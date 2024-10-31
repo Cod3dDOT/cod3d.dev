@@ -1,6 +1,7 @@
 import GithubIcon from '@/components/icons/github';
 import MailIcon from '@/components/icons/mail';
 import MatrixIcon from '@/components/icons/matrix';
+
 import { ContactButton, ContactLink } from './link';
 
 const NavContactsShowcase: React.FC = () => {

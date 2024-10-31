@@ -1,8 +1,7 @@
+import { getThoughts } from '@pocketbase/req';
+import { Thought } from '@pocketbase/types';
+import { isError } from '@pocketbase/utils';
 import RSS from 'rss';
-
-import { getThoughts } from '@/lib/pocketbase/req';
-import { Thought } from '@/lib/pocketbase/types';
-import { isError } from '@/lib/pocketbase/utils';
 
 export const revalidate = 86400;
 
@@ -30,7 +29,7 @@ export async function GET() {
 		feed_url: `${siteUrl}/feed.xml`,
 		image_url: `${siteUrl}/img/og/og.webp`,
 		pubDate: new Date().toUTCString(),
-		copyright: `All rights reserved - ${new Date().getFullYear()}`
+		copyright: `All rights reserved - ${new Date().getFullYear().toString()}`
 	};
 
 	const feed = new RSS(feedOptions);

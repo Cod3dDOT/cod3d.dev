@@ -26,7 +26,7 @@ function Grid({
 	offsetY = -1,
 	children,
 	className
-}: GridProps): JSX.Element {
+}: GridProps): React.JSX.Element {
 	const id = useId();
 
 	const context: GridPatternContextType = {
@@ -77,7 +77,7 @@ function Block({
 	column = 0,
 	className,
 	style
-}: BlockProps): JSX.Element {
+}: BlockProps): React.JSX.Element {
 	const context = useContext(GridPatternContext);
 
 	if (!context) throw new Error('Block must be used within a Grid');

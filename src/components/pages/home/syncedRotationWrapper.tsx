@@ -22,7 +22,7 @@ export const SyncedRotationWrapper: React.FC<{ children: React.ReactNode }> = ({
 				opacity
 			)}
 		>
-			<style>{`svg { --delay: calc(${seconds}s); }`}</style>
+			<style>{`svg { --delay: calc(${seconds.toString()}s); }`}</style>
 			{children}
 		</div>
 	);

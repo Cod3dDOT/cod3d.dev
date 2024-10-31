@@ -1,15 +1,15 @@
-import { ImageResponse } from 'next/og';
-
-import { createServerClient } from '@/lib/pocketbase/config';
-import { getThought, getThoughts } from '@/lib/pocketbase/req';
-import { Thought } from '@/lib/pocketbase/types';
-import { isError } from '@/lib/pocketbase/utils';
-import clsx from 'clsx';
-import { ImageResponseOptions } from 'next/server';
-import { fileURLToPath } from 'url';
+import { createServerClient } from '@pocketbase/config';
+import { getThought, getThoughts } from '@pocketbase/req';
+import { Thought } from '@pocketbase/types';
+import { isError } from '@pocketbase/utils';
+import { clsx } from 'clsx';
 import fs from 'fs';
+import { ImageResponse } from 'next/og';
+import { ImageResponseOptions } from 'next/server';
 import path from 'path';
 import sharp, { kernel } from 'sharp';
+import { fileURLToPath } from 'url';
+
 import { dateToString } from '@/lib/utils/date';
 
 export async function generateStaticParams() {
@@ -67,13 +67,12 @@ export const alt = 'OpenGraph image';
 export const contentType = 'image/png';
 
 export default async function Image({
-	params,
-	id
+	params
 }: {
 	params: { slug: string };
 	id: string;
 }) {
-	const client = await createServerClient();
+	const client = createServerClient();
 	const thoughtResponse = await getThought(client, params.slug);
 
 	const errored = isError(thoughtResponse);
@@ -137,7 +136,7 @@ export default async function Image({
 						>
 							{thought?.tags.slice(0, 3).map((tag, i) => (
 								<div
-									key={tag + i}
+									key={tag + i.toString()}
 									tw="text-3xl bg-[#e6e6e6] border-4 border-[#3B82F6] py-5 px-10 rounded-full"
 								>
 									{tag}

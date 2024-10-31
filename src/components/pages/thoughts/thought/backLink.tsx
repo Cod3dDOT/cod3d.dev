@@ -1,7 +1,7 @@
+import { clsx } from 'clsx';
 import { Link } from 'next-view-transitions';
 
 import BackIcon from '@/components/icons/back';
-import { clsx } from 'clsx';
 
 interface BackLinkProps {
 	className?: string;

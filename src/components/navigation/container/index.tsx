@@ -23,7 +23,7 @@ const useAutoClose = ({
 }) => {
 	const handleClosure = useCallback(
 		(event: MouseEvent | FocusEvent) => {
-			const contains = menu?.current?.contains(event.target as Node);
+			const contains = menu.current?.contains(event.target as Node);
 			const link = (event.target as HTMLElement).tagName == 'a';
 
 			if (!contains || link) setOpened(false);

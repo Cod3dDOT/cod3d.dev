@@ -17,7 +17,12 @@ function processThoughts(
 ): Thought[] {
 	return thoughts.map((thought) => {
 		const dark = thought.hero.find((hero) => hero.includes('dark'));
-		const light = thought.hero.find((hero) => hero != dark)!;
+		const light = thought.hero.find((hero) => hero != dark);
+
+		if (!light) {
+			throw new Error('Missing light hero image');
+		}
+
 		return {
 			...thought,
 			created: new Date(thought.created),
@@ -80,11 +85,11 @@ export async function getThought(
 }
 
 export async function getThoughts(
-	page?: number | undefined,
-	perPage?: number | undefined,
+	page?: number,
+	perPage?: number,
 	options?: RecordListOptions
 ) {
-	const client = await createServerClient();
+	const client = createServerClient();
 
 	try {
 		const thoughts = await client
@@ -103,11 +108,8 @@ export async function getThoughts(
 	}
 }
 
-export async function getProjects(
-	page?: number | undefined,
-	perPage?: number | undefined
-) {
-	const client = await createServerClient();
+export async function getProjects(page?: number, perPage?: number) {
+	const client = createServerClient();
 
 	try {
 		const projects = await client

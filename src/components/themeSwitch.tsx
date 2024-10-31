@@ -10,7 +10,7 @@ interface ThemeSwitchProps {
 }
 
 const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
-	id,
+	id = 'theme-switch',
 	className
 }: ThemeSwitchProps) => {
 	const { resolvedTheme, setTheme } = useTheme();

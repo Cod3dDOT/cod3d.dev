@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-import { IconProps } from '../';
+import { IconProps } from '..';
 
 const CursorEditIcon = forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (

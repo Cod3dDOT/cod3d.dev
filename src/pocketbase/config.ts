@@ -3,10 +3,11 @@ import PocketBase from 'pocketbase';
 
 import { TypedPocketBase } from './types';
 
-export async function createServerClient(cookieStore?: ReadonlyRequestCookies) {
-	const pbUrl = 'https://' + process.env.POCKETBASE_HOST;
+export function createServerClient(cookieStore?: ReadonlyRequestCookies) {
+	if (!process.env.POCKETBASE_HOST)
+		throw new Error('Invalid .env database config');
 
-	if (!pbUrl) throw new Error('Invalid .env database config');
+	const pbUrl = 'https://' + process.env.POCKETBASE_HOST;
 
 	if (typeof window !== 'undefined') {
 		throw new Error(

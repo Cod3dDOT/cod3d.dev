@@ -1,10 +1,10 @@
+import { createServerClient } from '@pocketbase/config';
+import { getThought } from '@pocketbase/req';
+import { Thought } from '@pocketbase/types';
+import { isError } from '@pocketbase/utils';
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { createServerClient } from '@/lib/pocketbase/config';
-import { getThought } from '@/lib/pocketbase/req';
-import { Thought } from '@/lib/pocketbase/types';
-import { isError } from '@/lib/pocketbase/utils';
-import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/utils/crypto';
 
 export const revalidate = 86400;
@@ -52,7 +52,7 @@ export async function GET(request: Request) {
 		return new Response(null, { status: 403 });
 	}
 
-	const client = await createServerClient();
+	const client = createServerClient();
 	const thoughtResponse = await getThought(client, slug);
 	if (isError(thoughtResponse)) {
 		return notFound();

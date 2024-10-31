@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { clsx } from 'clsx';
+import { useEffect, useState } from 'react';
 
 import { useLenis } from '@/lib/lenis';
-import clsx from 'clsx';
 
 interface Heading {
 	content: string;
@@ -34,7 +34,6 @@ export const TableOfContents: React.FC = () => {
 
 	useEffect(() => {
 		const article = document.getElementsByTagName('article')[0];
-		if (!article) return;
 
 		const headings = article.querySelectorAll('h2, h3, h4, h5, h6');
 		setHeadings(

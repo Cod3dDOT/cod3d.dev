@@ -1,32 +1,34 @@
-import '@/app/styles/blog.css';
+import '@app/styles/blog.css';
 
-import clsx from 'clsx';
+import { createServerClient } from '@pocketbase/config';
+import { getThought, getThoughts } from '@pocketbase/req';
+import { Thought } from '@pocketbase/types';
+import { isError } from '@pocketbase/utils';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { BreadcrumbList, TechArticle, WithContext } from 'schema-dts';
 
 import { Footer } from '@/components/footer';
+import { AuroraBackground } from '@/components/pages/thoughts/aurora';
 import { BackLink } from '@/components/pages/thoughts/thought/backLink';
 import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
 import { MarkdownWrapper } from '@/components/pages/thoughts/thought/markdown/wrapper';
 import { ReactLenis } from '@/lib/lenis';
-import { createServerClient } from '@/lib/pocketbase/config';
-import { getThought, getThoughts } from '@/lib/pocketbase/req';
-import { Thought } from '@/lib/pocketbase/types';
-import { isError } from '@/lib/pocketbase/utils';
 import readingTime from '@/lib/readingTime';
 import { minutesToDuration } from '@/lib/utils/date';
-import { AuroraBackgroundProvider } from '@nauverse/react-aurora-background';
-import { AuroraBackground } from '@/components/pages/thoughts/aurora';
 
 // export const experimental_ppr = true;
 export const revalidate = 86400;
+
+interface ThoughtPageProps {
+	params: Promise<{ slug: string }>;
+}
 
 export async function generateMetadata({
 	params
 }: ThoughtPageProps): Promise<Metadata> {
 	const slug = (await params).slug;
-	const client = await createServerClient();
+	const client = createServerClient();
 	const thoughtResponse = await getThought(client, slug);
 
 	if (isError(thoughtResponse)) {
@@ -97,14 +99,10 @@ export async function generateStaticParams() {
 	}));
 }
 
-interface ThoughtPageProps {
-	params: Promise<{ slug: string }>;
-}
-
 const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	const slug = (await params).slug;
 
-	const client = await createServerClient();
+	const client = createServerClient();
 	const thoughtResponse = await getThought(client, slug);
 
 	if (isError(thoughtResponse)) {

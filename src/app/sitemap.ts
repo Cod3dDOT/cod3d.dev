@@ -1,8 +1,7 @@
+import { getThoughts } from '@pocketbase/req';
+import { Thought } from '@pocketbase/types';
+import { isError } from '@pocketbase/utils';
 import { MetadataRoute } from 'next';
-
-import { getThoughts } from '@/lib/pocketbase/req';
-import { Thought } from '@/lib/pocketbase/types';
-import { isError } from '@/lib/pocketbase/utils';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticSitemap: MetadataRoute.Sitemap = [

@@ -1,3 +1,5 @@
+import remarkCallout from '@r4ai/remark-callout';
+import { clsx } from 'clsx';
 import Markdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeHighlightCodeLines from 'rehype-highlight-code-lines';
@@ -5,19 +7,17 @@ import rehypeKatex from 'rehype-katex';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkHeadingId from 'remark-heading-id';
 import remarkMath from 'remark-math';
-import remarkCallout from '@r4ai/remark-callout';
 
+import { TableOfContents } from '../tableOfContents';
 import { MarkdownCodeBlock } from './code';
 import { findImagePaths, MarkdownImage, MarkdownImageFailed } from './image';
-import { TableOfContents } from '../tableOfContents';
-import { clsx } from 'clsx';
 
 type MarkdownWrapperProps = {
 	markdown: string;
 	images: string[];
 };
 
-export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = async ({
+export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
 	images,
 	markdown
 }) => {

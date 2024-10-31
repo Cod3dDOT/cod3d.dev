@@ -1,11 +1,10 @@
-import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
 import { getRandomPokemon } from '@/lib/poke';
 
+import AsideFooter from './parralax';
 import { FooterMon } from './pokemon';
 import { PrintFooter } from './printFooter';
-import { Suspense } from 'react';
-import AsideFooter from './parralax';
 
 export const Footer: React.FC = () => {
 	return (

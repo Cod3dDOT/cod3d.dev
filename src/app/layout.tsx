@@ -1,7 +1,7 @@
 import './styles/globals.css';
 import '@/lib/trustedTypes';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Metadata, Viewport } from 'next';
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
 	verification: {}
 };
 
-export default async function RootLayout({
+export default function RootLayout({
 	children
 }: Readonly<{
 	children: React.ReactNode;

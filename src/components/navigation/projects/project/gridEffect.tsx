@@ -1,12 +1,12 @@
 'use client';
 
-import clsx from 'clsx';
+import { Project } from '@pocketbase/types';
+import { clsx } from 'clsx';
 import { memo } from 'react';
 
 import { GridPattern } from '@/components/effects/gridPattern';
-import { Project } from '@/lib/pocketbase/types';
-import { randomIntFromIntervalPredicted } from '@/lib/utils/math';
 import { stringToUniqueId } from '@/lib/utils/crypto';
+import { randomIntFromIntervalPredicted } from '@/lib/utils/math';
 
 export const ProjectGridEffect: React.FC<{ id: Project['id'] }> = ({ id }) => {
 	const idn = stringToUniqueId(id);

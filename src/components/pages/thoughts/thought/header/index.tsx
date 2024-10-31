@@ -1,102 +1,13 @@
+import { Thought } from '@pocketbase/types';
 import { clsx } from 'clsx';
 
 import MarkdownIcon from '@/components/icons/markdown';
 import RssIcon from '@/components/icons/rss';
 import { Tooltip } from '@/components/tooltip';
-import { Thought } from '@/lib/pocketbase/types';
-import readingTime from '@/lib/readingTime';
-import { dateToString } from '@/lib/utils/date';
-import { AuroraBackgroundProvider } from '@nauverse/react-aurora-background';
 
-const DateScroll: React.FC<{
-	date: Date;
-	delay?: 'delay-500' | 'delay-1000' | 'delay-2000';
-}> = ({ date, delay = 'delay-500' }) => {
-	const startDate = new Date(date);
-	startDate.setDate(startDate.getDate() - 7); // Start from 7 days ago
-
-	const dates = Array.from({ length: 8 }, (_, i) => {
-		const d = new Date(startDate);
-		d.setDate(d.getDate() + i);
-
-		return dateToString(d);
-	});
-
-	return (
-		<time
-			dateTime={date.toISOString()}
-			className="relative inline-block overflow-hidden"
-		>
-			<span className="invisible">{dateToString(date)}</span>
-			<div
-				className={clsx(
-					'left-0 absolute flex flex-col whitespace-nowrap motion-reduce:duration-0 animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out',
-					'motion-reduce:delay-0',
-					delay
-				)}
-				aria-hidden="true"
-			>
-				{dates.map((date, i) => (
-					<span key={i + '-date-scroll-' + date}>{date}</span>
-				))}
-			</div>
-		</time>
-	);
-};
-
-const ReadingTime: React.FC<{
-	markdown: string;
-}> = ({ markdown }) => {
-	const minutes = readingTime(markdown).minutes;
-	const minArray = Array.from({ length: minutes }, (_, i) => i + 1);
-	return (
-		<>
-			<div className="relative overflow-hidden inline-block" aria-hidden="true">
-				<span className="invisible">{minutes}</span>
-				<span className="left-0 absolute flex flex-col whitespace-nowrap motion-reduce:duration-0 animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out">
-					{minArray.map((m, i) => {
-						return <span key={i + '-reading-time'}>{m}</span>;
-					})}
-				</span>
-				<span> minutes</span>
-			</div>
-			<span className="sr-only">{minutes} minutes</span>
-		</>
-	);
-};
-
-export const HeroImage: React.FC<{
-	src: string;
-	srcDark?: string;
-	alt: string;
-}> = ({ alt, src, srcDark }) => {
-	return (
-		<figure className={clsx('pixelated !m-0 xl:!my-6')}>
-			<img
-				fetchPriority="high"
-				loading="eager"
-				src={src}
-				alt={alt}
-				className={clsx(
-					'!m-0 md:rounded-lg w-full aspect-video object-cover lg:w-[25vw]',
-					srcDark && 'dark:hidden'
-				)}
-			/>
-			{srcDark && (
-				<img
-					fetchPriority="high"
-					loading="eager"
-					src={srcDark}
-					alt={alt}
-					className="!m-0 md:rounded-lg w-full aspect-video hidden dark:block object-cover xl:w-[25vw]"
-				/>
-			)}
-			<figcaption className="sr-only text-center md:text-left">
-				{alt}
-			</figcaption>
-		</figure>
-	);
-};
+import { DateScroll } from './dateScroll';
+import { HeroImage } from './image';
+import { ReadingTime } from './readingTime';
 
 interface HeaderProps {
 	thought: Thought;
@@ -132,7 +43,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 	const words = thought.title.split(' ');
 	const spans = words.map((word, index) => (
 		<span
-			key={index + '-markdown-title'}
+			key={index.toString() + '-markdown-title'}
 			className={clsx(
 				'inline-block motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced opacity-0',
 				`motion-reduce:!delay-0`,
@@ -176,6 +87,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 							<a
 								href={`${slug}/download`}
 								rel="noopener"
+								className="dark:text-yellow-500 text-yellow-600"
 								aria-describedby="md-download-tooltip"
 							>
 								<MarkdownIcon className="w-[1lh] h-[1lh]" />
@@ -190,6 +102,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 								href="/feed.xml"
 								target="_blank"
 								rel="noopener noreferrer"
+								className="dark:text-yellow-500 text-yellow-600"
 								aria-describedby="blog-rss-link-tooltip"
 							>
 								<RssIcon className="w-[1lh] h-[1lh]" />

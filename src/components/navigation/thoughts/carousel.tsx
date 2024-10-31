@@ -1,9 +1,10 @@
-import { SpotlightCard } from '@/components/effects/spotlightCard';
-import { getThoughts } from '@/lib/pocketbase/req';
-import { Thought } from '@/lib/pocketbase/types';
-import { dateToString } from '@/lib/utils/date';
-import clsx from 'clsx';
+import { getThoughts } from '@pocketbase/req';
+import { Thought } from '@pocketbase/types';
+import { clsx } from 'clsx';
 import { Link } from 'next-view-transitions';
+
+import { SpotlightCard } from '@/components/effects/spotlightCard';
+import { dateToString } from '@/lib/utils/date';
 
 const shimmer =
 	'overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/10 before:to-transparent';
@@ -33,7 +34,7 @@ const ThoughtLink: React.FC<{
 					>
 						{thought.tags.map((tag, i) => (
 							<span
-								key={i + thought.id}
+								key={i.toString() + thought.id}
 								className="whitespace-nowrap backdrop-blur-lg bg-background-dark p-2 px-3 rounded-full"
 								aria-hidden="true"
 							>
@@ -117,8 +118,12 @@ export const ThoughtsCarousel: React.FC = async () => {
 export const ThoughtsCarouselSkeleton: React.FC = () => {
 	return (
 		<div className="grid sm:grid-cols-2 grid-cols-1 grid-rows-1 sm:aspect-[32/9] aspect-video space-x-2">
-			{[1, 2].map((thought) => {
-				return <ThoughtLinkSkeleton key={'nav-skeleton-thought-' + thought} />;
+			{[1, 2].map((index) => {
+				return (
+					<ThoughtLinkSkeleton
+						key={'nav-skeleton-thought-' + index.toString()}
+					/>
+				);
 			})}
 		</div>
 	);

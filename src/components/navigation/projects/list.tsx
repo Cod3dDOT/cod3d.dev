@@ -1,7 +1,8 @@
-import { getProjects } from '@/lib/pocketbase/req';
-import { NavProject, NavProjectSkeleton } from './project/project';
-import { isError } from '@/lib/pocketbase/utils';
-import { Project } from '@/lib/pocketbase/types';
+import { getProjects } from '@pocketbase/req';
+import { Project } from '@pocketbase/types';
+import { isError } from '@pocketbase/utils';
+
+import { NavProject, NavProjectSkeleton } from './project';
 
 export const NavProjectsList: React.FC = async () => {
 	const projectResponse = await getProjects(1, 3);
@@ -26,7 +27,11 @@ export const NavProjectsListSkeleton: React.FC = () => {
 	return (
 		<div className="space-y-2">
 			{[1, 2, 3].map((project) => {
-				return <NavProjectSkeleton key={'nav-skeleton-project-' + project} />;
+				return (
+					<NavProjectSkeleton
+						key={'nav-skeleton-project-' + project.toString()}
+					/>
+				);
 			})}
 		</div>
 	);

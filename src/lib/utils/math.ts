@@ -14,7 +14,7 @@ export function randomIntFromInterval(min: number, max: number) {
 
 export function shuffleArray<T>(array: T[], seed: string) {
 	function random(seed: number) {
-		var x = Math.sin(seed++) * 10000;
+		const x = Math.sin(seed++) * 10000;
 		return x - Math.floor(x);
 	}
 

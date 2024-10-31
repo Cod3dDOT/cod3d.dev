@@ -2,8 +2,8 @@ import { WebPage, WithContext } from 'schema-dts';
 
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
-import { SyncedRotationWrapper } from '@/components/pages/home/syncedRotationWrapper';
 import { ColorfulBlobs } from '@/components/pages/home/blobs';
+import { SyncedRotationWrapper } from '@/components/pages/home/syncedRotationWrapper';
 
 export const revalidate = 3600;
 

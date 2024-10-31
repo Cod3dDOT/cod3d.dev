@@ -10,9 +10,11 @@ type Props = ClassAttributes<HTMLPreElement> &
 	HTMLAttributes<HTMLPreElement> &
 	ExtraProps;
 
-type Data = {
-	meta?: string;
-};
+type Data =
+	| {
+			meta?: string;
+	  }
+	| undefined;
 
 const extensionToColor = {
 	js: 'bg-[#FFEA61]',
@@ -25,11 +27,13 @@ const extensionToColor = {
 };
 
 export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
-	const filename = (node?.children[0].data as Data)?.meta;
+	const data = node?.children[0].data as Data;
+
+	const filename = data?.meta;
 	const name = filename?.slice(0, filename.lastIndexOf('.')) || '';
 	const extension = filename?.split('.').at(-1) || 'js';
 
-	const random = stringToUniqueId(splitmix32().toString());
+	const random = stringToUniqueId(splitmix32().toString()).toString();
 	const id = `code-${name}-${random}`;
 
 	return (

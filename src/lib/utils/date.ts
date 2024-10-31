@@ -6,20 +6,14 @@ export const dateToString = (date: Date) => {
 	});
 };
 
-export const minutesToDuration = (mins: number) => {
+export const minutesToDuration = (mins: number): string => {
 	const days = Math.floor(mins / 1440);
-	mins = mins - days * 1440;
-	const hours = Math.floor(mins / 60);
-	mins = mins - hours * 60;
+	const hours = Math.floor((mins % 1440) / 60);
+	const minutes = mins % 60;
 
-	let dur = 'PT';
-	if (days > 0) {
-		dur += days + 'D';
-	}
-	if (hours > 0) {
-		dur += hours + 'H';
-	}
-	dur += mins + 'M';
+	const daysStr = days ? days.toString() + 'D ' : '';
+	const hoursStr = hours ? hours.toString() + 'H ' : '';
+	const minutesStr = minutes.toString() + 'M';
 
-	return dur;
+	return `PT${daysStr}${hoursStr}${minutesStr}`;
 };

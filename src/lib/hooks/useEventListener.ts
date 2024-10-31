@@ -35,7 +35,7 @@ export function useEventListener<K extends keyof AllEventMaps>(
 		const el = element === undefined ? window : element;
 
 		const internalListener = (ev: AllEventMaps[K]) => {
-			return listenerRef.current(ev);
+			listenerRef.current(ev);
 		};
 
 		el?.addEventListener(

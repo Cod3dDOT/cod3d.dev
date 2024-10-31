@@ -5,9 +5,10 @@ import { useLenis } from '@/lib/lenis';
 export const ProgressBar: React.FC = () => {
 	const progressBarRef = useRef<HTMLSpanElement>(null);
 	useLenis(({ progress }) => {
+		const newProgress = -80 + progress * 100;
 		progressBarRef.current?.style.setProperty(
 			'translate',
-			`0% ${-80 + progress * 100}%`
+			`0% ${newProgress.toString()}%`
 		);
 	}, []);
 

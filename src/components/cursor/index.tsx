@@ -11,7 +11,7 @@ import CursorEditIcon from '../icons/cursor/edit';
 
 interface Target {
 	classOrTag: string;
-	icon?: JSX.Element;
+	icon?: React.JSX.Element;
 	className?: string;
 	lerp?: number;
 }
@@ -79,7 +79,10 @@ const DesktopCursor: React.FC = () => {
 				_lerp
 			);
 
-			cursorRef.current.style.translate = `${currentPosition.current.x}px ${currentPosition.current.y}px`;
+			const xStr = currentPosition.current.x.toString();
+			const yStr = currentPosition.current.y.toString();
+
+			cursorRef.current.style.translate = `${xStr}px ${yStr}px`;
 
 			// Call update function on the next animation frame
 			requestAnimationFrame(updatePosition);
@@ -142,8 +145,12 @@ const DesktopCursor: React.FC = () => {
 	}, [pathname]);
 
 	useEffect(() => {
-		const onMouseEnterViewport = () => setVisible(true);
-		const onMouseLeaveViewport = () => setVisible(false);
+		const onMouseEnterViewport = () => {
+			setVisible(true);
+		};
+		const onMouseLeaveViewport = () => {
+			setVisible(false);
+		};
 
 		addEventListener('mouseover', onMouseEnterViewport);
 		addEventListener('mouseout', onMouseLeaveViewport);
