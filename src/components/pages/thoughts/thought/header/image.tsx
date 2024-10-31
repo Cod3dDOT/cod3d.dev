@@ -1,9 +1,7 @@
 import { clsx } from 'clsx';
 
-import { POCKETBASE_HOST } from '@/lib/constants';
-
 const asBase64 = async (src: string) => {
-	const res = await fetch(new URL(src, POCKETBASE_HOST));
+	const res = await fetch(new URL(src, 'https://cod3d.dev'));
 	const buffer = await res.arrayBuffer();
 	const base64 = Buffer.from(buffer).toString('base64');
 	return `data:image/webp;base64,${base64}`;
