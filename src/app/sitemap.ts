@@ -3,24 +3,22 @@ import { Thought } from '@pocketbase/types';
 import { isError } from '@pocketbase/utils';
 import { MetadataRoute } from 'next';
 
-import { HOST } from '@/lib/constants';
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticSitemap: MetadataRoute.Sitemap = [
 		{
-			url: HOST,
+			url: 'https://cod3d.dev',
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
 			priority: 1
 		},
 		{
-			url: HOST + '/thoughts',
+			url: 'https://cod3d.dev/thoughts',
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
 			priority: 0.7
 		},
 		{
-			url: HOST + '/projects',
+			url: 'https://cod3d.dev/projects',
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
 			priority: 0.5
@@ -37,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const thoughts = thoughtsResponse as Thought[];
 
 	const withThoughts: MetadataRoute.Sitemap = thoughts.map((thought) => ({
-		url: `${HOST}/thoughts/${thought.slug}`,
+		url: `https://cod3d.dev/thoughts/${thought.slug}`,
 		lastModified: thought.updated
 	}));
 

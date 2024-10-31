@@ -1,13 +1,13 @@
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import PocketBase from 'pocketbase';
 
-import { POCKETBASE_HOST } from '@/lib/constants';
-
 import { TypedPocketBase } from './types';
 
 export function createServerClient(cookieStore?: ReadonlyRequestCookies) {
 	if (!process.env.POCKETBASE_HOST)
 		throw new Error('Invalid .env database config');
+
+	const pbUrl = 'https://' + process.env.POCKETBASE_HOST;
 
 	if (typeof window !== 'undefined') {
 		throw new Error(
@@ -15,7 +15,7 @@ export function createServerClient(cookieStore?: ReadonlyRequestCookies) {
 		);
 	}
 
-	const client = new PocketBase(POCKETBASE_HOST) as TypedPocketBase;
+	const client = new PocketBase(pbUrl) as TypedPocketBase;
 
 	// client.authStore.onChange(() => {
 	// 	const cookie = client.authStore.exportToCookie({

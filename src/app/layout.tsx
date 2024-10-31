@@ -12,7 +12,6 @@ import { ViewTransitions } from 'next-view-transitions';
 
 import { Cursor } from '@/components/cursor';
 import { Navigation } from '@/components/navigation';
-import { HOST } from '@/lib/constants';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -31,7 +30,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-	metadataBase: new URL(HOST), // takes effect only in production
+	metadataBase: new URL('https://cod3d.dev'), // takes effect only in production
 	title: "cod3d's den",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
 	creator: 'cod3d',
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
 			'en-US': '/'
 		},
 		types: {
-			'application/rss+xml': HOST + '/feed.xml'
+			'application/rss+xml': 'https://cod3d.dev/feed.xml'
 		}
 	},
 	robots: {
@@ -55,7 +54,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		type: 'website',
 		locale: 'en_US',
-		url: HOST,
+		url: 'https://cod3d.dev',
 		title: "cod3d's den",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		siteName: "cod3d's den",
@@ -75,7 +74,7 @@ export const metadata: Metadata = {
 		creator: '@cod3ddot',
 		site: "cod3d's den",
 		images: {
-			url: HOST + '/img/og/og.webp', // Must be an absolute URL
+			url: 'https://cod3d.dev/img/og/og.webp', // Must be an absolute URL
 			alt: 'cod3d'
 		}
 	},
@@ -116,7 +115,7 @@ export default function RootLayout({
 						src="/um.js"
 						data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
 						data-domains="cod3d.dev"
-						data-host-url={HOST}
+						data-host-url="https://cod3d.dev"
 					/>
 				</body>
 			</html>

@@ -1,26 +1,16 @@
 import { clsx } from 'clsx';
 
-import { POCKETBASE_HOST } from '@/lib/constants';
-
-const asBase64 = async (src: string) => {
-	const res = await fetch(new URL(src, POCKETBASE_HOST));
-	const buffer = await res.arrayBuffer();
-	const base64 = Buffer.from(buffer).toString('base64');
-	return `data:image/webp;base64,${base64}`;
-};
-
 export const HeroImage: React.FC<{
 	src: string;
 	srcDark?: string;
 	alt: string;
-}> = async ({ alt, src, srcDark }) => {
-	const base64Light = await asBase64(src);
-	const base64Dark = srcDark ? await asBase64(srcDark) : undefined;
-
+}> = ({ alt, src, srcDark }) => {
 	return (
 		<figure className={clsx('pixelated !m-0 xl:!my-6')}>
 			<img
-				src={base64Light}
+				fetchPriority="high"
+				loading="eager"
+				src={src}
 				alt={alt}
 				className={clsx(
 					'!m-0 md:rounded-lg w-full aspect-video object-cover lg:w-[25vw]',
@@ -29,7 +19,9 @@ export const HeroImage: React.FC<{
 			/>
 			{srcDark && (
 				<img
-					src={base64Dark}
+					fetchPriority="high"
+					loading="eager"
+					src={srcDark}
 					alt={alt}
 					className="!m-0 md:rounded-lg w-full aspect-video hidden dark:block object-cover xl:w-[25vw]"
 				/>

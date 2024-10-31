@@ -5,7 +5,6 @@ import { isError } from '@pocketbase/utils';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { POCKETBASE_HOST } from '@/lib/constants';
 import { verifyToken } from '@/lib/utils/crypto';
 
 export const revalidate = 86400;
@@ -60,9 +59,7 @@ export async function GET(request: Request) {
 	}
 
 	const thought = thoughtResponse as Thought;
-	const markdownResponse = await fetch(
-		new URL(thought.markdown, POCKETBASE_HOST)
-	);
+	const markdownResponse = await fetch('https://cod3d.dev' + thought.markdown);
 
 	if (!markdownResponse.ok) {
 		return notFound();

@@ -4,21 +4,20 @@ import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { ColorfulBlobs } from '@/components/pages/home/blobs';
 import { SyncedRotationWrapper } from '@/components/pages/home/syncedRotationWrapper';
-import { HOST } from '@/lib/constants';
 
 export const revalidate = 3600;
 
 const jsonLd: WithContext<WebPage> = {
 	'@context': 'https://schema.org',
 	'@type': 'WebPage',
-	url: HOST,
+	url: 'https://cod3d.dev/',
 	mainEntityOfPage: {
 		'@type': 'WebPage',
-		'@id': HOST
+		'@id': 'https://cod3d.dev/'
 	},
 	name: "cod3d's thoughts | A place where I share my struggles",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
-	image: HOST + '/img/og/og.webp',
+	image: 'https://cod3d.dev/img/og/og.webp',
 	author: {
 		'@type': 'Person',
 		name: 'cod3d',

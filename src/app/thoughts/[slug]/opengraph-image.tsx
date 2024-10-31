@@ -10,7 +10,6 @@ import path from 'path';
 import sharp, { kernel } from 'sharp';
 import { fileURLToPath } from 'url';
 
-import { POCKETBASE_HOST } from '@/lib/constants';
 import { dateToString } from '@/lib/utils/date';
 
 export async function generateStaticParams() {
@@ -41,7 +40,7 @@ const getFont = async () => {
 };
 
 const getImage = async (hero: string) => {
-	const response = await fetch(new URL(hero, POCKETBASE_HOST));
+	const response = await fetch('https://cod3d.dev/' + hero);
 
 	if (!response.ok) {
 		return null;

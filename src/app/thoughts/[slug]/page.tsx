@@ -13,7 +13,6 @@ import { AuroraBackground } from '@/components/pages/thoughts/aurora';
 import { BackLink } from '@/components/pages/thoughts/thought/backLink';
 import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
 import { MarkdownWrapper } from '@/components/pages/thoughts/thought/markdown/wrapper';
-import { HOST, POCKETBASE_HOST } from '@/lib/constants';
 import { ReactLenis } from '@/lib/lenis';
 import readingTime from '@/lib/readingTime';
 import { minutesToDuration } from '@/lib/utils/date';
@@ -38,7 +37,7 @@ export async function generateMetadata({
 			description: "cod3d's thoughts",
 			openGraph: {
 				type: 'website',
-				url: HOST,
+				url: 'https://cod3d.dev',
 				title: "cod3d's thoughts",
 				description:
 					'There has been an error retrieving the thought. Try to visit the website and reload the page.',
@@ -53,9 +52,9 @@ export async function generateMetadata({
 		title: thought.title,
 		description: thought.description,
 		alternates: {
-			canonical: HOST + '/thoughts/' + thought.slug,
+			canonical: 'https://cod3d.dev/thoughts/' + thought.slug,
 			types: {
-				'application/rss+xml': HOST + '/feed.xml'
+				'application/rss+xml': 'https://cod3d.dev/feed.xml'
 			}
 		},
 		keywords: thought.tags,
@@ -70,7 +69,7 @@ export async function generateMetadata({
 		openGraph: {
 			locale: 'en_US',
 			type: 'article',
-			url: HOST + '/thoughts/' + thought.slug,
+			url: 'https://cod3d.dev/thoughts/' + thought.slug,
 			title: thought.title,
 			description: thought.description,
 			publishedTime: thought.created.toISOString(),
@@ -111,9 +110,8 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	}
 
 	const thought = thoughtResponse as Thought;
-	const markdownResponse = await fetch(
-		new URL(thought.markdown, POCKETBASE_HOST)
-	);
+	//FIXME: remove hardcoded url
+	const markdownResponse = await fetch('https://cod3d.dev' + thought.markdown);
 
 	if (!markdownResponse.ok || isError(markdownResponse)) {
 		return notFound();
@@ -125,13 +123,13 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	const jsonLd: WithContext<TechArticle> = {
 		'@context': 'https://schema.org',
 		'@type': 'TechArticle',
-		url: HOST + '/thoughts/' + thought.slug,
+		url: 'https://cod3d.dev/thoughts/' + thought.slug,
 		mainEntityOfPage: {
 			'@type': 'WebPage',
-			'@id': HOST + '/thoughts/' + thought.slug
+			'@id': 'https://cod3d.dev/thoughts/' + thought.slug
 		},
 		headline: thought.title,
-		image: HOST + thought.hero.light,
+		image: 'https://cod3d.dev/' + thought.hero.light,
 		author: {
 			'@type': 'Person',
 			name: 'cod3d',
@@ -154,19 +152,19 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 				'@type': 'ListItem',
 				position: 1,
 				name: 'cod3d.dev',
-				item: HOST
+				item: 'https://cod3d.dev'
 			},
 			{
 				'@type': 'ListItem',
 				position: 2,
 				name: 'thoughts',
-				item: HOST + '/thoughts'
+				item: 'https://cod3d.dev/thoughts'
 			},
 			{
 				'@type': 'ListItem',
 				position: 3,
 				name: thought.title,
-				item: HOST + '/thoughts/' + thought.slug
+				item: 'https://cod3d.dev/thoughts/' + thought.slug
 			}
 		]
 	};

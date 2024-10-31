@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { BreadcrumbList, WebPage, WithContext } from 'schema-dts';
 
 import { Footer } from '@/components/footer';
-import { HOST } from '@/lib/constants';
 import { ReactLenis } from '@/lib/lenis';
 
 export const metadata: Metadata = {
@@ -18,17 +17,17 @@ export const metadata: Metadata = {
 		noimageindex: false
 	},
 	alternates: {
-		canonical: HOST + '/projects'
+		canonical: 'https://cod3d.dev/projects'
 	},
 	openGraph: {
 		type: 'website',
-		url: HOST + '/projects',
+		url: 'https://cod3d.dev/projects',
 		title: "cod3d's projects",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		siteName: "cod3d's den",
 		images: [
 			{
-				url: HOST + '/img/og/og.webp'
+				url: '/img/og/og.webp'
 			}
 		]
 	},
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
 		site: "cod3d's den",
 		images: [
 			{
-				url: HOST + 'img/og/og.webp',
+				url: 'img/og/og.webp',
 				width: 1200,
 				height: 675,
 				alt: "cod3d's den twitter image"
@@ -52,14 +51,14 @@ export const metadata: Metadata = {
 const jsonLd: WithContext<WebPage> = {
 	'@context': 'https://schema.org',
 	'@type': 'WebPage',
-	url: HOST + '/projects/',
+	url: 'https://cod3d.dev/projects/',
 	mainEntityOfPage: {
 		'@type': 'WebPage',
-		'@id': HOST + '/projects/'
+		'@id': 'https://cod3d.dev/projects/'
 	},
 	name: "cod3d's projects",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
-	image: HOST + '/img/og/og.webp',
+	image: 'https://cod3d.dev/img/og/og.webp',
 	author: {
 		'@type': 'Person',
 		name: 'cod3d',
@@ -75,13 +74,13 @@ const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {
 			'@type': 'ListItem',
 			position: 1,
 			name: 'cod3d.dev',
-			item: HOST
+			item: 'https://cod3d.dev'
 		},
 		{
 			'@type': 'ListItem',
 			position: 2,
 			name: 'projects',
-			item: HOST + '/projects'
+			item: 'https://cod3d.dev/projects'
 		}
 	]
 };
