@@ -35,6 +35,7 @@ const CSP = {
     object-src 'none';
     base-uri 'none';
     form-action 'self';
+    image-src 'self' data:;
     frame-ancestors 'none';
     upgrade-insecure-requests;`,
 	TRUSTED_SCRIPT: `
