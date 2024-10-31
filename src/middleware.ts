@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { ENV } from './lib/constants';
 import { signToken } from './lib/utils/crypto';
 
 export const config = {
@@ -35,6 +36,7 @@ const CSP = {
     object-src 'none';
     base-uri 'none';
     form-action 'self';
+    img-src 'self' data:;
     frame-ancestors 'none';
     upgrade-insecure-requests;`,
 	TRUSTED_SCRIPT: `
@@ -43,7 +45,7 @@ const CSP = {
 };
 
 export async function middleware(request: NextRequest) {
-	const IS_DEV = process.env.NODE_ENV === 'development';
+	const IS_DEV = ENV == 'l-dev' || ENV == 'v-dev';
 
 	const csp = (IS_DEV ? CSP.BASE : CSP.BASE + CSP.TRUSTED_SCRIPT)
 		.replace(/\s+/g, ' ')

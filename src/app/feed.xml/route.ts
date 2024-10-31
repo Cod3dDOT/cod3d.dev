@@ -3,6 +3,8 @@ import { Thought } from '@pocketbase/types';
 import { isError } from '@pocketbase/utils';
 import RSS from 'rss';
 
+import { HOST } from '@/lib/constants';
+
 export const revalidate = 86400;
 
 export async function GET() {
@@ -17,17 +19,12 @@ export async function GET() {
 
 	const thoughts = thoughtsResponse as Thought[];
 
-	const siteUrl =
-		process.env.NODE_ENV === 'production'
-			? 'https://cod3d.dev'
-			: 'http://localhost:3000';
-
 	const feedOptions = {
 		title: "cod3d's thoughts",
 		description: 'A place where I share my struggles',
-		site_url: siteUrl,
-		feed_url: `${siteUrl}/feed.xml`,
-		image_url: `${siteUrl}/img/og/og.webp`,
+		site_url: HOST,
+		feed_url: `${HOST}/feed.xml`,
+		image_url: `${HOST}/img/og/og.webp`,
 		pubDate: new Date().toUTCString(),
 		copyright: `All rights reserved - ${new Date().getFullYear().toString()}`
 	};
@@ -38,7 +35,7 @@ export async function GET() {
 		feed.item({
 			title: thought.title,
 			description: thought.description,
-			url: `${siteUrl}/thoughts/${thought.slug}`,
+			url: `${HOST}/thoughts/${thought.slug}`,
 			guid: thought.id,
 			date: thought.created
 		});

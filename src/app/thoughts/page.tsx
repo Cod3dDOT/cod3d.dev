@@ -10,6 +10,7 @@ import { PageError } from '@/components/error';
 import { Footer } from '@/components/footer';
 import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
 import { Years } from '@/components/pages/thoughts/years';
+import { HOST } from '@/lib/constants';
 import { ReactLenis } from '@/lib/lenis';
 
 export const metadata: Metadata = {
@@ -25,15 +26,15 @@ export const metadata: Metadata = {
 		noimageindex: false
 	},
 	alternates: {
-		canonical: 'https://cod3d.dev/thoughts',
+		canonical: HOST + '/thoughts',
 		types: {
-			'application/rss+xml': 'https://cod3d.dev/feed.xml'
+			'application/rss+xml': HOST + '/feed.xml'
 		}
 	},
 	openGraph: {
 		locale: 'en_US',
 		type: 'website',
-		url: 'https://cod3d.dev/thoughts',
+		url: HOST + '/thoughts',
 		title: "cod3d's thoughts | A place where I share my struggles",
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		siteName: "cod3d's den",
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
 		description: 'Probably trying to hack you. Or sleeping. Or both.',
 		creator: '@cod3ddot',
 		images: {
-			url: 'https://cod3d.dev/img/og/og.webp', // Must be an absolute URL
+			url: HOST + '/img/og/og.webp', // Must be an absolute URL
 			alt: 'cod3d'
 		}
 	}
@@ -62,14 +63,14 @@ export const revalidate = 3600;
 const jsonLd: WithContext<WebPage> = {
 	'@context': 'https://schema.org',
 	'@type': 'WebPage',
-	url: 'https://cod3d.dev/thoughts/',
+	url: HOST + '/thoughts/',
 	mainEntityOfPage: {
 		'@type': 'WebPage',
-		'@id': 'https://cod3d.dev/thoughts/'
+		'@id': HOST + '/thoughts/'
 	},
 	name: "cod3d's thoughts | A place where I share my struggles",
 	description: 'Probably trying to hack you. Or sleeping. Or both.',
-	image: 'https://cod3d.dev/img/og/og.webp',
+	image: HOST + '/img/og/og.webp',
 	author: {
 		'@type': 'Person',
 		name: 'cod3d',
@@ -86,13 +87,13 @@ const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {
 			'@type': 'ListItem',
 			position: 1,
 			name: 'cod3d.dev',
-			item: 'https://cod3d.dev'
+			item: HOST
 		},
 		{
 			'@type': 'ListItem',
 			position: 2,
 			name: 'thoughts',
-			item: 'https://cod3d.dev/thoughts'
+			item: HOST + '/thoughts'
 		}
 	]
 };

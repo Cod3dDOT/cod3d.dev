@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 
+import { HOST } from '@/lib/constants';
+
 export default function robots(): MetadataRoute.Robots {
 	return {
 		rules: {
@@ -14,6 +16,6 @@ export default function robots(): MetadataRoute.Robots {
 				'*/opengraph-image'
 			]
 		},
-		sitemap: 'https://cod3d.dev/sitemap.xml'
+		sitemap: HOST + '/sitemap.xml'
 	};
 }
