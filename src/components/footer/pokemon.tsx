@@ -1,10 +1,11 @@
 import '@app/styles/pokemons.css';
 
 import { clsx } from 'clsx';
+import { memo } from 'react';
 
 import { Pokemon } from '@/lib/poke';
 
-export const FooterMon: React.FC<{
+const _FooterMon: React.FC<{
 	pokemon: Pokemon;
 }> = ({ pokemon }) => {
 	return (
@@ -37,3 +38,5 @@ export const FooterMon: React.FC<{
 		</>
 	);
 };
+
+export const FooterMon = memo(_FooterMon);
