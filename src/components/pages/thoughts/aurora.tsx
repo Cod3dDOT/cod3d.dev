@@ -30,7 +30,7 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
 			blurAmount={100}
 			bgColor="#00000000"
 			numBubbles={6}
-			className=" relative block pt-8 md:pt-24"
+			className=" relative block pt-8 md:pt-24 [&>*:first-child]:hidden [&>*:first-child]:md:block"
 		>
 			{children}
 		</AuroraBackgroundProvider>
