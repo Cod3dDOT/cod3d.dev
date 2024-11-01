@@ -1,3 +1,7 @@
+.AuroraBackground-module__pAli1a__container {
+	@apply hidden md:block;
+}
+
 [data-callout] {
 	--background: rgb(from var(--color) r g b / 0.2);
 

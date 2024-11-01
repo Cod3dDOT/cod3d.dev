@@ -1,4 +1,4 @@
-import '@app/styles/blog.css';
+import '@app/styles/thought.css';
 
 import { createServerClient } from '@pocketbase/config';
 import { getThought, getThoughts } from '@pocketbase/req';
