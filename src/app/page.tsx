@@ -1,3 +1,5 @@
+import '@app/styles/glitch.css';
+
 import { WebPage, WithContext } from 'schema-dts';
 
 import { GlitchText } from '@/components/effects/glitchText';

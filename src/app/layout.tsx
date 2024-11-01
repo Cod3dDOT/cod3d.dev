@@ -1,4 +1,4 @@
-import './styles/globals.css';
+import '@app/styles/globals.css';
 import '@/lib/trustedTypes';
 
 import { clsx } from 'clsx';
@@ -112,6 +112,7 @@ export default function RootLayout({
 						integrity="sha512-aVhKEoDN1UjAGCux/Wbzr2oHu+cEQharzvwtlwhf0Nkpzogrq9BBemmVewI7+kRf+i9aIfGtzGCftp1XcDGsqw=="
 						crossOrigin="anonymous"
 						strategy="afterInteractive"
+						async
 						src="/um.js"
 						data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
 						data-domains="cod3d.dev"
