@@ -35,7 +35,7 @@ const ThoughtLink: React.FC<{
 						{thought.tags.map((tag, i) => (
 							<span
 								key={i.toString() + thought.id}
-								className="whitespace-nowrap backdrop-blur-lg bg-background-dark p-2 px-3 rounded-full"
+								className="whitespace-nowrap bg-background-dark p-2 px-3 rounded-full"
 								aria-hidden="true"
 							>
 								{tag}
@@ -51,7 +51,7 @@ const ThoughtLink: React.FC<{
 						</time>
 						<span>cod3d.dev</span>
 					</div>
-					<div className="absolute w-36 h-36 rounded-full -top-16 -right-16 bg-blue-500 blur-xl" />
+					<div className="hidden md:block absolute w-36 h-36 rounded-full -top-16 -right-16 bg-blue-500 blur-xl" />
 				</div>
 			</SpotlightCard>
 		</Link>
