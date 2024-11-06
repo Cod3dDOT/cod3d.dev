@@ -21,4 +21,4 @@ const MatrixIcon = React.forwardRef<SVGSVGElement, IconProps>(
 );
 
 MatrixIcon.displayName = 'Matrix';
-export default MatrixIcon;
+export default React.memo(MatrixIcon);

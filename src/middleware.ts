@@ -46,7 +46,7 @@ const CSP = {
 export async function middleware(request: NextRequest) {
 	const IS_DEV = process.env.NODE_ENV === 'development';
 
-	const csp = (IS_DEV ? CSP.BASE : CSP.BASE + CSP.TRUSTED_SCRIPT)
+	const csp = (IS_DEV ? `` : CSP.BASE + CSP.TRUSTED_SCRIPT)
 		.replace(/\s+/g, ' ')
 		.trim();
 

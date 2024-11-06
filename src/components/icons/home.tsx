@@ -21,4 +21,4 @@ const HomeIcon = React.forwardRef<SVGSVGElement, IconProps>(
 );
 
 HomeIcon.displayName = 'Home';
-export default HomeIcon;
+export default React.memo(HomeIcon);

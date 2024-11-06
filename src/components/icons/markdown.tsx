@@ -1,8 +1,8 @@
-import { forwardRef } from 'react';
+import React from 'react';
 
 import { IconProps } from '.';
 
-const MarkdownIcon = forwardRef<SVGSVGElement, IconProps>(
+const MarkdownIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
 		<svg
 			ref={ref}
@@ -25,4 +25,4 @@ const MarkdownIcon = forwardRef<SVGSVGElement, IconProps>(
 );
 
 MarkdownIcon.displayName = 'MarkdownIcon';
-export default MarkdownIcon;
+export default React.memo(MarkdownIcon);

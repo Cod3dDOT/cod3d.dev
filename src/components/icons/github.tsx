@@ -21,4 +21,4 @@ const GithubIcon = React.forwardRef<SVGSVGElement, IconProps>(
 );
 
 GithubIcon.displayName = 'Github';
-export default GithubIcon;
+export default React.memo(GithubIcon);

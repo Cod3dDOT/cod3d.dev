@@ -24,4 +24,4 @@ const MailIcon = React.forwardRef<SVGSVGElement, IconProps>(
 );
 
 MailIcon.displayName = 'Mail';
-export default MailIcon;
+export default React.memo(MailIcon);

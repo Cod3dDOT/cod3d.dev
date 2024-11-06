@@ -21,4 +21,4 @@ const ScrollIcon = React.forwardRef<SVGSVGElement, IconProps>(
 );
 
 ScrollIcon.displayName = 'ScrollIcon';
-export default ScrollIcon;
+export default React.memo(ScrollIcon);

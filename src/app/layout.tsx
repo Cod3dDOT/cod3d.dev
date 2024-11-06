@@ -7,11 +7,11 @@ import { GeistSans } from 'geist/font/sans';
 import type { Metadata, Viewport } from 'next';
 import { Pixelify_Sans } from 'next/font/google';
 import Script from 'next/script';
-import { ThemeProvider } from 'next-themes';
 import { ViewTransitions } from 'next-view-transitions';
 
 import { Cursor } from '@/components/cursor';
 import { Navigation } from '@/components/navigation';
+import { Providers } from '@/components/providers';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],
@@ -101,12 +101,12 @@ export default function RootLayout({
 						'font-pixelify cursor-none'
 					)}
 				>
-					<ThemeProvider attribute="class">
+					<Providers>
 						<Cursor />
 						{children}
-						{/* make sure that navigation, which has headings, statys behind main content */}
+						{/* make sure that navigation, which has headings, stays behind main content */}
 						<Navigation />
-					</ThemeProvider>
+					</Providers>
 
 					<Script
 						integrity="sha512-aVhKEoDN1UjAGCux/Wbzr2oHu+cEQharzvwtlwhf0Nkpzogrq9BBemmVewI7+kRf+i9aIfGtzGCftp1XcDGsqw=="

@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 
 import { useLenis } from '@/lib/lenis';
 
-export const ProgressBar: React.FC = () => {
+export const ProgressBar: React.FC = memo(() => {
 	const progressBarRef = useRef<HTMLSpanElement>(null);
+
 	useLenis(({ progress }) => {
 		const newProgress = -80 + progress * 100;
 		progressBarRef.current?.style.setProperty(
@@ -18,4 +19,4 @@ export const ProgressBar: React.FC = () => {
 			ref={progressBarRef}
 		/>
 	);
-};
+});

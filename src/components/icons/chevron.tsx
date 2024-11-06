@@ -22,4 +22,4 @@ const ChevronIcon = React.forwardRef<SVGSVGElement, IconProps>(
 );
 
 ChevronIcon.displayName = 'Chevron';
-export default ChevronIcon;
+export default React.memo(ChevronIcon);

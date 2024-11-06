@@ -1,8 +1,9 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { memo } from 'react';
 
-export const PrintFooter: React.FC = () => {
+export const PrintFooter: React.FC = memo(() => {
 	const pathName = usePathname();
 
 	return (
@@ -13,4 +14,4 @@ export const PrintFooter: React.FC = () => {
 			<span>Thank you for reading.</span>
 		</p>
 	);
-};
+});

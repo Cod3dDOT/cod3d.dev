@@ -37,4 +37,4 @@ const CopyIcon = React.forwardRef<SVGSVGElement, Props>(
 );
 
 CopyIcon.displayName = 'Copy';
-export default CopyIcon;
+export default React.memo(CopyIcon);

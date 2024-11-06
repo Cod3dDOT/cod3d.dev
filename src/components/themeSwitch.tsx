@@ -9,68 +9,65 @@ interface ThemeSwitchProps {
 	className?: string;
 }
 
-const _ThemeSwitch: React.FC<ThemeSwitchProps> = ({
-	id = 'theme-switch',
-	className
-}: ThemeSwitchProps) => {
-	const { resolvedTheme, setTheme } = useTheme();
-	const ref = useRef<HTMLButtonElement>(null);
+export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(
+	({ id = 'theme-switch', className }) => {
+		const { resolvedTheme, setTheme } = useTheme();
+		const ref = useRef<HTMLButtonElement>(null);
 
-	const toggleTheme = useCallback(() => {
-		setTheme(resolvedTheme == 'dark' ? 'light' : 'dark');
-	}, [resolvedTheme]);
+		const toggleTheme = useCallback(() => {
+			setTheme(resolvedTheme == 'dark' ? 'light' : 'dark');
+		}, [resolvedTheme]);
 
-	useEffect(() => {
-		ref.current?.addEventListener('click', toggleTheme);
-		return () => ref.current?.removeEventListener('click', toggleTheme);
-	}, [resolvedTheme]);
+		useEffect(() => {
+			ref.current?.addEventListener('click', toggleTheme);
+			return () => ref.current?.removeEventListener('click', toggleTheme);
+		}, [resolvedTheme]);
 
-	return (
-		<button
-			id={id}
-			ref={ref}
-			type="button"
-			className={clsx(
-				'group hover:scale-95 aspect-square touch-manipulation',
-				className
-			)}
-			aria-label="Theme switch"
-		>
-			<svg aria-hidden="true" viewBox="0 0 24 24" focusable={false}>
-				<mask className="origin-center" id={'moon-mask-' + id}>
-					<rect x="0" y="0" width="100%" height="100%" fill="white" />
-					<circle
-						cx="24"
-						cy="10"
-						r="6"
-						className="transition-[cx] origin-center duration-300
+		return (
+			<button
+				id={id}
+				ref={ref}
+				type="button"
+				className={clsx(
+					'group hover:scale-95 aspect-square touch-manipulation',
+					className
+				)}
+				aria-label="Theme switch"
+			>
+				<svg aria-hidden="true" viewBox="0 0 24 24" focusable={false}>
+					<mask className="origin-center" id={'moon-mask-' + id}>
+						<rect x="0" y="0" width="100%" height="100%" fill="white" />
+						<circle
+							cx="24"
+							cy="10"
+							r="6"
+							className="transition-[cx] origin-center duration-300
                             dark:[cx:17] dark:delay-300 dark:duration-600 dark:translate-x-0 dark:translate-y-0"
-					/>
-				</mask>
-				<circle
-					className="transition-all origin-center peer duration-600 fill-black group-hover:fill-black/60
+						/>
+					</mask>
+					<circle
+						className="transition-all origin-center peer duration-600 fill-black group-hover:fill-black/60
                                 dark:scale-[1.75] dark:duration-300 dark:fill-foreground dark:group-hover:fill-white"
-					cx="12"
-					cy="12"
-					r="6"
-					mask={`url(#moon-mask-${id})`}
-				/>
-				<g
-					className="transition-all origin-center stroke-2 delay-150 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-black/60
+						cx="12"
+						cy="12"
+						r="6"
+						mask={`url(#moon-mask-${id})`}
+					/>
+					<g
+						className="transition-all origin-center stroke-2 delay-150 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-black/60
                     dark:-rotate-45 dark:duration-300 dark:delay-0 dark:opacity-0 dark:stroke-white"
-				>
-					<line x1="12" y1="1" x2="12" y2="3" />
-					<line x1="12" y1="21" x2="12" y2="23" />
-					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-					<line x1="1" y1="12" x2="3" y2="12" />
-					<line x1="21" y1="12" x2="23" y2="12" />
-					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-				</g>
-			</svg>
-		</button>
-	);
-};
-
-export const ThemeSwitch = memo(_ThemeSwitch);
+					>
+						<line x1="12" y1="1" x2="12" y2="3" />
+						<line x1="12" y1="21" x2="12" y2="23" />
+						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+						<line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+						<line x1="1" y1="12" x2="3" y2="12" />
+						<line x1="21" y1="12" x2="23" y2="12" />
+						<line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+						<line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+					</g>
+				</svg>
+			</button>
+		);
+	}
+);

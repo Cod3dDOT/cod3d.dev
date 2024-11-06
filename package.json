@@ -13,6 +13,7 @@
 	},
 	"scripts": {
 		"dev": "next dev --turbo",
+		"million": "MILLION=true bun run next dev ",
 		"prebuild": "bun next telemetry disable",
 		"build": "next build",
 		"clean-build": "rm -rf .next && bun run build",
@@ -25,6 +26,7 @@
 		"generate:pokemons": "bun scripts/generate-pokemons.ts generate"
 	},
 	"dependencies": {
+		"@million/lint": "^1.0.11",
 		"@nauverse/react-aurora-background": "^1.0.12",
 		"@r4ai/remark-callout": "^0.6.2",
 		"copy-to-clipboard": "^3.3.3",
