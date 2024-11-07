@@ -11,7 +11,8 @@ export default function robots(): MetadataRoute.Robots {
 				'/pokemon',
 				'/img',
 				'/pwa',
-				'*/opengraph-image'
+				'*/opengraph-image',
+				'*/download'
 			]
 		},
 		sitemap: 'https://cod3d.dev/sitemap.xml'
