@@ -1,7 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
-import React, { useMemo, useRef } from 'react';
+import React, { RefObject, useMemo, useRef } from 'react';
 import { useMouse } from 'react-use';
 
 import useIsTouchDevice from '@/lib/hooks/useIsTouchDevice';
@@ -41,8 +41,8 @@ export function SpotlightCard({
 }: SpotlightCardProps): React.JSX.Element {
 	const mobile = useIsTouchDevice();
 	const container = useRef<HTMLDivElement>(null);
-	const { elX, elY, elW, elH } = useMouse(container);
-	const isVisible = useIsVisible(container);
+	const { elX, elY, elW, elH } = useMouse(container as RefObject<HTMLElement>);
+	const isVisible = useIsVisible(container as RefObject<HTMLElement>);
 
 	const centerX = elW / 2 || 0;
 	const centerY = elH / 2 || 0;

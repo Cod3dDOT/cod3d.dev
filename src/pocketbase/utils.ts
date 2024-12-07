@@ -11,4 +11,4 @@ export const getUrl = (
 	client: TypedPocketBase,
 	record: PBThought | PBProject | PBTag,
 	filename: string
-): URL => new URL(client.files.getUrl(record, filename));
+): URL => new URL(client.files.getURL(record, filename));

@@ -1,22 +1,14 @@
-import { RefObject, useEffect, useMemo, useState } from 'react';
+'use client';
+
+import { RefObject } from 'react';
+import { useIntersection } from 'react-use';
 
 export default function useIsVisible(ref: RefObject<HTMLElement>) {
-	const [isIntersecting, setIntersecting] = useState(false);
+	const intersection = useIntersection(ref, {
+		root: null,
+		rootMargin: '0px',
+		threshold: 1
+	});
 
-	const observer = useMemo(() => {
-		if (!ref.current) return;
-
-		return new IntersectionObserver(([entry]) => {
-			setIntersecting(entry.isIntersecting);
-		});
-	}, [ref.current]);
-
-	useEffect(() => {
-		if (!ref.current) return;
-
-		observer?.observe(ref.current);
-		return () => observer?.disconnect();
-	}, [ref.current]);
-
-	return isIntersecting;
+	return intersection?.isIntersecting;
 }

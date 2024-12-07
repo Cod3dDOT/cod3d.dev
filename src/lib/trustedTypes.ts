@@ -4,13 +4,9 @@ import DOMPurify from 'isomorphic-dompurify';
 
 window.trustedTypes?.createPolicy('default', {
 	createHTML: (input: string) => {
-		let PARSER_MEDIA_TYPE = undefined;
-		if (input.startsWith('{"@context":"https://schema.org"')) {
-			PARSER_MEDIA_TYPE = 'application/ld+json';
-		}
 		return DOMPurify.sanitize(input, {
 			USE_PROFILES: { html: true },
-			PARSER_MEDIA_TYPE: PARSER_MEDIA_TYPE,
+			PARSER_MEDIA_TYPE: 'text/html',
 			RETURN_TRUSTED_TYPE: false,
 			FORCE_BODY: true,
 			IN_PLACE: true,
@@ -23,7 +19,7 @@ window.trustedTypes?.createPolicy('default', {
 
 		return DOMPurify.sanitize(input, {
 			USE_PROFILES: { html: true },
-			PARSER_MEDIA_TYPE: 'application/text',
+			PARSER_MEDIA_TYPE: 'text/html',
 			RETURN_TRUSTED_TYPE: false,
 			FORCE_BODY: true
 		});

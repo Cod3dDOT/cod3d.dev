@@ -2,12 +2,11 @@ import { createServerClient } from '@pocketbase/config';
 import { getThought, getThoughts } from '@pocketbase/req';
 import { Thought } from '@pocketbase/types';
 import { isError } from '@pocketbase/utils';
-import fs from 'fs';
+import { readFile } from 'fs/promises';
 import { ImageResponse } from 'next/og';
 import { ImageResponseOptions } from 'next/server';
 import path from 'path';
 import sharp, { kernel } from 'sharp';
-import { fileURLToPath } from 'url';
 
 import { dateToString } from '@/lib/utils/date';
 
@@ -27,26 +26,17 @@ export async function generateStaticParams() {
 
 const size = { width: 1200, height: 675 };
 
-const getFont = async () => {
-	const response = await fs.promises.readFile(
-		path.join(
-			fileURLToPath(import.meta.url),
-			'../../../../assets/fonts/PixelifySans-Regular.ttf'
-		)
-	);
+const getFonts = async () => {
+	const fonts = ['PixelifySans-Regular.ttf', 'GeistMono-Regular.ttf'];
+	const promises = fonts.map(async (font) => {
+		const response = await readFile(
+			path.join(process.cwd(), `./src/assets/fonts/${font}`)
+		);
 
-	return new Uint8Array(response).buffer;
-};
+		return new Uint8Array(response).buffer;
+	});
 
-const getGeistFont = async () => {
-	const response = await fs.promises.readFile(
-		path.join(
-			fileURLToPath(import.meta.url),
-			'../../../../assets/fonts/GeistMono-Regular.ttf'
-		)
-	);
-
-	return new Uint8Array(response).buffer;
+	return Promise.all(promises);
 };
 
 const getImage = async (hero: string) => {
@@ -88,16 +78,18 @@ export default async function Image({
 	const errored = isError(thoughtResponse);
 	const thought = errored ? null : (thoughtResponse as Thought);
 
+	const [geistFont, pixelifyFont] = await getFonts();
+
 	const fonts: ImageResponseOptions['fonts'] = [
 		{
 			name: 'Geist',
-			data: await getGeistFont(),
+			data: geistFont,
 			style: 'normal',
 			weight: 400
 		},
 		{
 			name: 'PixelifySans',
-			data: await getFont(),
+			data: pixelifyFont,
 			style: 'normal',
 			weight: 400
 		}

@@ -26,7 +26,7 @@ const useAutoClose = ({
 	menu
 }: {
 	closeNav: () => void;
-	menu: RefObject<HTMLElement>;
+	menu: RefObject<Element | null>;
 }) => {
 	const handleClosure = useCallback(
 		(event: MouseEvent | FocusEvent) => {

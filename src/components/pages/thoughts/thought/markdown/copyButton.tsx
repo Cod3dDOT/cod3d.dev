@@ -14,7 +14,7 @@ export const CopyButton: React.FC<{
 	className?: string;
 }> = ({ id, content: initialContent = '', contentName, className }) => {
 	// Use refs instead of state for values that don't need to trigger re-renders
-	const timeoutRef = useRef<NodeJS.Timeout>();
+	const timeoutRef = useRef<NodeJS.Timeout>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	// Only copied state needs to trigger re-renders for visual feedback
 	const [copyState, setCopyState] = useState<CopyState>(null);

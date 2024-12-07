@@ -1,6 +1,7 @@
 import remarkCallout from '@r4ai/remark-callout';
 import { clsx } from 'clsx';
-import Markdown from 'react-markdown';
+import { JSX } from 'react';
+import Markdown, { ExtraProps } from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeHighlightCodeLines from 'rehype-highlight-code-lines';
 import rehypeKatex from 'rehype-katex';
@@ -37,10 +38,10 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
 					h1() {
 						return <></>;
 					},
-					pre(props) {
+					pre(props: JSX.IntrinsicElements['pre'] & ExtraProps) {
 						return <MarkdownCodeBlock {...props} />;
 					},
-					img(props) {
+					img(props: JSX.IntrinsicElements['img'] & ExtraProps) {
 						const src = props.src;
 						if (!src || src === '')
 							return (
@@ -59,7 +60,7 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
 							/>
 						);
 					},
-					p(props) {
+					p(props: JSX.IntrinsicElements['p'] & ExtraProps) {
 						if (!props.children) return <></>;
 
 						const type = props.node?.children[0].type;

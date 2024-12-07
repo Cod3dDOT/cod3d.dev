@@ -3,7 +3,7 @@
 import { clsx } from 'clsx';
 import React, {
 	createContext,
-	MutableRefObject,
+	RefObject,
 	useCallback,
 	useContext,
 	useEffect,
@@ -154,7 +154,7 @@ const TextRevealInner: React.FC<TextRevealContextType> = ({
 
 const ScrollDownButtonMemo: React.FC<{
 	className?: string;
-	ref: MutableRefObject<HTMLButtonElement | null>;
+	ref: RefObject<HTMLButtonElement | null>;
 }> = React.memo(({ className, ref }) => (
 	<button
 		ref={ref}
