@@ -13,7 +13,8 @@ export default function robots(): MetadataRoute.Robots {
 				'/pwa',
 				'*/opengraph-image',
 				'*/download',
-				'/api'
+				'/api',
+				'/why'
 			]
 		},
 		sitemap: 'https://cod3d.dev/sitemap.xml'

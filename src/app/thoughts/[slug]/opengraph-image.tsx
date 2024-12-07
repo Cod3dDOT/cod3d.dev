@@ -2,7 +2,6 @@ import { createServerClient } from '@pocketbase/config';
 import { getThought, getThoughts } from '@pocketbase/req';
 import { Thought } from '@pocketbase/types';
 import { isError } from '@pocketbase/utils';
-import { clsx } from 'clsx';
 import fs from 'fs';
 import { ImageResponse } from 'next/og';
 import { ImageResponseOptions } from 'next/server';
@@ -33,6 +32,17 @@ const getFont = async () => {
 		path.join(
 			fileURLToPath(import.meta.url),
 			'../../../../assets/fonts/PixelifySans-Regular.ttf'
+		)
+	);
+
+	return new Uint8Array(response).buffer;
+};
+
+const getGeistFont = async () => {
+	const response = await fs.promises.readFile(
+		path.join(
+			fileURLToPath(import.meta.url),
+			'../../../../assets/fonts/GeistMono-Regular.ttf'
 		)
 	);
 
@@ -80,6 +90,12 @@ export default async function Image({
 
 	const fonts: ImageResponseOptions['fonts'] = [
 		{
+			name: 'Geist',
+			data: await getGeistFont(),
+			style: 'normal',
+			weight: 400
+		},
+		{
 			name: 'PixelifySans',
 			data: await getFont(),
 			style: 'normal',
@@ -92,42 +108,15 @@ export default async function Image({
 	return new ImageResponse(
 		(
 			// ImageResponse JSX element
-			<div
-				tw={clsx('relative flex text-black w-full h-full bg-[#eee]')}
-				style={{
-					// background:
-					// 	'radial-gradient(circle at left top, #3B82F6 0%, #eeeeee 90%)'
-					backgroundColor: '#85b1f9',
-					backgroundImage: `linear-gradient(white 2px, transparent 2px),
-                                    linear-gradient(90deg, white 2px, transparent 2px),
-                                    linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
-                                    linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)`,
-					backgroundSize: '100px 100px, 100px 100px, 20px 20px, 20px 20px',
-					backgroundPosition: '-2px -2px, -2px -2px, -1px -1px, -1px -1px'
-				}}
-			>
+			<div tw="relative flex text-white w-full h-full bg-transparent">
 				<div
-					tw="absolute inset-8"
-					style={{
-						filter: 'blur(5px)',
-						backgroundColor: '#85b1f9',
-						backgroundImage: `linear-gradient(white 2px, transparent 2px),
-                                    linear-gradient(90deg, white 2px, transparent 2px),
-                                    linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
-                                    linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)`,
-						backgroundSize: '100px 100px, 100px 100px, 20px 20px, 20px 20px',
-						backgroundPosition:
-							'-34px -34px, -34px -34px, -33px -33px, -33px -33px'
-					}}
-				/>
-				<div
-					tw="absolute flex flex-col inset-8 p-8 rounded-[2rem] overflow-hidden shadow-lg border-[1px] border-black/5 bg-opacity-50"
+					tw="absolute flex flex-col inset-4 p-8 rounded-[2rem] overflow-hidden shadow-xl border-[1px] border-black/5 bg-opacity-50"
 					style={{
 						background:
-							'radial-gradient(circle at right top, rgba(253,224,71,0.8) 0%, rgba(230,230,230,0.5) 60%)'
+							'radial-gradient(circle at right top, rgba(253,224,71,1) 0%, #468EE1 60%)'
 					}}
 				>
-					<div tw="flex justify-between">
+					<div tw="flex justify-between text-black">
 						<div
 							tw="flex"
 							style={{
@@ -156,7 +145,9 @@ export default async function Image({
 						)}
 					</div>
 
-					<h1 tw="mt-auto w-4/5 text-7xl">{thought?.title}</h1>
+					<h1 tw="mt-auto w-4/5 text-7xl" style={{ fontFamily: 'GeistMono' }}>
+						{thought?.title}
+					</h1>
 					<div tw="flex justify-between text-3xl">
 						<time dateTime={thought?.created.toISOString()}>
 							{thought ? dateToString(thought.created) : 'At the end of times'}

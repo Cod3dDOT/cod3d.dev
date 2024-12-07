@@ -6,6 +6,9 @@ import { Link } from 'next-view-transitions';
 import { SpotlightCard } from '@/components/effects/spotlightCard';
 import { dateToString } from '@/lib/utils/date';
 
+const bg =
+	'bg-[radial-gradient(200px_circle_at_100%_-20%_in_oklab,oklch(70%_0.23_268)_0%_0%,rgb(var(--background))_100%)]';
+
 const shimmer =
 	'overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/10 before:to-transparent';
 
@@ -26,7 +29,12 @@ const ThoughtLink: React.FC<{
 				size={200}
 				className="relative h-full w-full rounded-xl overflow-hidden bg-background-dark"
 			>
-				<div className="rounded-xl overflow-hidden absolute inset-1 bg-background px-4 py-4 flex flex-col">
+				<div
+					className={clsx(
+						'rounded-xl overflow-hidden absolute inset-1 px-4 py-4 flex flex-col',
+						bg
+					)}
+				>
 					<div
 						className="flex space-x-2 [font-size:smaller]"
 						role="Tag list"
@@ -51,7 +59,6 @@ const ThoughtLink: React.FC<{
 						</time>
 						<span>cod3d.dev</span>
 					</div>
-					<div className="hidden md:block absolute w-36 h-36 rounded-full -top-16 -right-16 bg-blue-500 blur-xl" />
 				</div>
 			</SpotlightCard>
 		</Link>

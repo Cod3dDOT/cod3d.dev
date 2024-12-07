@@ -118,7 +118,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 				alt="Hero image"
 			/>
 			<div className="px-10 space-y-10">
-				<h1 className="text-3xl xs:text-5xl md:text-6xl xl:text-8xl font-light">
+				<h1 className="text-3xl xs:text-5xl md:text-6xl xl:text-8xl font-mono font-extralight tracking-tight">
 					{spans}
 				</h1>
 				<p className="xs:text-lg lg:text-xl">{thought.description}</p>
