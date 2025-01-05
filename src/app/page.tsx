@@ -1,11 +1,12 @@
 import '@app/styles/glitch.css';
 
+import { Suspense } from 'react';
 import { WebPage, WithContext } from 'schema-dts';
 
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { ColorfulBlobs } from '@/components/pages/home/blobs';
-import { HomeSceneWrapper } from '@/components/pages/home/sceneWrapper';
+import { DynamicHomeScene } from '@/components/pages/home/sceneWrapper';
 import { SyncedRotationWrapper } from '@/components/pages/home/syncedRotationWrapper';
 
 export const revalidate = 3600;
@@ -57,7 +58,9 @@ export default function Home() {
 				</SyncedRotationWrapper>
 
 				<div className="2xl:block hidden fixed inset-0">
-					<HomeSceneWrapper />
+					<Suspense>
+						<DynamicHomeScene />
+					</Suspense>
 				</div>
 			</main>
 		</>

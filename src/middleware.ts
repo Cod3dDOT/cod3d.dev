@@ -30,25 +30,30 @@ const allowedOrigins = ['https://wave.webaim.org'];
 const CSP = {
 	BASE: `
     default-src 'self';
-    script-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-inline' blob:;
     style-src 'self' 'unsafe-inline';
     object-src 'none';
     base-uri 'none';
     form-action 'self';
     img-src 'self' data:;
     frame-ancestors 'none';
+    worker-src blob:;
     upgrade-insecure-requests;`,
 	TRUSTED_SCRIPT: `
     trusted-types default dompurify nextjs#bundler;
     require-trusted-types-for 'script';`
 };
 
+const REACT_THREE_PAGES = ['/', '/not-found'];
+
 export async function middleware(request: NextRequest) {
 	const IS_DEV = process.env.NODE_ENV === 'development';
 
-	const csp = (IS_DEV ? `` : CSP.BASE + CSP.TRUSTED_SCRIPT)
-		.replace(/\s+/g, ' ')
-		.trim();
+	let csp = IS_DEV ? `` : CSP.BASE;
+	if (!REACT_THREE_PAGES.includes(request.nextUrl.pathname)) {
+		csp += CSP.TRUSTED_SCRIPT;
+	}
+	csp = csp.replace(/\s+/g, ' ').trim();
 
 	const requestHeaders = new Headers(request.headers);
 	requestHeaders.set('Content-Security-Policy', csp);

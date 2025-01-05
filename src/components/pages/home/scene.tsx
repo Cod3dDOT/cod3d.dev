@@ -3,11 +3,12 @@
 import { Text } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useTheme } from 'next-themes';
+import { memo } from 'react';
 import { useWindowSize } from 'react-use';
 
 import { DistortionEffect } from '@/components/three/distortionEffect';
 
-export const HomeScene: React.FC = () => {
+const _HomeScene: React.FC = () => {
 	const { width: windowWidth } = useWindowSize();
 	const { resolvedTheme } = useTheme();
 
@@ -43,3 +44,5 @@ export const HomeScene: React.FC = () => {
 		</Canvas>
 	);
 };
+
+export default memo(_HomeScene);
