@@ -90,7 +90,7 @@ export default function RootLayout({
 		<ViewTransitions>
 			<html
 				lang="en"
-				className="scrollbar-thin scrollbar-track-background scrollbar-thumb-foreground"
+				className="scrollbar-thin scrollbar-track-background scrollbar-thumb-foreground antialiased"
 				suppressHydrationWarning
 			>
 				<body

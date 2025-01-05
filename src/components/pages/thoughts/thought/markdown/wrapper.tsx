@@ -35,6 +35,7 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
 			<Markdown
 				className="xl:max-w-prose [&>*:not(figure)]:px-10 md:first-letter:text-6xl prose-p:first:!mt-0 py-10"
 				components={{
+					// @ts-expect-error h1 is not in JSX.IntrinsicElements
 					h1() {
 						return <></>;
 					},

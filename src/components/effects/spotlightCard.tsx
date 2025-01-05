@@ -26,7 +26,6 @@ interface SpotlightCardProps {
 export function SpotlightCard({
 	id = '',
 	nonce = '',
-	as: Component = 'div',
 	from = 'rgba(255,255,255,0.8)',
 	via = null,
 	to = 'transparent',
@@ -78,7 +77,7 @@ export function SpotlightCard({
 	// Simplify the mobile check return path
 	if (mobile) {
 		return (
-			<Component
+			<div
 				nonce={nonce}
 				className={clsx(
 					`bg-background spotlight-card-${id}`,
@@ -86,6 +85,7 @@ export function SpotlightCard({
 					className
 				)}
 				style={{
+					// @ts-expect-error --spotlight-color-stops
 					'--spotlight-color-stops': spotlightColorStops,
 					'--spotlight-size': `${size.toString()}px`,
 					'--spotlight-x': '0px',
@@ -94,12 +94,12 @@ export function SpotlightCard({
 				{...props}
 			>
 				{children}
-			</Component>
+			</div>
 		);
 	}
 
 	return (
-		<Component
+		<div
 			nonce={nonce}
 			ref={container}
 			className={clsx(
@@ -108,6 +108,7 @@ export function SpotlightCard({
 				className
 			)}
 			style={{
+				// @ts-expect-error --spotlight-color-stops
 				'--spotlight-color-stops': spotlightColorStops,
 				'--spotlight-size': `${size.toString()}px`,
 				'--spotlight-x': `${x.toString()}px`,
@@ -116,6 +117,6 @@ export function SpotlightCard({
 			{...props}
 		>
 			{children}
-		</Component>
+		</div>
 	);
 }

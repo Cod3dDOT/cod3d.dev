@@ -5,6 +5,7 @@ import { WebPage, WithContext } from 'schema-dts';
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { ColorfulBlobs } from '@/components/pages/home/blobs';
+import { HomeSceneWrapper } from '@/components/pages/home/sceneWrapper';
 import { SyncedRotationWrapper } from '@/components/pages/home/syncedRotationWrapper';
 
 export const revalidate = 3600;
@@ -38,21 +39,26 @@ export default function Home() {
 			/>
 			<main className="h-screen flex flex-col justify-center my-auto bg-grainy md:px-24 px-10">
 				<GrainyBackground />
-				<h1 className="md:text-[8rem] sm:text-[5.65rem] text-[4rem]">
+
+				<h1 className="2xl:hidden md:text-[8rem] sm:text-[5.65rem] text-[4rem]">
 					cod3d.dev
 				</h1>
 
-				<p className="whitespace-pre">
+				<p className="whitespace-pre 2xl:mt-[300px]">
 					<span>Probably trying to hack you. </span>
 					<br className="sm:hidden" />
 					<span>Or sleeping.</span>
 					<br />
-					<GlitchText as="span" text="Or both." />
+					<GlitchText text="Or both." />
 				</p>
 
 				<SyncedRotationWrapper>
 					<ColorfulBlobs />
 				</SyncedRotationWrapper>
+
+				<div className="2xl:block hidden fixed inset-0">
+					<HomeSceneWrapper />
+				</div>
 			</main>
 		</>
 	);

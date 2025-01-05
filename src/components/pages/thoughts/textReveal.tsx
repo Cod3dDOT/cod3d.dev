@@ -35,20 +35,13 @@ interface RootProps {
 		skip: () => void
 	) => React.ReactNode;
 	className?: string;
-	as?: React.ElementType;
 }
 
 function convertRemToPixels(rem: number) {
 	return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
-function Root({
-	body = '',
-	children,
-	className,
-	as: Component = 'div',
-	...props
-}: RootProps) {
+function Root({ body = '', children, className, ...props }: RootProps) {
 	const container = useRef<HTMLDivElement>(null);
 	const [progress, setProgress] = useState(0);
 
@@ -86,9 +79,9 @@ function Root({
 
 	return (
 		<TextRevealContext.Provider value={context}>
-			<Component ref={container} className={className} {...props}>
+			<div ref={container} className={className} {...props}>
 				{memoizedChildren}
-			</Component>
+			</div>
 		</TextRevealContext.Provider>
 	);
 }
