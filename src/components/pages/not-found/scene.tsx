@@ -1,15 +1,13 @@
 'use client';
 
-import { Text } from '@react-three/drei';
+import { Image, Text } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useTheme } from 'next-themes';
 import { memo } from 'react';
-import { useWindowSize } from 'react-use';
 
 import { DistortionEffect } from '@/components/three/distortionEffect';
 
-const _HomeScene: React.FC = () => {
-	const { width: windowWidth } = useWindowSize();
+const _Scene: React.FC = () => {
 	const { resolvedTheme } = useTheme();
 
 	return (
@@ -23,21 +21,22 @@ const _HomeScene: React.FC = () => {
 			}}
 		>
 			<Text
-				position={[-windowWidth / 2 + 400 + 4 * 28, 0, 0]}
-				fontSize={300}
+				fontSize={800}
 				color={resolvedTheme === 'dark' ? 'rgb(232,232,232)' : 'rgb(18,18,18)'}
 				anchorX="center"
 				anchorY="middle"
 				font="/fonts/PixelifySans-Regular.ttf"
 				characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 			>
-				cod3d
+				404
 			</Text>
+
+			<Image scale={1} url="/img/download.png" />
 
 			<DistortionEffect
 				strength={0.5}
 				radius={1.0}
-				gridSize={40}
+				gridSize={20}
 				springStrength={0.5}
 				damping={0.9}
 			/>
@@ -45,4 +44,4 @@ const _HomeScene: React.FC = () => {
 	);
 };
 
-export default memo(_HomeScene);
+export default memo(_Scene);

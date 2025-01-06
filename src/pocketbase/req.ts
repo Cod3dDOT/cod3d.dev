@@ -9,7 +9,7 @@ import {
 	Thought,
 	TypedPocketBase
 } from './types';
-import { getUrl } from './utils';
+import { getAssetUrl } from './utils';
 
 function processThoughts(
 	client: TypedPocketBase,
@@ -28,12 +28,12 @@ function processThoughts(
 			created: new Date(thought.created),
 			updated: new Date(thought.updated),
 			hero: {
-				light: getUrl(client, thought, light).pathname,
-				dark: dark ? getUrl(client, thought, dark).pathname : undefined
+				light: getAssetUrl(client, thought, light).href,
+				dark: dark ? getAssetUrl(client, thought, dark).href : undefined
 			},
-			markdown: getUrl(client, thought, thought.markdown).pathname,
+			markdown: getAssetUrl(client, thought, thought.markdown).href,
 			markdown_images: thought.markdown_images.map(
-				(image) => getUrl(client, thought, image).pathname
+				(image) => getAssetUrl(client, thought, image).href
 			),
 			tags: thought.expand?.tags.map((tag) => tag.tag) || []
 		};

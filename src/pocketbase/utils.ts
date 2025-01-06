@@ -7,7 +7,7 @@ export const isError = (
 ): response is ClientResponseError =>
 	typeof (response as ClientResponseError).isAbort === 'boolean';
 
-export const getUrl = (
+export const getAssetUrl = (
 	client: TypedPocketBase,
 	record: PBThought | PBProject | PBTag,
 	filename: string

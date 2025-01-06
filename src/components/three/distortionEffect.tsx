@@ -1,87 +1,30 @@
 'use client';
 
+import { shaderMaterial } from '@react-three/drei';
 import { extend, useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { EffectComposer, RenderPass, ShaderPass } from 'three-stdlib';
 
-class DistortionShader {
-	uniforms: {
-		tDiffuse: { value: THREE.Texture | null };
-		u_prevMouse: { value: THREE.Vector2 };
-		u_mouse: { value: THREE.Vector2 };
-		u_resolution: { value: THREE.Vector2 };
-		u_intensity: { value: number };
-		u_radius: { value: number };
-		u_chromaticAberration: { value: number };
-		u_gridSize: { value: number };
-	};
-	vertexShader: string;
-	fragmentShader: string;
+import distortionFragmentShader from '@/assets/shaders/distortion.frag';
+import distortionVertexShader from '@/assets/shaders/distortion.vert';
 
-	constructor() {
-		this.uniforms = {
-			tDiffuse: { value: null },
-			u_prevMouse: { value: new THREE.Vector2(0.5, 0.5) },
-			u_mouse: { value: new THREE.Vector2(0.5, 0.5) },
-			u_resolution: { value: new THREE.Vector2(1, 1) },
-			u_intensity: { value: 0.0 },
-			u_radius: { value: 0.3 },
-			u_chromaticAberration: { value: 0.02 },
-			u_gridSize: { value: 30.0 }
-		};
+const DistortionMaterial = shaderMaterial(
+	{
+		tDiffuse: null,
+		u_prevMouse: new THREE.Vector2(0.5, 0.5),
+		u_mouse: new THREE.Vector2(0.5, 0.5),
+		u_resolution: new THREE.Vector2(1, 1),
+		u_intensity: 0.0,
+		u_radius: 0.3,
+		u_chromaticAberration: 0.02,
+		u_gridSize: 30.0
+	},
+	distortionVertexShader,
+	distortionFragmentShader
+);
 
-		this.vertexShader = `
-            varying vec2 vUv;
-            void main() {
-                vUv = uv;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-        `;
-
-		this.fragmentShader = `
-            uniform sampler2D tDiffuse;
-            uniform vec2 u_prevMouse;
-            uniform vec2 u_mouse;
-            uniform vec2 u_resolution;
-            uniform float u_intensity;
-            uniform float u_radius;
-            uniform float u_chromaticAberration;
-            uniform float u_gridSize;
-            varying vec2 vUv;
-
-            vec2 getDistortionUv(vec2 uv) {
-                vec2 gridUv = floor(uv * vec2(u_gridSize)) / vec2(u_gridSize);
-                vec2 centerOfPixel = gridUv + vec2(1.0 / (u_gridSize));
-
-                vec2 mouseDirection = u_mouse - u_prevMouse;
-
-                vec2 pixelToMouse = centerOfPixel - u_mouse;
-                float distanceToMouse = length(pixelToMouse);
-                float strength = smoothstep(u_radius, 0.0, distanceToMouse) * u_intensity;
-
-                vec2 direction = normalize(pixelToMouse);
-                vec2 uvOffset = strength * 0.4 * mouseDirection;
-
-                return uvOffset;
-            }
-
-            void main() {
-                vec2 uvOffset = getDistortionUv(vUv);
-                vec2 uv = vUv - uvOffset;
-
-                // Chromatic aberration
-                vec4 cr = texture2D(tDiffuse, uv + uvOffset * u_chromaticAberration);
-                vec4 cg = texture2D(tDiffuse, uv);
-                vec4 cb = texture2D(tDiffuse, uv - uvOffset * u_chromaticAberration);
-
-                gl_FragColor = vec4(cr.r, cg.g, cb.b, cg.a);
-            }
-        `;
-	}
-}
-
-extend({ EffectComposer, RenderPass, ShaderPass });
+extend({ EffectComposer, RenderPass, ShaderPass, DistortionMaterial });
 
 class MouseState {
 	current: THREE.Vector2;
@@ -144,7 +87,7 @@ export const DistortionEffect: React.FC<DistortionEffectProps> = ({
 	damping = 0.9,
 	gridSize = 30.0
 }) => {
-	const { gl, scene, camera, size: windowSize } = useThree();
+	const { size: windowSize, scene, camera, gl } = useThree();
 	const mouseState = useRef(new MouseState(springStrength, damping));
 	const lastTime = useRef(performance.now());
 
@@ -153,8 +96,8 @@ export const DistortionEffect: React.FC<DistortionEffectProps> = ({
 		const renderPass = new RenderPass(scene, camera);
 		effectComposer.addPass(renderPass);
 
-		const shader = new DistortionShader();
-		const shaderPass = new ShaderPass(shader);
+		const material = new DistortionMaterial();
+		const shaderPass = new ShaderPass(material);
 		effectComposer.addPass(shaderPass);
 
 		return [effectComposer, shaderPass];
@@ -184,12 +127,9 @@ export const DistortionEffect: React.FC<DistortionEffectProps> = ({
 
 		mouseState.current.update(delta);
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-		shaderPass.uniforms.u_mouse.value.copy(mouseState.current.target);
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-		shaderPass.uniforms.u_prevMouse.value.copy(mouseState.current.current);
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-		shaderPass.uniforms.u_resolution.value.set(
+		shaderPass.uniforms.u_mouse.value = mouseState.current.target;
+		shaderPass.uniforms.u_prevMouse.value = mouseState.current.current;
+		shaderPass.uniforms.u_resolution.value = new THREE.Vector2(
 			windowSize.width,
 			windowSize.height
 		);

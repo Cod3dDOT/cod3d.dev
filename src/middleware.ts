@@ -49,9 +49,13 @@ const REACT_THREE_PAGES = ['/', '/not-found'];
 export async function middleware(request: NextRequest) {
 	const IS_DEV = process.env.NODE_ENV === 'development';
 
-	let csp = IS_DEV ? `` : CSP.BASE;
-	if (!REACT_THREE_PAGES.includes(request.nextUrl.pathname)) {
-		csp += CSP.TRUSTED_SCRIPT;
+	let csp = '';
+	if (!IS_DEV) {
+		csp += CSP.BASE;
+
+		if (!REACT_THREE_PAGES.includes(request.nextUrl.pathname)) {
+			csp += CSP.TRUSTED_SCRIPT;
+		}
 	}
 	csp = csp.replace(/\s+/g, ' ').trim();
 

@@ -30,6 +30,7 @@ export interface PBThought {
 	description: string;
 
 	hero: string[];
+	color: string;
 
 	markdown: string;
 	markdown_images: string[];

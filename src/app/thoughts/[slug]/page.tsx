@@ -8,6 +8,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { BreadcrumbList, TechArticle, WithContext } from 'schema-dts';
 
+import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { Footer } from '@/components/footer';
 import { AuroraBackground } from '@/components/pages/thoughts/aurora';
 import { BackLink } from '@/components/pages/thoughts/thought/backLink';
@@ -89,6 +90,7 @@ export async function generateStaticParams() {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: 'created' });
 
 	if (isError(thoughtsResponse)) {
+		console.error('Could not get thoughts');
 		return [];
 	}
 
@@ -110,8 +112,7 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	}
 
 	const thought = thoughtResponse as Thought;
-	//FIXME: remove hardcoded url
-	const markdownResponse = await fetch('https://cod3d.dev' + thought.markdown);
+	const markdownResponse = await fetch(thought.markdown);
 
 	if (!markdownResponse.ok || isError(markdownResponse)) {
 		return notFound();
@@ -170,8 +171,9 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	};
 
 	return (
-		<ReactLenis root>
-			<main className="font-sans bg-background">
+		<ReactLenis root className="bg-background">
+			<main className="relative font-sans bg-background">
+				<GrainyBackground />
 				<article>
 					<script
 						type="application/ld+json"
@@ -187,7 +189,7 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 						}}
 					/>
 
-					<AuroraBackground slug={thought.slug}>
+					<AuroraBackground slug={thought.slug} color={thought.color}>
 						<div className="md:px-10 bg-gradient-to-b from-transparent via-transparent to-background">
 							<BackLink />
 							<ThoughtHeader

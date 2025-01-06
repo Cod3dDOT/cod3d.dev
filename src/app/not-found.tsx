@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
+import { Suspense } from 'react';
 
-import { GlitchText } from '@/components/effects/glitchText';
+import { DynamicNotFoundScene } from '@/components/pages/not-found/sceneWrapper';
 
 const NotFoundPage: React.FC = () => {
 	return (
@@ -9,15 +10,9 @@ const NotFoundPage: React.FC = () => {
 				'flex flex-col mx-auto h-screen overflow-hidden justify-center items-center text-center'
 			)}
 		>
-			<h1>
-				<GlitchText
-					text="4 0 4"
-					className="xl:text-[50vh] sm:text-[30vw] text-9xl font-semibold break-all mb-16 w-16 sm:w-full"
-				/>
-			</h1>
-			<p className="w-1/2">
-				Be careful when looking for something that never existed
-			</p>
+			<Suspense>
+				<DynamicNotFoundScene />
+			</Suspense>
 		</div>
 	);
 };

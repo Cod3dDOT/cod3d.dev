@@ -77,7 +77,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 				className={clsx(
 					'z-50 fixed flex inset-0 xl:left-1/2',
 					'transition-transform duration-300 will-change-transform ease-in-out',
-					'bg-background bg-grainy md:bg-not-grainy md:bg-background/50 md:backdrop-blur-xl',
+					'bg-background md:bg-not-grainy md:bg-background/50 md:backdrop-blur-xl',
 					isOpen
 						? 'translate-x-0'
 						: 'sm:translate-x-[calc(100%-4rem)] translate-x-full'

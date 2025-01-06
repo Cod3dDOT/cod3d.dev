@@ -5,6 +5,38 @@ import { NextConfig } from 'next';
 const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
+	experimental: {
+		turbo: {
+			rules: {
+				'*.frag': {
+					loaders: ['raw-loader'],
+					as: 'raw'
+				},
+				'*.vert': {
+					loaders: ['raw-loader'],
+					as: 'string'
+				}
+			}
+		}
+	},
+	webpack: (config: {
+		module: {
+			rules: {
+				test: RegExp;
+				exclude: RegExp;
+				use: string[];
+			}[];
+		};
+	}) => {
+		if (process.env.NODE_ENV === 'production') {
+			config.module.rules.push({
+				test: /\.(vert|frag)$/,
+				exclude: /node_modules/,
+				use: ['raw-loader']
+			});
+		}
+		return config;
+	},
 	images: {
 		formats: ['image/avif', 'image/webp'],
 		contentDispositionType: 'attachment'
