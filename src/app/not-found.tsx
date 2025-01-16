@@ -1,7 +1,6 @@
 import { clsx } from 'clsx';
-import { Suspense } from 'react';
 
-import { DynamicNotFoundScene } from '@/components/pages/not-found/sceneWrapper';
+import { NotFound404WebGL } from '@/components/pages/not-found/scene';
 
 const NotFoundPage: React.FC = () => {
 	return (
@@ -10,9 +9,7 @@ const NotFoundPage: React.FC = () => {
 				'flex flex-col mx-auto h-screen overflow-hidden justify-center items-center text-center'
 			)}
 		>
-			<Suspense>
-				<DynamicNotFoundScene />
-			</Suspense>
+			<NotFound404WebGL />
 		</div>
 	);
 };

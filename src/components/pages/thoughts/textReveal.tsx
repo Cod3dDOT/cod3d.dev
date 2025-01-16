@@ -1,5 +1,6 @@
 'use client';
 
+import { useScrollbar, useWindowSize } from '@14islands/r3f-scroll-rig';
 import { clsx } from 'clsx';
 import React, {
 	createContext,
@@ -13,7 +14,6 @@ import React, {
 } from 'react';
 
 import ScrollIcon from '@/components/icons/scroll';
-import { useLenis } from '@/lib/lenis';
 
 interface TextRevealContextType {
 	tokens: string[];
@@ -42,28 +42,27 @@ function convertRemToPixels(rem: number) {
 }
 
 function Root({ body = '', children, className, ...props }: RootProps) {
-	const container = useRef<HTMLDivElement>(null);
 	const [progress, setProgress] = useState(0);
 
-	const lenis = useLenis(
-		({ scroll }) => {
-			const newProgress = (scroll / height) * 2;
-			if (Math.abs(newProgress - progress) < 0.05 || newProgress > 1.1) return;
+	const { scrollTo, onScroll } = useScrollbar();
 
-			setProgress(newProgress);
+	const { height } = useWindowSize();
+
+	const scrollCallback = useCallback(
+		({ scroll }: { scroll: number }) => {
+			const p = ((height / 2 - scroll) / height) * 2;
+			setProgress(1 - p);
 		},
-		[progress]
+		[height]
 	);
 
-	const height = useMemo(() => {
-		const rect = container.current?.getBoundingClientRect();
-		return rect?.height || 0;
-	}, [container.current]);
+	const skip = useCallback(() => {
+		scrollTo(height + convertRemToPixels(3.5));
+	}, [height, scrollTo]);
 
-	const skip = useCallback(
-		() => lenis?.scrollTo(height + convertRemToPixels(3.5)),
-		[lenis, height]
-	);
+	useEffect(() => {
+		onScroll(scrollCallback);
+	}, [scrollCallback, onScroll]);
 
 	const tokens = useMemo(() => body.match(/\S+|\s+/g) || [], [body]);
 
@@ -79,7 +78,7 @@ function Root({ body = '', children, className, ...props }: RootProps) {
 
 	return (
 		<TextRevealContext.Provider value={context}>
-			<div ref={container} className={className} {...props}>
+			<div className={className} {...props}>
 				{memoizedChildren}
 			</div>
 		</TextRevealContext.Provider>

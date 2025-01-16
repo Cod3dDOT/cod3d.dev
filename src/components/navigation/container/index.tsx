@@ -1,6 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
+import { ReactLenis } from 'lenis/react';
 import { usePathname } from 'next/navigation';
 import React, {
 	RefObject,
@@ -11,7 +12,6 @@ import React, {
 } from 'react';
 
 import { useNavigation } from '@/lib/context/navigationContext';
-import { ReactLenis } from '@/lib/lenis';
 
 import { DesktopOpener } from './desktopOpener';
 import { MobileOpener } from './mobileOpener';

@@ -9,9 +9,10 @@ import { Pixelify_Sans } from 'next/font/google';
 import Script from 'next/script';
 import { ViewTransitions } from 'next-view-transitions';
 
+// import { Suspense } from 'react';
 import { Cursor } from '@/components/cursor';
 import { Navigation } from '@/components/navigation';
-import { Providers } from '@/components/providers';
+import { Providers } from '@/components/providers/providers';
 
 const font = Pixelify_Sans({
 	subsets: ['latin'],

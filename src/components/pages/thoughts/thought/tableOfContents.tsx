@@ -1,9 +1,8 @@
 'use client';
 
+import { useScrollbar, useWindowSize } from '@14islands/r3f-scroll-rig';
 import { clsx } from 'clsx';
 import { memo, useCallback, useEffect, useState } from 'react';
-
-import { useLenis } from '@/lib/lenis';
 
 interface Heading {
 	content: string;
@@ -73,9 +72,10 @@ const TOCListItem = memo(
 
 export const TableOfContents: React.FC = () => {
 	const [headings, setHeadings] = useState<Heading[]>([]);
-	const lenis = useLenis();
+	const { scrollTo, onScroll } = useScrollbar();
 
 	const [active, setActive] = useState(0);
+	const { height } = useWindowSize();
 
 	useEffect(() => {
 		const article = document.getElementsByTagName('article')[0];
@@ -91,32 +91,39 @@ export const TableOfContents: React.FC = () => {
 		setHeadings(newHeadings);
 	}, []);
 
-	useLenis(({ scroll, dimensions }) => {
-		if (headings.length === 0) return;
+	const scrollCallback = useCallback(
+		({ scroll }: { scroll: number }) => {
+			if (headings.length === 0) return;
 
-		const scrollY = scroll - dimensions.height;
+			const scrollY = scroll - height;
 
-		for (let i = 0; i < headings.length; i++) {
-			const heading = headings[i];
-			const nextHeading = headings.at(i + 1);
-			const scale = calculateScale(
-				heading.top,
-				nextHeading ? nextHeading.top : document.body.scrollHeight,
-				scrollY,
-				dimensions.height
-			);
-			if (scale == 1) {
-				setActive(i);
-				break;
+			for (let i = 0; i < headings.length; i++) {
+				const heading = headings[i];
+				const nextHeading = headings.at(i + 1);
+				const scale = calculateScale(
+					heading.top,
+					nextHeading ? nextHeading.top : document.body.scrollHeight,
+					scrollY,
+					height
+				);
+				if (scale == 1) {
+					setActive(i);
+					break;
+				}
 			}
-		}
-	}, []);
+		},
+		[height]
+	);
+
+	useEffect(() => {
+		onScroll(scrollCallback);
+	}, [scrollCallback, onScroll]);
 
 	const handleHeadingClick = useCallback(
 		(id: string) => {
-			lenis?.scrollTo(`#${id}`, { offset: -100 });
+			scrollTo(`#${id}`);
 		},
-		[lenis]
+		[scrollTo]
 	);
 
 	return (

@@ -8,7 +8,7 @@ const str = (bytes: number[]) =>
 	bytes.map((b) => String.fromCharCode(b)).join('');
 const byte_xor = (b1: number[], b2: number[]) => b1.map((b, i) => b ^ b2[i]);
 
-const style = `relative flex group w-full h-12 p-2 items-center space-x-2 bg-background rounded-md overflow-hidden`;
+const style = `relative flex group h-12 p-2 px-4 items-center justify-center space-x-3 bg-background rounded-md overflow-hidden`;
 
 export const ContactButton: React.FC<{
 	children: ReactNode;

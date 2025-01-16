@@ -11,7 +11,7 @@ import { useRef } from 'react';
 import { DistortionEffect } from '@/components/three/distortionEffect';
 import { WebGLText } from '@/components/three/text';
 
-export const NotFound404WebGL: React.FC = () => {
+export const HomepageTitle: React.FC = () => {
 	const el = useRef<HTMLHeadingElement>(null);
 	const { resolvedTheme } = useTheme();
 
@@ -19,9 +19,9 @@ export const NotFound404WebGL: React.FC = () => {
 		<>
 			<h1
 				ref={el}
-				className="lg:text-[32rem] md:text-[18rem] text-[8rem] h-[1lh] text-transparent"
+				className="md:text-[8rem] sm:text-[5.65rem] text-[4rem] h-[1lh] text-transparent"
 			>
-				404
+				cod3d.dev
 			</h1>
 			<UseCanvas theme={resolvedTheme}>
 				<ScrollScene track={el as React.RefObject<HTMLHeadingElement>}>
@@ -38,15 +38,15 @@ export const NotFound404WebGL: React.FC = () => {
 									}
 									font="/fonts/PixelifySans-Regular.ttf"
 								>
-									404
+									cod3d.dev
 								</WebGLText>
 
 								<DistortionEffect
 									springStrength={0.5}
 									damping={0.9}
-									strength={0.5}
+									strength={0.2}
 									radius={1.0}
-									gridSize={20}
+									gridSize={40}
 								/>
 							</>
 						);

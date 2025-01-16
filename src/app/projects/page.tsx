@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { BreadcrumbList, WebPage, WithContext } from 'schema-dts';
 
 import { Footer } from '@/components/footer';
-import { ReactLenis } from '@/lib/lenis';
 
 export const metadata: Metadata = {
 	title: "cod3d's projects",
@@ -99,7 +98,7 @@ const ProjectsPage: React.FC = () => {
 	// const thoughts = thoughtsResponse as Thought[];
 
 	return (
-		<ReactLenis root>
+		<>
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{
@@ -124,7 +123,7 @@ const ProjectsPage: React.FC = () => {
 				</main>
 				<Footer />
 			</div>
-		</ReactLenis>
+		</>
 	);
 };
 

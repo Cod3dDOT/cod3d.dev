@@ -10,7 +10,7 @@ const NavContactsShowcase: React.FC = () => {
 			<h2 className="md:text-[5.65rem] sm:text-[4rem] text-[2.83rem]">
 				Catch Me
 			</h2>
-			<div className="flex space-x-4 w-full">
+			<div className="flex space-x-4">
 				<ContactLink href="https://github.com/cod3ddot" text="GitHub">
 					<GithubIcon
 						aria-hidden="true"

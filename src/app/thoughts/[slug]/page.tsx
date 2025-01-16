@@ -14,7 +14,6 @@ import { AuroraBackground } from '@/components/pages/thoughts/aurora';
 import { BackLink } from '@/components/pages/thoughts/thought/backLink';
 import { ThoughtHeader } from '@/components/pages/thoughts/thought/header';
 import { MarkdownWrapper } from '@/components/pages/thoughts/thought/markdown/wrapper';
-import { ReactLenis } from '@/lib/lenis';
 import readingTime from '@/lib/readingTime';
 import { minutesToDuration } from '@/lib/utils/date';
 
@@ -171,7 +170,7 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	};
 
 	return (
-		<ReactLenis root className="bg-background">
+		<div className="bg-background">
 			<main className="relative font-sans bg-background">
 				<GrainyBackground />
 				<article>
@@ -209,7 +208,7 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 				<BackLink className="md:mx-10" />
 			</main>
 			<Footer />
-		</ReactLenis>
+		</div>
 	);
 };
 

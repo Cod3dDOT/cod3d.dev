@@ -10,7 +10,6 @@ import { PageError } from '@/components/error';
 import { Footer } from '@/components/footer';
 import { ThoughtsTextReveal } from '@/components/pages/thoughts/textReveal';
 import { Years } from '@/components/pages/thoughts/years';
-import { ReactLenis } from '@/lib/lenis';
 
 export const metadata: Metadata = {
 	title: "cod3d's thoughts | A place where I share my struggles",
@@ -107,7 +106,7 @@ const ThoughtsPage: React.FC = async () => {
 	const thoughts = thoughtsResponse as Thought[];
 
 	return (
-		<ReactLenis root>
+		<>
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{
@@ -125,7 +124,7 @@ const ThoughtsPage: React.FC = async () => {
 				<Years thoughts={thoughts} />
 			</main>
 			<Footer />
-		</ReactLenis>
+		</>
 	);
 };
 

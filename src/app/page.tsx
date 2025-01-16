@@ -6,8 +6,8 @@ import { WebPage, WithContext } from 'schema-dts';
 import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { ColorfulBlobs } from '@/components/pages/home/blobs';
-import { DynamicHomeScene } from '@/components/pages/home/sceneWrapper';
 import { SyncedRotationWrapper } from '@/components/pages/home/syncedRotationWrapper';
+import { HomepageTitle } from '@/components/pages/home/test';
 
 export const revalidate = 3600;
 
@@ -41,11 +41,11 @@ export default function Home() {
 			<main className="h-screen flex flex-col justify-center my-auto bg-grainy md:px-24 px-10">
 				<GrainyBackground />
 
-				<h1 className="2xl:hidden md:text-[8rem] sm:text-[5.65rem] text-[4rem]">
-					cod3d.dev
-				</h1>
+				<Suspense>
+					<HomepageTitle />
+				</Suspense>
 
-				<p className="whitespace-pre 2xl:mt-[300px]">
+				<p className="whitespace-pre">
 					<span>Probably trying to hack you. </span>
 					<br className="sm:hidden" />
 					<span>Or sleeping.</span>
@@ -56,12 +56,6 @@ export default function Home() {
 				<SyncedRotationWrapper>
 					<ColorfulBlobs />
 				</SyncedRotationWrapper>
-
-				<div className="2xl:block hidden fixed inset-0">
-					<Suspense>
-						<DynamicHomeScene />
-					</Suspense>
-				</div>
 			</main>
 		</>
 	);

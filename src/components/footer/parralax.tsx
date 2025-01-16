@@ -1,9 +1,15 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useScrollbar } from '@14islands/r3f-scroll-rig';
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState
+} from 'react';
 
 import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
-import { useLenis } from '@/lib/lenis';
 
 const AsideFooter: React.FC<{
 	children?: React.ReactNode;
@@ -11,24 +17,31 @@ const AsideFooter: React.FC<{
 	const container = useRef<HTMLBaseElement>(null);
 	const [progress, setProgress] = useState(0);
 
-	const height = useMemo(() => {
-		const rect = container.current?.getBoundingClientRect();
-		return rect?.height || 0;
-	}, [container.current]);
+	const [height, setHeight] = useState(0);
+
+	useLayoutEffect(() => {
+		setHeight(container.current?.offsetHeight || 0);
+	}, [container]);
 
 	const prefersReducedMotion = usePrefersReducedMotion();
 
-	useLenis(
-		({ scroll, dimensions }) => {
+	const { onScroll } = useScrollbar();
+
+	const scrollCallback = useCallback(
+		({ scroll, limit }: { scroll: number; limit: number }) => {
 			if (prefersReducedMotion) return;
 
-			if (scroll < dimensions.limit.y - height) return;
-			const p = (dimensions.limit.y - scroll) / height;
+			if (scroll < limit - height) return;
+			const p = (limit - scroll) / height;
 
 			setProgress(-p * 20);
 		},
-		[height, prefersReducedMotion]
+		[prefersReducedMotion, height]
 	);
+
+	useEffect(() => {
+		onScroll(scrollCallback);
+	}, [onScroll, scrollCallback]);
 
 	return (
 		<aside
