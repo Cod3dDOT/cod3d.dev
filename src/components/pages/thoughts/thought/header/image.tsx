@@ -16,7 +16,7 @@ export const HeroImage: React.FC<{
 	const base64Dark = srcDark ? await asBase64(srcDark) : undefined;
 
 	return (
-		<figure className={clsx('pixelated !m-0 xl:!my-6')}>
+		<figure className={clsx('image-rendering-pixelated !m-0 xl:!my-6')}>
 			<img
 				src={base64Light}
 				alt={alt}

@@ -1,9 +1,6 @@
-import '@app/styles/glitch.css';
-
 import { Suspense } from 'react';
 import { WebPage, WithContext } from 'schema-dts';
 
-import { GlitchText } from '@/components/effects/glitchText';
 import { GrainyBackground } from '@/components/effects/grainyBackground';
 import { ColorfulBlobs } from '@/components/pages/home/blobs';
 import { SyncedRotationWrapper } from '@/components/pages/home/syncedRotationWrapper';
@@ -50,7 +47,7 @@ export default function Home() {
 					<br className="sm:hidden" />
 					<span>Or sleeping.</span>
 					<br />
-					<GlitchText text="Or both." />
+					<span>Or both.</span>
 				</p>
 
 				<SyncedRotationWrapper>

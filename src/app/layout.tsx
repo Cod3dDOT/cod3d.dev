@@ -1,4 +1,4 @@
-import '@app/styles/globals.css';
+import '@app/styles/tailwind.css';
 import '@/lib/trustedTypes';
 
 import { clsx } from 'clsx';
@@ -91,7 +91,7 @@ export default function RootLayout({
 		<ViewTransitions>
 			<html
 				lang="en"
-				className="scrollbar-thin scrollbar-track-background scrollbar-thumb-foreground antialiased"
+				className="scrollbar-thin scheme-light dark:scheme-dark antialiased"
 				suppressHydrationWarning
 			>
 				<body

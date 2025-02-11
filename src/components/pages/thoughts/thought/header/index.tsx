@@ -56,7 +56,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 	));
 
 	return (
-		<header className="flex flex-col xs:gap-12 pt-20">
+		<header className="flex flex-col sm:gap-12 pt-20">
 			<div className="px-10 uppercase flex flex-col sm:flex-row text-base sm:justify-between gap-8 opacity-0 motion-safe:animate-blog-in motion-reduce:animate-blog-in-reduced [--delay:300ms]">
 				<div className="*:align-middle">
 					<span className="font-extralight">Reading time</span>
@@ -118,10 +118,10 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 				alt="Hero image"
 			/>
 			<div className="px-10 space-y-10">
-				<h1 className="text-3xl xs:text-5xl md:text-6xl xl:text-8xl font-mono font-extralight tracking-tight">
+				<h1 className="text-3xl sm:text-5xl md:text-6xl xl:text-8xl font-mono font-extralight tracking-tight">
 					{spans}
 				</h1>
-				<p className="xs:text-lg lg:text-xl">{thought.description}</p>
+				<p className="sm:text-lg lg:text-xl">{thought.description}</p>
 			</div>
 		</header>
 	);

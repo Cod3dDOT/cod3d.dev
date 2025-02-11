@@ -30,7 +30,7 @@ const _FooterMon: React.FC<{
 				width={96}
 				height={96}
 				className={clsx(
-					'h-[60vg] w-[60vh] pixelated -z-10',
+					'h-[60vg] w-[60vh] image-rendering-pixelated -z-10',
 					'absolute scale-150 right-0 translate-x-1/3 opacity-20 md:opacity-50 md:scale-125',
 					'xl:translate-x-0 xl:opacity-100 xl:scale-110'
 				)}

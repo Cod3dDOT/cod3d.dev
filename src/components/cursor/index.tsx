@@ -82,7 +82,7 @@ const DesktopCursor: React.FC = () => {
 			const xStr = currentPosition.current.x.toString();
 			const yStr = currentPosition.current.y.toString();
 
-			cursorRef.current.style.translate = `${xStr}px ${yStr}px`;
+			cursorRef.current.style.translate = `calc(${xStr}px - 50%) calc(${yStr}px - 50%)`;
 
 			// Call update function on the next animation frame
 			requestAnimationFrame(updatePosition);
@@ -165,7 +165,7 @@ const DesktopCursor: React.FC = () => {
 		<div
 			ref={cursorRef}
 			className={clsx(
-				'fixed left-0 right-0 z-[1000] pointer-events-none transition-cursor -translate-x-1/2 -translate-y-1/2',
+				'fixed z-[1000] pointer-events-none transition-(--transition-cursor) ease-in-out',
 				'w-2 h-2 rounded-full bg-foreground border border-foreground',
 				visible ? 'opacity-100' : 'opacity-0',
 				hoveredTarget !== undefined && hoveredTarget.className
