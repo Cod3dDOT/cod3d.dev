@@ -26,13 +26,16 @@ export const HeroImage: React.FC<{
 						srcDark && "dark:hidden"
 					)}
 				/>
-				{srcDark && (
-					<source
-						srcSet={base64Dark}
+			</picture>
+			{srcDark && (
+				<picture>
+					<img
+						src={base64Dark}
+						alt={alt}
 						className="!m-0 hidden aspect-video w-full object-cover md:rounded-lg xl:w-[25vw] dark:block"
 					/>
-				)}
-			</picture>
+				</picture>
+			)}
 			<figcaption className="sr-only text-center md:text-left">
 				{alt}
 			</figcaption>

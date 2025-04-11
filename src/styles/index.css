@@ -1,4 +1,5 @@
 /* @import "./reset.css"; */
+@import "./root.css";
 @import "./tailwind.css";
 @import "./global.css";
 @import "./markdown.css";

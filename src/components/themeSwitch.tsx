@@ -54,13 +54,13 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(
 						/>
 					</mask>
 					<circle
-						className="peer dark:fill-foreground origin-center fill-black transition-all duration-600 group-hover:fill-black/60 dark:scale-[1.75] dark:duration-300 dark:group-hover:fill-white"
+						className="fill-foreground group-hover:fill-foreground/80 origin-center transition-all duration-600 dark:scale-[1.75] dark:duration-300"
 						cx="12"
 						cy="12"
 						r="6"
 						mask={`url(#moon-mask-${id})`}
 					/>
-					<g className="origin-center stroke-black stroke-2 transition-all delay-150 duration-600 [stroke-linecap:round] peer-hover:stroke-black/60 dark:-rotate-45 dark:stroke-white dark:opacity-0 dark:delay-0 dark:duration-300">
+					<g className="stroke-foreground group-hover:stroke-foreground/60 origin-center stroke-black stroke-2 transition-all delay-150 duration-600 [stroke-linecap:round] dark:-rotate-45 dark:opacity-0 dark:delay-0 dark:duration-300">
 						<line x1="12" y1="1" x2="12" y2="3" />
 						<line x1="12" y1="21" x2="12" y2="23" />
 						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />

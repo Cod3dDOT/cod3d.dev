@@ -32,9 +32,9 @@ const margin = {
 	6: "ml-40",
 };
 
-const opacity = {
-	0: "opacity-30",
-	1: "opacity-100",
+const classNames = {
+	0: "text-foreground/30",
+	1: "text-accent font-normal",
 };
 
 const TOCListItem = memo(
@@ -58,12 +58,17 @@ const TOCListItem = memo(
 		return (
 			<li
 				className={cn(
-					"text-foreground relative w-96 font-light whitespace-nowrap transition-opacity duration-200 ease-linear",
+					"text-foreground relative w-96 font-light whitespace-nowrap transition-all duration-200 ease-linear",
 					margin[heading.level as keyof typeof margin],
-					opacity[active ? 1 : 0]
+					classNames[active ? 1 : 0]
 				)}
 			>
-				<span className="absolute top-1/2 -left-full h-px w-full -translate-x-4 -translate-y-1/2 bg-blue-400" />
+				<span
+					className={cn(
+						"absolute top-1/2 -left-full h-px w-full -translate-x-4 -translate-y-1/2 transition-colors",
+						active ? "bg-accent" : "bg-foreground/10"
+					)}
+				/>
 				<a href={`#${heading.id}`} onClick={handleClick}>
 					{heading.content}
 				</a>

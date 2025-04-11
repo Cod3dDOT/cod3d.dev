@@ -86,7 +86,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 							<a
 								href={`${slug}/download`}
 								rel="noopener"
-								className="text-yellow-600 dark:text-yellow-500"
+								className="hover:text-accent transition-colors"
 								aria-describedby="md-download-tooltip"
 							>
 								<MarkdownIcon className="h-[1lh] w-[1lh]" />
@@ -101,7 +101,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 								href="/feed.xml"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-yellow-600 dark:text-yellow-500"
+								className="hover:text-accent transition-colors"
 								aria-describedby="blog-rss-link-tooltip"
 							>
 								<RssIcon className="h-[1lh] w-[1lh]" />

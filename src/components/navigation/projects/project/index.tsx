@@ -16,7 +16,7 @@ export const NavProject: React.FC<{
 				<span className="text-sm">{project.description}</span>
 			</div>
 			<div className="hidden flex-1 sm:block" aria-hidden="true">
-				<MemoProjectGridEffect id={project.id} />
+				<MemoProjectGridEffect project={project} />
 			</div>
 
 			{project.repo && (

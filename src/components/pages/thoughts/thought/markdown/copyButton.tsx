@@ -79,15 +79,15 @@ export const CopyButton: React.FC<{
 				className={cn(
 					"stroke-foreground absolute inset-0 h-full w-full stroke-2 transition-all",
 					{
-						"stroke-red-500": copyState === "error",
-						"stroke-lime-500": copyState === "success",
+						"stroke-error": copyState === "error",
+						"stroke-success": copyState === "success",
 					}
 				)}
 			/>
 			{/* Animation ping effect */}
 			<span
 				className={cn(
-					"absolute top-0 right-0 h-20 w-20 translate-x-full -translate-y-full rounded-full bg-lime-500/20 opacity-0 transition-opacity duration-200",
+					"bg-success/20 absolute top-0 right-0 h-20 w-20 translate-x-full -translate-y-full rounded-full opacity-0 transition-opacity duration-200",
 					"group-[.copied]:animate-ping group-[.copied]:opacity-100"
 				)}
 			/>

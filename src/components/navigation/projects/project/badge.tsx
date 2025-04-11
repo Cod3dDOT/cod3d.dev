@@ -10,13 +10,13 @@ export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ status }) => {
 	let color = "";
 	switch (status) {
 		case "stale":
-			color = "bg-yellow-400";
+			color = "bg-warn";
 			break;
 		case "dev":
-			color = "bg-green-500";
+			color = "bg-success";
 			break;
 		case "idea":
-			color = "bg-blue-500";
+			color = "bg-info";
 			break;
 	}
 	return (

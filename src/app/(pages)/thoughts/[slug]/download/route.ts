@@ -59,9 +59,7 @@ export async function GET(request: Request) {
 	}
 
 	const thought = thoughtResponse as Thought;
-	const markdownResponse = await fetch(
-		"https://cod3d.dev" + thought.markdown
-	);
+	const markdownResponse = await fetch(thought.markdown);
 
 	if (!markdownResponse.ok) {
 		return notFound();

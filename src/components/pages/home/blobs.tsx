@@ -53,7 +53,7 @@ export const ColorfulBlobs: React.FC = () => {
 				cx="60"
 				cy="60"
 				filter="url(#GaussianBlur)"
-				className="fill-blue-400"
+				className="fill-info"
 			/>
 			<ellipse
 				rx="35"
@@ -61,7 +61,7 @@ export const ColorfulBlobs: React.FC = () => {
 				cx="140"
 				cy="140"
 				filter="url(#GaussianBlur)"
-				className="fill-yellow-300"
+				className="fill-warn"
 			/>
 		</svg>
 	);

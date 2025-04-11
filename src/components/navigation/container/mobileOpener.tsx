@@ -41,7 +41,7 @@ export const MobileOpener: React.FC = React.memo(() => {
 				<HomeIcon
 					aria-hidden="true"
 					focusable="false"
-					className="h-12 w-12 p-2"
+					className="fill-foreground h-12 w-12 p-2"
 				/>
 				<span className="sr-only">Home</span>
 			</Link>
@@ -51,7 +51,7 @@ export const MobileOpener: React.FC = React.memo(() => {
 			<button ref={ref} type="button">
 				<ChevronIcon
 					className={cn(
-						"h-12 w-12 p-4 transition-transform duration-300",
+						"fill-foreground h-12 w-12 p-4 transition-transform duration-300",
 						isOpen && "rotate-180"
 					)}
 				/>

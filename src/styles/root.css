@@ -1,0 +1,19 @@
+:root {
+	--yellow: rgb(224, 191, 81);
+	--purple: rgb(154, 58, 222);
+	--blue: rgb(78, 89, 207);
+	--green: rgb(80, 224, 80);
+	--red: rgb(203, 39, 66);
+
+	--foreground: rgb(18, 18, 18);
+
+	--background: rgb(230, 230, 230);
+	--container: rgb(242, 242, 242);
+	--accent: var(--purple);
+}
+
+.dark {
+	--foreground: rgb(242, 242, 242);
+	--background: rgb(51, 51, 51);
+	--container: rgb(34, 34, 34);
+}

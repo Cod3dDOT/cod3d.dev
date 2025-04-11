@@ -16,16 +16,34 @@ const animationDelay = [
 	"delay-500",
 ];
 
-export const ProjectGridEffect: React.FC<{ id: Project["id"] }> = ({ id }) => {
-	const idn = stringToUniqueId(id);
+export const ProjectGridEffect: React.FC<{ project: Project }> = ({
+	project,
+}) => {
+	const idn = stringToUniqueId(project.id);
+	let multiplier = 1;
+	let color = "";
+	switch (project.status) {
+		case "stale":
+			multiplier = 0.5;
+			color = "fill-warn";
+			break;
+		case "dev":
+			multiplier = 2;
+			color = "fill-success";
+			break;
+		case "idea":
+			multiplier = 1;
+			color = "fill-info";
+			break;
+	}
 
 	const blocks = useMemo(
 		() =>
-			Array.from({ length: 60 }, (_, i) => [
+			Array.from({ length: 30 * multiplier }, (_, i) => [
 				randomIntFromIntervalPredicted(0, 4, idn + i),
 				randomIntFromIntervalPredicted(0, 30, idn - i),
 			]),
-		[idn]
+		[idn, multiplier]
 	);
 
 	return (
@@ -37,7 +55,7 @@ export const ProjectGridEffect: React.FC<{ id: Project["id"] }> = ({ id }) => {
 		>
 			{blocks.map(([row, column], index) => {
 				const blockClassName = cn(
-					"fill-foreground",
+					color,
 					animationDelay[
 						randomIntFromIntervalPredicted(0, 4, idn + index)
 					]

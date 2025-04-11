@@ -84,14 +84,6 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	return (
 		<figure className={className}>
 			<picture>
-				<source
-					srcSet={lightImage}
-					media="(prefers-color-scheme: light)"
-				/>
-				<source
-					srcSet={darkImage}
-					media="(prefers-color-scheme: dark)"
-				/>
 				<img
 					src={lightImage}
 					fetchPriority="low"
@@ -100,9 +92,23 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 					alt={alt}
 					width={width}
 					height={height}
-					className="!m-0 max-h-[70vh] object-contain md:rounded-lg"
+					className="!m-0 max-h-[70vh] object-contain md:rounded-lg dark:hidden"
 				/>
 			</picture>
+			{darkImage && (
+				<picture>
+					<img
+						src={darkImage}
+						fetchPriority="low"
+						loading="lazy"
+						decoding="async"
+						alt={alt}
+						width={width}
+						height={height}
+						className="!m-0 hidden max-h-[70vh] object-contain md:rounded-lg dark:block"
+					/>
+				</picture>
+			)}
 			<figcaption
 				className={cn(
 					{ "sr-only": hideCaption },

@@ -23,18 +23,20 @@ const _FooterMon: React.FC<{
 					{pokemon.description}
 				</p>
 			</div>
-			<picture>
+			<picture
+				className={cn(
+					"-z-10 h-[60vw] w-[60vh]",
+					"absolute right-0 translate-x-1/3 scale-150 opacity-20 md:scale-125 md:opacity-50",
+					"xl:translate-x-0 xl:scale-110 xl:opacity-100"
+				)}
+			>
 				<img
 					loading="lazy"
 					src={pokemon.sprite}
 					alt={"Picture of the " + pokemon.name}
 					width={96}
 					height={96}
-					className={cn(
-						"image-rendering-pixelated -z-10 h-[60vg] w-[60vh]",
-						"absolute right-0 translate-x-1/3 scale-150 opacity-20 md:scale-125 md:opacity-50",
-						"xl:translate-x-0 xl:scale-110 xl:opacity-100"
-					)}
+					className="image-rendering-pixelated h-full w-full object-cover"
 				/>
 			</picture>
 		</>
