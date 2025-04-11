@@ -15,7 +15,6 @@ import { useNavigation } from "@/lib/context/navigationContext";
 import { cn } from "@/lib/utils/cn";
 import { DesktopOpener } from "./desktopOpener";
 import { MobileOpener } from "./mobileOpener";
-import { ProgressBar } from "./progressBar";
 
 type NavigationProps = {
 	children?: React.ReactNode;
@@ -57,10 +56,9 @@ const MemoizedLenis: React.FC<{ children: React.ReactNode }> = memo(
 
 		return (
 			<ReactLenis
-				className="2xl:scrollbar-none w-full overflow-y-auto p-8 sm:pt-6 [&>div]:space-y-16"
 				options={options}
+				className="h-full w-full overflow-y-auto p-8 pt-20 sm:pt-8 [&>div]:space-y-16"
 			>
-				<ProgressBar />
 				{children}
 			</ReactLenis>
 		);
@@ -84,7 +82,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 	useAutoClose({ closeNav, menu });
 
 	return (
-		<nav className="relative print:hidden" role="navigation">
+		<nav className="relative print:hidden" role="navigation" id="sidebar">
 			<div
 				className={cn(
 					TRANSITION,
@@ -108,8 +106,9 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 				<DesktopOpener />
 
 				<MobileOpener />
-
-				<MemoizedLenis>{children}</MemoizedLenis>
+				<div inert={!isOpen} className="w-full">
+					<MemoizedLenis>{children}</MemoizedLenis>
+				</div>
 			</div>
 		</nav>
 	);

@@ -25,18 +25,23 @@ export const MobileOpener: React.FC = React.memo(() => {
 	return (
 		<div
 			className={cn(
-				"absolute z-20 flex space-x-2 p-4 sm:hidden",
-				"transition-transform duration-300 will-change-transform",
-				!isOpen ? "-translate-x-full" : "translate-x-[calc(100vw-100%)]"
+				"absolute z-20 flex space-x-2 rounded-bl-xl border-b-2 border-l-2 border-transparent p-4 sm:hidden",
+				"transition-all duration-300 will-change-transform",
+				!isOpen
+					? "-translate-x-full"
+					: "translate-x-[calc(100vw-100%)]",
+				!isOpen && pathname.includes("thoughts/") && "border-foreground"
 			)}
 		>
 			<Link
 				hrefLang="en"
 				href="/"
 				className={cn(
-					"ml-auto transition-transform hover:scale-95",
-					pathname == "/" && "!scale-0"
+					"ml-auto transition-all hover:scale-95 focus:scale-95",
+					pathname == "/" && "scale-0"
 				)}
+				aria-disabled={pathname == "/"}
+				inert={pathname == "/"}
 			>
 				<HomeIcon
 					aria-hidden="true"
@@ -48,8 +53,14 @@ export const MobileOpener: React.FC = React.memo(() => {
 
 			<ThemeSwitch id="theme-switch-mobile" className="h-12 w-12 p-3" />
 
-			<button ref={ref} type="button">
+			<button
+				ref={ref}
+				type="button"
+				aria-expanded={isOpen}
+				aria-controls="sidebar"
+			>
 				<ChevronIcon
+					focusable={false}
 					className={cn(
 						"fill-foreground h-12 w-12 p-4 transition-transform duration-300",
 						isOpen && "rotate-180"

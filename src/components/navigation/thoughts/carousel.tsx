@@ -18,13 +18,14 @@ const ThoughtLink: React.FC<{
 			key={thought.id}
 			href={"/thoughts/" + thought.slug}
 			aria-label={"Thought: " + thought.title}
+			className="group"
 		>
 			<SpotlightCard
 				id={"spotlight-nav-link-" + thought.id}
 				from="var(--yellow)"
 				via="var(--yellow)"
 				size={200}
-				className="group bg-container relative h-full w-full overflow-hidden rounded-xl"
+				className="bg-container relative h-full w-full overflow-hidden rounded-xl"
 			>
 				<div className="absolute inset-1 z-10 flex flex-col overflow-hidden rounded-xl px-4 py-4">
 					<div
@@ -35,7 +36,7 @@ const ThoughtLink: React.FC<{
 						{thought.tags.map((tag, i) => (
 							<span
 								key={i.toString() + thought.id}
-								className="bg-background group-hover:border-warn rounded-xl border-2 border-transparent p-3 leading-0 whitespace-nowrap transition-colors"
+								className="bg-background group-hover:border-warn group-focus:border-warn rounded-xl border-2 border-transparent p-3 leading-0 whitespace-nowrap transition-colors"
 								aria-hidden="true"
 							>
 								{tag}
@@ -53,7 +54,7 @@ const ThoughtLink: React.FC<{
 					</div>
 
 					<span className="to-background from-accent-yellow absolute inset-0 -z-10 bg-radial-[circle_at_100%_0%] to-40%" />
-					<span className="to-background from-accent-blue absolute inset-0 -z-10 bg-radial-[circle_at_100%_0%] to-40% transition-opacity group-hover:opacity-0" />
+					<span className="to-background from-accent-blue absolute inset-0 -z-10 bg-radial-[circle_at_100%_0%] to-40% transition-opacity group-hover:opacity-0 group-focus:opacity-0" />
 				</div>
 			</SpotlightCard>
 		</Link>

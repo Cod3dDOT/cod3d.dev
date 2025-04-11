@@ -9,7 +9,13 @@ export const NavProject: React.FC<{
 	project: Project;
 }> = ({ project }) => {
 	return (
-		<div className="group relative flex items-center overflow-hidden rounded-md transition-shadow hover:shadow-xl sm:h-16">
+		<a
+			href={project.repo}
+			target="_blank"
+			aria-label={"Github link to the source code of " + project.name}
+			rel="noreferrer"
+			className="group relative flex items-center overflow-hidden rounded-md transition-shadow hover:shadow-xl focus:shadow-xl sm:h-16"
+		>
 			<ProjectBadge status={project.status} />
 			<div className="flex flex-1 flex-col space-y-1 p-2 sm:w-fit sm:flex-initial">
 				<span className="text-xl">{project.name}</span>
@@ -20,22 +26,12 @@ export const NavProject: React.FC<{
 			</div>
 
 			{project.repo && (
-				<a
-					href={project.repo}
-					className="flex aspect-square h-full items-center justify-center"
-					target="_blank"
-					rel="noreferrer"
-					aria-label={
-						"Github link to the source code of " + project.name
-					}
-				>
-					<GithubIcon
-						focusable="false"
-						className="fill-foreground h-8 w-8"
-					/>
-				</a>
+				<GithubIcon
+					focusable="false"
+					className="fill-foreground h-8 w-8"
+				/>
 			)}
-		</div>
+		</a>
 	);
 };
 

@@ -51,7 +51,7 @@ export const ProjectGridEffect: React.FC<{ project: Project }> = ({
 			offsetX={0}
 			offsetY={-2}
 			size={22}
-			className="stroke-foreground h-full w-full [mask-image:radial-gradient(white,transparent_70%)] stroke-2 opacity-0 transition-opacity group-hover:opacity-100"
+			className="stroke-foreground h-full w-full [mask-image:radial-gradient(white,transparent_70%)] stroke-2 opacity-0 transition-opacity group-hover:opacity-100 group-focus:opacity-100"
 		>
 			{blocks.map(([row, column], index) => {
 				const blockClassName = cn(
