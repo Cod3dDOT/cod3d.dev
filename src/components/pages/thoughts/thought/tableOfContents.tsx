@@ -34,7 +34,7 @@ const margin = {
 
 const classNames = {
 	0: "text-foreground/30",
-	1: "text-accent font-normal",
+	1: "dark:text-accent-yellow text-accent-blue font-normal",
 };
 
 const TOCListItem = memo(
@@ -66,7 +66,9 @@ const TOCListItem = memo(
 				<span
 					className={cn(
 						"absolute top-1/2 -left-full h-px w-full -translate-x-4 -translate-y-1/2 transition-colors",
-						active ? "bg-accent" : "bg-foreground/10"
+						active
+							? "dark:bg-accent-yellow bg-accent-blue"
+							: "bg-foreground/10"
 					)}
 				/>
 				<a href={`#${heading.id}`} onClick={handleClick}>

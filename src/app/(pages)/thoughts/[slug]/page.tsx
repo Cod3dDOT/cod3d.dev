@@ -9,7 +9,6 @@ import { BreadcrumbList, TechArticle, WithContext } from "schema-dts";
 
 import { Footer } from "@/components/footer";
 import { AuroraBackground } from "@/components/pages/thoughts/aurora";
-import { BackLink } from "@/components/pages/thoughts/thought/backLink";
 import { ThoughtHeader } from "@/components/pages/thoughts/thought/header";
 import { MarkdownWrapper } from "@/components/pages/thoughts/thought/markdown/wrapper";
 import readingTime from "@/lib/readingTime";
@@ -170,7 +169,6 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	return (
 		<ReactLenis root>
 			<main className="bg-background relative font-sans">
-				<BackLink className="md:mx-10" />
 				<article>
 					<script
 						type="application/ld+json"
@@ -201,8 +199,6 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 						markdown={markdown}
 					/>
 				</article>
-
-				<BackLink className="md:mx-10" />
 			</main>
 			<Footer />
 		</ReactLenis>

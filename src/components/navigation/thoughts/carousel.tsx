@@ -6,13 +6,6 @@ import { SpotlightCard } from "@/components/effects/spotlightCard";
 import { cn } from "@/lib/utils/cn";
 import { dateToString } from "@/lib/utils/date";
 
-const bg = cn(
-	// 'bg-[radial-gradient(200px_circle_at_100%_-20%_in_oklab,oklch(70%_0.23_268)_0%_0%,var(--to)_100%)]',
-	// '[--to:var(--color-container)] hover:[--to:var(--color-background)]',
-	"transititon-all duration-300 ease-in-out",
-	"bg-radial-[circle_at_100%_0%] to-background from-accent to-40% hover:to-container"
-);
-
 const shimmer =
 	"overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/10 before:to-transparent";
 
@@ -28,17 +21,12 @@ const ThoughtLink: React.FC<{
 		>
 			<SpotlightCard
 				id={"spotlight-nav-link-" + thought.id}
-				from="#1cd1c6"
-				via="#407cff"
+				from="var(--yellow)"
+				via="var(--yellow)"
 				size={200}
-				className="bg-container relative h-full w-full overflow-hidden rounded-xl"
+				className="group bg-container relative h-full w-full overflow-hidden rounded-xl"
 			>
-				<div
-					className={cn(
-						"absolute inset-1 flex flex-col overflow-hidden rounded-xl px-4 py-4",
-						bg
-					)}
-				>
+				<div className="absolute inset-1 z-10 flex flex-col overflow-hidden rounded-xl px-4 py-4">
 					<div
 						className="flex space-x-2 [font-size:smaller]"
 						role="Tag list"
@@ -47,7 +35,7 @@ const ThoughtLink: React.FC<{
 						{thought.tags.map((tag, i) => (
 							<span
 								key={i.toString() + thought.id}
-								className="bg-container rounded-full p-2 px-3 whitespace-nowrap"
+								className="bg-background group-hover:border-warn rounded-xl border-2 border-transparent p-3 leading-0 whitespace-nowrap transition-colors"
 								aria-hidden="true"
 							>
 								{tag}
@@ -63,6 +51,9 @@ const ThoughtLink: React.FC<{
 						</time>
 						<span>cod3d.dev</span>
 					</div>
+
+					<span className="to-background from-accent-yellow absolute inset-0 -z-10 bg-radial-[circle_at_100%_0%] to-40%" />
+					<span className="to-background from-accent-blue absolute inset-0 -z-10 bg-radial-[circle_at_100%_0%] to-40% transition-opacity group-hover:opacity-0" />
 				</div>
 			</SpotlightCard>
 		</Link>

@@ -4,12 +4,13 @@
 	--blue: rgb(78, 89, 207);
 	--green: rgb(80, 224, 80);
 	--red: rgb(203, 39, 66);
+	--black: rgb(0, 0, 0);
 
 	--foreground: rgb(18, 18, 18);
-
 	--background: rgb(230, 230, 230);
 	--container: rgb(242, 242, 242);
-	--accent: var(--purple);
+	--accent-blue: var(--blue);
+	--accent-yellow: var(--yellow);
 }
 
 .dark {

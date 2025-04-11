@@ -36,7 +36,7 @@ const _FooterMon: React.FC<{
 					alt={"Picture of the " + pokemon.name}
 					width={96}
 					height={96}
-					className="image-rendering-pixelated h-full w-full object-cover"
+					className="image-rendering-pixelated h-full w-full object-contain"
 				/>
 			</picture>
 		</>

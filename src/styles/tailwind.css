@@ -14,12 +14,15 @@
 	--color-foreground: var(--foreground);
 	--color-background: var(--background);
 	--color-container: var(--container);
-	--color-accent: var(--accent);
+	--color-accent-blue: var(--accent-blue);
+	--color-accent-yellow: var(--accent-yellow);
 
 	--color-info: var(--blue);
 	--color-success: var(--green);
 	--color-warn: var(--yellow);
 	--color-error: var(--red);
+
+	--color-black: var(--black);
 
 	--ease-*: initial;
 	--ease-in-out-expo: cubic-bezier(1, 0, 0, 1);

@@ -1,14 +1,13 @@
 import GithubIcon from "@/components/icons/github";
 import MailIcon from "@/components/icons/mail";
 import MatrixIcon from "@/components/icons/matrix";
+import { SectionHeader } from "../header";
 import { ContactButton, ContactLink } from "./link";
 
 const NavContactsShowcase: React.FC = () => {
 	return (
 		<section className="group space-y-4">
-			<h2 className="text-[2.83rem] sm:text-[4rem] md:text-[5.65rem]">
-				Catch Me
-			</h2>
+			<SectionHeader section="Catch me" />
 			<div className="flex space-x-4">
 				<ContactLink href="https://github.com/cod3ddot" text="GitHub">
 					<GithubIcon
