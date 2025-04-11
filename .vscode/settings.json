@@ -1,10 +1,14 @@
 {
-	"typescript.tsdk": "node_modules\\typescript\\lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
 	"search.exclude": {
 		"**/.git": true,
 		"**/node_modules": true,
 		"**/bower_components": true,
-		"**/.next": true
-	}
+		"**/.next": true,
+		"**/.million": true
+	},
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.tsdk": "node_modules\\typescript\\lib"
 }

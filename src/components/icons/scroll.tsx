@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { IconProps } from '.';
+import { IconProps } from ".";
 
 const ScrollIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -20,5 +20,5 @@ const ScrollIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	)
 );
 
-ScrollIcon.displayName = 'ScrollIcon';
+ScrollIcon.displayName = "ScrollIcon";
 export default React.memo(ScrollIcon);

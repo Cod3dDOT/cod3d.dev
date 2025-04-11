@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 type AllEventMaps = HTMLElementEventMap & DocumentEventMap & WindowEventMap;
 

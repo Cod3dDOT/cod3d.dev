@@ -1,4 +1,4 @@
-import readingTime from '@/lib/readingTime';
+import readingTime from "@/lib/readingTime";
 
 export const ReadingTime: React.FC<{
 	markdown: string;
@@ -7,11 +7,18 @@ export const ReadingTime: React.FC<{
 	const minArray = Array.from({ length: minutes }, (_, i) => i + 1);
 	return (
 		<>
-			<div className="relative overflow-hidden inline-block" aria-hidden="true">
+			<div
+				className="relative inline-block overflow-hidden"
+				aria-hidden="true"
+			>
 				<span className="invisible">{minutes}</span>
-				<span className="left-0 absolute flex flex-col whitespace-nowrap motion-reduce:duration-0 animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out">
+				<span className="animate-scroll-in motion-reduce:animate-scroll-in-reduced absolute left-0 flex flex-col whitespace-nowrap">
 					{minArray.map((m, i) => {
-						return <span key={i.toString() + '-reading-time'}>{m}</span>;
+						return (
+							<span key={i.toString() + "-reading-time"}>
+								{m}
+							</span>
+						);
 					})}
 				</span>
 				<span> minutes</span>

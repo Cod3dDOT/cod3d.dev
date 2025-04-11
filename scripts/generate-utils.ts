@@ -1,40 +1,7 @@
-import { extractColors } from 'extract-colors';
-import { FinalColor } from 'extract-colors/lib/types/Color';
-import fs from 'fs';
-import sharp from 'sharp';
-
-export class Color {
-	r: number;
-	g: number;
-	b: number;
-
-	constructor(r: number, g: number, b: number) {
-		this.r = r;
-		this.g = g;
-		this.b = b;
-	}
-
-	fromHex(hex: string) {
-		const bigint = parseInt(hex.slice(1), 16);
-		const r = (bigint >> 16) & 255;
-		const g = (bigint >> 8) & 255;
-		const b = bigint & 255;
-		return new Color(r, g, b);
-	}
-
-	toHex() {
-		const hex = (this.r << 16) | (this.g << 8) | this.b;
-		return '#' + hex.toString(16).padStart(6, '0');
-	}
-
-	reduced(multiple: number) {
-		return new Color(
-			clamp(roundToNearest(this.r, multiple), 0, 255),
-			clamp(roundToNearest(this.g, multiple), 0, 255),
-			clamp(roundToNearest(this.b, multiple), 0, 255)
-		);
-	}
-}
+import fs from "fs";
+import { extractColors } from "extract-colors";
+import { FinalColor } from "extract-colors/lib/types/Color";
+import sharp from "sharp";
 
 export function clamp(value: number, min: number, max: number): number {
 	return Math.min(Math.max(value, min), max);
@@ -52,7 +19,7 @@ export async function colorFromImage(path: string): Promise<Color> {
 	const colors = await extractColors({
 		data: new Uint8ClampedArray(data),
 		width: info.width,
-		height: info.height
+		height: info.height,
 	});
 
 	const sortedByArea = colors.sort((a, b) => b.area - a.area);
@@ -87,3 +54,36 @@ export const writeFile = (path: string, data: string): void => {
 		console.error(`Error writing to ${path}`, error);
 	}
 };
+
+export class Color {
+	r: number;
+	g: number;
+	b: number;
+
+	constructor(r: number, g: number, b: number) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
+
+	fromHex(hex: string) {
+		const bigint = parseInt(hex.slice(1), 16);
+		const r = (bigint >> 16) & 255;
+		const g = (bigint >> 8) & 255;
+		const b = bigint & 255;
+		return new Color(r, g, b);
+	}
+
+	toHex() {
+		const hex = (this.r << 16) | (this.g << 8) | this.b;
+		return "#" + hex.toString(16).padStart(6, "0");
+	}
+
+	reduced(multiple: number) {
+		return new Color(
+			clamp(roundToNearest(this.r, multiple), 0, 255),
+			clamp(roundToNearest(this.g, multiple), 0, 255),
+			clamp(roundToNearest(this.b, multiple), 0, 255)
+		);
+	}
+}

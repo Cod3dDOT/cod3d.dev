@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { clsx } from 'clsx';
-import { usePathname } from 'next/navigation';
-import { Link } from 'next-view-transitions';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import ChevronIcon from '@/components/icons/chevron';
-import HomeIcon from '@/components/icons/home';
-import { ThemeSwitch } from '@/components/themeSwitch';
-import { useNavigation } from '@/lib/context/navigationContext';
+import ChevronIcon from "@/components/icons/chevron";
+import HomeIcon from "@/components/icons/home";
+import { ThemeSwitch } from "@/components/themeSwitch";
+import { useNavigation } from "@/lib/context/navigationContext";
+import { cn } from "@/lib/utils/cn";
 
 export const MobileOpener: React.FC = React.memo(() => {
 	const ref = useRef<HTMLButtonElement>(null);
@@ -16,41 +16,43 @@ export const MobileOpener: React.FC = React.memo(() => {
 	const pathname = usePathname();
 
 	useEffect(() => {
-		ref.current?.addEventListener('click', toggleNav);
-		return () => ref.current?.removeEventListener('click', toggleNav);
+		const current = ref.current;
+		if (!current) return;
+		current.addEventListener("click", toggleNav);
+		return () => current.removeEventListener("click", toggleNav);
 	}, [toggleNav]);
 
 	return (
 		<div
-			className={clsx(
-				'flex sm:hidden absolute p-4 space-x-2 z-20',
-				'transition-transform duration-300 will-change-transform',
-				!isOpen ? '-translate-x-full' : 'translate-x-[calc(100vw-100%)]'
+			className={cn(
+				"absolute z-20 flex space-x-2 p-4 sm:hidden",
+				"transition-transform duration-300 will-change-transform",
+				!isOpen ? "-translate-x-full" : "translate-x-[calc(100vw-100%)]"
 			)}
 		>
 			<Link
 				hrefLang="en"
 				href="/"
-				className={clsx(
-					'ml-auto transition-transform hover:scale-95',
-					pathname == '/' && '!scale-0'
+				className={cn(
+					"ml-auto transition-transform hover:scale-95",
+					pathname == "/" && "!scale-0"
 				)}
 			>
 				<HomeIcon
 					aria-hidden="true"
 					focusable="false"
-					className="h-12 w-12 p-2 fill-foreground"
+					className="h-12 w-12 p-2"
 				/>
 				<span className="sr-only">Home</span>
 			</Link>
 
-			<MobileThemeSwitch />
+			<ThemeSwitch id="theme-switch-mobile" className="h-12 w-12 p-3" />
 
 			<button ref={ref} type="button">
 				<ChevronIcon
-					className={clsx(
-						'h-12 w-12 p-4 fill-foreground transition-transform duration-300',
-						isOpen && 'rotate-180'
+					className={cn(
+						"h-12 w-12 p-4 transition-transform duration-300",
+						isOpen && "rotate-180"
 					)}
 				/>
 				<span className="sr-only">Toggle the navigation drawer</span>
@@ -59,6 +61,4 @@ export const MobileOpener: React.FC = React.memo(() => {
 	);
 });
 
-const MobileThemeSwitch = React.memo(() => (
-	<ThemeSwitch id="theme-switch-mobile" className="h-12 w-12 p-3" />
-));
+MobileOpener.displayName = "MobileOpener";

@@ -32,23 +32,23 @@ export function splitmix32(a: number = Date.now() * Math.random()): number {
 
 export async function signToken(data: string, SECRET: Uint8Array) {
 	const key = await crypto.subtle.importKey(
-		'raw',
+		"raw",
 		SECRET,
-		{ name: 'HMAC', hash: 'SHA-256' },
+		{ name: "HMAC", hash: "SHA-256" },
 		false,
-		['sign']
+		["sign"]
 	);
 
 	const signature = await crypto.subtle.sign(
-		'HMAC',
+		"HMAC",
 		key,
 		new TextEncoder().encode(data)
 	);
 
 	// Convert the ArrayBuffer to a hex string
 	return Array.from(new Uint8Array(signature))
-		.map((byte) => byte.toString(16).padStart(2, '0'))
-		.join('');
+		.map((byte) => byte.toString(16).padStart(2, "0"))
+		.join("");
 }
 
 // Helper to verify the token's signature
@@ -58,11 +58,11 @@ export async function verifyToken(
 	SECRET: Uint8Array
 ) {
 	const key = await crypto.subtle.importKey(
-		'raw',
+		"raw",
 		SECRET,
-		{ name: 'HMAC', hash: 'SHA-256' },
+		{ name: "HMAC", hash: "SHA-256" },
 		false,
-		['verify']
+		["verify"]
 	);
 
 	const expectedSignature = new Uint8Array(
@@ -70,7 +70,7 @@ export async function verifyToken(
 	);
 
 	return await crypto.subtle.verify(
-		'HMAC',
+		"HMAC",
 		key,
 		expectedSignature,
 		new TextEncoder().encode(data)
@@ -80,11 +80,11 @@ export async function verifyToken(
 export async function generateCspHash(input: string) {
 	// Hash the data using SHA-256
 	const hashBuffer = await crypto.subtle.digest(
-		'SHA-256',
+		"SHA-256",
 		new TextEncoder().encode(input)
 	);
 
-	const base64Hash = Buffer.from(hashBuffer).toString('base64');
+	const base64Hash = Buffer.from(hashBuffer).toString("base64");
 
 	return `sha256-${base64Hash}`;
 }

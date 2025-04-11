@@ -4,8 +4,8 @@ import React, {
 	useCallback,
 	useContext,
 	useMemo,
-	useState
-} from 'react';
+	useState,
+} from "react";
 
 interface NavigationContextType {
 	isOpen: boolean;
@@ -19,7 +19,7 @@ const NavigationContext = createContext<NavigationContextType | undefined>(
 );
 
 const NavigationProvider = memo(function NavigationProvider({
-	children
+	children,
 }: {
 	children: React.ReactNode;
 }) {
@@ -42,7 +42,7 @@ const NavigationProvider = memo(function NavigationProvider({
 			isOpen,
 			openNav,
 			closeNav,
-			toggleNav
+			toggleNav,
 		}),
 		[isOpen]
 	);
@@ -60,7 +60,9 @@ export function useNavigation() {
 	const context = useContext(NavigationContext);
 
 	if (context === undefined) {
-		throw new Error('useNavigation must be used within a NavigationProvider');
+		throw new Error(
+			"useNavigation must be used within a NavigationProvider"
+		);
 	}
 
 	return context;

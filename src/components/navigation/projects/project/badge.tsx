@@ -1,29 +1,30 @@
-import { Project } from '@pocketbase/types';
-import { clsx } from 'clsx';
+import { Project } from "@pocketbase/types";
+
+import { cn } from "@/lib/utils/cn";
 
 type ProjectBadgeProps = {
-	status: Project['status'];
+	status: Project["status"];
 };
 
 export const ProjectBadge: React.FC<ProjectBadgeProps> = ({ status }) => {
-	let color = '';
+	let color = "";
 	switch (status) {
-		case 'stale':
-			color = 'bg-yellow-400';
+		case "stale":
+			color = "bg-yellow-400";
 			break;
-		case 'dev':
-			color = 'bg-green-500';
+		case "dev":
+			color = "bg-green-500";
 			break;
-		case 'idea':
-			color = 'bg-blue-500';
+		case "idea":
+			color = "bg-blue-500";
 			break;
 	}
 	return (
 		<div
-			className={clsx(
+			className={cn(
 				color,
-				'hidden sm:flex h-full w-0 motion-reduce:w-16 transition-all group-hover:w-16 justify-center items-center overflow-hidden',
-				'text-foreground dark:text-background'
+				"hidden h-full w-0 items-center justify-center overflow-hidden transition-all group-hover:w-16 motion-reduce:w-16 sm:flex",
+				"text-foreground dark:text-background"
 			)}
 		>
 			{status}

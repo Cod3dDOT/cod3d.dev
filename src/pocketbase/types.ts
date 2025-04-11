@@ -1,4 +1,4 @@
-import PocketBase, { RecordService } from 'pocketbase';
+import PocketBase, { RecordService } from "pocketbase";
 
 export interface PBProject {
 	id: string;
@@ -8,10 +8,10 @@ export interface PBProject {
 	name: string;
 	description: string;
 
-	status: 'stale' | 'dev' | 'idea' | 'archived';
+	status: "stale" | "dev" | "idea" | "archived";
 
 	repo: string;
-	tags: PBTag['id'][];
+	tags: PBTag["id"][];
 
 	expand?: {
 		tags: PBTag[];
@@ -35,7 +35,7 @@ export interface PBThought {
 	markdown: string;
 	markdown_images: string[];
 
-	tags: PBTag['id'][];
+	tags: PBTag["id"][];
 
 	expand?: {
 		tags: PBTag[];
@@ -50,14 +50,17 @@ export interface PBTag {
 }
 
 export interface Project
-	extends Omit<PBProject, 'tags' | 'created' | 'updated' | 'expand'> {
+	extends Omit<PBProject, "tags" | "created" | "updated" | "expand"> {
 	created: Date;
 	updated: Date;
 	tags: string[];
 }
 
 export interface Thought
-	extends Omit<PBThought, 'tags' | 'created' | 'updated' | 'expand' | 'hero'> {
+	extends Omit<
+		PBThought,
+		"tags" | "created" | "updated" | "expand" | "hero"
+	> {
 	created: Date;
 	updated: Date;
 	tags: string[];
@@ -69,9 +72,9 @@ export interface Thought
 
 export interface TypedPocketBase extends PocketBase {
 	collection(idOrName: string): RecordService; // default fallback for any other collection
-	collection(idOrName: 'projects'): RecordService<PBProject>;
-	collection(idOrName: 'thoughts'): RecordService<PBThought>;
-	collection(idOrName: 'tags'): RecordService<PBTag>;
+	collection(idOrName: "projects"): RecordService<PBProject>;
+	collection(idOrName: "thoughts"): RecordService<PBThought>;
+	collection(idOrName: "tags"): RecordService<PBTag>;
 }
 
 export interface ClientResponseError {

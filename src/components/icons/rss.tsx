@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { IconProps } from '.';
+import { IconProps } from ".";
 
 const RssIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -24,5 +24,5 @@ const RssIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	)
 );
 
-RssIcon.displayName = 'RssIcon';
+RssIcon.displayName = "RssIcon";
 export default React.memo(RssIcon);

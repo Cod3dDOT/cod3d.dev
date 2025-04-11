@@ -26,7 +26,8 @@ type WordBoundFunction = (char: string) => boolean;
 
 function codeIsInRanges(number: number, arrayOfRanges: number[][]) {
 	return arrayOfRanges.some(
-		([lowerBound, upperBound]) => lowerBound <= number && number <= upperBound
+		([lowerBound, upperBound]) =>
+			lowerBound <= number && number <= upperBound
 	);
 }
 
@@ -46,12 +47,12 @@ const isCJK: WordBoundFunction = (c) => {
 		// Hangul
 		[0xac00, 0xd7a3],
 		// CJK extensions
-		[0x20000, 0x2ebe0]
+		[0x20000, 0x2ebe0],
 	]);
 };
 
 const isAnsiWordBound: WordBoundFunction = (c) => {
-	return ' \n\r\t'.includes(c);
+	return " \n\r\t".includes(c);
 };
 
 const isPunctuation: WordBoundFunction = (c) => {
@@ -64,7 +65,7 @@ const isPunctuation: WordBoundFunction = (c) => {
 		// CJK Symbols and Punctuation
 		[0x3000, 0x303f],
 		// Full-width ASCII punctuation variants
-		[0xff00, 0xffef]
+		[0xff00, 0xffef],
 	]);
 };
 
@@ -91,7 +92,8 @@ export function countWords(
 		if (
 			isCJK(normalizedText[i]) ||
 			(!isWordBound(normalizedText[i]) &&
-				(isWordBound(normalizedText[i + 1]) || isCJK(normalizedText[i + 1])))
+				(isWordBound(normalizedText[i + 1]) ||
+					isCJK(normalizedText[i + 1])))
 		) {
 			words++;
 		}
@@ -123,7 +125,7 @@ export function readingTimeWithCount(
 
 	return {
 		minutes: displayed,
-		time
+		time,
 	};
 }
 
@@ -134,6 +136,6 @@ export default function readingTime(
 	const words = countWords(text, options);
 	return {
 		...readingTimeWithCount(words, options),
-		words
+		words,
 	};
 }

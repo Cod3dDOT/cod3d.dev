@@ -1,8 +1,10 @@
-'use client';
+"use client";
 
-import { useScrollbar, useWindowSize } from '@14islands/r3f-scroll-rig';
-import { clsx } from 'clsx';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from "react";
+import { useLenis } from "lenis/react";
+import { useWindowSize } from "react-use";
+
+import { cn } from "@/lib/utils/cn";
 
 interface Heading {
 	content: string;
@@ -23,23 +25,23 @@ const calculateScale = (
 };
 
 const margin = {
-	2: 'ml-8',
-	3: 'ml-16',
-	4: 'ml-24',
-	5: 'ml-32',
-	6: 'ml-40'
+	2: "ml-8",
+	3: "ml-16",
+	4: "ml-24",
+	5: "ml-32",
+	6: "ml-40",
 };
 
 const opacity = {
-	0: 'opacity-30',
-	1: 'opacity-100'
+	0: "opacity-30",
+	1: "opacity-100",
 };
 
 const TOCListItem = memo(
 	({
 		heading,
 		active,
-		onHeadingClick
+		onHeadingClick,
 	}: {
 		heading: Heading;
 		active: boolean;
@@ -55,13 +57,13 @@ const TOCListItem = memo(
 
 		return (
 			<li
-				className={clsx(
-					'relative whitespace-nowrap text-foreground font-light w-96 transition-opacity duration-200 ease-linear',
+				className={cn(
+					"text-foreground relative w-96 font-light whitespace-nowrap transition-opacity duration-200 ease-linear",
 					margin[heading.level as keyof typeof margin],
 					opacity[active ? 1 : 0]
 				)}
 			>
-				<span className="absolute top-1/2 -translate-y-1/2 -left-full -translate-x-4 w-full h-px bg-blue-400" />
+				<span className="absolute top-1/2 -left-full h-px w-full -translate-x-4 -translate-y-1/2 bg-blue-400" />
 				<a href={`#${heading.id}`} onClick={handleClick}>
 					{heading.content}
 				</a>
@@ -70,28 +72,15 @@ const TOCListItem = memo(
 	}
 );
 
+TOCListItem.displayName = "TOCListItem";
+
 export const TableOfContents: React.FC = () => {
 	const [headings, setHeadings] = useState<Heading[]>([]);
-	const { scrollTo, onScroll } = useScrollbar();
 
 	const [active, setActive] = useState(0);
 	const { height } = useWindowSize();
 
-	useEffect(() => {
-		const article = document.getElementsByTagName('article')[0];
-
-		const headingElements = article.querySelectorAll('h2, h3, h4, h5, h6');
-		const newHeadings = Array.from(headingElements).map((heading) => ({
-			id: heading.id,
-			content: heading.textContent || '',
-			level: parseInt(heading.tagName[1]) as Heading['level'],
-			top: (heading as HTMLElement).offsetTop
-		}));
-
-		setHeadings(newHeadings);
-	}, []);
-
-	const scrollCallback = useCallback(
+	const lenis = useLenis(
 		({ scroll }: { scroll: number }) => {
 			if (headings.length === 0) return;
 
@@ -112,18 +101,28 @@ export const TableOfContents: React.FC = () => {
 				}
 			}
 		},
-		[height]
+		[headings, height]
 	);
 
 	useEffect(() => {
-		onScroll(scrollCallback);
-	}, [scrollCallback, onScroll]);
+		const article = document.getElementsByTagName("article")[0];
+
+		const headingElements = article.querySelectorAll("h2, h3, h4, h5, h6");
+		const newHeadings = Array.from(headingElements).map((heading) => ({
+			id: heading.id,
+			content: heading.textContent || "",
+			level: parseInt(heading.tagName[1]) as Heading["level"],
+			top: (heading as HTMLElement).offsetTop,
+		}));
+
+		setHeadings(newHeadings);
+	}, []);
 
 	const handleHeadingClick = useCallback(
 		(id: string) => {
-			scrollTo(`#${id}`);
+			lenis?.scrollTo(`#${id}`);
 		},
-		[scrollTo]
+		[lenis]
 	);
 
 	return (

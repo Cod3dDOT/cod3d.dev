@@ -1,4 +1,4 @@
-import { clsx } from 'clsx';
+import { cn } from "@/lib/utils/cn";
 
 export const ColorfulBlobs: React.FC = () => {
 	return (
@@ -6,36 +6,63 @@ export const ColorfulBlobs: React.FC = () => {
 			xmlns="http://www.w3.org/2000/svg"
 			xmlnsXlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 200 200"
-			className={clsx(
-				'relative h-full aspect-square sm:ml-auto min-h-[62rem] [animation-delay:var(--delay)]',
-				'motion-safe:[animation-duration:32s] motion-reduce:[animation-duration:512s] will-change-transform animate-spin',
-				'sm:*:h-[42rem] sm:*:w-[42rem] *:h-[35rem] *:w-[35rem]'
+			className={cn(
+				"relative aspect-square [animation-delay:var(--delay)]",
+				"animate-spin will-change-transform motion-safe:[animation-duration:32s] motion-reduce:[animation-duration:512s]",
+				"*:h-[35rem] *:w-[35rem] sm:*:h-[42rem] sm:*:w-[42rem]"
 			)}
 		>
 			<defs>
 				<filter
 					id="GaussianBlur"
-					filterUnits="objectBoundingBox"
-					primitiveUnits="userSpaceOnUse"
-					colorInterpolationFilters="sRGB"
 					x="-50%"
 					y="-50%"
 					width="200%"
 					height="200%"
 				>
-					<feGaussianBlur stdDeviation="10" in="SourceGraphic" result="blur" />
+					<feGaussianBlur
+						stdDeviation="10"
+						in="SourceGraphic"
+						result="blur"
+					/>
+				</filter>
+				<filter
+					id="GrainyTexture"
+					x="-50%"
+					y="-50%"
+					width="200%"
+					height="200%"
+				>
+					<feTurbulence
+						type="fractalNoise"
+						baseFrequency="15"
+						numOctaves="6"
+						result="noise"
+						stitchTiles="stitch"
+					/>
+					<feDisplacementMap
+						in="SourceGraphic"
+						in2="noise"
+						scale="5"
+					/>
 				</filter>
 			</defs>
-			<g filter="url(#GaussianBlur)">
-				<ellipse rx="35" ry="35" cx="60" cy="60" className="fill-blue-400" />
-				<ellipse
-					rx="35"
-					ry="35"
-					cx="140"
-					cy="140"
-					className="fill-yellow-300"
-				/>
-			</g>
+			<ellipse
+				rx="35"
+				ry="35"
+				cx="60"
+				cy="60"
+				filter="url(#GaussianBlur)"
+				className="fill-blue-400"
+			/>
+			<ellipse
+				rx="35"
+				ry="35"
+				cx="140"
+				cy="140"
+				filter="url(#GaussianBlur)"
+				className="fill-yellow-300"
+			/>
 		</svg>
 	);
 };

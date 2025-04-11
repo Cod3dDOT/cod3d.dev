@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { IconProps } from '.';
+import { IconProps } from ".";
 
 const MatrixIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -20,5 +20,5 @@ const MatrixIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	)
 );
 
-MatrixIcon.displayName = 'Matrix';
+MatrixIcon.displayName = "Matrix";
 export default React.memo(MatrixIcon);

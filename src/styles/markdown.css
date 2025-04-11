@@ -1,36 +1,36 @@
+@reference "./tailwind.css";
+
 [data-callout] {
 	--background: rgb(from var(--color) r g b / 0.2);
 
-	@apply md:rounded-xl py-8 md:mx-10 !px-4 sm:!px-8
-		border-[var(--color)] border-t-2 border-b-2 md:border-r-2 md:border-l-2 bg-gradient-to-b
-		from-[var(--background)] to-background-dark;
+	@apply to-container border-t-2 border-b-2 border-[var(--color)] bg-gradient-to-b from-[var(--background)] !px-4 py-8 sm:!px-8 md:mx-10 md:rounded-xl md:border-r-2 md:border-l-2;
 
 	p {
 		margin: 0;
 	}
 
 	[data-callout-title] {
-		@apply text-foreground font-bold mb-6 sm:mx-0 sm:mb-2;
+		@apply text-foreground mb-6 font-bold sm:mx-0 sm:mb-2;
 	}
 }
 
-[data-callout-type='warning'] {
+[data-callout-type="warning"] {
 	--color: rgb(231, 176, 8);
 }
 
-[data-callout-type='info'] {
+[data-callout-type="info"] {
 	--color: rgb(0, 140, 255);
 }
 
-[data-callout-type='tip'] {
+[data-callout-type="tip"] {
 	--color: rgb(114, 218, 114);
 }
 
-[data-callout-type='note'] {
+[data-callout-type="note"] {
 	--color: rgb(114, 218, 114);
 }
 
-[data-callout-type='error'] {
+[data-callout-type="error"] {
 	--color: rgb(255, 88, 88);
 }
 
@@ -68,7 +68,9 @@ span.code-line {
 }
 
 .code-line.deleted {
-	background-color: var(--color-deleted-line); /* deleted code-line (-) color */
+	background-color: var(
+		--color-deleted-line
+	); /* deleted code-line (-) color */
 }
 
 .highlighted-code-line {
@@ -98,7 +100,7 @@ pre code.hljs .code-line {
 	}
 
 	.numbered-code-line::before {
-		content: '';
+		content: "";
 		margin: 0;
 		width: 0;
 	}

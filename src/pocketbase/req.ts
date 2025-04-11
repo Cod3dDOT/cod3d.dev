@@ -1,26 +1,26 @@
-import { RecordListOptions } from 'pocketbase';
+import { RecordListOptions } from "pocketbase";
 
-import { createServerClient } from './config';
+import { createServerClient } from "./config";
 import {
 	ClientResponseError,
 	PBProject,
 	PBThought,
 	Project,
 	Thought,
-	TypedPocketBase
-} from './types';
-import { getAssetUrl } from './utils';
+	TypedPocketBase,
+} from "./types";
+import { getAssetUrl } from "./utils";
 
 function processThoughts(
 	client: TypedPocketBase,
 	thoughts: PBThought[]
 ): Thought[] {
 	return thoughts.map((thought) => {
-		const dark = thought.hero.find((hero) => hero.includes('dark'));
+		const dark = thought.hero.find((hero) => hero.includes("dark"));
 		const light = thought.hero.find((hero) => hero != dark);
 
 		if (!light) {
-			throw new Error('Missing light hero image');
+			throw new Error("Missing light hero image");
 		}
 
 		return {
@@ -29,13 +29,15 @@ function processThoughts(
 			updated: new Date(thought.updated),
 			hero: {
 				light: getAssetUrl(client, thought, light).href,
-				dark: dark ? getAssetUrl(client, thought, dark).href : undefined
+				dark: dark
+					? getAssetUrl(client, thought, dark).href
+					: undefined,
 			},
 			markdown: getAssetUrl(client, thought, thought.markdown).href,
 			markdown_images: thought.markdown_images.map(
-				(image) => getAssetUrl(client, thought, image).href
+				(image) => getAssetUrl(client, thought, image).pathname
 			),
-			tags: thought.expand?.tags.map((tag) => tag.tag) || []
+			tags: thought.expand?.tags.map((tag) => tag.tag) || [],
 		};
 	});
 }
@@ -49,7 +51,7 @@ function processProjects(
 			...project,
 			created: new Date(project.created),
 			updated: new Date(project.updated),
-			tags: project.expand?.tags.map((tag) => tag.tag) || []
+			tags: project.expand?.tags.map((tag) => tag.tag) || [],
 		};
 	});
 }
@@ -59,20 +61,20 @@ export async function getThought(
 	slug: string
 ): Promise<Thought | ClientResponseError> {
 	try {
-		const thoughts = await client.collection('thoughts').getList(1, 1, {
-			filter: client.filter('slug={:slug}&&published=true', {
-				slug: slug
+		const thoughts = await client.collection("thoughts").getList(1, 1, {
+			filter: client.filter("slug={:slug}&&published=true", {
+				slug: slug,
 			}),
-			expand: 'tags'
+			expand: "tags",
 		});
 
 		if (thoughts.items.length == 0) {
 			return {
-				url: '/thoughts',
+				url: "/thoughts",
 				status: 404,
 				response: {},
 				isAbort: false,
-				originalError: null
+				originalError: null,
 			} as ClientResponseError;
 		}
 
@@ -93,11 +95,11 @@ export async function getThoughts(
 
 	try {
 		const thoughts = await client
-			.collection('thoughts')
+			.collection("thoughts")
 			.getList(page, perPage, {
 				...options,
-				filter: 'published=true',
-				expand: 'tags'
+				filter: "published=true",
+				expand: "tags",
 			});
 
 		const thoughtsList = processThoughts(client, thoughts.items);
@@ -113,11 +115,11 @@ export async function getProjects(page?: number, perPage?: number) {
 
 	try {
 		const projects = await client
-			.collection('projects')
+			.collection("projects")
 			.getList(page, perPage, {
-				filter: 'repo!=null',
-				sort: 'status',
-				expand: 'tags'
+				filter: "repo!=null",
+				sort: "status",
+				expand: "tags",
 			});
 
 		return processProjects(client, projects.items);
@@ -128,7 +130,7 @@ export async function getProjects(page?: number, perPage?: number) {
 
 export async function authenticate(client: TypedPocketBase) {
 	if (!process.env.POCKETBASE_USER || !process.env.POCKETBASE_PASS) {
-		throw new Error('Invalid .env auth config');
+		throw new Error("Invalid .env auth config");
 	}
 
 	if (client.authStore.isValid) {
@@ -137,7 +139,7 @@ export async function authenticate(client: TypedPocketBase) {
 
 	try {
 		const authStore = await client
-			.collection('users')
+			.collection("users")
 			.authWithPassword(
 				process.env.POCKETBASE_USER,
 				process.env.POCKETBASE_PASS

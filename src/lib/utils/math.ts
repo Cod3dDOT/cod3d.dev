@@ -1,4 +1,4 @@
-import { splitmix32, stringToUniqueId } from './crypto';
+import { splitmix32, stringToUniqueId } from "./crypto";
 
 export function randomIntFromIntervalPredicted(
 	min: number,

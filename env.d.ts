@@ -5,6 +5,7 @@ declare global {
 			POCKETBASE_USER: string;
 			POCKETBASE_PASS: string;
 			PRIVATE_DOWNLOAD_KEY: string;
+			NEXT_PUBLIC_URL: string;
 		}
 	}
 }

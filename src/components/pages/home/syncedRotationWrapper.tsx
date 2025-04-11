@@ -1,24 +1,25 @@
-'use client';
+"use client";
 
-import { clsx } from 'clsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+
+import { cn } from "@/lib/utils/cn";
 
 // needs to be a client component for the date to work
 export const SyncedRotationWrapper: React.FC<{ children: React.ReactNode }> = ({
-	children
+	children,
 }) => {
-	const [opacity, setOpacity] = useState('opacity-0');
+	const [opacity, setOpacity] = useState("opacity-0");
 	const [seconds, setSeconds] = useState(0);
 
 	useEffect(() => {
 		setSeconds((new Date().getSeconds() % 32) * -1);
-		setOpacity('opacity-100');
+		setOpacity("opacity-100");
 	}, []);
 
 	return (
 		<div
-			className={clsx(
-				'fixed inset-0 -z-10 overflow-hidden flex lg:justify-center lg:items-center transition-opacity duration-1000',
+			className={cn(
+				"fixed -inset-full -z-10 flex items-center justify-center overflow-hidden transition-opacity duration-1000 lg:inset-0",
 				opacity
 			)}
 		>

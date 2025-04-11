@@ -1,15 +1,9 @@
-'use client';
+"use client";
 
-import { useScrollbar } from '@14islands/r3f-scroll-rig';
-import {
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState
-} from 'react';
+import { useLayoutEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
 
-import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
+import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 
 const AsideFooter: React.FC<{
 	children?: React.ReactNode;
@@ -25,10 +19,8 @@ const AsideFooter: React.FC<{
 
 	const prefersReducedMotion = usePrefersReducedMotion();
 
-	const { onScroll } = useScrollbar();
-
-	const scrollCallback = useCallback(
-		({ scroll, limit }: { scroll: number; limit: number }) => {
+	useLenis(
+		({ scroll, limit }) => {
 			if (prefersReducedMotion) return;
 
 			if (scroll < limit - height) return;
@@ -36,23 +28,19 @@ const AsideFooter: React.FC<{
 
 			setProgress(-p * 20);
 		},
-		[prefersReducedMotion, height]
+		[height, prefersReducedMotion]
 	);
-
-	useEffect(() => {
-		onScroll(scrollCallback);
-	}, [onScroll, scrollCallback]);
 
 	return (
 		<aside
 			ref={container}
-			className="print:hidden block w-full bg-background-dark -z-10 overflow-clip px-12 md:px-24"
+			className="bg-container -z-10 block w-full overflow-clip px-12 md:px-24 print:hidden"
 		>
 			<div
 				style={{
-					transform: `translate3d(0px, ${progress.toString()}%, 0px)`
+					transform: `translate3d(0px, ${progress.toString()}%, 0px)`,
 				}}
-				className="will-change-transform flex flex-col md:flex-row z-10 h-[50vh] justify-center md:justify-normal items-center"
+				className="z-10 flex h-[50vh] flex-col items-center justify-center will-change-transform md:flex-row md:justify-normal"
 			>
 				{children}
 			</div>

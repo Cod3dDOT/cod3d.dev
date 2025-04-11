@@ -1,17 +1,17 @@
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
-import PocketBase from 'pocketbase';
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import PocketBase from "pocketbase";
 
-import { TypedPocketBase } from './types';
+import { TypedPocketBase } from "./types";
 
 export function createServerClient(cookieStore?: ReadonlyRequestCookies) {
 	if (!process.env.POCKETBASE_HOST)
-		throw new Error('Invalid .env database config');
+		throw new Error("Invalid .env database config");
 
-	const pbUrl = 'https://' + process.env.POCKETBASE_HOST;
+	const pbUrl = "https://" + process.env.POCKETBASE_HOST;
 
-	if (typeof window !== 'undefined') {
+	if (typeof window !== "undefined") {
 		throw new Error(
-			'This method is only supposed to call from the Server environment'
+			"This method is only supposed to call from the Server environment"
 		);
 	}
 
@@ -29,10 +29,12 @@ export function createServerClient(cookieStore?: ReadonlyRequestCookies) {
 	// });
 
 	if (cookieStore) {
-		const authCookie = cookieStore.get('pb_auth');
+		const authCookie = cookieStore.get("pb_auth");
 
 		if (authCookie) {
-			client.authStore.loadFromCookie(`${authCookie.name}=${authCookie.value}`);
+			client.authStore.loadFromCookie(
+				`${authCookie.name}=${authCookie.value}`
+			);
 		}
 	}
 

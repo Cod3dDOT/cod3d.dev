@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@variant dark (&:where(.dark, .dark *));
+@custom-media --hover (hover: hover);
+@custom-media --reduced-motion (prefers-reduced-motion: reduce);
+
+.dark {
+	--color-foreground: rgb(242, 242, 242);
+	--color-background: rgb(51, 51, 51);
+	--color-container: rgb(34, 34, 34);
+	--color-accent: rgb(65, 99, 220);
+}
+
+@theme {
+	--font-*: initial;
+	--font-pixelify: var(--font-pixelify);
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
+
+	--color-*: initial;
+	--color-foreground: rgb(18, 18, 18);
+	--color-background: rgb(242, 242, 242);
+	--color-container: rgb(230, 230, 230);
+	--color-accent: rgb(41, 74, 191);
+
+	--ease-*: initial;
+	--ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+
+	--animate-shimmer: shimmer 2s linear infinite;
+	--animate-in: in 1s ease var(--delay, 0) forwards;
+	--animate-in-reduced: in-reduced 1s ease var(--delay, 0) forwards;
+
+	--animate-scroll-in: scroll-in 1s ease var(--delay, 0) forwards;
+	--animate-scroll-in-reduced: scroll-in-reduced 1s ease var(--delay, 0)
+		forwards;
+
+	@keyframes in {
+		0% {
+			opacity: 0;
+			transform: translateY(-5px);
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes in-reduced {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes shimmer {
+		100% {
+			transform: translateX(100%);
+		}
+	}
+
+	@keyframes scroll-in {
+		0% {
+			opacity: 0;
+			transform: translateY(0%);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(-100%);
+		}
+	}
+
+	@keyframes scroll-in-reduced {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+}
+
+@utility image-rendering-pixelated {
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
+}

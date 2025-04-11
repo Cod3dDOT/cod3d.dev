@@ -38,7 +38,8 @@ interface Sprites {
 }
 
 export async function API_getAllPokemonSpecies(): Promise<PokemonSpecies[]> {
-	const url = 'https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0';
+	const url =
+		"https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0";
 	const response = await fetch(url);
 	const data = await response.json();
 	return data.results;

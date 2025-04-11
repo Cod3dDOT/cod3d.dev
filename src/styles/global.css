@@ -1,0 +1,27 @@
+html {
+	--scrollbar-gutter: 0px;
+
+	&.lenis-stopped {
+		--scrollbar-gutter: var(--scrollbar-width);
+	}
+}
+
+* {
+	scrollbar-width: thin;
+}
+
+body {
+	min-height: 100vh;
+	overscroll-behavior: none;
+	background-color: var(--color-background);
+	color: var(--color-foreground);
+	display: flex;
+	flex-direction: column;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+*::selection {
+	background-color: var(--color-accent);
+	color: var(--color-primary);
+}

@@ -1,8 +1,8 @@
 export const dateToString = (date: Date) => {
-	return date.toLocaleDateString('en-us', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric'
+	return date.toLocaleDateString("en-us", {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
 	});
 };
 
@@ -11,9 +11,9 @@ export const minutesToDuration = (mins: number): string => {
 	const hours = Math.floor((mins % 1440) / 60);
 	const minutes = mins % 60;
 
-	const daysStr = days ? days.toString() + 'D ' : '';
-	const hoursStr = hours ? hours.toString() + 'H ' : '';
-	const minutesStr = minutes.toString() + 'M';
+	const daysStr = days ? days.toString() + "D " : "";
+	const hoursStr = hours ? hours.toString() + "H " : "";
+	const minutesStr = minutes.toString() + "M";
 
 	return `PT${daysStr}${hoursStr}${minutesStr}`;
 };

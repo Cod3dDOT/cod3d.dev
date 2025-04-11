@@ -1,23 +1,23 @@
-import { clsx } from 'clsx';
-import { ImgProps } from 'next/dist/shared/lib/get-img-props';
-import { getImageProps } from 'next/image';
+import { cn } from "@/lib/utils/cn";
 
 type MarkdownImageProps = {
-	src: string;
-	srcDark?: string;
+	src?: string;
 	alt?: string;
 	className?: string;
 	hideCaption?: boolean;
-	priority?: boolean;
-	sizes?: string;
+
+	allImages: string[];
 
 	width?: number;
 	height?: number;
 };
 
-export function findImagePaths(imageName: string, paths: string[]) {
+export function findImagePaths(imageName: string | undefined, paths: string[]) {
+	if (!imageName) {
+		return { lightImage: undefined, darkImage: undefined };
+	}
 	// Extract the base name (without extension) from the input image name
-	const baseName = imageName.split('.')[0]; // "something"
+	const baseName = imageName.split(".")[0]; // "something"
 
 	// Initialize variables to store the found paths
 	let lightImage: string | undefined;
@@ -39,92 +39,78 @@ export function findImagePaths(imageName: string, paths: string[]) {
 	return { lightImage, darkImage };
 }
 
-export const MarkdownImage: React.FC<MarkdownImageProps> = ({
-	src,
-	srcDark,
-	alt = '',
-	className,
-	hideCaption = false,
-	priority = false,
-	sizes = '100vw',
-
-	width = 1080,
-	height = 1080
-}) => {
-	const lightProps = getImageProps({
-		priority,
-		src,
-		alt,
-		width,
-		height,
-		sizes,
-		quality: 100
-	}).props;
-
-	const light = {
-		...lightProps,
-		style: undefined
-	};
-
-	const darkProps: ImgProps | undefined = srcDark
-		? getImageProps({
-				priority,
-				src: srcDark,
-				alt,
-				width,
-				height,
-				sizes,
-				quality: 100
-			}).props
-		: undefined;
-
-	const dark = {
-		...darkProps,
-		style: undefined
-	};
-
-	return (
-		<figure className={className}>
-			<img
-				{...light}
-				className={clsx(
-					'!m-0 md:rounded-lg object-contain max-h-[70vh]',
-					srcDark && 'dark:hidden'
-				)}
-			/>
-			{srcDark && (
-				<img
-					{...dark}
-					className={
-						'!m-0 md:rounded-lg object-contain max-h-[70vh] dark:block hidden'
-					}
-				/>
-			)}
-			<figcaption
-				className={clsx({ 'sr-only': hideCaption }, 'text-center md:text-left')}
-			>
-				{alt}
-			</figcaption>
-		</figure>
-	);
-};
-
 export const MarkdownImageFailed: React.FC = () => {
 	return (
-		<div className="p-4 flex w-full aspect-video bg-background-dark rounded-lg items-center justify-center">
+		<div className="bg-container flex aspect-video w-full items-center justify-center rounded-lg p-4">
 			<div>
 				<span>This was supposed to be an image. </span>
 				<br className="hidden md:block" />
 				<span>Oh well.</span>
 				<br className="hidden md:block" />
-				<span className="hidden md:block">:dev sobbing in the back:</span>
+				<span className="hidden md:block">
+					:dev sobbing in the back:
+				</span>
 			</div>
-			<img
-				loading="lazy"
-				src="/img/togepi-sad.svg"
-				alt="Sad Togepi"
-				className="m-0 rounded-lg w-20 md:w-72"
-			/>
+			<picture>
+				<img
+					loading="lazy"
+					decoding="async"
+					src="/img/togepi-sad.svg"
+					alt="Sad Togepi"
+					className="m-0 w-20 rounded-lg md:w-72"
+				/>
+			</picture>
 		</div>
+	);
+};
+
+export const MarkdownImage: React.FC<MarkdownImageProps> = ({
+	src,
+	alt = "",
+	className,
+	hideCaption = false,
+
+	allImages,
+
+	width = 1080,
+	height = 1080,
+}) => {
+	const { lightImage, darkImage } = findImagePaths(src || "", allImages);
+
+	if (!lightImage || !darkImage) {
+		return <MarkdownImageFailed />;
+	}
+
+	return (
+		<figure className={className}>
+			<picture>
+				<source
+					srcSet={lightImage}
+					media="(prefers-color-scheme: light)"
+				/>
+				<source
+					srcSet={darkImage}
+					media="(prefers-color-scheme: dark)"
+				/>
+				<img
+					src={lightImage}
+					fetchPriority="low"
+					loading="lazy"
+					decoding="async"
+					alt={alt}
+					width={width}
+					height={height}
+					className="!m-0 max-h-[70vh] object-contain md:rounded-lg"
+				/>
+			</picture>
+			<figcaption
+				className={cn(
+					{ "sr-only": hideCaption },
+					"text-center md:text-left"
+				)}
+			>
+				{alt}
+			</figcaption>
+		</figure>
 	);
 };

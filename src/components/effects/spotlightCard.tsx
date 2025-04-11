@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { clsx } from 'clsx';
-import React, { RefObject, useMemo, useRef } from 'react';
-import { useMouse } from 'react-use';
+import React, { RefObject, useMemo, useRef } from "react";
+import { useMouse } from "react-use";
 
-import useIsTouchDevice from '@/lib/hooks/useIsTouchDevice';
-import useIsVisible from '@/lib/hooks/useIsVisible';
+import useIsTouchDevice from "@/lib/hooks/useIsTouchDevice";
+import useIsVisible from "@/lib/hooks/useIsVisible";
+import { cn } from "@/lib/utils/cn";
 
 interface SpotlightCardProps {
 	id?: string;
@@ -15,7 +15,7 @@ interface SpotlightCardProps {
 	via?: string | null;
 	to?: string;
 	size?: number;
-	mode?: 'before' | 'after';
+	mode?: "before" | "after";
 	hsl?: boolean;
 	hslMin?: number;
 	hslMax?: number;
@@ -24,13 +24,13 @@ interface SpotlightCardProps {
 }
 
 export function SpotlightCard({
-	id = '',
-	nonce = '',
-	from = 'rgba(255,255,255,0.8)',
+	id = "",
+	nonce = "",
+	from = "rgba(255,255,255,0.8)",
 	via = null,
-	to = 'transparent',
+	to = "transparent",
 	size = 350,
-	mode = 'before',
+	mode = "before",
 	hsl = false,
 	hslMin = 0,
 	hslMax = 360,
@@ -40,7 +40,9 @@ export function SpotlightCard({
 }: SpotlightCardProps): React.JSX.Element {
 	const mobile = useIsTouchDevice();
 	const container = useRef<HTMLDivElement>(null);
-	const { elX, elY, elW, elH } = useMouse(container as RefObject<HTMLElement>);
+	const { elX, elY, elW, elH } = useMouse(
+		container as RefObject<HTMLElement>
+	);
 	const isVisible = useIsVisible(container as RefObject<HTMLElement>);
 
 	const centerX = elW / 2 || 0;
@@ -50,7 +52,7 @@ export function SpotlightCard({
 	// Memoize spotlight color stops only when necessary
 	const spotlightColorStops = useMemo(() => {
 		if (!hsl) {
-			return [from, via, to].filter(Boolean).join(',');
+			return [from, via, to].filter(Boolean).join(",");
 		}
 		const margin = hslMax - hslMin;
 		const rate = (elY + elX) / (elH + elW);
@@ -67,29 +69,29 @@ export function SpotlightCard({
 			return { x: -size * 2, y: -size * 2 };
 		}
 		return { x: elX, y: elY };
-	}, [isVisible, elX, elY, centerX, centerY, thresholdDistance]);
+	}, [isVisible, elX, centerX, elY, centerY, thresholdDistance, size]);
 
 	const modeClass =
-		mode === 'before'
-			? 'before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]'
-			: 'after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]';
+		mode === "before"
+			? "before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]"
+			: "after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]";
 
 	// Simplify the mobile check return path
 	if (mobile) {
 		return (
 			<div
 				nonce={nonce}
-				className={clsx(
+				className={cn(
 					`bg-background spotlight-card-${id}`,
 					modeClass,
 					className
 				)}
 				style={{
 					// @ts-expect-error --spotlight-color-stops
-					'--spotlight-color-stops': spotlightColorStops,
-					'--spotlight-size': `${size.toString()}px`,
-					'--spotlight-x': '0px',
-					'--spotlight-y': '0px'
+					"--spotlight-color-stops": spotlightColorStops,
+					"--spotlight-size": `${size.toString()}px`,
+					"--spotlight-x": "0px",
+					"--spotlight-y": "0px",
 				}}
 				{...props}
 			>
@@ -102,17 +104,17 @@ export function SpotlightCard({
 		<div
 			nonce={nonce}
 			ref={container}
-			className={clsx(
+			className={cn(
 				`relative transform-gpu spotlight-card-${id}`,
 				modeClass,
 				className
 			)}
 			style={{
 				// @ts-expect-error --spotlight-color-stops
-				'--spotlight-color-stops': spotlightColorStops,
-				'--spotlight-size': `${size.toString()}px`,
-				'--spotlight-x': `${x.toString()}px`,
-				'--spotlight-y': `${y.toString()}px`
+				"--spotlight-color-stops": spotlightColorStops,
+				"--spotlight-size": `${size.toString()}px`,
+				"--spotlight-x": `${x.toString()}px`,
+				"--spotlight-y": `${y.toString()}px`,
 			}}
 			{...props}
 		>

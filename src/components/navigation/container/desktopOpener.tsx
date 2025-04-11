@@ -1,52 +1,78 @@
-'use client';
+"use client";
 
-import { clsx } from 'clsx';
-import { usePathname } from 'next/navigation';
-import { Link } from 'next-view-transitions';
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import HomeIcon from '@/components/icons/home';
-import { ThemeSwitch } from '@/components/themeSwitch';
-import { useNavigation } from '@/lib/context/navigationContext';
+import HomeIcon from "@/components/icons/home";
+import { ThemeSwitch } from "@/components/themeSwitch";
+import { useNavigation } from "@/lib/context/navigationContext";
+import { cn } from "@/lib/utils/cn";
 
-export const DesktopOpener: React.FC = React.memo(() => {
+const HomeLink: React.FC<{ children: React.ReactNode }> = memo(
+	({ children }) => {
+		const pathname = usePathname();
+		return (
+			<Link
+				hrefLang="en"
+				href="/"
+				className={cn(
+					"aspect-square w-full p-4 transition-transform hover:scale-95",
+					pathname == "/" && "!scale-0"
+				)}
+				aria-label="Link to homepage"
+			>
+				{children}
+			</Link>
+		);
+	}
+);
+
+HomeLink.displayName = "HomeLink";
+
+export const DesktopOpener: React.FC = memo(() => {
 	const ref = useRef<HTMLButtonElement>(null);
 	const { isOpen, toggleNav } = useNavigation();
 
 	useEffect(() => {
-		ref.current?.addEventListener('click', toggleNav);
-		return () => ref.current?.removeEventListener('click', toggleNav);
+		const current = ref.current;
+		if (!current) return;
+		current.addEventListener("click", toggleNav);
+		return () => current.removeEventListener("click", toggleNav);
 	}, [toggleNav]);
 
 	return (
-		<div className="hidden sm:flex flex-col items-center h-full sm:w-16 w-12 shadow-lg">
-			<DesktopThemeSwitch />
+		<div className="hidden h-full w-16 flex-col items-center shadow-lg sm:flex">
+			<ThemeSwitch
+				id="theme-switch-desktop"
+				className="w-full translate-y-4 p-4 transition-transform duration-300"
+			/>
 			<HomeLink>
 				<HomeIcon
 					aria-hidden="true"
 					focusable="false"
-					className="w-full h-full fill-foreground"
+					className="fill-foreground h-full w-full"
 				/>
 				<span className="sr-only">Home</span>
 			</HomeLink>
 			<button
 				ref={ref}
 				type="button"
-				className="relative group h-1/2 my-auto w-16 *:absolute *:w-1 *:h-16 *:bg-foreground *:top-1/2 *:left-1/2 *:-translate-y-1/2"
+				className="group *:bg-foreground relative h-full w-16 cursor-pointer *:absolute *:top-1/2 *:left-1/2 *:h-16 *:w-1 *:-translate-y-1/2"
 			>
 				<span
-					className={clsx(
-						'transition-all -translate-x-[calc(50%-4px)] ',
+					className={cn(
+						"-translate-x-[calc(50%-4px)] transition-all",
 						isOpen
-							? '!-translate-x-1/2 !h-8 !rotate-45 group-hover:scale-y-90'
-							: 'group-hover:scale-y-125'
+							? "!h-8 !-translate-x-1/2 !rotate-45 group-hover:scale-y-90"
+							: "group-hover:scale-y-125"
 					)}
 				/>
 				<span
-					className={clsx(
-						'transition-all -translate-x-[calc(50%+4px)]',
+					className={cn(
+						"-translate-x-[calc(50%+4px)] transition-all",
 						isOpen &&
-							'!-translate-x-1/2 !h-8 !-rotate-45 group-hover:scale-y-90'
+							"!h-8 !-translate-x-1/2 !-rotate-45 group-hover:scale-y-90"
 					)}
 				/>
 				<span className="sr-only">Toggle the navigation drawer</span>
@@ -55,26 +81,4 @@ export const DesktopOpener: React.FC = React.memo(() => {
 	);
 });
 
-const HomeLink: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	const pathname = usePathname();
-	return (
-		<Link
-			hrefLang="en"
-			href="/"
-			className={clsx(
-				'transition-transform w-full aspect-square p-4 hover:scale-95',
-				pathname == '/' && '!scale-0'
-			)}
-			aria-label="Link to homepage"
-		>
-			{children}
-		</Link>
-	);
-};
-
-const DesktopThemeSwitch = React.memo(() => (
-	<ThemeSwitch
-		id="theme-switch-desktop"
-		className="w-full p-4 transition-transform duration-300 translate-y-4"
-	/>
-));
+DesktopOpener.displayName = "DesktopOpener";

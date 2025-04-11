@@ -1,6 +1,6 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import { IconProps } from '..';
+import { IconProps } from "..";
 
 const CursorEditIcon = forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -20,5 +20,5 @@ const CursorEditIcon = forwardRef<SVGSVGElement, IconProps>(
 	)
 );
 
-CursorEditIcon.displayName = 'CursorEdit';
+CursorEditIcon.displayName = "CursorEdit";
 export default CursorEditIcon;

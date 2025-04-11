@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { IconProps } from '.';
+import { IconProps } from ".";
 
 const ChevronIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -21,5 +21,5 @@ const ChevronIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	)
 );
 
-ChevronIcon.displayName = 'Chevron';
+ChevronIcon.displayName = "Chevron";
 export default React.memo(ChevronIcon);

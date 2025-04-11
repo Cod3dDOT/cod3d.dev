@@ -1,11 +1,10 @@
-import { clsx } from 'clsx';
-
-import { dateToString } from '@/lib/utils/date';
+import { cn } from "@/lib/utils/cn";
+import { dateToString } from "@/lib/utils/date";
 
 export const DateScroll: React.FC<{
 	date: Date;
-	delay?: 'delay-500' | 'delay-1000' | 'delay-2000';
-}> = ({ date, delay = 'delay-500' }) => {
+	delay?: "delay-500" | "delay-1000" | "delay-2000";
+}> = ({ date, delay = "delay-500" }) => {
 	const startDate = new Date(date);
 	startDate.setDate(startDate.getDate() - 7); // Start from 7 days ago
 
@@ -23,15 +22,17 @@ export const DateScroll: React.FC<{
 		>
 			<span className="invisible">{dateToString(date)}</span>
 			<div
-				className={clsx(
-					'left-0 absolute flex flex-col whitespace-nowrap motion-reduce:duration-0 animate-out slide-out-to-top-full fill-mode-forwards duration-1000 ease-in-out',
-					'motion-reduce:delay-0',
+				className={cn(
+					"animate-scroll-in absolute left-0 flex flex-col whitespace-nowrap",
+					"motion-reduce:animate-scroll-in-reduced",
 					delay
 				)}
 				aria-hidden="true"
 			>
 				{dates.map((date, i) => (
-					<span key={i.toString() + '-date-scroll-' + date}>{date}</span>
+					<span key={i.toString() + "-date-scroll-" + date}>
+						{date}
+					</span>
 				))}
 			</div>
 		</time>

@@ -1,34 +1,34 @@
-import { getThoughts } from '@pocketbase/req';
-import { Thought } from '@pocketbase/types';
-import { isError } from '@pocketbase/utils';
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
+import { getThoughts } from "@pocketbase/req";
+import { Thought } from "@pocketbase/types";
+import { isError } from "@pocketbase/utils";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticSitemap: MetadataRoute.Sitemap = [
 		{
-			url: 'https://cod3d.dev',
+			url: "https://cod3d.dev",
 			lastModified: new Date(),
-			changeFrequency: 'monthly',
-			priority: 1
+			changeFrequency: "monthly",
+			priority: 1,
 		},
 		{
-			url: 'https://cod3d.dev/thoughts',
+			url: "https://cod3d.dev/thoughts",
 			lastModified: new Date(),
-			changeFrequency: 'monthly',
-			priority: 0.7
+			changeFrequency: "monthly",
+			priority: 0.7,
 		},
 		{
-			url: 'https://cod3d.dev/projects',
+			url: "https://cod3d.dev/projects",
 			lastModified: new Date(),
-			changeFrequency: 'monthly',
-			priority: 0.5
-		}
+			changeFrequency: "monthly",
+			priority: 0.5,
+		},
 	];
 
 	const thoughtsResponse = await getThoughts();
 
 	if (isError(thoughtsResponse)) {
-		console.error('Could not get thoughts while compiling sitemap.xml');
+		console.error("Could not get thoughts while compiling sitemap.xml");
 		return staticSitemap;
 	}
 
@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	const withThoughts: MetadataRoute.Sitemap = thoughts.map((thought) => ({
 		url: `https://cod3d.dev/thoughts/${thought.slug}`,
-		lastModified: thought.updated
+		lastModified: thought.updated,
 	}));
 
 	return staticSitemap.concat(withThoughts);

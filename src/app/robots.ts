@@ -1,22 +1,20 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
 	return {
 		rules: {
-			userAgent: '*',
-			allow: '/',
+			userAgent: "*",
+			allow: "/",
 			disallow: [
-				'/security.txt',
-				'/pgp-key.txt',
-				'/pokemon',
-				'/img',
-				'/pwa',
-				'*/opengraph-image',
-				'*/download',
-				'/api',
-				'/why'
-			]
+				"/security.txt",
+				"/pgp-key.txt",
+				"/pokemon",
+				"/img",
+				"/pwa",
+				"*/opengraph-image",
+				"*/download",
+			],
 		},
-		sitemap: 'https://cod3d.dev/sitemap.xml'
+		sitemap: "https://cod3d.dev/sitemap.xml",
 	};
 }

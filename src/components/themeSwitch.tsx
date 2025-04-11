@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { clsx } from 'clsx';
-import { useTheme } from 'next-themes';
-import { memo, useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
+
+import { cn } from "@/lib/utils/cn";
 
 interface ThemeSwitchProps {
 	id?: string;
@@ -10,53 +11,56 @@ interface ThemeSwitchProps {
 }
 
 export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(
-	({ id = 'theme-switch', className }) => {
+	({ id = "theme-switch", className }) => {
 		const { resolvedTheme, setTheme } = useTheme();
 		const ref = useRef<HTMLButtonElement>(null);
 
 		const toggleTheme = useCallback(() => {
-			setTheme(resolvedTheme == 'dark' ? 'light' : 'dark');
-		}, [resolvedTheme]);
+			setTheme(resolvedTheme == "dark" ? "light" : "dark");
+		}, [resolvedTheme, setTheme]);
 
 		useEffect(() => {
-			ref.current?.addEventListener('click', toggleTheme);
-			return () => ref.current?.removeEventListener('click', toggleTheme);
-		}, [resolvedTheme]);
+			const current = ref.current;
+			if (!current) return;
+			current.addEventListener("click", toggleTheme);
+			return () => current.removeEventListener("click", toggleTheme);
+		}, [toggleTheme]);
 
 		return (
 			<button
 				id={id}
 				ref={ref}
 				type="button"
-				className={clsx(
-					'group hover:scale-95 aspect-square touch-manipulation',
+				className={cn(
+					"group aspect-square cursor-pointer touch-manipulation hover:scale-95",
 					className
 				)}
 				aria-label="Theme switch"
 			>
 				<svg aria-hidden="true" viewBox="0 0 24 24" focusable={false}>
-					<mask className="origin-center" id={'moon-mask-' + id}>
-						<rect x="0" y="0" width="100%" height="100%" fill="white" />
+					<mask className="origin-center" id={"moon-mask-" + id}>
+						<rect
+							x="0"
+							y="0"
+							width="100%"
+							height="100%"
+							fill="white"
+						/>
 						<circle
 							cx="24"
 							cy="10"
 							r="6"
-							className="transition-[cx] origin-center duration-300
-                            dark:[cx:17] dark:delay-300 dark:duration-600 dark:translate-x-0 dark:translate-y-0"
+							className="origin-center transition-[cx] duration-300 dark:translate-x-0 dark:translate-y-0 dark:delay-300 dark:duration-600 dark:[cx:17]"
 						/>
 					</mask>
 					<circle
-						className="transition-all origin-center peer duration-600 fill-black group-hover:fill-black/60
-                                dark:scale-[1.75] dark:duration-300 dark:fill-foreground dark:group-hover:fill-white"
+						className="peer dark:fill-foreground origin-center fill-black transition-all duration-600 group-hover:fill-black/60 dark:scale-[1.75] dark:duration-300 dark:group-hover:fill-white"
 						cx="12"
 						cy="12"
 						r="6"
 						mask={`url(#moon-mask-${id})`}
 					/>
-					<g
-						className="transition-all origin-center stroke-2 delay-150 [stroke-linecap:round] duration-600 stroke-black peer-hover:stroke-black/60
-                    dark:-rotate-45 dark:duration-300 dark:delay-0 dark:opacity-0 dark:stroke-white"
-					>
+					<g className="origin-center stroke-black stroke-2 transition-all delay-150 duration-600 [stroke-linecap:round] peer-hover:stroke-black/60 dark:-rotate-45 dark:stroke-white dark:opacity-0 dark:delay-0 dark:duration-300">
 						<line x1="12" y1="1" x2="12" y2="3" />
 						<line x1="12" y1="21" x2="12" y2="23" />
 						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
@@ -71,3 +75,5 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(
 		);
 	}
 );
+
+ThemeSwitch.displayName = "ThemeSwitch";

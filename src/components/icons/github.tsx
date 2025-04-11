@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { IconProps } from '.';
+import { IconProps } from ".";
 
 const GithubIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -20,5 +20,5 @@ const GithubIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	)
 );
 
-GithubIcon.displayName = 'Github';
+GithubIcon.displayName = "Github";
 export default React.memo(GithubIcon);

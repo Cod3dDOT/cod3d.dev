@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { IconProps } from '.';
+import { IconProps } from ".";
 
 type Props = {
 	showCheck?: boolean;
@@ -36,5 +36,5 @@ const CopyIcon = React.forwardRef<SVGSVGElement, Props>(
 	)
 );
 
-CopyIcon.displayName = 'Copy';
+CopyIcon.displayName = "Copy";
 export default React.memo(CopyIcon);

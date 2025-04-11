@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { IconProps } from '.';
+import { IconProps } from ".";
 
 const MailIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -23,5 +23,5 @@ const MailIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	)
 );
 
-MailIcon.displayName = 'Mail';
+MailIcon.displayName = "Mail";
 export default React.memo(MailIcon);

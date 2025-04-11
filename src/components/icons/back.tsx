@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { IconProps } from '.';
+import { IconProps } from ".";
 
 const BackIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -26,5 +26,5 @@ const BackIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	)
 );
 
-BackIcon.displayName = 'Back';
+BackIcon.displayName = "Back";
 export default React.memo(BackIcon);

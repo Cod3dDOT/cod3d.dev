@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { ReactNode, useCallback, useEffect, useRef } from 'react';
+import { ReactNode, useCallback, useEffect, useRef } from "react";
+import Link from "next/link";
 
-const bytes = (str: string) => str.split('').map((c) => c.charCodeAt(0));
+const bytes = (str: string) => str.split("").map((c) => c.charCodeAt(0));
 const str = (bytes: number[]) =>
-	bytes.map((b) => String.fromCharCode(b)).join('');
+	bytes.map((b) => String.fromCharCode(b)).join("");
 const byte_xor = (b1: number[], b2: number[]) => b1.map((b, i) => b ^ b2[i]);
 
 const style = `relative flex group h-12 p-2 px-4 items-center justify-center space-x-3 bg-background rounded-md overflow-hidden`;
@@ -17,15 +17,17 @@ export const ContactButton: React.FC<{
 }> = ({ children, text, copy }) => {
 	const ref = useRef<HTMLButtonElement>(null);
 
-	useEffect(() => {
-		ref.current?.addEventListener('click', copyCallback);
-		return () => ref.current?.removeEventListener('click', copyCallback);
-	}, [copy]);
-
 	const copyCallback = useCallback(() => {
 		// TODO: add feedback
 		void navigator.clipboard.writeText(copy);
 	}, [copy]);
+
+	useEffect(() => {
+		const current = ref.current;
+		if (!current) return;
+		current.addEventListener("click", copyCallback);
+		return () => current.removeEventListener("click", copyCallback);
+	}, [copyCallback]);
 
 	return (
 		<button ref={ref} className={style} type="button">
@@ -45,12 +47,12 @@ export const ContactLink: React.FC<{
 
 	useEffect(() => {
 		if (!linkRef.current || !protectedBytes) return;
-		linkRef.current.addEventListener('click', (e) => {
+		linkRef.current.addEventListener("click", (e) => {
 			e.preventDefault();
 
 			const host = bytes(location.hostname);
 			const email = str(byte_xor(protectedBytes, host));
-			window.location.href = 'mailto:' + email;
+			window.location.href = "mailto:" + email;
 		});
 	}, [protectedBytes]);
 
