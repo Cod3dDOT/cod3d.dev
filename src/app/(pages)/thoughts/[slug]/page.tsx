@@ -8,22 +8,21 @@ import ReactLenis from "lenis/react";
 import { BreadcrumbList, TechArticle, WithContext } from "schema-dts";
 
 import { Footer } from "@/components/footer";
-import { AuroraBackground } from "@/components/pages/thoughts/aurora";
-import { ThoughtHeader } from "@/components/pages/thoughts/thought/header";
-import { MarkdownWrapper } from "@/components/pages/thoughts/thought/markdown/wrapper";
 import readingTime from "@/lib/readingTime";
 import { minutesToDuration } from "@/lib/utils/date";
+import { AuroraBackground } from "./(components)/aurora";
+import { ThoughtHeader } from "./(components)/header";
+import { MarkdownWrapper } from "./(components)/markdown/wrapper";
 
 // export const experimental_ppr = true;
 export const revalidate = 86400;
 
-interface ThoughtPageProps {
+type Props = {
 	params: Promise<{ slug: string }>;
-}
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-export async function generateMetadata({
-	params,
-}: ThoughtPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const slug = (await params).slug;
 	const client = createServerClient();
 	const thoughtResponse = await getThought(client, slug);
@@ -97,7 +96,7 @@ export async function generateStaticParams() {
 	}));
 }
 
-const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
+export default async function Page({ params }: Props) {
 	const slug = (await params).slug;
 
 	const client = createServerClient();
@@ -108,6 +107,7 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 	}
 
 	const thought = thoughtResponse as Thought;
+
 	const markdownResponse = await fetch(thought.markdown);
 
 	if (!markdownResponse.ok || isError(markdownResponse)) {
@@ -203,6 +203,4 @@ const Page: React.FC<ThoughtPageProps> = async ({ params }) => {
 			<Footer />
 		</ReactLenis>
 	);
-};
-
-export default Page;
+}

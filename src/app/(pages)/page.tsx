@@ -1,7 +1,7 @@
 import { WebPage, WithContext } from "schema-dts";
 
-import { ColorfulBlobs } from "@/components/pages/home/blobs";
-import { SyncedRotationWrapper } from "@/components/pages/home/syncedRotationWrapper";
+import { ColorfulBlobs } from "./(components)/blobs";
+import { SyncedRotationWrapper } from "./(components)/syncedRotationWrapper";
 
 export const revalidate = 3600;
 

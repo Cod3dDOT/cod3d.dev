@@ -22,6 +22,6 @@ body {
 }
 
 *::selection {
-	background-color: var(--accent);
+	background-color: var(--accent-yellow);
 	color: var(--primary);
 }

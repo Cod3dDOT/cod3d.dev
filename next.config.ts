@@ -1,5 +1,4 @@
 import { NextConfig } from "next";
-import MillionLint from "@million/lint";
 import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const nextConfig: NextConfig = {
@@ -79,12 +78,4 @@ const config = withBundleAnalyzer({
 	enabled: process.env.ANALYZE === "true",
 })(nextConfig);
 
-let exported = config;
-if (process.env.MILLION === "true") {
-	exported = MillionLint.next({
-		enabled: true,
-		rsc: true,
-	})(config) as NextConfig;
-}
-
-export default exported;
+export default config;

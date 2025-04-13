@@ -33,6 +33,7 @@ export const metadata: Metadata = {
 	description: "Probably trying to hack you. Or sleeping. Or both.",
 	creator: "cod3d",
 	keywords: ["blog", "projects", "coding", "Next.js"],
+	referrer: "same-origin",
 	alternates: {
 		canonical: "/",
 		languages: {
@@ -48,6 +49,11 @@ export const metadata: Metadata = {
 		noarchive: true,
 		nosnippet: false,
 		noimageindex: false,
+	},
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false,
 	},
 	openGraph: {
 		type: "website",

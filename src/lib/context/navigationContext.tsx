@@ -44,6 +44,7 @@ const NavigationProvider = memo(function NavigationProvider({
 			closeNav,
 			toggleNav,
 		}),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[isOpen]
 	);
 

@@ -20,13 +20,18 @@ function processThoughts(
 		const light = thought.hero.find((hero) => hero != dark);
 
 		if (!light) {
-			throw new Error("Missing light hero image");
+			throw new Error("Missing hero image");
 		}
 
 		return {
-			...thought,
+			id: thought.id,
+			title: thought.title,
+			description: thought.description,
+			slug: thought.slug,
 			created: new Date(thought.created),
 			updated: new Date(thought.updated),
+			published: thought.published,
+			color: thought.color,
 			hero: {
 				light: getAssetUrl(client, thought, light).href,
 				dark: dark
@@ -62,7 +67,7 @@ export async function getThought(
 ): Promise<Thought | ClientResponseError> {
 	try {
 		const thoughts = await client.collection("thoughts").getList(1, 1, {
-			filter: client.filter("slug={:slug}&&published=true", {
+			filter: client.filter("slug = {:slug} && published = true", {
 				slug: slug,
 			}),
 			expand: "tags",
