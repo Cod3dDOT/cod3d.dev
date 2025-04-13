@@ -1,5 +1,5 @@
-import { readFile } from "fs/promises";
-import path from "path";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { ImageResponseOptions } from "next/server";
 import { createServerClient } from "@pocketbase/config";
@@ -26,21 +26,11 @@ export async function generateStaticParams() {
 
 const size = { width: 1200, height: 675 };
 
-const getFonts = async () => {
-	const fonts = ["PixelifySans-Regular.ttf", "GeistMono-Regular.ttf"];
-	const promises = fonts.map(async (font) => {
-		const response = await readFile(
-			path.join(process.cwd(), `./src/assets/fonts/${font}`)
-		);
-
-		return new Uint8Array(response).buffer;
-	});
-
-	return Promise.all(promises);
-};
+export const alt = "OpenGraph image";
+export const contentType = "image/png";
 
 const getImage = async (hero: string) => {
-	const response = await fetch("https://cod3d.dev/" + hero);
+	const response = await fetch(new URL(hero, process.env.NEXT_PUBLIC_URL));
 
 	if (!response.ok) {
 		return null;
@@ -63,9 +53,6 @@ const getImage = async (hero: string) => {
 	);
 };
 
-export const alt = "OpenGraph image";
-export const contentType = "image/png";
-
 export default async function Image({
 	params,
 }: {
@@ -78,18 +65,26 @@ export default async function Image({
 	const errored = isError(thoughtResponse);
 	const thought = errored ? null : (thoughtResponse as Thought);
 
-	const [geistFont, pixelifyFont] = await getFonts();
-
 	const fonts: ImageResponseOptions["fonts"] = [
 		{
-			name: "Geist",
-			data: geistFont,
+			name: "GeistMono",
+			data: await readFile(
+				join(
+					process.cwd(),
+					"./src/assets/fonts/GeistMono-Regular-1.3.otf" // 1.3 is latest before new format, see https://github.com/vercel/geist-font/issues/91
+				)
+			),
 			style: "normal",
 			weight: 400,
 		},
 		{
 			name: "PixelifySans",
-			data: pixelifyFont,
+			data: await readFile(
+				join(
+					process.cwd(),
+					"./src/assets/fonts/PixelifySans-Regular.ttf"
+				)
+			),
 			style: "normal",
 			weight: 400,
 		},
@@ -99,15 +94,18 @@ export default async function Image({
 
 	return new ImageResponse(
 		(
-			<div tw="relative flex text-white w-full h-full bg-transparent">
+			<div
+				tw="relative flex w-full h-full bg-transparent"
+				style={{ fontFamily: "PixelifySans" }}
+			>
 				<div
-					tw="absolute flex flex-col inset-4 p-8 rounded-[2rem] overflow-hidden shadow-xl border-[1px] border-black/5 bg-opacity-50"
+					tw="absolute flex flex-col inset-4 p-8 rounded-[2rem] overflow-hidden shadow-xl border-2 border-black/5"
 					style={{
 						background:
-							"radial-gradient(circle at right top, rgba(253,224,71,1) 0%, #468EE1 60%)",
+							"radial-gradient(circle at right top, rgb(224,191,81) 0%, rgb(230,230,230) 50%)",
 					}}
 				>
-					<div tw="flex justify-between text-black">
+					<div tw="flex justify-between">
 						<div
 							tw="flex"
 							style={{
@@ -124,11 +122,11 @@ export default async function Image({
 							))}
 						</div>
 						{image && (
-							<picture>
+							<picture className="h-full w-full">
 								<img
 									alt="cod3d.dev"
-									src={thought?.title}
-									tw="mt-auto w-36 h-full"
+									src={image}
+									tw="mt-auto w-38 h-full"
 									width={66}
 									height={38}
 									style={{
@@ -145,7 +143,7 @@ export default async function Image({
 					>
 						{thought?.title}
 					</h1>
-					<div tw="flex justify-between text-3xl">
+					<div tw="flex justify-between text-4xl">
 						<time dateTime={thought?.created.toISOString()}>
 							{thought
 								? dateToString(thought.created)
