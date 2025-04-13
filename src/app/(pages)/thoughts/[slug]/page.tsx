@@ -7,10 +7,11 @@ import { isError } from "@pocketbase/utils";
 import ReactLenis from "lenis/react";
 import { BreadcrumbList, TechArticle, WithContext } from "schema-dts";
 
+import { AnimatedGradient } from "@/components/animated-gradient";
 import { Footer } from "@/components/footer";
 import readingTime from "@/lib/readingTime";
 import { minutesToDuration } from "@/lib/utils/date";
-import { AuroraBackground } from "./(components)/aurora";
+import { Canvas } from "@/webgl/components/canvas";
 import { ThoughtHeader } from "./(components)/header";
 import { MarkdownWrapper } from "./(components)/markdown/wrapper";
 
@@ -184,15 +185,13 @@ export default async function Page({ params }: Props) {
 						}}
 					/>
 
-					<AuroraBackground slug={thought.slug} color={thought.color}>
-						<div className="to-background bg-gradient-to-b from-transparent via-transparent md:px-10">
-							<ThoughtHeader
-								slug={thought.slug}
-								thought={thought}
-								markdown={markdown}
-							/>
-						</div>
-					</AuroraBackground>
+					<div className="to-background bg-gradient-to-b from-transparent via-transparent md:px-10">
+						<ThoughtHeader
+							slug={thought.slug}
+							thought={thought}
+							markdown={markdown}
+						/>
+					</div>
 
 					<MarkdownWrapper
 						images={thought.markdown_images}

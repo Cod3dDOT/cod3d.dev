@@ -29,8 +29,20 @@ const size = { width: 1200, height: 675 };
 export const alt = "OpenGraph image";
 export const contentType = "image/png";
 
+const getFonts = async (fonts: string[]) => {
+	const promises = fonts.map(async (font) => {
+		const response = await readFile(
+			join(process.cwd(), `./src/assets/fonts/${font}`)
+		);
+
+		return new Uint8Array(response).buffer;
+	});
+
+	return Promise.all(promises);
+};
+
 const getImage = async (hero: string) => {
-	const response = await fetch(new URL(hero, process.env.NEXT_PUBLIC_URL));
+	const response = await fetch(new URL(hero, "https://cod3d.dev"));
 
 	if (!response.ok) {
 		return null;
@@ -65,26 +77,21 @@ export default async function Image({
 	const errored = isError(thoughtResponse);
 	const thought = errored ? null : (thoughtResponse as Thought);
 
+	const fontData = await getFonts([
+		"GeistMono-Regular-1.3.otf",
+		"PixelifySans-Regular.ttf",
+	]);
+
 	const fonts: ImageResponseOptions["fonts"] = [
 		{
 			name: "GeistMono",
-			data: await readFile(
-				join(
-					process.cwd(),
-					"./src/assets/fonts/GeistMono-Regular-1.3.otf" // 1.3 is latest before new format, see https://github.com/vercel/geist-font/issues/91
-				)
-			),
+			data: fontData[0],
 			style: "normal",
 			weight: 400,
 		},
 		{
 			name: "PixelifySans",
-			data: await readFile(
-				join(
-					process.cwd(),
-					"./src/assets/fonts/PixelifySans-Regular.ttf"
-				)
-			),
+			data: fontData[1],
 			style: "normal",
 			weight: 400,
 		},

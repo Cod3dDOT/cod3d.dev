@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 
-import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
+import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
 
 const AsideFooter: React.FC<{
 	children?: React.ReactNode;
@@ -17,18 +17,18 @@ const AsideFooter: React.FC<{
 		setHeight(container.current?.offsetHeight || 0);
 	}, [container]);
 
-	const prefersReducedMotion = usePrefersReducedMotion();
+	const { isReducedMotion } = useDeviceDetection();
 
 	useLenis(
 		({ scroll, limit }) => {
-			if (prefersReducedMotion) return;
+			if (isReducedMotion) return;
 
 			if (scroll < limit - height) return;
 			const p = (limit - scroll) / height;
 
 			setProgress(-p * 20);
 		},
-		[height, prefersReducedMotion]
+		[height, isReducedMotion]
 	);
 
 	return (

@@ -3,8 +3,8 @@
 import React, { RefObject, useMemo, useRef } from "react";
 import { useMouse } from "react-use";
 
-import useIsTouchDevice from "@/lib/hooks/useIsTouchDevice";
-import useIsVisible from "@/lib/hooks/useIsVisible";
+import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
+import { useIsVisible } from "@/lib/hooks/useIsVisible";
 import { cn } from "@/lib/utils/cn";
 
 interface SpotlightCardProps {
@@ -38,7 +38,7 @@ export function SpotlightCard({
 	className,
 	...props
 }: SpotlightCardProps): React.JSX.Element {
-	const mobile = useIsTouchDevice();
+	const { isMobile } = useDeviceDetection();
 	const container = useRef<HTMLDivElement>(null);
 	const { elX, elY, elW, elH } = useMouse(
 		container as RefObject<HTMLElement>
@@ -77,7 +77,7 @@ export function SpotlightCard({
 			: "after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]";
 
 	// Simplify the mobile check return path
-	if (mobile) {
+	if (isMobile) {
 		return (
 			<div
 				nonce={nonce}
