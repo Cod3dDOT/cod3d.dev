@@ -25,7 +25,6 @@ type BlockProps = {
 	row?: number;
 	column?: number;
 	className?: string;
-	style?: React.CSSProperties;
 };
 
 const GridPatternContext = createContext<GridPatternContextType | undefined>(
@@ -45,7 +44,6 @@ const Block = memo(function Block({
 	row = 0,
 	column = 0,
 	className,
-	style,
 }: BlockProps): React.JSX.Element {
 	const context = useContext(GridPatternContext);
 
@@ -66,7 +64,6 @@ const Block = memo(function Block({
 			height={context.size - 1}
 			x={position.x}
 			y={position.y}
-			style={style}
 		/>
 	);
 });

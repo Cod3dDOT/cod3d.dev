@@ -1,124 +1,113 @@
 "use client";
 
-import React, { RefObject, useMemo, useRef } from "react";
+import React, { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { useMouse } from "react-use";
 
 import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
 import { useIsVisible } from "@/lib/hooks/useIsVisible";
 import { cn } from "@/lib/utils/cn";
 
+type Color =
+	| `rgba(${number}, ${number}, ${number}, ${number})`
+	| `var(--${string})`
+	| "transparent";
+
 interface SpotlightCardProps {
-	id?: string;
-	nonce?: string;
-	as?: React.ElementType;
-	from?: string;
-	via?: string | null;
-	to?: string;
+	id: string;
+	from: Color;
+	via?: Color;
+	to?: Color;
 	size?: number;
-	mode?: "before" | "after";
-	hsl?: boolean;
-	hslMin?: number;
-	hslMax?: number;
-	children?: React.ReactNode;
+	children: React.ReactNode;
 	className?: string;
 }
 
-export function SpotlightCard({
-	id = "",
-	nonce = "",
-	from = "rgba(255,255,255,0.8)",
-	via = null,
+export const SpotlightCard: React.FC<SpotlightCardProps> = ({
+	id,
+	from = "var(--accent-yellow)",
+	via,
 	to = "transparent",
 	size = 350,
-	mode = "before",
-	hsl = false,
-	hslMin = 0,
-	hslMax = 360,
 	children,
 	className,
 	...props
-}: SpotlightCardProps): React.JSX.Element {
-	const { isMobile } = useDeviceDetection();
+}: SpotlightCardProps) => {
 	const container = useRef<HTMLDivElement>(null);
 	const { elX, elY, elW, elH } = useMouse(
 		container as RefObject<HTMLElement>
 	);
 	const isVisible = useIsVisible(container as RefObject<HTMLElement>);
+	const { isReducedMotion, isMobile } = useDeviceDetection();
+
+	// State for CSS variables
+	const [cssVars, setCssVars] = useState<Record<string, string>>({
+		"--spotlight-size": `${size}px`,
+		"--spotlight-x": "0px",
+		"--spotlight-y": "0px",
+		"--spotlight-color-stops": from + "," + (via ? via + "," : "") + to,
+	});
 
 	const centerX = elW / 2 || 0;
 	const centerY = elH / 2 || 0;
 	const thresholdDistance = size * 2;
 
-	// Memoize spotlight color stops only when necessary
+	// Calculate spotlight color stops
 	const spotlightColorStops = useMemo(() => {
-		if (!hsl) {
-			return [from, via, to].filter(Boolean).join(",");
-		}
-		const margin = hslMax - hslMin;
-		const rate = (elY + elX) / (elH + elW);
-		const hue = Math.round(margin * rate + hslMin);
-		return `hsl(${hue.toString()} 80% 70%), transparent`;
-	}, [hsl, hslMin, hslMax, from, via, to, elX, elY, elW, elH]);
+		return [from, via, to].filter(Boolean).join(",");
+	}, [from, via, to]);
 
-	// Calculate spotlight position and only update if visible
-	const { x, y } = useMemo(() => {
+	// Update CSS variables using useEffect instead of inline styles
+	useEffect(() => {
 		if (
 			!isVisible ||
-			Math.hypot(elX - centerX, elY - centerY) > thresholdDistance
-		) {
-			return { x: -size * 2, y: -size * 2 };
-		}
-		return { x: elX, y: elY };
-	}, [isVisible, elX, centerX, elY, centerY, thresholdDistance, size]);
+			Math.hypot(elX - centerX, elY - centerY) > thresholdDistance ||
+			isReducedMotion ||
+			isMobile
+		)
+			return;
 
-	const modeClass =
-		mode === "before"
-			? "before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]"
-			: "after:absolute after:inset-0 after:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]";
+		setCssVars((prev) => ({
+			...prev,
+			"--spotlight-x": `${elX}px`,
+			"--spotlight-y": `${elY}px`,
+			"--spotlight-color-stops": spotlightColorStops,
+		}));
+	}, [
+		isVisible,
+		elX,
+		elY,
+		centerX,
+		centerY,
+		thresholdDistance,
+		size,
+		spotlightColorStops,
+		isMobile,
+		isReducedMotion,
+	]);
 
-	// Simplify the mobile check return path
-	if (isMobile) {
-		return (
+	return (
+		<>
+			<style>
+				{`
+                #${id} {
+                    ${Object.entries(cssVars)
+						.map(([key, value]) => `${key}: ${value};`)
+						.join("\n")}
+                }
+            `}
+			</style>
 			<div
-				nonce={nonce}
+				id={id}
+				ref={container}
 				className={cn(
-					`bg-background spotlight-card-${id}`,
-					modeClass,
+					`relative transform-gpu`,
+					"before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]",
 					className
 				)}
-				style={{
-					// @ts-expect-error --spotlight-color-stops
-					"--spotlight-color-stops": spotlightColorStops,
-					"--spotlight-size": `${size.toString()}px`,
-					"--spotlight-x": "0px",
-					"--spotlight-y": "0px",
-				}}
 				{...props}
 			>
 				{children}
 			</div>
-		);
-	}
-
-	return (
-		<div
-			nonce={nonce}
-			ref={container}
-			className={cn(
-				`relative transform-gpu spotlight-card-${id}`,
-				modeClass,
-				className
-			)}
-			style={{
-				// @ts-expect-error --spotlight-color-stops
-				"--spotlight-color-stops": spotlightColorStops,
-				"--spotlight-size": `${size.toString()}px`,
-				"--spotlight-x": `${x.toString()}px`,
-				"--spotlight-y": `${y.toString()}px`,
-			}}
-			{...props}
-		>
-			{children}
-		</div>
+		</>
 	);
-}
+};

@@ -7,11 +7,9 @@ import { isError } from "@pocketbase/utils";
 import ReactLenis from "lenis/react";
 import { BreadcrumbList, TechArticle, WithContext } from "schema-dts";
 
-import { AnimatedGradient } from "@/components/animated-gradient";
 import { Footer } from "@/components/footer";
 import readingTime from "@/lib/readingTime";
 import { minutesToDuration } from "@/lib/utils/date";
-import { Canvas } from "@/webgl/components/canvas";
 import { ThoughtHeader } from "./(components)/header";
 import { MarkdownWrapper } from "./(components)/markdown/wrapper";
 

@@ -21,7 +21,7 @@ const ThoughtLink: React.FC<{
 			className="group"
 		>
 			<SpotlightCard
-				id={"spotlight-nav-link-" + thought.id}
+				id={`spotlight-card-${thought.id}`}
 				from="var(--yellow)"
 				via="var(--yellow)"
 				size={200}
