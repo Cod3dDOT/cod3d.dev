@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 
 import { getRandomPokemon } from "@/lib/utils/poke";
-import AsideFooter from "./parralax";
 import { FooterMon } from "./pokemon";
 import { PrintFooter } from "./printFooter";
 
@@ -21,9 +20,9 @@ const _Footer: React.FC = () => {
 			</footer>
 
 			<PrintFooter />
-			<AsideFooter>
+			<aside className="-z-10 parallax-footer relative flex h-[50vh] w-full items-center overflow-clip bg-container px-12 md:px-24 print:hidden">
 				<FooterMon pokemon={pokemon} />
-			</AsideFooter>
+			</aside>
 		</>
 	);
 };

@@ -1,12 +1,12 @@
 {
-    "files.associations": {
-        "*.css": "tailwindcss"
-    },
-    "search.exclude": {
-        "**/.git": true,
-        "**/node_modules": true,
-        "**/.next": true
-    },
-    "typescript.enablePromptUseWorkspaceTsdk": true,
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"search.exclude": {
+		"**/.git": true,
+		"**/node_modules": true,
+		"**/.next": true
+	},
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.tsdk": "node_modules\\typescript\\lib"
 }

@@ -11,7 +11,7 @@ const _FooterMon: React.FC<{
 			<div>
 				<div
 					className={cn(
-						"left-24 text-justify font-medium text-6xl md:text-[10vw]",
+						"text-justify font-medium text-6xl md:text-[10vw]",
 						"bg-gradient-to-br from-[var(--c)] via-[var(--c)] bg-clip-text text-transparent",
 						pokemon.class
 					)}
@@ -23,9 +23,8 @@ const _FooterMon: React.FC<{
 			</div>
 			<picture
 				className={cn(
-					"-z-10 h-[60vw] w-[60vh]",
-					"absolute right-0 translate-x-1/3 scale-150 opacity-20 md:scale-125 md:opacity-50",
-					"xl:translate-x-0 xl:scale-110 xl:opacity-100"
+					"-z-10 -translate-1/2 absolute top-1/2 left-1/2 aspect-square h-full opacity-20",
+					"xl:-translate-x-1/4 xl:right-0 xl:left-auto xl:opacity-100"
 				)}
 			>
 				<img

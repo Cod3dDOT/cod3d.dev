@@ -84,3 +84,20 @@
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
 }
+
+@layer components {
+    .parallax-footer {
+        animation: slide-up-slow linear;
+        animation-range: cover -50vh cover 50vh;
+        animation-timeline: view();
+    }
+
+    @keyframes slide-up-slow {
+        from {
+            transform: translateY(-50vh);
+        }
+        to {
+            transform: translateY(0%);
+        }
+    }
+}
