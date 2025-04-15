@@ -128,7 +128,7 @@ export const TableOfContents: React.FC = () => {
 	);
 
 	return (
-		<nav className="relative">
+		<nav className="animate-in relative opacity-0 [--delay:1000ms]">
 			<ul className="text-foreground/30 list-none text-xl leading-relaxed font-light">
 				{headings.map((heading, index) => (
 					<TOCListItem
