@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 import { signToken } from "./lib/utils/crypto";
 
@@ -13,13 +13,14 @@ export const config = {
 		 * - *.opengraph-image (opengraph image)
 		 */
 		{
-			source: "/((?!download|_next/static|_next/image|favicon.ico|pwa|img|pokemon|.*opengraph-image$).*)",
+			source:
+				"/((?!download|_next/static|_next/image|favicon.ico|pwa|img|pokemon|.*opengraph-image$).*)",
 			missing: [
 				{ type: "header", key: "next-router-prefetch" },
-				{ type: "header", key: "purpose", value: "prefetch" },
-			],
-		},
-	],
+				{ type: "header", key: "purpose", value: "prefetch" }
+			]
+		}
+	]
 };
 
 const SECRET = new TextEncoder().encode(process.env.PRIVATE_DOWNLOAD_KEY);
@@ -40,7 +41,7 @@ const CSP = {
     upgrade-insecure-requests;`,
 	TRUSTED_SCRIPT: `
     trusted-types default dompurify nextjs#bundler;
-    require-trusted-types-for 'script';`,
+    require-trusted-types-for 'script';`
 };
 
 const REACT_THREE_PAGES = ["/", "/not-found"];
@@ -67,15 +68,15 @@ export async function middleware(request: NextRequest) {
 	const isPreflight = request.method === "OPTIONS";
 	if (isPreflight) {
 		const preflightHeaders = {
-			...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin }),
+			...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin })
 		};
 		return NextResponse.json({}, { headers: preflightHeaders });
 	}
 
 	const response = NextResponse.next({
 		request: {
-			headers: requestHeaders,
-		},
+			headers: requestHeaders
+		}
 	});
 
 	response.headers.set("Content-Security-Policy", csp);
@@ -94,19 +95,15 @@ export async function middleware(request: NextRequest) {
 		const tokenData = `${slug}:${expiresAt.toString()}`;
 		const signedToken = await signToken(tokenData, SECRET);
 
-		const path = request.nextUrl.pathname + `/download`;
+		const path = `${request.nextUrl.pathname}/download`;
 
-		response.cookies.set(
-			`token`,
-			`${expiresAt.toString()}_${signedToken}`,
-			{
-				httpOnly: true,
-				secure: true,
-				sameSite: "strict",
-				maxAge: VALID_FOR * 60, // 10 minute expiration
-				path: path, // Cookie applies only to the download route
-			}
-		);
+		response.cookies.set("token", `${expiresAt.toString()}_${signedToken}`, {
+			httpOnly: true,
+			secure: true,
+			sameSite: "strict",
+			maxAge: VALID_FOR * 60, // 10 minute expiration
+			path: path // Cookie applies only to the download route
+		});
 	}
 
 	return response;

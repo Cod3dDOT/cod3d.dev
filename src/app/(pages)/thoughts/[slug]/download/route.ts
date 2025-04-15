@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
 import { createServerClient } from "@pocketbase/config";
 import { getThought } from "@pocketbase/req";
-import { Thought } from "@pocketbase/types";
+import type { Thought } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 
 import { verifyToken } from "@/lib/utils/crypto";
 
@@ -16,7 +16,7 @@ const hasValidOrigin = (request: Request) => {
 	const referer = request.headers.get("referer");
 	const refererUrl = referer ? new URL(referer) : null;
 
-	return refererUrl?.origin == origin;
+	return refererUrl?.origin === origin;
 };
 
 const hasValidToken = async (slug: string) => {
@@ -70,7 +70,7 @@ export async function GET(request: Request) {
 		headers: {
 			"Content-Type": "text/markdown; charset=UTF-8",
 			"Content-Disposition": `attachment; filename="${slug}.md"`,
-			"Transfer-Encoding": "chunked",
-		},
+			"Transfer-Encoding": "chunked"
+		}
 	});
 }

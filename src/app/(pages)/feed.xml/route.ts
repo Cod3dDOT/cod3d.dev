@@ -1,7 +1,7 @@
-import RSS, { FeedOptions } from "rss";
+import RSS, { type FeedOptions } from "rss";
 
 import { getThoughts } from "@/pocketbase/req";
-import { Thought } from "@/pocketbase/types";
+import type { Thought } from "@/pocketbase/types";
 import { isError } from "@/pocketbase/utils";
 
 export const revalidate = 86400;
@@ -28,8 +28,8 @@ export async function GET() {
 		copyright: `Copyright - ${new Date().getFullYear()}, cod3d`,
 		language: "en-US",
 		custom_namespaces: {
-			content: "http://purl.org/rss/1.0/modules/content/",
-		},
+			content: "http://purl.org/rss/1.0/modules/content/"
+		}
 	};
 
 	const feed = new RSS(feedOptions);
@@ -54,16 +54,16 @@ export async function GET() {
 			custom_elements: [
 				{
 					"content:encoded": {
-						_cdata: content,
-					},
-				},
-			],
+						_cdata: content
+					}
+				}
+			]
 		});
 	}
 
 	return new Response(feed.xml({ indent: true }), {
 		headers: {
-			"Content-Type": "application/rss+xml; charset=utf-8",
-		},
+			"Content-Type": "application/rss+xml; charset=utf-8"
+		}
 	});
 }

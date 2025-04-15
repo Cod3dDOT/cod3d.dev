@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
 	return {
@@ -12,9 +12,9 @@ export default function robots(): MetadataRoute.Robots {
 				"/img",
 				"/pwa",
 				"*/opengraph-image",
-				"*/download",
-			],
+				"*/download"
+			]
 		},
-		sitemap: "https://cod3d.dev/sitemap.xml",
+		sitemap: "https://cod3d.dev/sitemap.xml"
 	};
 }

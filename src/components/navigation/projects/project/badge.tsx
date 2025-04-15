@@ -1,4 +1,4 @@
-import { Project } from "@pocketbase/types";
+import type { Project } from "@pocketbase/types";
 
 import { cn } from "@/lib/utils/cn";
 

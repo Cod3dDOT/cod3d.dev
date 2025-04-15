@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, memo, useContext, useId, useMemo } from "react";
+import type React from "react";
+import { createContext, memo, useContext, useId, useMemo } from "react";
 
 type GridPatternContextType = {
 	size: number;
@@ -37,13 +38,13 @@ const getPosition = (
 	{ size, offsetX, offsetY }: GridPatternContextType
 ): Position => ({
 	x: column * size + offsetX + 1,
-	y: row * size + offsetY + 1,
+	y: row * size + offsetY + 1
 });
 
 const Block = memo(function Block({
 	row = 0,
 	column = 0,
-	className,
+	className
 }: BlockProps): React.JSX.Element {
 	const context = useContext(GridPatternContext);
 
@@ -73,7 +74,7 @@ const Grid = memo(function Grid({
 	offsetX = -1,
 	offsetY = -1,
 	children,
-	className,
+	className
 }: GridProps): React.JSX.Element {
 	const id = useId();
 
@@ -90,7 +91,7 @@ const Grid = memo(function Grid({
 			height: size,
 			patternUnits: "userSpaceOnUse",
 			x: offsetX,
-			y: offsetY,
+			y: offsetY
 		}),
 		[id, size, offsetX, offsetY]
 	);
@@ -98,17 +99,13 @@ const Grid = memo(function Grid({
 	return (
 		<GridPatternContext.Provider value={context}>
 			<svg className={className}>
+				<title>Grid</title>
 				<defs>
 					<pattern {...patternProps}>
 						<path d="M64 0H0V64" fill="none" />
 					</pattern>
 				</defs>
-				<rect
-					width="100%"
-					height="100%"
-					strokeWidth="0"
-					fill={`url(#${id})`}
-				/>
+				<rect width="100%" height="100%" strokeWidth="0" fill={`url(#${id})`} />
 				{children}
 			</svg>
 		</GridPatternContext.Provider>

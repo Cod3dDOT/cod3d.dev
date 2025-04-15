@@ -1,7 +1,7 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { memo, useCallback, useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils/cn";
 
@@ -16,7 +16,7 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(
 		const ref = useRef<HTMLButtonElement>(null);
 
 		const toggleTheme = useCallback(() => {
-			setTheme(resolvedTheme == "dark" ? "light" : "dark");
+			setTheme(resolvedTheme === "dark" ? "light" : "dark");
 		}, [resolvedTheme, setTheme]);
 
 		useEffect(() => {
@@ -38,14 +38,8 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(
 				aria-label="Theme switch"
 			>
 				<svg aria-hidden="true" viewBox="0 0 24 24" focusable={false}>
-					<mask className="origin-center" id={"moon-mask-" + id}>
-						<rect
-							x="0"
-							y="0"
-							width="100%"
-							height="100%"
-							fill="white"
-						/>
+					<mask className="origin-center" id={`moon-mask-${id}`}>
+						<rect x="0" y="0" width="100%" height="100%" fill="white" />
 						<circle
 							cx="24"
 							cy="10"
@@ -54,13 +48,13 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(
 						/>
 					</mask>
 					<circle
-						className="fill-foreground group-hover:fill-foreground/80 origin-center transition-all duration-600 dark:scale-[1.75] dark:duration-300"
+						className="origin-center fill-foreground transition-all duration-600 group-hover:fill-foreground/80 dark:scale-[1.75] dark:duration-300"
 						cx="12"
 						cy="12"
 						r="6"
 						mask={`url(#moon-mask-${id})`}
 					/>
-					<g className="stroke-foreground group-hover:stroke-foreground/60 origin-center stroke-black stroke-2 transition-all delay-150 duration-600 [stroke-linecap:round] dark:-rotate-45 dark:opacity-0 dark:delay-0 dark:duration-300">
+					<g className="dark:-rotate-45 origin-center stroke-2 stroke-foreground transition-all delay-150 duration-600 [stroke-linecap:round] group-hover:stroke-foreground/60 dark:opacity-0 dark:delay-0 dark:duration-300">
 						<line x1="12" y1="1" x2="12" y2="3" />
 						<line x1="12" y1="21" x2="12" y2="23" />
 						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />

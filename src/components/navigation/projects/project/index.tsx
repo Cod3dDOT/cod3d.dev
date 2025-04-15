@@ -1,4 +1,4 @@
-import { Project } from "@pocketbase/types";
+import type { Project } from "@pocketbase/types";
 
 import GithubIcon from "@/components/icons/github";
 import { cn } from "@/lib/utils/cn";
@@ -12,7 +12,7 @@ export const NavProject: React.FC<{
 		<a
 			href={project.repo}
 			target="_blank"
-			aria-label={"Github link to the source code of " + project.name}
+			aria-label={`Github link to the source code of ${project.name}`}
 			rel="noreferrer"
 			className="group relative flex items-center overflow-hidden rounded-md transition-shadow hover:shadow-xl focus:shadow-xl sm:h-16"
 		>
@@ -26,10 +26,7 @@ export const NavProject: React.FC<{
 			</div>
 
 			{project.repo && (
-				<GithubIcon
-					focusable="false"
-					className="fill-foreground h-8 w-8"
-				/>
+				<GithubIcon focusable="false" className="h-8 w-8 fill-foreground" />
 			)}
 		</a>
 	);
@@ -40,15 +37,15 @@ export const NavProjectSkeleton: React.FC = () => {
 		<div
 			className={cn(
 				"relative flex items-center justify-between overflow-hidden rounded-md transition-shadow sm:h-16",
-				"before:via-foreground/10 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:to-transparent"
+				"before:-translate-x-full before:absolute before:inset-0 before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/10 before:to-transparent"
 			)}
 		>
 			<div className="flex flex-1 flex-col space-y-1 p-2 sm:w-fit sm:flex-initial">
-				<span className="bg-foreground/10 h-[1lh] w-24 rounded-md text-xl shadow-sm" />
-				<span className="bg-foreground/10 h-[1lh] w-48 rounded-md text-sm shadow-sm" />
+				<span className="h-[1lh] w-24 rounded-md bg-foreground/10 text-xl shadow-sm" />
+				<span className="h-[1lh] w-48 rounded-md bg-foreground/10 text-sm shadow-sm" />
 			</div>
 
-			<span className="bg-foreground/10 mr-4 h-8 w-8 rounded-full" />
+			<span className="mr-4 h-8 w-8 rounded-full bg-foreground/10" />
 		</div>
 	);
 };

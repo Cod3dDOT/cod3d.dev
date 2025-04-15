@@ -3,25 +3,25 @@
 import {
 	HalfFloatType,
 	LinearFilter,
-	LinearMipmapLinearFilter,
 	LinearMipMapLinearFilter,
 	LinearMipMapNearestFilter,
-	MagnificationTextureFilter,
-	MinificationTextureFilter,
+	LinearMipmapLinearFilter,
+	type MagnificationTextureFilter,
+	type MinificationTextureFilter,
 	NearestFilter,
-	NearestMipmapLinearFilter,
 	NearestMipMapLinearFilter,
-	NearestMipmapNearestFilter,
 	NearestMipMapNearestFilter,
-	PixelFormatGPU,
+	NearestMipmapLinearFilter,
+	NearestMipmapNearestFilter,
+	type PixelFormatGPU,
 	RGBAFormat,
 	ShaderMaterial,
-	TextureDataType,
+	type TextureDataType,
 	Vector2,
 	Vector3,
-	WebGLRenderer,
 	WebGLRenderTarget,
-	Wrapping,
+	type WebGLRenderer,
+	type Wrapping
 } from "three";
 
 import Program from "./program";
@@ -302,7 +302,7 @@ function createDoubleFBO(
 		internalFormat,
 		type,
 		depthBuffer,
-		stencilBuffer,
+		stencilBuffer
 	}: DoubleFBOOptions = {}
 ): DoubleFBO {
 	const fbo = {
@@ -314,7 +314,7 @@ function createDoubleFBO(
 			format,
 			type,
 			depthBuffer,
-			stencilBuffer,
+			stencilBuffer
 		}),
 		write: new WebGLRenderTarget(width, height, {
 			wrapS,
@@ -324,14 +324,14 @@ function createDoubleFBO(
 			format,
 			type,
 			depthBuffer,
-			stencilBuffer,
+			stencilBuffer
 		}),
 		swap: (callback?: (texture: any) => void) => {
 			const temp = fbo.read;
 			fbo.read = fbo.write;
 			fbo.write = temp;
 			callback?.(fbo.write.texture);
-		},
+		}
 	};
 
 	if (internalFormat) {
@@ -412,19 +412,9 @@ function getSupportedFormat(
 	if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
 		switch (internalFormat) {
 			case (gl as any).R16F:
-				return getSupportedFormat(
-					gl,
-					(gl as any).RG16F,
-					(gl as any).RG,
-					type
-				);
+				return getSupportedFormat(gl, (gl as any).RG16F, (gl as any).RG, type);
 			case (gl as any).RG16F:
-				return getSupportedFormat(
-					gl,
-					(gl as any).RGBA16F,
-					gl.RGBA,
-					type
-				);
+				return getSupportedFormat(gl, (gl as any).RGBA16F, gl.RGBA, type);
 			default:
 				return null;
 		}
@@ -432,7 +422,7 @@ function getSupportedFormat(
 
 	return {
 		internalFormat: getTHREEFormat(internalFormat),
-		format: getTHREEFormat(format),
+		format: getTHREEFormat(format)
 	};
 }
 
@@ -486,15 +476,13 @@ export class Fluid {
 
 		// Common uniform
 		this.texelSize = {
-			value: new Vector2(1 / this.simRes, 1 / this.simRes),
+			value: new Vector2(1 / this.simRes, 1 / this.simRes)
 		};
 
 		const gl = this.renderer.getContext();
 
 		gl.getExtension("EXT_color_buffer_float");
-		const supportLinearFiltering = gl.getExtension(
-			"OES_texture_float_linear"
-		);
+		const supportLinearFiltering = gl.getExtension("OES_texture_float_linear");
 
 		const rgba = getSupportedFormat(
 			gl,
@@ -518,7 +506,7 @@ export class Fluid {
 		const filtering = supportLinearFiltering ? LinearFilter : NearestFilter;
 
 		this.uniform = {
-			value: null,
+			value: null
 		};
 
 		if (!rgba || !rg || !r) {
@@ -532,7 +520,7 @@ export class Fluid {
 			format: rgba.format as number,
 			internalFormat: rgba.internalFormat,
 			depthBuffer: false,
-			stencilBuffer: false,
+			stencilBuffer: false
 		});
 
 		this.velocity = createDoubleFBO(this.simRes, this.simRes, {
@@ -541,7 +529,7 @@ export class Fluid {
 			format: rg.format as number,
 			internalFormat: rg.internalFormat,
 			depthBuffer: false,
-			stencilBuffer: false,
+			stencilBuffer: false
 		});
 
 		this.pressure = createDoubleFBO(this.simRes, this.simRes, {
@@ -550,7 +538,7 @@ export class Fluid {
 			format: r.format as number,
 			internalFormat: r.internalFormat,
 			depthBuffer: false,
-			stencilBuffer: false,
+			stencilBuffer: false
 		});
 
 		this.divergence = new WebGLRenderTarget(this.simRes, this.simRes, {
@@ -558,7 +546,7 @@ export class Fluid {
 			minFilter: NearestFilter,
 			format: r.format as number,
 			depthBuffer: false,
-			stencilBuffer: false,
+			stencilBuffer: false
 		});
 		this.divergence.texture.internalFormat = r.internalFormat;
 
@@ -567,7 +555,7 @@ export class Fluid {
 			minFilter: NearestFilter,
 			format: r.format as number,
 			depthBuffer: false,
-			stencilBuffer: false,
+			stencilBuffer: false
 		});
 		this.curl.texture.internalFormat = r.internalFormat;
 
@@ -579,10 +567,10 @@ export class Fluid {
 				uniforms: {
 					texelSize: this.texelSize,
 					uTexture: { value: null },
-					value: { value: this.pressureDissipation },
+					value: { value: this.pressureDissipation }
 				},
 				depthTest: false,
-				depthWrite: false,
+				depthWrite: false
 			}) as ProgramMaterial
 		);
 
@@ -596,10 +584,10 @@ export class Fluid {
 					aspectRatio: { value: 1 },
 					color: { value: new Vector3() },
 					point: { value: new Vector2() },
-					radius: { value: 1 },
+					radius: { value: 1 }
 				},
 				depthTest: false,
-				depthWrite: false,
+				depthWrite: false
 			}) as ProgramMaterial
 		);
 
@@ -612,15 +600,15 @@ export class Fluid {
 				uniforms: {
 					texelSize: this.texelSize,
 					dyeTexelSize: {
-						value: new Vector2(1 / this.dyeRes, 1 / this.dyeRes),
+						value: new Vector2(1 / this.dyeRes, 1 / this.dyeRes)
 					},
 					uVelocity: { value: null },
 					uSource: { value: null },
 					dt: { value: 0.016 },
-					dissipation: { value: 1.0 },
+					dissipation: { value: 1.0 }
 				},
 				depthTest: false,
-				depthWrite: false,
+				depthWrite: false
 			}) as ProgramMaterial
 		);
 
@@ -630,10 +618,10 @@ export class Fluid {
 				fragmentShader: divergenceShader,
 				uniforms: {
 					texelSize: this.texelSize,
-					uVelocity: { value: null },
+					uVelocity: { value: null }
 				},
 				depthTest: false,
-				depthWrite: false,
+				depthWrite: false
 			}) as ProgramMaterial
 		);
 
@@ -643,10 +631,10 @@ export class Fluid {
 				fragmentShader: curlShader,
 				uniforms: {
 					texelSize: this.texelSize,
-					uVelocity: { value: null },
+					uVelocity: { value: null }
 				},
 				depthTest: false,
-				depthWrite: false,
+				depthWrite: false
 			}) as ProgramMaterial
 		);
 
@@ -659,10 +647,10 @@ export class Fluid {
 					uVelocity: { value: null },
 					uCurl: { value: null },
 					curl: { value: this.curlStrength },
-					dt: { value: 0.016 },
+					dt: { value: 0.016 }
 				},
 				depthTest: false,
-				depthWrite: false,
+				depthWrite: false
 			}) as ProgramMaterial
 		);
 
@@ -673,10 +661,10 @@ export class Fluid {
 				uniforms: {
 					texelSize: this.texelSize,
 					uPressure: { value: null },
-					uDivergence: { value: null },
+					uDivergence: { value: null }
 				},
 				depthTest: false,
-				depthWrite: false,
+				depthWrite: false
 			}) as ProgramMaterial
 		);
 
@@ -687,10 +675,10 @@ export class Fluid {
 				uniforms: {
 					texelSize: this.texelSize,
 					uPressure: { value: null },
-					uVelocity: { value: null },
+					uVelocity: { value: null }
 				},
 				depthTest: false,
-				depthWrite: false,
+				depthWrite: false
 			}) as ProgramMaterial
 		);
 
@@ -698,21 +686,9 @@ export class Fluid {
 
 		this.lastMouse = new Vector2();
 
-		window.addEventListener(
-			"touchstart",
-			this.updateMouse.bind(this),
-			false
-		);
-		window.addEventListener(
-			"touchmove",
-			this.updateMouse.bind(this),
-			false
-		);
-		window.addEventListener(
-			"mousemove",
-			this.updateMouse.bind(this),
-			false
-		);
+		window.addEventListener("touchstart", this.updateMouse.bind(this), false);
+		window.addEventListener("touchmove", this.updateMouse.bind(this), false);
+		window.addEventListener("mousemove", this.updateMouse.bind(this), false);
 	}
 
 	updateMouse(e: MouseEvent | TouchEvent): void {
@@ -750,7 +726,7 @@ export class Fluid {
 				x: x / viewportSize.width,
 				y: 1.0 - y / viewportSize.height,
 				dx: deltaX * 5.0,
-				dy: deltaY * -5.0,
+				dy: deltaY * -5.0
 			});
 		}
 	}
@@ -828,8 +804,7 @@ export class Fluid {
 		this.clearProgram.program.uniforms.uTexture.value =
 			this.pressure.read.texture;
 		// @ts-expect-error Property 'uniforms' does not exist on type 'Material'.
-		this.clearProgram.program.uniforms.value.value =
-			this.pressureDissipation;
+		this.clearProgram.program.uniforms.value.value = this.pressureDissipation;
 
 		this.renderer.setRenderTarget(this.pressure.write);
 		this.clearProgram.render(this.renderer);

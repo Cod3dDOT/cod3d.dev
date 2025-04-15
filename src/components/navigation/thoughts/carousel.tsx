@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { getThoughts } from "@pocketbase/req";
-import { Thought } from "@pocketbase/types";
+import type { Thought } from "@pocketbase/types";
+import Link from "next/link";
 
 import { SpotlightCard } from "@/components/effects/spotlightCard";
 import { cn } from "@/lib/utils/cn";
@@ -16,8 +16,8 @@ const ThoughtLink: React.FC<{
 		<Link
 			hrefLang="en"
 			key={thought.id}
-			href={"/thoughts/" + thought.slug}
-			aria-label={"Thought: " + thought.title}
+			href={`/thoughts/${thought.slug}`}
+			aria-label={`Thought: ${thought.title}`}
 			className="group"
 		>
 			<SpotlightCard
@@ -25,18 +25,17 @@ const ThoughtLink: React.FC<{
 				from="var(--yellow)"
 				via="var(--yellow)"
 				size={200}
-				className="bg-container relative h-full w-full overflow-hidden rounded-xl"
+				className="relative h-full w-full overflow-hidden rounded-xl bg-container"
 			>
 				<div className="absolute inset-1 z-10 flex flex-col overflow-hidden rounded-xl px-4 py-4">
 					<div
 						className="flex space-x-2 [font-size:smaller]"
-						role="Tag list"
-						aria-label={"Thought tags: " + thought.tags.join(", ")}
+						aria-label={`Thought tags: ${thought.tags.join(", ")}`}
 					>
 						{thought.tags.map((tag, i) => (
 							<span
 								key={i.toString() + thought.id}
-								className="bg-background group-hover:border-warn group-focus:border-warn rounded-xl border-2 border-transparent p-3 leading-0 whitespace-nowrap transition-colors"
+								className="whitespace-nowrap rounded-xl border-2 border-transparent bg-background p-3 leading-0 transition-colors group-hover:border-warn group-focus:border-warn"
 								aria-hidden="true"
 							>
 								{tag}
@@ -53,8 +52,8 @@ const ThoughtLink: React.FC<{
 						<span>cod3d.dev</span>
 					</div>
 
-					<span className="to-background from-accent-yellow absolute inset-0 -z-10 bg-radial-[circle_at_100%_0%] to-40%" />
-					<span className="to-background from-accent-blue absolute inset-0 -z-10 bg-radial-[circle_at_100%_0%] to-40% transition-opacity group-hover:opacity-0 group-focus:opacity-0" />
+					<span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-yellow to-40% to-background" />
+					<span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-blue to-40% to-background transition-opacity group-hover:opacity-0 group-focus:opacity-0" />
 				</div>
 			</SpotlightCard>
 		</Link>
@@ -65,39 +64,34 @@ const ThoughtLinkSkeleton: React.FC = () => {
 	return (
 		<div
 			className={cn(
-				"bg-container !via-foreground/50 relative h-full w-full overflow-hidden rounded-xl",
+				"!via-foreground/50 relative h-full w-full overflow-hidden rounded-xl bg-container",
 				shimmer
 			)}
 		>
-			<div className="bg-background absolute inset-1 flex flex-col overflow-hidden rounded-xl px-4 py-4">
-				<div
-					className="flex space-x-2 [font-size:smaller]"
-					role="Tag list"
-				>
+			<div className="absolute inset-1 flex flex-col overflow-hidden rounded-xl bg-background px-4 py-4">
+				<div className="flex space-x-2 [font-size:smaller]">
 					{["w-16", "w-24", "w-8"].map((w, i) => (
 						<span
-							key={i}
+							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+							key={`skeleton-tag-${i}`}
 							className={cn(
 								w,
 								shimmer,
-								"bg-container h-[calc(1lh+0.5rem)] rounded-full backdrop-blur-lg"
+								"h-[calc(1lh+0.5rem)] rounded-full bg-container backdrop-blur-lg"
 							)}
 							aria-hidden="true"
 						/>
 					))}
 				</div>
-				<h3
+				<div
 					className={cn(
-						"bg-container relative mt-auto mb-auto h-[1lh] w-3/4 rounded-lg [font-size:larger] md:mb-1",
+						"relative mt-auto mb-auto h-[1lh] w-3/4 rounded-lg bg-container [font-size:larger] md:mb-1",
 						shimmer
 					)}
 				/>
 				<div className="flex justify-between">
 					<span
-						className={cn(
-							"relative h-[calc(1lh)] w-24 rounded-md",
-							shimmer
-						)}
+						className={cn("relative h-[calc(1lh)] w-24 rounded-md", shimmer)}
 					/>
 					<span>cod3d.dev</span>
 				</div>
@@ -115,7 +109,7 @@ export const ThoughtsCarousel: React.FC = async () => {
 			{thoughts.map((thought) => {
 				return (
 					<ThoughtLink
-						key={"nav-link-thought-" + thought.id}
+						key={`nav-link-thought-${thought.id}`}
 						thought={thought}
 					/>
 				);
@@ -130,7 +124,7 @@ export const ThoughtsCarouselSkeleton: React.FC = () => {
 			{[1, 2].map((index) => {
 				return (
 					<ThoughtLinkSkeleton
-						key={"nav-skeleton-thought-" + index.toString()}
+						key={`nav-skeleton-thought-${index.toString()}`}
 					/>
 				);
 			})}

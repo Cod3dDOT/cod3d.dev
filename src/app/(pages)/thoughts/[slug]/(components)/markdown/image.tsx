@@ -41,15 +41,13 @@ export function findImagePaths(imageName: string | undefined, paths: string[]) {
 
 export const MarkdownImageFailed: React.FC = () => {
 	return (
-		<div className="bg-container flex aspect-video w-full items-center justify-center rounded-lg p-4">
+		<div className="flex aspect-video w-full items-center justify-center rounded-lg bg-container p-4">
 			<div>
 				<span>This was supposed to be an image. </span>
 				<br className="hidden md:block" />
 				<span>Oh well.</span>
 				<br className="hidden md:block" />
-				<span className="hidden md:block">
-					:dev sobbing in the back:
-				</span>
+				<span className="hidden md:block">:dev sobbing in the back:</span>
 			</div>
 			<picture>
 				<img
@@ -73,7 +71,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	allImages,
 
 	width = 1080,
-	height = 1080,
+	height = 1080
 }) => {
 	const { lightImage, darkImage } = findImagePaths(src || "", allImages);
 
@@ -110,10 +108,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				</picture>
 			)}
 			<figcaption
-				className={cn(
-					{ "sr-only": hideCaption },
-					"text-center md:text-left"
-				)}
+				className={cn({ "sr-only": hideCaption }, "text-center md:text-left")}
 			>
 				{alt}
 			</figcaption>

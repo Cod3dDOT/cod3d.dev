@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef } from "react";
 import { useThree } from "@react-three/fiber";
 import type { Rect } from "hamo";
 import { useLenis } from "lenis/react";
+import { useCallback, useEffect, useRef } from "react";
 import { Euler, Vector3 } from "three";
 
 import { useTransform } from "@/lib/hooks/useTransform";
@@ -13,7 +13,7 @@ export function useWebGLRect(rect: Rect, onUpdate?: (transform: any) => void) {
 		position: new Vector3(0, 0, 0),
 		rotation: new Euler(0, 0, 0),
 		scale: new Vector3(1, 1, 1),
-		isVisible: true,
+		isVisible: true
 	});
 
 	const lenis = useLenis();
@@ -38,10 +38,7 @@ export function useWebGLRect(rect: Rect, onUpdate?: (transform: any) => void) {
 			rect.left === undefined ||
 			rect.width === undefined
 		) {
-			console.warn(
-				"useWebGLRect: rect is missing required properties",
-				rect
-			);
+			console.warn("useWebGLRect: rect is missing required properties", rect);
 			return;
 		}
 
@@ -51,10 +48,7 @@ export function useWebGLRect(rect: Rect, onUpdate?: (transform: any) => void) {
 
 		transform.position.x = -size.width / 2 + (rect.left + rect.width / 2);
 		transform.position.y =
-			size.height / 2 -
-			(rect.top + rect.height / 2) +
-			scroll -
-			translate.y;
+			size.height / 2 - (rect.top + rect.height / 2) + scroll - translate.y;
 		transform.scale.x = rect.width * scale.x;
 		transform.scale.y = rect.height * scale.y;
 

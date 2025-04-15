@@ -10,7 +10,7 @@ window.trustedTypes?.createPolicy("default", {
 			RETURN_TRUSTED_TYPE: false,
 			FORCE_BODY: true,
 			IN_PLACE: true,
-			ADD_TAGS: ["script"],
+			ADD_TAGS: ["script"]
 		});
 	},
 	createScriptURL: (input: string) => {
@@ -21,7 +21,7 @@ window.trustedTypes?.createPolicy("default", {
 			USE_PROFILES: { html: true },
 			PARSER_MEDIA_TYPE: "text/html",
 			RETURN_TRUSTED_TYPE: false,
-			FORCE_BODY: true,
+			FORCE_BODY: true
 		});
-	},
+	}
 });

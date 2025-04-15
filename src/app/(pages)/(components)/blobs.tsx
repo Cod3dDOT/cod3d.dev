@@ -12,27 +12,12 @@ export const ColorfulBlobs: React.FC = () => {
 				"*:h-[35rem] *:w-[35rem] sm:*:h-[42rem] sm:*:w-[42rem]"
 			)}
 		>
+			<title>Colorful Blobs</title>
 			<defs>
-				<filter
-					id="GaussianBlur"
-					x="-50%"
-					y="-50%"
-					width="200%"
-					height="200%"
-				>
-					<feGaussianBlur
-						stdDeviation="10"
-						in="SourceGraphic"
-						result="blur"
-					/>
+				<filter id="GaussianBlur" x="-50%" y="-50%" width="200%" height="200%">
+					<feGaussianBlur stdDeviation="10" in="SourceGraphic" result="blur" />
 				</filter>
-				<filter
-					id="GrainyTexture"
-					x="-50%"
-					y="-50%"
-					width="200%"
-					height="200%"
-				>
+				<filter id="GrainyTexture" x="-50%" y="-50%" width="200%" height="200%">
 					<feTurbulence
 						type="fractalNoise"
 						baseFrequency="15"
@@ -40,11 +25,7 @@ export const ColorfulBlobs: React.FC = () => {
 						result="noise"
 						stitchTiles="stitch"
 					/>
-					<feDisplacementMap
-						in="SourceGraphic"
-						in2="noise"
-						scale="5"
-					/>
+					<feDisplacementMap in="SourceGraphic" in2="noise" scale="5" />
 				</filter>
 			</defs>
 			<ellipse

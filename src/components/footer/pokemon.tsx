@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 import { cn } from "@/lib/utils/cn";
-import { Pokemon } from "@/lib/utils/poke";
+import type { Pokemon } from "@/lib/utils/poke";
 
 const _FooterMon: React.FC<{
 	pokemon: Pokemon;
@@ -11,7 +11,7 @@ const _FooterMon: React.FC<{
 			<div>
 				<div
 					className={cn(
-						"left-24 text-justify text-6xl font-medium md:text-[10vw]",
+						"left-24 text-justify font-medium text-6xl md:text-[10vw]",
 						"bg-gradient-to-br from-[var(--c)] via-[var(--c)] bg-clip-text text-transparent",
 						pokemon.class
 					)}
@@ -19,9 +19,7 @@ const _FooterMon: React.FC<{
 					{pokemon.name}
 				</div>
 
-				<p className="mt-4 md:w-[50vw] xl:text-xl">
-					{pokemon.description}
-				</p>
+				<p className="mt-4 md:w-[50vw] xl:text-xl">{pokemon.description}</p>
 			</div>
 			<picture
 				className={cn(
@@ -33,7 +31,7 @@ const _FooterMon: React.FC<{
 				<img
 					loading="lazy"
 					src={pokemon.sprite}
-					alt={"Picture of the " + pokemon.name}
+					alt={pokemon.name}
 					width={96}
 					height={96}
 					className="image-rendering-pixelated h-full w-full object-contain"

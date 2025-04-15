@@ -1,8 +1,8 @@
 "use client";
 
-import type { ComponentProps, CSSProperties } from "react";
-import dynamic from "next/dynamic";
 import { useRect } from "hamo";
+import dynamic from "next/dynamic";
+import type { CSSProperties, ComponentProps } from "react";
 
 import { WebGLTunnel } from "@/webgl/components/tunnel";
 
@@ -12,7 +12,7 @@ const WebGLAnimatedGradient = dynamic(
 			({ WebGLAnimatedGradient }) => WebGLAnimatedGradient
 		),
 	{
-		ssr: false,
+		ssr: false
 	}
 );
 
@@ -44,8 +44,8 @@ const toDOMRect = (
 		width: rect?.width ?? 0,
 		height: rect?.height ?? 0,
 		x: rect?.x ?? 0,
-		y: rect?.y ?? 0,
-	}),
+		y: rect?.y ?? 0
+	})
 });
 
 type AnimatedGradientProps = {

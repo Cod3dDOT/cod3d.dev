@@ -1,7 +1,7 @@
 "use client";
 
-import { Fragment, useId, type PropsWithChildren } from "react";
 import { useContextBridge } from "@react-three/drei";
+import { Fragment, type PropsWithChildren, useId } from "react";
 
 import { TransformContext } from "@/lib/hooks/useTransform";
 import { useCanvas } from "@/webgl/components/canvas";

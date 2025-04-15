@@ -6,81 +6,81 @@
 @custom-variant prose-inline-code (&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *)));
 
 @theme {
-	--font-*: initial;
-	--font-pixelify: var(--font-pixelify);
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
+    --font-*: initial;
+    --font-pixelify: var(--font-pixelify);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 
-	--color-*: initial;
-	--color-foreground: var(--foreground);
-	--color-background: var(--background);
-	--color-container: var(--container);
-	--color-accent-blue: var(--accent-blue);
-	--color-accent-yellow: var(--accent-yellow);
+    --color-*: initial;
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --color-container: var(--container);
+    --color-accent-blue: var(--accent-blue);
+    --color-accent-yellow: var(--accent-yellow);
 
-	--color-info: var(--blue);
-	--color-success: var(--green);
-	--color-warn: var(--yellow);
-	--color-error: var(--red);
+    --color-info: var(--blue);
+    --color-success: var(--green);
+    --color-warn: var(--yellow);
+    --color-error: var(--red);
 
-	--color-black: var(--black);
+    --color-black: var(--black);
 
-	--ease-*: initial;
-	--ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+    --ease-*: initial;
+    --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
 
-	--animate-shimmer: shimmer 2s linear infinite;
-	--animate-in: in 1s ease var(--delay, 0s) forwards;
-	--animate-fade-in: fade-in 1s ease var(--delay, 0s) forwards;
-	--animate-scroll-in: scroll-in 1s ease var(--delay, 0s) forwards;
+    --animate-shimmer: shimmer 2s linear infinite;
+    --animate-in: in 1s ease var(--delay, 0s) forwards;
+    --animate-fade-in: fade-in 1s ease var(--delay, 0s) forwards;
+    --animate-scroll-in: scroll-in 1s ease var(--delay, 0s) forwards;
 
-	@keyframes fade-in {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 
-	@keyframes fade-out {
-		0% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
-	}
+    @keyframes fade-out {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
 
-	@keyframes in {
-		0% {
-			opacity: 0;
-			transform: translateY(-5px);
-		}
-		100% {
-			opacity: 1;
-		}
-	}
+    @keyframes in {
+        0% {
+            opacity: 0;
+            transform: translateY(-5px);
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 
-	@keyframes shimmer {
-		100% {
-			transform: translateX(200%);
-		}
-	}
+    @keyframes shimmer {
+        100% {
+            transform: translateX(200%);
+        }
+    }
 
-	@keyframes scroll-in {
-		0% {
-			opacity: 0;
-			transform: translateY(0%);
-		}
-		100% {
-			opacity: 1;
-			transform: translateY(-100%);
-		}
-	}
+    @keyframes scroll-in {
+        0% {
+            opacity: 0;
+            transform: translateY(0%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(-100%);
+        }
+    }
 }
 
 @utility image-rendering-pixelated {
-	image-rendering: pixelated;
-	image-rendering: -moz-crisp-edges;
-	image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
 }

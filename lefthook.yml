@@ -1,0 +1,12 @@
+pre-commit:
+    parallel: true
+    commands:
+    biome:
+        glob: "*.{js,mjs,ts,jsx,tsx,css,scss}"
+        run: bun biome check --write "{staged_files}"
+
+# Validate commit messages
+commit-msg:
+    commands:
+        "lint commit message":
+            run: bun run commitlint --edit {1}

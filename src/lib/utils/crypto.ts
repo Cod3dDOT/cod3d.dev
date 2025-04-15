@@ -1,7 +1,7 @@
 export function stringToUniqueId(str: string, seed = 0) {
-	let h1 = 0xdeadbeef ^ seed,
-		h2 = 0x41c6ce57 ^ seed;
-	for (let i = 0, ch; i < str.length; i++) {
+	let h1 = 0xdeadbeef ^ seed;
+	let h2 = 0x41c6ce57 ^ seed;
+	for (let i = 0, ch: number; i < str.length; i++) {
 		ch = str.charCodeAt(i);
 		h1 = Math.imul(h1 ^ ch, 2654435761);
 		h2 = Math.imul(h2 ^ ch, 1597334677);
@@ -21,12 +21,15 @@ export function stringToUniqueId(str: string, seed = 0) {
  * @return {number} a random 32-bit integer between 0 and 1.
  */
 export function splitmix32(a: number = Date.now() * Math.random()): number {
+	// biome-ignore lint/style/noParameterAssign: <explanation>
 	a |= 0;
+	// biome-ignore lint/style/noParameterAssign: <explanation>
 	a = (a + 0x9e3779b9) | 0;
 	let t = a ^ (a >>> 16);
 	t = Math.imul(t, 0x21f0aaad);
 	t = t ^ (t >>> 15);
 	t = Math.imul(t, 0x735a2d97);
+	// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
 	return ((t = t ^ (t >>> 15)) >>> 0) / 4294967296;
 }
 
@@ -66,7 +69,7 @@ export async function verifyToken(
 	);
 
 	const expectedSignature = new Uint8Array(
-		signature.match(/.{1,2}/g)?.map((byte) => parseInt(byte, 16)) || []
+		signature.match(/.{1,2}/g)?.map((byte) => Number.parseInt(byte, 16)) || []
 	);
 
 	return await crypto.subtle.verify(

@@ -1,6 +1,6 @@
-import { ClientResponseError } from "pocketbase";
+import type { ClientResponseError } from "pocketbase";
 
-import { PBProject, PBTag, PBThought, TypedPocketBase } from "./types";
+import type { PBProject, PBTag, PBThought, TypedPocketBase } from "./types";
 
 export const isError = (
 	response: object | ClientResponseError

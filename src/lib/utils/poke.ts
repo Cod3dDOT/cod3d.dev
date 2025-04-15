@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 interface PokemonSave {
 	n: string;
@@ -26,6 +26,6 @@ export function getRandomPokemon(): Pokemon {
 		name: pokemon.n,
 		description: pokemon.d,
 		sprite: `/pokemon/image/${pokemon.n}.png`,
-		class: "mon" + pokemon.c,
+		class: `mon${pokemon.c}`
 	};
 }

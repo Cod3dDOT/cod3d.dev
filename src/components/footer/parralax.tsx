@@ -1,7 +1,7 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
 
@@ -15,7 +15,7 @@ const AsideFooter: React.FC<{
 
 	useLayoutEffect(() => {
 		setHeight(container.current?.offsetHeight || 0);
-	}, [container]);
+	}, []);
 
 	const { isReducedMotion } = useDeviceDetection();
 
@@ -34,11 +34,11 @@ const AsideFooter: React.FC<{
 	return (
 		<aside
 			ref={container}
-			className="bg-container -z-10 block w-full overflow-clip px-12 md:px-24 print:hidden"
+			className="-z-10 block w-full overflow-clip bg-container px-12 md:px-24 print:hidden"
 		>
 			<div
 				style={{
-					transform: `translate3d(0px, ${progress.toString()}%, 0px)`,
+					transform: `translate3d(0px, ${progress.toString()}%, 0px)`
 				}}
 				className="z-10 flex h-[50vh] flex-col items-center justify-center will-change-transform md:flex-row md:justify-normal"
 			>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IconProps } from ".";
+import type { IconProps } from ".";
 
 const MailIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (

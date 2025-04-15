@@ -1,37 +1,37 @@
 import {
+	type ReactNode,
+	type Ref,
 	createContext,
 	useCallback,
 	useContext,
 	useEffect,
 	useImperativeHandle,
-	useRef,
-	type ReactNode,
-	type Ref,
+	useRef
 } from "react";
 
 const DEFAULT_TRANSFORM = {
 	translate: {
 		x: 0,
 		y: 0,
-		z: 0,
+		z: 0
 	},
 	rotate: {
 		x: 0,
 		y: 0,
-		z: 0,
+		z: 0
 	},
 	scale: {
 		x: 1,
 		y: 1,
-		z: 1,
+		z: 1
 	},
 	clip: {
 		top: 0,
 		right: 0,
 		bottom: 0,
-		left: 0,
+		left: 0
 	},
-	userData: {} as Record<string | number, unknown>,
+	userData: {} as Record<string | number, unknown>
 };
 
 type Transform = typeof DEFAULT_TRANSFORM;
@@ -44,7 +44,7 @@ type TransformRef = {
 		top,
 		right,
 		bottom,
-		left,
+		left
 	}: {
 		top?: number;
 		right?: number;
@@ -77,7 +77,7 @@ export const TransformContext = createContext<TransformContextType>({
 	setRotate: () => {},
 	setScale: () => {},
 	setClip: () => {},
-	setUserData: () => {},
+	setUserData: () => {}
 });
 
 export function useTransform(
@@ -129,7 +129,7 @@ export function TransformProvider({ children, ref }: TransformProviderProps) {
 
 		transform.userData = {
 			...transformRef.current.userData,
-			...transform.userData,
+			...transform.userData
 		};
 
 		return transform;
@@ -189,12 +189,10 @@ export function TransformProvider({ children, ref }: TransformProviderProps) {
 	const setClip = useCallback(
 		({ top = 0, right = 0, bottom = 0, left = 0 } = {}) => {
 			if (!Number.isNaN(top)) transformRef.current.clip.top = Number(top);
-			if (!Number.isNaN(right))
-				transformRef.current.clip.right = Number(right);
+			if (!Number.isNaN(right)) transformRef.current.clip.right = Number(right);
 			if (!Number.isNaN(bottom))
 				transformRef.current.clip.bottom = Number(bottom);
-			if (!Number.isNaN(left))
-				transformRef.current.clip.left = Number(left);
+			if (!Number.isNaN(left)) transformRef.current.clip.left = Number(left);
 
 			update();
 		},
@@ -222,7 +220,7 @@ export function TransformProvider({ children, ref }: TransformProviderProps) {
 		setRotate,
 		setScale,
 		setClip,
-		setUserData,
+		setUserData
 	}));
 
 	return (
@@ -235,7 +233,7 @@ export function TransformProvider({ children, ref }: TransformProviderProps) {
 				setRotate,
 				setScale,
 				setClip,
-				setUserData,
+				setUserData
 			}}
 		>
 			{children}

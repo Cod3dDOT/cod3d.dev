@@ -32,5 +32,5 @@ export const BLEND = {
       vec3 blendAdd(vec3 base, vec3 blend, float opacity) {
           return (blendAdd(base, blend) * opacity + base * (1.0 - opacity));
       }
-      `,
+      `
 } as const;

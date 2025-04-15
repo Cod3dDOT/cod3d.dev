@@ -1,4 +1,4 @@
-import { Thought } from "@pocketbase/types";
+import type { Thought } from "@pocketbase/types";
 
 import MarkdownIcon from "@/components/icons/markdown";
 import RssIcon from "@/components/icons/rss";
@@ -31,20 +31,20 @@ const delays = [
 	"[--delay:850ms]",
 	"[--delay:900ms]",
 	"[--delay:950ms]",
-	"[--delay:1000ms]",
+	"[--delay:1000ms]"
 ];
 
 export const ThoughtHeader: React.FC<HeaderProps> = ({
 	slug,
 	markdown,
-	thought,
+	thought
 }) => {
 	const words = thought.title.split(" ");
 	const spans = words.map((word, index) => (
 		<span
-			key={index.toString() + "-markdown-title"}
+			key={`${index.toString()}-markdown-title`}
 			className={cn(
-				"motion-safe:animate-in motion-reduce:animate-fade-in inline-block opacity-0",
+				"inline-block opacity-0 motion-safe:animate-in motion-reduce:animate-fade-in",
 				delays[index]
 			)}
 		>
@@ -55,7 +55,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 
 	return (
 		<header className="flex flex-col px-10 pt-20 sm:gap-12">
-			<div className="motion-safe:animate-in motion-reduce:animate-fade-in flex flex-col gap-8 text-base uppercase opacity-0 sm:flex-row sm:justify-between">
+			<div className="flex flex-col gap-8 text-base uppercase opacity-0 motion-safe:animate-in motion-reduce:animate-fade-in sm:flex-row sm:justify-between">
 				<div className="*:align-middle">
 					<span className="font-extralight">Reading time</span>
 					<br />
@@ -85,7 +85,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 							<a
 								href={`${slug}/download`}
 								rel="noopener"
-								className="hover:text-accent-blue focus:text-accent-blue dark:hover:text-accent-yellow dark:focus:text-accent-blue transition-colors"
+								className="transition-colors hover:text-accent-blue focus:text-accent-blue dark:focus:text-accent-blue dark:hover:text-accent-yellow"
 								aria-describedby="md-download-tooltip"
 							>
 								<MarkdownIcon className="h-[1lh] w-[1lh]" />
@@ -100,7 +100,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 								href="/feed.xml"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="hover:text-accent-blue focus:text-accent-blue dark:hover:text-accent-yellow dark:focus:text-accent-blue transition-colors"
+								className="transition-colors hover:text-accent-blue focus:text-accent-blue dark:focus:text-accent-blue dark:hover:text-accent-yellow"
 								aria-describedby="blog-rss-link-tooltip"
 							>
 								<RssIcon className="h-[1lh] w-[1lh]" />
@@ -116,10 +116,10 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 				alt="Hero image"
 			/>
 			<div>
-				<h1 className="font-mono text-3xl font-extralight tracking-tight sm:text-5xl md:text-6xl xl:text-8xl">
+				<h1 className="font-extralight font-mono text-3xl tracking-tight sm:text-5xl md:text-6xl xl:text-8xl">
 					{spans}
 				</h1>
-				<p className="motion-safe:animate-in py-8 opacity-0 [--delay:500ms] sm:text-lg lg:text-xl">
+				<p className="py-8 opacity-0 [--delay:500ms] motion-safe:animate-in sm:text-lg lg:text-xl">
 					{thought.description}
 				</p>
 			</div>

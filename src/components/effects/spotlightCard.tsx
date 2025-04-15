@@ -1,6 +1,7 @@
 "use client";
 
-import React, { RefObject, useEffect, useMemo, useRef, useState } from "react";
+import type React from "react";
+import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { useMouse } from "react-use";
 
 import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
@@ -33,9 +34,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 	...props
 }: SpotlightCardProps) => {
 	const container = useRef<HTMLDivElement>(null);
-	const { elX, elY, elW, elH } = useMouse(
-		container as RefObject<HTMLElement>
-	);
+	const { elX, elY, elW, elH } = useMouse(container as RefObject<HTMLElement>);
 	const isVisible = useIsVisible(container as RefObject<HTMLElement>);
 	const { isReducedMotion, isMobile } = useDeviceDetection();
 
@@ -44,7 +43,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 		"--spotlight-size": `${size}px`,
 		"--spotlight-x": "0px",
 		"--spotlight-y": "0px",
-		"--spotlight-color-stops": from + "," + (via ? via + "," : "") + to,
+		"--spotlight-color-stops": `${from},${via ? `${via},` : ""}${to}`
 	});
 
 	const centerX = elW / 2 || 0;
@@ -70,7 +69,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 			...prev,
 			"--spotlight-x": `${elX}px`,
 			"--spotlight-y": `${elY}px`,
-			"--spotlight-color-stops": spotlightColorStops,
+			"--spotlight-color-stops": spotlightColorStops
 		}));
 	}, [
 		isVisible,
@@ -79,10 +78,9 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 		centerX,
 		centerY,
 		thresholdDistance,
-		size,
 		spotlightColorStops,
 		isMobile,
-		isReducedMotion,
+		isReducedMotion
 	]);
 
 	return (
@@ -91,8 +89,8 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 				{`
                 #${id} {
                     ${Object.entries(cssVars)
-						.map(([key, value]) => `${key}: ${value};`)
-						.join("\n")}
+											.map(([key, value]) => `${key}: ${value};`)
+											.join("\n")}
                 }
             `}
 			</style>
@@ -100,7 +98,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 				id={id}
 				ref={container}
 				className={cn(
-					`relative transform-gpu`,
+					"relative transform-gpu",
 					"before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]",
 					className
 				)}

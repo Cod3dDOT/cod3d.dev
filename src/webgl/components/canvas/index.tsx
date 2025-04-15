@@ -1,13 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {
+	type PropsWithChildren,
 	createContext,
 	useContext,
 	useEffect,
-	useState,
-	type PropsWithChildren,
+	useState
 } from "react";
-import dynamic from "next/dynamic";
 import tunnel from "tunnel-rat";
 import { create } from "zustand";
 
@@ -16,7 +16,7 @@ import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
 const WebGLCanvas = dynamic(
 	() => import("./webgl").then(({ WebGLCanvas }) => WebGLCanvas),
 	{
-		ssr: false,
+		ssr: false
 	}
 );
 
@@ -47,9 +47,7 @@ export function Canvas({
 
 	useEffect(() => {
 		if (root) {
-			useRoot.setState(
-				isWebGL || force ? { WebGLTunnel, DOMTunnel } : {}
-			);
+			useRoot.setState(isWebGL || force ? { WebGLTunnel, DOMTunnel } : {});
 		}
 
 		return () => {

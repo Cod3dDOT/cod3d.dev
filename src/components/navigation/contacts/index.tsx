@@ -13,28 +13,27 @@ const NavContactsShowcase: React.FC = () => {
 					<GithubIcon
 						aria-hidden="true"
 						focusable="false"
-						className="fill-foreground aspect-square h-full"
+						className="aspect-square h-full fill-foreground"
 					/>
 				</ContactLink>
 				<ContactLink
 					href="/"
 					text="Mail"
 					protectedBytes={[
-						0, 0, 0, 0, 0, 110, 7, 10, 18, 51, 100, 46, 100, 101,
-						118,
+						0, 0, 0, 0, 0, 110, 7, 10, 18, 51, 100, 46, 100, 101, 118
 					]}
 				>
 					<MailIcon
 						aria-hidden="true"
 						focusable="false"
-						className="fill-foreground aspect-square h-full"
+						className="aspect-square h-full fill-foreground"
 					/>
 				</ContactLink>
 				<ContactButton text="Matrix" copy="@cod3ddot:matrix.org">
 					<MatrixIcon
 						aria-hidden="true"
 						focusable="false"
-						className="fill-foreground aspect-square h-full"
+						className="aspect-square h-full fill-foreground"
 					/>
 				</ContactButton>
 			</div>

@@ -1,14 +1,15 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
+import { type ReactNode, useCallback, useEffect, useRef } from "react";
 
 const bytes = (str: string) => str.split("").map((c) => c.charCodeAt(0));
 const str = (bytes: number[]) =>
 	bytes.map((b) => String.fromCharCode(b)).join("");
 const byte_xor = (b1: number[], b2: number[]) => b1.map((b, i) => b ^ b2[i]);
 
-const style = `relative flex group h-12 p-2 px-4 items-center justify-center space-x-3 bg-background rounded-md overflow-hidden`;
+const style =
+	"relative flex group h-12 p-2 px-4 items-center justify-center space-x-3 bg-background rounded-md overflow-hidden";
 
 export const ContactButton: React.FC<{
 	children: ReactNode;
@@ -52,7 +53,7 @@ export const ContactLink: React.FC<{
 
 			const host = bytes(location.hostname);
 			const email = str(byte_xor(protectedBytes, host));
-			window.location.href = "mailto:" + email;
+			window.location.href = `mailto:${email}`;
 		});
 	}, [protectedBytes]);
 

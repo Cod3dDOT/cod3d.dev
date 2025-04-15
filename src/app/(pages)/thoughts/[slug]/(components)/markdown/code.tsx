@@ -1,5 +1,5 @@
-import { ClassAttributes, HTMLAttributes } from "react";
-import { ExtraProps } from "react-markdown";
+import type { ClassAttributes, HTMLAttributes } from "react";
+import type { ExtraProps } from "react-markdown";
 
 import { cn } from "@/lib/utils/cn";
 import { splitmix32, stringToUniqueId } from "@/lib/utils/crypto";
@@ -22,7 +22,7 @@ const extensionToColor = {
 	json: "bg-[#b7b7b7]",
 	ts: "bg-[#39B0FF]",
 	tsx: "bg-[#39B0FF]",
-	py: "bg-[#FFDE57]",
+	py: "bg-[#FFDE57]"
 };
 
 export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
@@ -38,16 +38,14 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 	return (
 		<figure className="border-y-2 font-mono md:rounded-lg md:border-2">
 			{filename && (
-				<figcaption className="relative !mt-0 flex h-14 items-center justify-between overflow-hidden border-b">
-					<span className="text-foreground h-full text-center">
+				<figcaption className="!mt-0 relative flex h-14 items-center justify-between overflow-hidden border-b">
+					<span className="h-full text-center text-foreground">
 						<span className="mx-4 print:mx-0">{name}</span>
 						<span
 							className={cn(
-								"dark:text-background-dark inline-grid h-full items-center not-print:aspect-square",
+								"inline-grid not-print:aspect-square h-full items-center dark:text-background-dark",
 								"print:bg-transparent",
-								extensionToColor[
-									extension as keyof typeof extensionToColor
-								]
+								extensionToColor[extension as keyof typeof extensionToColor]
 							)}
 						>
 							{"."}

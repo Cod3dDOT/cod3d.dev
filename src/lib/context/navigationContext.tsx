@@ -1,10 +1,11 @@
-import React, {
+import type React from "react";
+import {
 	createContext,
 	memo,
 	useCallback,
 	useContext,
 	useMemo,
-	useState,
+	useState
 } from "react";
 
 interface NavigationContextType {
@@ -19,7 +20,7 @@ const NavigationContext = createContext<NavigationContextType | undefined>(
 );
 
 const NavigationProvider = memo(function NavigationProvider({
-	children,
+	children
 }: {
 	children: React.ReactNode;
 }) {
@@ -37,14 +38,14 @@ const NavigationProvider = memo(function NavigationProvider({
 		setIsOpen((prev) => !prev);
 	}, []);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const contextValue = useMemo(
 		() => ({
 			isOpen,
 			openNav,
 			closeNav,
-			toggleNav,
+			toggleNav
 		}),
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[isOpen]
 	);
 
@@ -61,9 +62,7 @@ export function useNavigation() {
 	const context = useContext(NavigationContext);
 
 	if (context === undefined) {
-		throw new Error(
-			"useNavigation must be used within a NavigationProvider"
-		);
+		throw new Error("useNavigation must be used within a NavigationProvider");
 	}
 
 	return context;

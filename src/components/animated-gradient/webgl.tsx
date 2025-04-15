@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useObjectFit, useWindowSize } from "hamo";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CanvasTexture, LinearFilter, type Mesh } from "three";
 
 import { useWebGLRect } from "@/webgl/hooks/useWebglRect";
@@ -62,7 +62,7 @@ export function WebGLAnimatedGradient({
 	quantize = 0,
 	radial = false,
 	colors = ["#ff0000", "#000000"],
-	speed = 1,
+	speed = 1
 }: WebGLAnimatedGradientProps) {
 	const [material] = useState(
 		() =>
@@ -72,7 +72,7 @@ export function WebGLAnimatedGradient({
 				colorAmplitude,
 				colorFrequency,
 				quantize,
-				radial,
+				radial
 			})
 	);
 
@@ -108,8 +108,7 @@ export function WebGLAnimatedGradient({
 		material.aspect.set(aspect[0], aspect[1]);
 	}, [material, aspect]);
 
-	const { width: windowWidth = 0, height: windowHeight = 0 } =
-		useWindowSize();
+	const { width: windowWidth = 0, height: windowHeight = 0 } = useWindowSize();
 
 	useEffect(() => {
 		material.resolution.set(windowWidth, windowHeight);
@@ -121,6 +120,7 @@ export function WebGLAnimatedGradient({
 		material.dpr = viewport.dpr;
 	}, [material, viewport]);
 
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	const meshRef = useRef<Mesh>(null!);
 
 	useWebGLRect(rect, ({ scale, position, rotation }) => {

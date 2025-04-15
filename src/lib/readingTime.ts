@@ -26,8 +26,7 @@ type WordBoundFunction = (char: string) => boolean;
 
 function codeIsInRanges(number: number, arrayOfRanges: number[][]) {
 	return arrayOfRanges.some(
-		([lowerBound, upperBound]) =>
-			lowerBound <= number && number <= upperBound
+		([lowerBound, upperBound]) => lowerBound <= number && number <= upperBound
 	);
 }
 
@@ -47,7 +46,7 @@ const isCJK: WordBoundFunction = (c) => {
 		// Hangul
 		[0xac00, 0xd7a3],
 		// CJK extensions
-		[0x20000, 0x2ebe0],
+		[0x20000, 0x2ebe0]
 	]);
 };
 
@@ -65,7 +64,7 @@ const isPunctuation: WordBoundFunction = (c) => {
 		// CJK Symbols and Punctuation
 		[0x3000, 0x303f],
 		// Full-width ASCII punctuation variants
-		[0xff00, 0xffef],
+		[0xff00, 0xffef]
 	]);
 };
 
@@ -73,9 +72,9 @@ export function countWords(
 	text: string,
 	options: Options = {}
 ): WordCountStats {
-	let words = 0,
-		start = 0,
-		end = text.length - 1;
+	let words = 0;
+	let start = 0;
+	let end = text.length - 1;
 	const { wordBound: isWordBound = isAnsiWordBound } = options;
 
 	// fetch bounds
@@ -92,8 +91,7 @@ export function countWords(
 		if (
 			isCJK(normalizedText[i]) ||
 			(!isWordBound(normalizedText[i]) &&
-				(isWordBound(normalizedText[i + 1]) ||
-					isCJK(normalizedText[i + 1])))
+				(isWordBound(normalizedText[i + 1]) || isCJK(normalizedText[i + 1])))
 		) {
 			words++;
 		}
@@ -121,11 +119,11 @@ export function readingTimeWithCount(
 	// Math.round used to resolve floating point funkiness
 	//   http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
 	const time = Math.round(minutes * 60 * 1000);
-	const displayed = Math.ceil(parseFloat(minutes.toFixed(2)));
+	const displayed = Math.ceil(Number.parseFloat(minutes.toFixed(2)));
 
 	return {
 		minutes: displayed,
-		time,
+		time
 	};
 }
 
@@ -136,6 +134,6 @@ export default function readingTime(
 	const words = countWords(text, options);
 	return {
 		...readingTimeWithCount(words, options),
-		words,
+		words
 	};
 }

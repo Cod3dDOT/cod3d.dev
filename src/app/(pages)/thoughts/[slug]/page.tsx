@@ -1,11 +1,11 @@
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { createServerClient } from "@pocketbase/config";
 import { getThought, getThoughts } from "@pocketbase/req";
-import { Thought } from "@pocketbase/types";
+import type { Thought } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";
 import ReactLenis from "lenis/react";
-import { BreadcrumbList, TechArticle, WithContext } from "schema-dts";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import type { BreadcrumbList, TechArticle, WithContext } from "schema-dts";
 
 import { Footer } from "@/components/footer";
 import readingTime from "@/lib/readingTime";
@@ -26,18 +26,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const client = createServerClient();
 	const thoughtResponse = await getThought(client, slug);
 
+	const domain = process.env.NEXT_PUBLIC_URL;
+	const thoughtUrl = `${domain}/thoughts/${slug}`;
+
 	if (isError(thoughtResponse)) {
 		return {
 			title: "cod3d's thoughts",
 			description: "cod3d's thoughts",
 			openGraph: {
 				type: "website",
-				url: "https://cod3d.dev",
+				url: thoughtUrl,
 				title: "cod3d's thoughts",
 				description:
 					"There has been an error retrieving the thought. Try to visit the website and reload the page.",
-				siteName: "cod3d's den",
-			},
+				siteName: "cod3d's den"
+			}
 		};
 	}
 
@@ -47,10 +50,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		title: thought.title,
 		description: thought.description,
 		alternates: {
-			canonical: "https://cod3d.dev/thoughts/" + thought.slug,
+			canonical: thoughtUrl,
 			types: {
-				"application/rss+xml": "https://cod3d.dev/feed.xml",
-			},
+				"application/rss+xml": "https://cod3d.dev/feed.xml"
+			}
 		},
 		keywords: thought.tags,
 		robots: {
@@ -59,24 +62,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			noarchive: true,
 			nosnippet: false,
 			noimageindex: false,
-			"max-image-preview": "large",
+			"max-image-preview": "large"
 		},
 		openGraph: {
 			locale: "en_US",
 			type: "article",
-			url: "https://cod3d.dev/thoughts/" + thought.slug,
+			url: thoughtUrl,
 			title: thought.title,
 			description: thought.description,
 			publishedTime: thought.created.toISOString(),
-			authors: ["cod3d"],
+			authors: ["cod3d"]
 		},
 		twitter: {
 			card: "summary_large_image",
 			title: thought.title,
 			description: thought.description,
 			creator: "@cod3ddot",
-			site: "cod3d's den",
-		},
+			site: "cod3d's den"
+		}
 	};
 }
 
@@ -91,7 +94,7 @@ export async function generateStaticParams() {
 	const thoughts = thoughtsResponse as Thought[];
 
 	return thoughts.map((thought) => ({
-		slug: thought.slug,
+		slug: thought.slug
 	}));
 }
 
@@ -116,74 +119,79 @@ export default async function Page({ params }: Props) {
 	const markdown = await markdownResponse.text();
 	const time = readingTime(markdown);
 
+	const domain = process.env.NEXT_PUBLIC_URL;
+	const thoughtUrl = `${domain}/thoughts/${slug}`;
+
 	const jsonLd: WithContext<TechArticle> = {
 		"@context": "https://schema.org",
 		"@type": "TechArticle",
-		url: "https://cod3d.dev/thoughts/" + thought.slug,
+		url: thoughtUrl,
 		mainEntityOfPage: {
 			"@type": "WebPage",
-			"@id": "https://cod3d.dev/thoughts/" + thought.slug,
+			"@id": thoughtUrl
 		},
 		headline: thought.title,
-		image: "https://cod3d.dev/" + thought.hero.light,
+		image: `${domain}/${thought.hero.light}`,
 		author: {
 			"@type": "Person",
 			name: "cod3d",
-			url: "https://github.com/cod3ddot",
+			url: "https://github.com/cod3ddot"
 		},
 		datePublished: thought.created.toISOString(),
 		dateModified: thought.updated.toISOString(),
 		wordCount: time.words.total,
 		timeRequired: minutesToDuration(time.minutes),
 		inLanguage: "English",
-		keywords: thought.tags,
+		keywords: thought.tags
 	};
 
 	const jsonLdBreadcrumbList: WithContext<BreadcrumbList> = {
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",
-		name: "Breadcrumb for " + thought.title,
+		name: `Breadcrumb for ${thought.title}`,
 		itemListElement: [
 			{
 				"@type": "ListItem",
 				position: 1,
 				name: "cod3d.dev",
-				item: "https://cod3d.dev",
+				item: domain
 			},
 			{
 				"@type": "ListItem",
 				position: 2,
 				name: "thoughts",
-				item: "https://cod3d.dev/thoughts",
+				item: `${domain}/thoughts`
 			},
 			{
 				"@type": "ListItem",
 				position: 3,
 				name: thought.title,
-				item: "https://cod3d.dev/thoughts/" + thought.slug,
-			},
-		],
+				item: thoughtUrl
+			}
+		]
 	};
 
 	return (
 		<ReactLenis root>
-			<main className="bg-background relative font-sans">
+			<main className="relative bg-background font-sans">
 				<article>
 					<script
 						type="application/ld+json"
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 						dangerouslySetInnerHTML={{
-							__html: JSON.stringify(jsonLd),
+							__html: JSON.stringify(jsonLd)
 						}}
 					/>
 
 					<script
 						type="application/ld+json"
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 						dangerouslySetInnerHTML={{
-							__html: JSON.stringify(jsonLdBreadcrumbList),
+							__html: JSON.stringify(jsonLdBreadcrumbList)
 						}}
 					/>
 
-					<div className="to-background bg-gradient-to-b from-transparent via-transparent md:px-10">
+					<div className="bg-gradient-to-b from-transparent via-transparent to-background md:px-10">
 						<ThoughtHeader
 							slug={thought.slug}
 							thought={thought}

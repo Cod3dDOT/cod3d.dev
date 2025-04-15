@@ -1,6 +1,6 @@
-import fs from "fs";
+import fs from "node:fs";
 import { extractColors } from "extract-colors";
-import { FinalColor } from "extract-colors/lib/types/Color";
+import type { FinalColor } from "extract-colors/lib/types/Color";
 import sharp from "sharp";
 
 export function clamp(value: number, min: number, max: number): number {
@@ -19,7 +19,7 @@ export async function colorFromImage(path: string): Promise<Color> {
 	const colors = await extractColors({
 		data: new Uint8ClampedArray(data),
 		width: info.width,
-		height: info.height,
+		height: info.height
 	});
 
 	const sortedByArea = colors.sort((a, b) => b.area - a.area);
@@ -67,7 +67,7 @@ export class Color {
 	}
 
 	fromHex(hex: string) {
-		const bigint = parseInt(hex.slice(1), 16);
+		const bigint = Number.parseInt(hex.slice(1), 16);
 		const r = (bigint >> 16) & 255;
 		const g = (bigint >> 8) & 255;
 		const b = bigint & 255;
@@ -76,7 +76,7 @@ export class Color {
 
 	toHex() {
 		const hex = (this.r << 16) | (this.g << 8) | this.b;
-		return "#" + hex.toString(16).padStart(6, "0");
+		return `#${hex.toString(16).padStart(6, "0")}`;
 	}
 
 	reduced(multiple: number) {

@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { CopyPass, EffectComposer, RenderPass } from "postprocessing";
+import { useEffect, useMemo } from "react";
 import { HalfFloatType } from "three";
 
 export function PostProcessing() {
@@ -22,7 +22,7 @@ export function PostProcessing() {
 		() =>
 			new EffectComposer(gl, {
 				multisampling: isWebgl2 && needsAA ? maxSamples : 0,
-				frameBufferType: HalfFloatType,
+				frameBufferType: HalfFloatType
 			}),
 		[gl, needsAA, isWebgl2, maxSamples]
 	);

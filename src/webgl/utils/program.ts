@@ -1,10 +1,10 @@
 import {
+	type Material,
 	Mesh,
 	OrthographicCamera,
 	PlaneGeometry,
 	Scene,
-	type Material,
-	type WebGLRenderer,
+	type WebGLRenderer
 } from "three";
 
 const geometry = new PlaneGeometry(1, 1);

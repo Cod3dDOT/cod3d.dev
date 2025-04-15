@@ -167,5 +167,5 @@ export const NOISE = {
       }
       return v;
     }
-    `,
+    `
 } as const;

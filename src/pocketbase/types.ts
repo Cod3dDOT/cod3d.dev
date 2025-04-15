@@ -1,4 +1,5 @@
-import PocketBase, { RecordService } from "pocketbase";
+import type PocketBase from "pocketbase";
+import type { RecordService } from "pocketbase";
 
 export interface PBProject {
 	id: string;
@@ -57,10 +58,7 @@ export interface Project
 }
 
 export interface Thought
-	extends Omit<
-		PBThought,
-		"tags" | "created" | "updated" | "expand" | "hero"
-	> {
+	extends Omit<PBThought, "tags" | "created" | "updated" | "expand" | "hero"> {
 	created: Date;
 	updated: Date;
 	tags: string[];

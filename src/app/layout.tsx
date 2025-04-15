@@ -1,11 +1,11 @@
 import "@/styles/index.css";
 import "@/lib/trustedTypes";
 
+import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 import { Pixelify_Sans } from "next/font/google";
 import Script from "next/script";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 
 import { Navigation } from "@/components/navigation";
 import { Providers } from "@/components/providers";
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils/cn";
 const font = Pixelify_Sans({
 	subsets: ["latin"],
 	display: "swap",
-	variable: "--font-pixelify",
+	variable: "--font-pixelify"
 });
 
 export const viewport: Viewport = {
@@ -22,9 +22,9 @@ export const viewport: Viewport = {
 	initialScale: 1,
 	themeColor: [
 		{ media: "(prefers-color-scheme: light)", color: "#fff" },
-		{ media: "(prefers-color-scheme: dark)", color: "#222" },
+		{ media: "(prefers-color-scheme: dark)", color: "#222" }
 	],
-	colorScheme: "dark light",
+	colorScheme: "dark light"
 };
 
 export const metadata: Metadata = {
@@ -37,23 +37,23 @@ export const metadata: Metadata = {
 	alternates: {
 		canonical: "/",
 		languages: {
-			"en-US": "/",
+			"en-US": "/"
 		},
 		types: {
-			"application/rss+xml": "https://cod3d.dev/feed.xml",
-		},
+			"application/rss+xml": "https://cod3d.dev/feed.xml"
+		}
 	},
 	robots: {
 		index: true,
 		follow: true,
 		noarchive: true,
 		nosnippet: false,
-		noimageindex: false,
+		noimageindex: false
 	},
 	formatDetection: {
 		email: false,
 		address: false,
-		telephone: false,
+		telephone: false
 	},
 	openGraph: {
 		type: "website",
@@ -67,9 +67,9 @@ export const metadata: Metadata = {
 				url: "/img/og/og.webp",
 				width: 1200,
 				height: 675,
-				alt: "cod3d",
-			},
-		],
+				alt: "cod3d"
+			}
+		]
 	},
 	twitter: {
 		card: "summary_large_image",
@@ -79,14 +79,14 @@ export const metadata: Metadata = {
 		site: "cod3d's den",
 		images: {
 			url: "https://cod3d.dev/img/og/og.webp", // Must be an absolute URL
-			alt: "cod3d",
-		},
+			alt: "cod3d"
+		}
 	},
-	verification: {},
+	verification: {}
 };
 
 export default function RootLayout({
-	children,
+	children
 }: Readonly<{
 	children: React.ReactNode;
 }>) {

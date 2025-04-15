@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IconProps } from ".";
+import type { IconProps } from ".";
 
 const BackIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -19,9 +19,9 @@ const BackIcon = React.forwardRef<SVGSVGElement, IconProps>(
 			aria-hidden="true"
 			className={className}
 		>
-			<path d="M3 19V5"></path>
-			<path d="m13 6-6 6 6 6"></path>
-			<path d="M7 12h14"></path>
+			<path d="M3 19V5" />
+			<path d="m13 6-6 6 6 6" />
+			<path d="M7 12h14" />
 		</svg>
 	)
 );

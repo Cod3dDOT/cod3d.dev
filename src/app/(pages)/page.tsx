@@ -1,4 +1,4 @@
-import { WebPage, WithContext } from "schema-dts";
+import type { WebPage, WithContext } from "schema-dts";
 
 import { ColorfulBlobs } from "./(components)/blobs";
 import { SyncedRotationWrapper } from "./(components)/syncedRotationWrapper";
@@ -8,19 +8,19 @@ export const revalidate = 3600;
 const jsonLd: WithContext<WebPage> = {
 	"@context": "https://schema.org",
 	"@type": "WebPage",
-	url: "https://cod3d.dev/",
+	url: process.env.NEXT_PUBLIC_URL,
 	mainEntityOfPage: {
 		"@type": "WebPage",
-		"@id": "https://cod3d.dev/",
+		"@id": process.env.NEXT_PUBLIC_URL
 	},
 	name: "cod3d's thoughts | A place where I share my struggles",
 	description: "Probably trying to hack you. Or sleeping. Or both.",
-	image: "https://cod3d.dev/img/og/og.webp",
+	image: `${process.env.NEXT_PUBLIC_URL}/img/og/og.webp`,
 	author: {
 		"@type": "Person",
 		name: "cod3d",
-		url: "https://github.com/cod3ddot",
-	},
+		url: "https://github.com/cod3ddot"
+	}
 };
 
 export default function Home() {
@@ -28,8 +28,9 @@ export default function Home() {
 		<>
 			<script
 				type="application/ld+json"
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 				dangerouslySetInnerHTML={{
-					__html: JSON.stringify(jsonLd),
+					__html: JSON.stringify(jsonLd)
 				}}
 			/>
 			<main className="my-auto flex h-screen flex-col justify-center px-10 md:px-24">

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 // needs to be a client component for the date to work
 export const SyncedRotationWrapper: React.FC<{ children: React.ReactNode }> = ({
-	children,
+	children
 }) => {
 	const [seconds, setSeconds] = useState(0);
 
@@ -13,7 +13,7 @@ export const SyncedRotationWrapper: React.FC<{ children: React.ReactNode }> = ({
 	}, []);
 
 	return (
-		<div className="animate-in-reduced fixed -inset-full -z-10 flex items-center justify-center overflow-hidden lg:inset-0">
+		<div className="-inset-full -z-10 fixed flex animate-in-reduced items-center justify-center overflow-hidden lg:inset-0">
 			<style>{`svg { --delay: calc(${seconds.toString()}s); }`}</style>
 			{children}
 		</div>

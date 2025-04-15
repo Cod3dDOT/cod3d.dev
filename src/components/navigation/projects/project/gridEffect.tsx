@@ -1,7 +1,7 @@
 "use client";
 
+import type { Project } from "@pocketbase/types";
 import { memo, useMemo } from "react";
-import { Project } from "@pocketbase/types";
 
 import { GridPattern } from "@/components/effects/gridPattern";
 import { cn } from "@/lib/utils/cn";
@@ -13,11 +13,11 @@ const animationDelay = [
 	"delay-100",
 	"delay-200",
 	"delay-300",
-	"delay-500",
+	"delay-500"
 ];
 
 export const ProjectGridEffect: React.FC<{ project: Project }> = ({
-	project,
+	project
 }) => {
 	const idn = stringToUniqueId(project.id);
 	let multiplier = 1;
@@ -41,7 +41,7 @@ export const ProjectGridEffect: React.FC<{ project: Project }> = ({
 		() =>
 			Array.from({ length: 30 * multiplier }, (_, i) => [
 				randomIntFromIntervalPredicted(0, 4, idn + i),
-				randomIntFromIntervalPredicted(0, 30, idn - i),
+				randomIntFromIntervalPredicted(0, 30, idn - i)
 			]),
 		[idn, multiplier]
 	);
@@ -51,14 +51,12 @@ export const ProjectGridEffect: React.FC<{ project: Project }> = ({
 			offsetX={0}
 			offsetY={-2}
 			size={22}
-			className="stroke-foreground h-full w-full [mask-image:radial-gradient(white,transparent_70%)] stroke-2 opacity-0 transition-opacity group-hover:opacity-100 group-focus:opacity-100"
+			className="h-full w-full stroke-2 stroke-foreground opacity-0 transition-opacity [mask-image:radial-gradient(white,transparent_70%)] group-hover:opacity-100 group-focus:opacity-100"
 		>
 			{blocks.map(([row, column], index) => {
 				const blockClassName = cn(
 					color,
-					animationDelay[
-						randomIntFromIntervalPredicted(0, 4, idn + index)
-					]
+					animationDelay[randomIntFromIntervalPredicted(0, 4, idn + index)]
 				);
 
 				return (

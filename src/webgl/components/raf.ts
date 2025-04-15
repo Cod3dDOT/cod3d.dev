@@ -11,7 +11,7 @@ export function RAF({ render = true }) {
 			}
 		},
 		{
-			priority: 1,
+			priority: 1
 		}
 	);
 

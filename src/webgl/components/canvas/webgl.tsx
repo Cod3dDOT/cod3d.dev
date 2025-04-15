@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense } from "react";
 import { OrthographicCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
 
 import { PostProcessing } from "../postprocessing";
 import { Preload } from "../preload";
@@ -33,7 +33,7 @@ export function WebGLCanvas({
 					powerPreference: "high-performance",
 					antialias: true,
 					alpha: true,
-					...(postprocessing && { stencil: false, depth: false }),
+					...(postprocessing && { stencil: false, depth: false })
 				}}
 				dpr={[1, 2]}
 				orthographic

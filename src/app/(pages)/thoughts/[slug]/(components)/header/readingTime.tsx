@@ -7,21 +7,14 @@ export const ReadingTime: React.FC<{
 	const minArray = Array.from({ length: minutes }, (_, i) => i + 1);
 	return (
 		<>
-			<div
-				className="relative inline-block overflow-hidden"
-				aria-hidden="true"
-			>
+			<div className="relative inline-block overflow-hidden" aria-hidden="true">
 				<span className="motion-safe:invisible">{minutes}</span>
 				<span
-					className="motion-safe:animate-scroll-in absolute left-0 flex flex-col whitespace-nowrap motion-reduce:hidden"
+					className="absolute left-0 flex flex-col whitespace-nowrap motion-safe:animate-scroll-in motion-reduce:hidden"
 					aria-hidden="true"
 				>
 					{minArray.map((m, i) => {
-						return (
-							<span key={i.toString() + "-reading-time"}>
-								{m}
-							</span>
-						);
+						return <span key={`${i.toString()}-reading-time`}>{m}</span>;
 					})}
 				</span>
 				<span> minutes</span>

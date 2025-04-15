@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
 	return {
@@ -15,23 +15,23 @@ export default function manifest(): MetadataRoute.Manifest {
 				src: "/pwa/icons/maskable-192x192.png",
 				sizes: "192x192",
 				type: "image/png",
-				purpose: "maskable",
+				purpose: "maskable"
 			},
 			{
 				src: "/pwa/icons/android-chrome-192x192.png",
 				sizes: "192x192",
-				type: "image/png",
+				type: "image/png"
 			},
 			{
 				src: "/pwa/icons/android-chrome-512x512.png",
 				sizes: "512x512",
-				type: "image/png",
+				type: "image/png"
 			},
 			{
 				src: "/favicon.ico",
 				sizes: "48x48 32x32 16x16",
-				type: "image/x-icon",
-			},
+				type: "image/x-icon"
+			}
 		],
 		screenshots: [
 			{
@@ -39,25 +39,25 @@ export default function manifest(): MetadataRoute.Manifest {
 				sizes: "363x811",
 				type: "image/png",
 				form_factor: "narrow",
-				label: "cod3d.dev",
+				label: "cod3d.dev"
 			},
 			{
 				src: "/pwa/screenshots/desktop.png",
 				sizes: "1647x923",
 				type: "image/png",
 				form_factor: "wide",
-				label: "cod3d.dev",
-			},
+				label: "cod3d.dev"
+			}
 		],
 		shortcuts: [
 			{
 				name: "Projects",
-				url: "/projects",
+				url: "/projects"
 			},
 			{
 				name: "Thoughts",
-				url: "/thoughts",
-			},
-		],
+				url: "/thoughts"
+			}
+		]
 	};
 }

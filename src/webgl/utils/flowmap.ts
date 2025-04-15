@@ -4,10 +4,10 @@ import {
 	HalfFloatType,
 	NoBlending,
 	ShaderMaterial,
+	type Texture,
 	Vector2,
 	WebGLRenderTarget,
-	type Texture,
-	type WebGLRenderer,
+	type WebGLRenderer
 } from "three";
 
 import Program from "./program";
@@ -67,7 +67,7 @@ export class Flowmap {
 			this.mask.read = this.mask.write;
 			this.mask.write = temp;
 			this.uniform.value = this.mask.read?.texture ?? null;
-		},
+		}
 	};
 	aspect = 1;
 	lastMouse = new Vector2();
@@ -83,14 +83,14 @@ export class Flowmap {
 			size = 128, // default size of the render targets
 			falloff = 0.3, // size of the stamp, percentage of the size
 			alpha = 1, // opacity of the stamp
-			dissipation = 0.98, // affects the speed that the stamp fades. Closer to 1 is slower
+			dissipation = 0.98 // affects the speed that the stamp fades. Closer to 1 is slower
 		} = {}
 	) {
 		this.renderer = renderer;
 
 		const options = {
 			type: HalfFloatType,
-			depthBuffer: false,
+			depthBuffer: false
 		};
 
 		this.mask.read = new WebGLRenderTarget(size, size, options);
@@ -110,11 +110,11 @@ export class Flowmap {
 				// User needs to update these
 				uAspect: { value: 1 },
 				uMouse: { value: this.mouse },
-				uVelocity: { value: this.velocity },
+				uVelocity: { value: this.velocity }
 			},
 			blending: NoBlending,
 			depthTest: false,
-			depthWrite: false,
+			depthWrite: false
 		});
 
 		this.program = new Program(this.material);

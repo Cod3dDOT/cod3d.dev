@@ -1,8 +1,9 @@
 "use client";
 
-import React, { memo, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type React from "react";
+import { memo, useEffect, useRef } from "react";
 
 import HomeIcon from "@/components/icons/home";
 import { ThemeSwitch } from "@/components/themeSwitch";
@@ -13,6 +14,7 @@ export const DesktopOpener: React.FC = memo(() => {
 	const ref = useRef<HTMLButtonElement>(null);
 	const { isOpen, toggleNav } = useNavigation();
 	const pathname = usePathname();
+	const isHome = pathname === "/";
 
 	useEffect(() => {
 		const current = ref.current;
@@ -28,20 +30,20 @@ export const DesktopOpener: React.FC = memo(() => {
 				className="w-full translate-y-4 p-4 transition-transform duration-300"
 			/>
 			<Link
-				aria-disabled={pathname == "/"}
-				inert={pathname == "/"}
+				aria-disabled={isHome}
+				inert={isHome}
 				hrefLang="en"
 				href="/"
 				className={cn(
 					"aspect-square w-full p-4 transition-transform hover:scale-95",
-					pathname == "/" && "!scale-0"
+					isHome && "!scale-0"
 				)}
 				aria-label="Link to homepage"
 			>
 				<HomeIcon
 					aria-hidden="true"
 					focusable="false"
-					className="fill-foreground h-full w-full"
+					className="h-full w-full fill-foreground"
 				/>
 				<span className="sr-only">Home</span>
 			</Link>
@@ -50,7 +52,7 @@ export const DesktopOpener: React.FC = memo(() => {
 				type="button"
 				aria-expanded={isOpen}
 				aria-controls="sidebar"
-				className="group *:bg-foreground relative h-full w-16 cursor-pointer *:absolute *:top-1/2 *:left-1/2 *:h-16 *:w-1 *:-translate-y-1/2"
+				className="group *:-translate-y-1/2 relative h-full w-16 cursor-pointer *:absolute *:top-1/2 *:left-1/2 *:h-16 *:w-1 *:bg-foreground"
 			>
 				<span
 					className={cn(

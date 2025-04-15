@@ -1,7 +1,7 @@
 "use client";
 
-import { memo, useCallback, useEffect, useState } from "react";
 import { useLenis } from "lenis/react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useWindowSize } from "react-use";
 
 import { cn } from "@/lib/utils/cn";
@@ -13,15 +13,15 @@ interface Heading {
 	level: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-const calculateScale = (
+const isActive = (
 	headingTop: number,
 	nextHeadingTop: number,
 	scrollY: number,
 	screenHeight: number
-): number => {
+): boolean => {
 	const startedLookingAt = scrollY - headingTop + screenHeight / 2 > 0;
 	const stoppedLookingAt = scrollY - nextHeadingTop + screenHeight / 2 > 0;
-	return startedLookingAt && !stoppedLookingAt ? 1 : 0;
+	return startedLookingAt && !stoppedLookingAt;
 };
 
 const margin = {
@@ -29,14 +29,14 @@ const margin = {
 	3: "ml-16",
 	4: "ml-24",
 	5: "ml-32",
-	6: "ml-40",
+	6: "ml-40"
 };
 
 const TOCListItem = memo(
 	({
 		heading,
 		active,
-		onHeadingClick,
+		onHeadingClick
 	}: {
 		heading: Heading;
 		active: boolean;
@@ -55,14 +55,13 @@ const TOCListItem = memo(
 				className={cn(
 					"relative w-96 whitespace-nowrap transition-all duration-200",
 					margin[heading.level as keyof typeof margin],
-					active &&
-						"text-accent-blue dark:text-accent-yellow font-normal"
+					active && "font-normal text-accent-blue dark:text-accent-yellow"
 				)}
 			>
 				<span
 					className={cn(
 						"bg-foreground/10 transition-all duration-200",
-						"absolute top-1/2 -left-full h-px w-full -translate-x-4 -translate-y-1/2",
+						"-left-full -translate-x-4 -translate-y-1/2 absolute top-1/2 h-px w-full",
 						active && "bg-accent-blue dark:bg-accent-yellow"
 					)}
 				/>
@@ -91,13 +90,13 @@ export const TableOfContents: React.FC = () => {
 			for (let i = 0; i < headings.length; i++) {
 				const heading = headings[i];
 				const nextHeading = headings.at(i + 1);
-				const scale = calculateScale(
+				const active = isActive(
 					heading.top,
 					nextHeading ? nextHeading.top : document.body.scrollHeight,
 					scrollY,
 					height
 				);
-				if (scale == 1) {
+				if (active) {
 					setActive(i);
 					break;
 				}
@@ -113,8 +112,8 @@ export const TableOfContents: React.FC = () => {
 		const newHeadings = Array.from(headingElements).map((heading) => ({
 			id: heading.id,
 			content: heading.textContent || "",
-			level: parseInt(heading.tagName[1]) as Heading["level"],
-			top: (heading as HTMLElement).offsetTop,
+			level: Number.parseInt(heading.tagName[1]) as Heading["level"],
+			top: (heading as HTMLElement).offsetTop
 		}));
 
 		setHeadings(newHeadings);
@@ -128,8 +127,8 @@ export const TableOfContents: React.FC = () => {
 	);
 
 	return (
-		<nav className="animate-in relative opacity-0 [--delay:1000ms]">
-			<ul className="text-foreground/30 list-none text-xl leading-relaxed font-light">
+		<nav className="relative animate-in opacity-0 [--delay:1000ms]">
+			<ul className="list-none font-light text-foreground/30 text-xl leading-relaxed">
 				{headings.map((heading, index) => (
 					<TOCListItem
 						key={`toc-${heading.id}`}

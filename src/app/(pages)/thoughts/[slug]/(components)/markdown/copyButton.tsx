@@ -17,26 +17,25 @@ export const CopyButton: React.FC<{
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const [copyState, setCopyState] = useState<CopyState>(null);
 
-	// Memoized copy handler
-	const handleCopy = async (content: string) => {
-		try {
-			await navigator.clipboard.writeText(content).catch(() => {});
-
-			setCopyState("success");
-		} catch {
-			setCopyState("error");
-		}
-
-		if (timeoutRef.current) {
-			clearTimeout(timeoutRef.current);
-		}
-
-		timeoutRef.current = setTimeout(() => {
-			setCopyState(null);
-		}, 1000);
-	};
-
 	useEffect(() => {
+		const handleCopy = async (content: string) => {
+			try {
+				await navigator.clipboard.writeText(content).catch(() => {});
+
+				setCopyState("success");
+			} catch {
+				setCopyState("error");
+			}
+
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+
+			timeoutRef.current = setTimeout(() => {
+				setCopyState(null);
+			}, 1000);
+		};
+
 		if (initialContent || !id) return;
 
 		const element = document.getElementById(id);
@@ -68,14 +67,14 @@ export const CopyButton: React.FC<{
 		>
 			<CopyIcon
 				showCheck={copyState === "success"}
-				className={cn("stroke-foreground stroke-2 transition-all", {
+				className={cn("stroke-2 stroke-foreground transition-all", {
 					"stroke-error": copyState === "error",
-					"stroke-success": copyState === "success",
+					"stroke-success": copyState === "success"
 				})}
 			/>
 			<span
 				className={cn(
-					"bg-success/20 absolute top-0 right-0 h-20 w-20 translate-x-full -translate-y-full rounded-full opacity-0 transition-opacity duration-200",
+					"-translate-y-full absolute top-0 right-0 h-20 w-20 translate-x-full rounded-full bg-success/20 opacity-0 transition-opacity duration-200",
 					"group:animate-ping group:opacity-100"
 				)}
 			/>

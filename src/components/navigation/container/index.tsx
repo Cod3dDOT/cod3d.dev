@@ -1,15 +1,16 @@
 "use client";
 
-import React, {
+import { ReactLenis } from "lenis/react";
+import { usePathname } from "next/navigation";
+import type React from "react";
+import {
+	type RefObject,
 	memo,
-	RefObject,
 	useCallback,
 	useEffect,
 	useMemo,
-	useRef,
+	useRef
 } from "react";
-import { usePathname } from "next/navigation";
-import { ReactLenis } from "lenis/react";
 
 import { useNavigation } from "@/lib/context/navigationContext";
 import { cn } from "@/lib/utils/cn";
@@ -22,7 +23,7 @@ type NavigationProps = {
 
 const useAutoClose = ({
 	closeNav,
-	menu,
+	menu
 }: {
 	closeNav: () => void;
 	menu: RefObject<Element | null>;
@@ -30,7 +31,7 @@ const useAutoClose = ({
 	const handleClosure = useCallback(
 		(event: MouseEvent | FocusEvent) => {
 			const contains = menu.current?.contains(event.target as Node);
-			const link = (event.target as HTMLElement).tagName == "a";
+			const link = (event.target as HTMLElement).tagName === "a";
 
 			if (!contains || link) closeNav();
 		},
@@ -45,7 +46,7 @@ const useAutoClose = ({
 			window.removeEventListener("click", handleClosure);
 			window.removeEventListener("focusin", handleClosure);
 		};
-	}, [handleClosure, menu]);
+	}, [handleClosure]);
 };
 
 const TRANSITION = "duration-300 ease-in-out";
@@ -68,7 +69,7 @@ const MemoizedLenis: React.FC<{ children: React.ReactNode }> = memo(
 MemoizedLenis.displayName = "Lenis";
 
 export const NavigationContainer: React.FC<NavigationProps> = ({
-	children,
+	children
 }) => {
 	const pathname = usePathname();
 	const menu = useRef<HTMLDivElement>(null);
@@ -77,16 +78,16 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 
 	useEffect(() => {
 		closeNav();
-	}, [pathname, closeNav]);
+	}, [closeNav]);
 
 	useAutoClose({ closeNav, menu });
 
 	return (
-		<nav className="relative print:hidden" role="navigation" id="sidebar">
+		<nav className="relative print:hidden" id="sidebar">
 			<div
 				className={cn(
 					TRANSITION,
-					"fixed inset-0 -z-10 hidden bg-black opacity-0 transition-[opacity,right] lg:block",
+					"-z-10 fixed inset-0 hidden bg-black opacity-0 transition-[opacity,right] lg:block",
 					isOpen && "right-1/2 z-50 opacity-20"
 				)}
 			/>

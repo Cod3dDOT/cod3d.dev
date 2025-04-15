@@ -1,8 +1,8 @@
 import {
 	MeshBasicMaterial,
-	Vector2,
 	type Texture,
-	type WebGLProgramParametersWithUniforms,
+	Vector2,
+	type WebGLProgramParametersWithUniforms
 } from "three";
 
 import type { Flowmap } from "@/webgl/utils/flowmap";
@@ -41,7 +41,7 @@ export class AnimatedGradientMaterial extends MeshBasicMaterial {
 		colorFrequency = 0.33,
 		quantize = 0,
 		radial = false,
-		flowmap,
+		flowmap
 	}: {
 		frequency?: number;
 		amplitude?: number;
@@ -52,7 +52,7 @@ export class AnimatedGradientMaterial extends MeshBasicMaterial {
 		flowmap?: Flowmap | Fluid;
 	}) {
 		super({
-			transparent: true,
+			transparent: true
 		});
 
 		this.uniforms = {
@@ -67,13 +67,13 @@ export class AnimatedGradientMaterial extends MeshBasicMaterial {
 			uOffset: { value: radial ? Math.random() * 1000 : 0 },
 			uQuantize: { value: quantize },
 			uFlowmap: { value: flowmap?.uniform?.value ?? null },
-			uDpr: { value: 1 },
+			uDpr: { value: 1 }
 		};
 
 		this.defines = {
 			USE_RADIAL: radial,
 			USE_FLOWMAP: !!flowmap,
-			USE_UV: true,
+			USE_UV: true
 		};
 
 		this.resolution = this.uniforms.uResolution.value;
@@ -83,12 +83,12 @@ export class AnimatedGradientMaterial extends MeshBasicMaterial {
 	onBeforeCompile(parameters: WebGLProgramParametersWithUniforms) {
 		parameters.uniforms = {
 			...parameters.uniforms,
-			...this.uniforms,
+			...this.uniforms
 		};
 
 		parameters.defines = {
 			...parameters.defines,
-			...this.defines,
+			...this.defines
 		};
 
 		parameters.vertexShader = parameters.vertexShader.replace(

@@ -1,10 +1,10 @@
-import fs from "fs";
+import fs from "node:fs";
 
 import { colorFromImage, writeFile } from "./generate-utils";
 import {
 	API_getAllPokemonSpecies,
 	API_getPokemonByName,
-	API_getPokemonSpecies,
+	API_getPokemonSpecies
 } from "./pokeApi";
 
 interface Pokemon {
@@ -58,7 +58,7 @@ function savePokemons(path: string, pokemons: Pokemon[]): void {
 		return {
 			n: pokemon.name,
 			d: pokemon.description,
-			c: pokemon.className?.substring(3) || "mon0",
+			c: pokemon.className?.substring(3) || "mon0"
 		};
 	});
 
@@ -106,7 +106,7 @@ async function getPokemonById(id: number): Promise<Pokemon> {
 	return {
 		name: englishName || speciesData.name,
 		description: description || "No description available",
-		spriteUrl: pokemonData.sprites.front_default,
+		spriteUrl: pokemonData.sprites.front_default
 	};
 }
 
@@ -138,10 +138,7 @@ async function fetchFromPokeAPI(
 			await savePokemonImage(pokemon, folder);
 			return pokemon;
 		} catch (error) {
-			console.error(
-				`Failed to fetch Pokémon ${speciesData.name}:`,
-				error
-			);
+			console.error(`Failed to fetch Pokémon ${speciesData.name}:`, error);
 			tableData.push({ Name: speciesData.name, Status: "❌" });
 			return null;
 		} finally {
