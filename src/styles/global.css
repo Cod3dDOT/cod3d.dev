@@ -23,5 +23,10 @@ body {
 
 *::selection {
 	background-color: var(--accent-yellow);
-	color: var(--primary);
+}
+
+.dark {
+	*::selection {
+		background-color: var(--accent-blue);
+	}
 }

@@ -3,8 +3,8 @@ import { dateToString } from "@/lib/utils/date";
 
 export const DateScroll: React.FC<{
 	date: Date;
-	delay?: "delay-500" | "delay-1000" | "delay-2000";
-}> = ({ date, delay = "delay-500" }) => {
+	delay?: number;
+}> = ({ date, delay = 0 }) => {
 	const startDate = new Date(date);
 	startDate.setDate(startDate.getDate() - 7); // Start from 7 days ago
 
@@ -20,12 +20,11 @@ export const DateScroll: React.FC<{
 			dateTime={date.toISOString()}
 			className="relative inline-block overflow-hidden"
 		>
-			<span className="invisible">{dateToString(date)}</span>
+			<span className="motion-safe:invisible">{dateToString(date)}</span>
 			<div
 				className={cn(
-					"animate-scroll-in absolute left-0 flex flex-col whitespace-nowrap",
-					"motion-reduce:animate-scroll-in-reduced",
-					delay
+					"motion-safe:animate-scroll-in absolute left-0 flex flex-col whitespace-nowrap",
+					`[--delay:${delay}ms]`
 				)}
 				aria-hidden="true"
 			>

@@ -16,22 +16,22 @@ interface HeaderProps {
 }
 
 const delays = [
+	"[--delay:250ms]",
+	"[--delay:300ms]",
+	"[--delay:350ms]",
+	"[--delay:400ms]",
+	"[--delay:450ms]",
 	"[--delay:500ms]",
+	"[--delay:550ms]",
 	"[--delay:600ms]",
+	"[--delay:650ms]",
 	"[--delay:700ms]",
+	"[--delay:750ms]",
 	"[--delay:800ms]",
+	"[--delay:850ms]",
 	"[--delay:900ms]",
+	"[--delay:950ms]",
 	"[--delay:1000ms]",
-	"[--delay:1100ms]",
-	"[--delay:1200ms]",
-	"[--delay:1300ms]",
-	"[--delay:1400ms]",
-	"[--delay:1500ms]",
-	"[--delay:1600ms]",
-	"[--delay:1700ms]",
-	"[--delay:1800ms]",
-	"[--delay:1900ms]",
-	"[--delay:2000ms]",
 ];
 
 export const ThoughtHeader: React.FC<HeaderProps> = ({
@@ -44,19 +44,18 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 		<span
 			key={index.toString() + "-markdown-title"}
 			className={cn(
-				"motion-safe:animate-in motion-reduce:animate-in-reduced inline-block opacity-0",
-				`motion-reduce:!delay-0`,
+				"motion-safe:animate-in motion-reduce:animate-fade-in inline-block opacity-0",
 				delays[index]
 			)}
 		>
 			{word}
-			&nbsp;
+			{index !== words.length - 1 && "\xa0"}
 		</span>
 	));
 
 	return (
-		<header className="flex flex-col pt-20 sm:gap-12">
-			<div className="motion-safe:animate-in motion-reduce:animate-in-reduced flex flex-col gap-8 px-10 text-base uppercase opacity-0 [--delay:300ms] sm:flex-row sm:justify-between">
+		<header className="flex flex-col px-10 pt-20 sm:gap-12">
+			<div className="motion-safe:animate-in motion-reduce:animate-fade-in flex flex-col gap-8 text-base uppercase opacity-0 sm:flex-row sm:justify-between">
 				<div className="*:align-middle">
 					<span className="font-extralight">Reading time</span>
 					<br />
@@ -69,9 +68,9 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 						<span>Revised</span>
 					</div>
 					<div className="space-x-2 *:align-middle">
-						<DateScroll date={thought.created} delay="delay-2000" />
+						<DateScroll date={thought.created} />
 						<span>/</span>
-						<DateScroll date={thought.updated} delay="delay-500" />
+						<DateScroll date={thought.updated} />
 					</div>
 				</div>
 				<div className="hidden lg:block">
@@ -86,7 +85,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 							<a
 								href={`${slug}/download`}
 								rel="noopener"
-								className="hover:text-accent-blue focus:text-accent-blue transition-colors"
+								className="hover:text-accent-blue focus:text-accent-blue dark:hover:text-accent-yellow dark:focus:text-accent-blue transition-colors"
 								aria-describedby="md-download-tooltip"
 							>
 								<MarkdownIcon className="h-[1lh] w-[1lh]" />
@@ -101,7 +100,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 								href="/feed.xml"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="hover:text-accent-blue focus:text-accent-blue transition-colors"
+								className="hover:text-accent-blue focus:text-accent-blue dark:hover:text-accent-yellow dark:focus:text-accent-blue transition-colors"
 								aria-describedby="blog-rss-link-tooltip"
 							>
 								<RssIcon className="h-[1lh] w-[1lh]" />
@@ -116,11 +115,13 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 				srcDark={thought.hero.dark}
 				alt="Hero image"
 			/>
-			<div className="space-y-10 px-10">
+			<div>
 				<h1 className="font-mono text-3xl font-extralight tracking-tight sm:text-5xl md:text-6xl xl:text-8xl">
 					{spans}
 				</h1>
-				<p className="sm:text-lg lg:text-xl">{thought.description}</p>
+				<p className="motion-safe:animate-in py-8 opacity-0 [--delay:500ms] sm:text-lg lg:text-xl">
+					{thought.description}
+				</p>
 			</div>
 		</header>
 	);

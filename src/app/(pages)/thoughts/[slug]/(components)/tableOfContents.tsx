@@ -32,11 +32,6 @@ const margin = {
 	6: "ml-40",
 };
 
-const classNames = {
-	0: "text-foreground/30",
-	1: "dark:text-accent-yellow text-accent-blue font-normal",
-};
-
 const TOCListItem = memo(
 	({
 		heading,
@@ -58,17 +53,17 @@ const TOCListItem = memo(
 		return (
 			<li
 				className={cn(
-					"text-foreground relative w-96 font-light whitespace-nowrap transition-all duration-200 ease-linear",
+					"relative w-96 whitespace-nowrap transition-all duration-200",
 					margin[heading.level as keyof typeof margin],
-					classNames[active ? 1 : 0]
+					active &&
+						"text-accent-blue dark:text-accent-yellow font-normal"
 				)}
 			>
 				<span
 					className={cn(
-						"absolute top-1/2 -left-full h-px w-full -translate-x-4 -translate-y-1/2 transition-colors",
-						active
-							? "dark:bg-accent-yellow bg-accent-blue"
-							: "bg-foreground/10"
+						"bg-foreground/10 transition-all duration-200",
+						"absolute top-1/2 -left-full h-px w-full -translate-x-4 -translate-y-1/2",
+						active && "bg-accent-blue dark:bg-accent-yellow"
 					)}
 				/>
 				<a href={`#${heading.id}`} onClick={handleClick}>
@@ -134,7 +129,7 @@ export const TableOfContents: React.FC = () => {
 
 	return (
 		<nav className="relative">
-			<ul className="list-none">
+			<ul className="text-foreground/30 list-none text-xl leading-relaxed font-light">
 				{headings.map((heading, index) => (
 					<TOCListItem
 						key={`toc-${heading.id}`}

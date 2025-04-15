@@ -11,8 +11,11 @@ export const ReadingTime: React.FC<{
 				className="relative inline-block overflow-hidden"
 				aria-hidden="true"
 			>
-				<span className="invisible">{minutes}</span>
-				<span className="animate-scroll-in motion-reduce:animate-scroll-in-reduced absolute left-0 flex flex-col whitespace-nowrap">
+				<span className="motion-safe:invisible">{minutes}</span>
+				<span
+					className="motion-safe:animate-scroll-in absolute left-0 flex flex-col whitespace-nowrap motion-reduce:hidden"
+					aria-hidden="true"
+				>
 					{minArray.map((m, i) => {
 						return (
 							<span key={i.toString() + "-reading-time"}>

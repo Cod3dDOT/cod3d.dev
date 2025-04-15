@@ -36,36 +36,34 @@ export const MarkdownCodeBlock: React.FC<Props> = ({ children, node }) => {
 	const id = `code-${name}-${random}`;
 
 	return (
-		<figure className="bg-container border-neutral-700 md:rounded-lg md:border">
+		<figure className="border-y-2 font-mono md:rounded-lg md:border-2">
 			{filename && (
-				<figcaption className="relative !mt-0 flex items-center justify-between overflow-hidden border-b border-neutral-700 px-4 font-mono">
-					<span className="text-foreground space-x-3 print:space-x-0">
-						<span>{name}</span>
+				<figcaption className="relative !mt-0 flex h-14 items-center justify-between overflow-hidden border-b">
+					<span className="text-foreground h-full text-center">
+						<span className="mx-4 print:mx-0">{name}</span>
 						<span
 							className={cn(
-								"dark:text-background-dark inline-block px-3 py-3",
-								"print:bg-transparent print:p-0",
+								"dark:text-background-dark inline-grid h-full items-center not-print:aspect-square",
+								"print:bg-transparent",
 								extensionToColor[
 									extension as keyof typeof extensionToColor
 								]
 							)}
 						>
-							.{extension}
+							{"."}
+							{extension}
 						</span>
 					</span>
 					<CopyButton
 						id={id}
 						contentName={filename}
-						className="h-6 w-6"
+						className="aspect-square h-full p-4 md:p-3 print:hidden"
 					/>
 				</figcaption>
 			)}
 
 			<pre
-				className={cn(
-					"text-foreground scrollbar-thin scrollbar-track-background-dark scrollbar-thumb-foreground bg-transparent",
-					"max-h-[70vh] md:max-h-none [&>code]:border-none [&>code]:p-0"
-				)}
+				className="max-h-[70vh] md:max-h-none print:max-h-none print:px-0!"
 				id={id}
 			>
 				{children}

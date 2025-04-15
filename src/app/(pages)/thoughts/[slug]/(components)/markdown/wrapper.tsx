@@ -23,16 +23,19 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
 	markdown,
 }) => {
 	return (
-		<section
-			className={cn(
-				"prose lg:prose-xl prose-neutral prose-amber dark:prose-invert max-w-none",
-				"prose-headings:font-light prose-h4:text-[larger]",
-				"hover:prose-a:text-blue-500 prose-a:transition-colors",
-				"prose-code:before:content-none prose-code:after:content-none prose-code:bg-container prose-code:p-2 prose-code:rounded-md prose-code:border prose-code:border-neutral-700",
-				"md:prose-figure:mx-10 relative md:px-10 xl:flex"
-			)}
-		>
-			<div className="prose-p:first:!mt-0 py-10 md:first-letter:text-6xl xl:max-w-prose [&>*:not(figure)]:px-10">
+		<section className="motion-safe:animate-in relative opacity-0 [--delay:500ms] md:px-10 xl:flex">
+			<div
+				className={cn(
+					"prose lg:prose-xl prose-neutral prose-amber dark:prose-invert max-w-none",
+					"prose-headings:font-light prose-h4:text-[larger]",
+					"prose-a:hover:text-accent-blue prose-a:transition-colors",
+					"prose-pre:bg-transparent prose-pre:text-foreground",
+					"prose-inline-code:before:content-none prose-inline-code:after:content-none", // removes `` from inline code blocks
+					"not-print:prose-inline-code:bg-container not-print:prose-inline-code:p-1 not-print:prose-inline-code:mx-1 prose-inline-code:rounded-md",
+					"md:prose-figure:mx-10",
+					"md:first-letter:text-6xl xl:max-w-prose [&>*:not(figure)]:px-10"
+				)}
+			>
 				<Markdown
 					components={{
 						h1() {
@@ -55,11 +58,12 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
 						p(props: JSX.IntrinsicElements["p"] & ExtraProps) {
 							if (!props.children) return <></>;
 
-							const type = props.node?.children[0].type;
-							if (type === "element") {
-								if (props.node?.children[0].tagName === "img") {
-									return <>{props.children}</>;
-								}
+							const child = props.node?.children[0];
+							if (
+								child?.type === "element" &&
+								child?.tagName === "img"
+							) {
+								return <>{props.children}</>;
 							}
 							return <p>{props.children}</p>;
 						},
@@ -84,7 +88,7 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
 					{markdown}
 				</Markdown>
 			</div>
-			<div className="not-prose sticky top-1/2 left-1/2 mt-60 hidden translate-x-8 -translate-y-1/2 self-start overflow-hidden xl:block 2xl:translate-x-1/2">
+			<div className="sticky top-1/2 left-1/2 mt-60 hidden translate-x-8 -translate-y-1/2 self-start overflow-hidden xl:block 2xl:translate-x-1/2">
 				<TableOfContents />
 			</div>
 		</section>

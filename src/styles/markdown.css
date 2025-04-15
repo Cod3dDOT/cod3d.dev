@@ -1,76 +1,48 @@
 @reference "./tailwind.css";
 
 [data-callout] {
-	--background: rgb(from var(--color) r g b / 0.2);
+	background-color: rgb(from var(--color) r g b / 0.2);
+	border-color: var(--color);
 
-	@apply to-container border-t-2 border-b-2 border-[var(--color)] bg-gradient-to-b from-[var(--background)] !px-4 py-8 sm:!px-8 md:mx-10 md:rounded-xl md:border-r-2 md:border-l-2;
-
-	p {
-		margin: 0;
-	}
+	@apply border-y-2 p-4 sm:p-6 md:mx-10 md:rounded-xl md:border-2;
 
 	[data-callout-title] {
-		@apply text-foreground mb-6 font-bold sm:mx-0 sm:mb-2;
+		@apply text-foreground mb-4 font-bold;
+	}
+
+	[data-callout-body] {
+		:last-child {
+			margin: 0px;
+		}
 	}
 }
 
 [data-callout-type="warning"] {
-	--color: rgb(231, 176, 8);
+	--color: var(--yellow);
 }
 
 [data-callout-type="info"] {
-	--color: rgb(0, 140, 255);
+	--color: var(--blue);
 }
 
 [data-callout-type="tip"] {
-	--color: rgb(114, 218, 114);
+	--color: var(--green);
 }
 
 [data-callout-type="note"] {
-	--color: rgb(114, 218, 114);
+	--color: var(--green);
 }
 
 [data-callout-type="error"] {
-	--color: rgb(255, 88, 88);
-}
-
-pre {
-	padding: 0rem 1rem;
-}
-
-pre > code {
-	float: left;
-	min-width: 100%;
-}
-
-.code-line {
-	padding-left: 12px;
-	padding-right: 12px;
-	margin-left: -12px;
-	margin-right: -12px;
-	border-left: 4px solid transparent; /* prepare for highlighted code-lines */
-}
-
-div.code-line:empty {
-	/* it is necessary because there is no even eol character in div code-lines */
-	height: 15.5938px; /* calculated height */
-}
-
-span.code-line {
-	min-width: 100%;
-	display: inline-block;
+	--color: var(--red);
 }
 
 .code-line.inserted {
-	background-color: var(
-		--color-inserted-line
-	); /* inserted code-line (+) color */
+	background-color: var(--green);
 }
 
 .code-line.deleted {
-	background-color: var(
-		--color-deleted-line
-	); /* deleted code-line (-) color */
+	background-color: var(--red);
 }
 
 .highlighted-code-line {
@@ -81,54 +53,32 @@ span.code-line {
 .numbered-code-line::before {
 	content: attr(data-line-number);
 
-	margin-left: -16px;
-	margin-right: 24px;
-	width: 1rem;
-	color: var(--color-text-weak);
+	margin-left: -12px;
+	margin-right: 12px;
+	width: 2ch;
 	text-align: right;
-
 	display: inline-block;
 }
 
-pre code.hljs .code-line {
-	padding: 0 1rem 0 1.5rem;
-}
-
 @media screen and (max-width: 768px) {
-	pre > code {
-		margin-left: 0;
-	}
-
 	.numbered-code-line::before {
 		content: "";
 		margin: 0;
 		width: 0;
 	}
+}
 
-	pre .code-line {
-		border: 0;
-		padding: 0 1rem 0 1rem !important;
+@media print {
+	.numbered-code-line::before {
+		content: "";
+		margin: 0;
+		width: 0;
 	}
 }
 
 /*
-
-Atom One Dark by Daniel Gamage
-Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
-
-base:    #282c34
-mono-1:  #abb2bf
-mono-2:  #818896
-mono-3:  #5c6370
-hue-1:   #56b6c2
-hue-2:   #61aeee
-hue-3:   #c678dd
-hue-4:   #98c379
-hue-5:   #e06c75
-hue-5-2: #be5046
-hue-6:   #d19a66
-hue-6-2: #e6c07b
-
+    Atom One Dark by Daniel Gamage
+    Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
 */
 .hljs-comment,
 .hljs-quote {
