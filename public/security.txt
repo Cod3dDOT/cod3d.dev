@@ -2,15 +2,15 @@
 Hash: SHA512
 
 Contact: mailto:cod3ddot@proton.me
-Expires: 2025-01-01T08:00:00.000Z
+Expires: 2025-08-08T08:00:00.000Z
 Encryption: https://cod3d.dev/pgp-key.txt
 Acknowledgments: https://cod3d.dev/legends
 Preferred-Languages: en
 Canonical: https://cod3d.dev/security.txt
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSs2vr7UtOQpZPpB+n4VJWbKeHbKQUCZvtwWQAKCRD4VJWbKeHb
-KaDbAP9tDwuE/ccAwT2zfb4895JcHE8sBa7wfhzc5A5fBW2FSgD/ctTU3ZzZtQ1z
-srm5tUwTR9ulvtMHZ0GouPaTlgbTUgQ=
-=orhX
+iHUEARYKAB0WIQSs2vr7UtOQpZPpB+n4VJWbKeHbKQUCZ/6udgAKCRD4VJWbKeHb
+KSsFAPsEjouAoFesvloRZuExVYJlNqb37ukfxkSAcDCogXpqyAD+PI2ee+k04gyp
+LfTbmJNo5KhQcHHKEdw0SjmYDPXn+go=
+=llrQ
 -----END PGP SIGNATURE-----
