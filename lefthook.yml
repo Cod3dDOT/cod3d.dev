@@ -3,7 +3,7 @@ pre-commit:
     commands:
     biome:
         glob: "*.{js,mjs,ts,jsx,tsx,css,scss}"
-        run: bun biome check --write "{staged_files}"
+        run: bun biome check --write --unsafe "{staged_files}"
 
 # Validate commit messages
 commit-msg:
