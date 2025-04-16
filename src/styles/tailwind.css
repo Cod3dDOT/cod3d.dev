@@ -92,6 +92,12 @@
         animation-timeline: view();
     }
 
+    @supports not (animation-timeline: auto) {
+        .parallax-footer {
+            transform: translateY(0%);
+        }
+    }
+
     @keyframes slide-up-slow {
         from {
             transform: translateY(-50vh);
