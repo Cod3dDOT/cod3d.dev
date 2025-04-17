@@ -83,7 +83,6 @@ export async function getThought(
             } as ClientResponseError;
         }
 
-        console.log(thoughts);
 
         const thought = processThoughts(client, thoughts.items)[0];
 
