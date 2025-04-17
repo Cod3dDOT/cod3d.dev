@@ -19,13 +19,15 @@ import remarkParse from "remark-parse";
 // import matter from "gray-matter";
 import { unified } from "unified";
 import { jsxDEV } from "react/jsx-dev-runtime";
+import rehypeRSSFixes from "./pluginRehypeFixes";
+import rehypeSanitize from "rehype-sanitize";
 
 interface Result {
     content: string;
     meta: object;
 }
 
-export async function markdownToHtml(markdown: string): Promise<string> {
+export async function markdownToHtml(markdown: string, images: string[]): Promise<string> {
     // const { data: meta, content } = matter(markdown);
 
     const vfile = await unified()
@@ -33,12 +35,10 @@ export async function markdownToHtml(markdown: string): Promise<string> {
         .use(remarkFrontmatter)
         .use(remarkMath)
         .use(remarkCallout)
-        .use(remarkHeadingId, { defaults: true })
         .use(remarkRehype)
-        // .use(rehypeSanitize)
+        .use(rehypeSanitize)
         .use(rehypeKatex, { output: "mathml" })
-        .use(rehypeHighlight)
-        .use(rehypeCodeLines, { showLineNumbers: true })
+        .use(rehypeRSSFixes, { markdownImages: images })
         .use(rehypeStringify)
         .process(markdown);
 

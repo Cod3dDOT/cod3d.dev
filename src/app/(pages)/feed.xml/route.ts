@@ -39,7 +39,7 @@ export async function GET() {
     const contentResults = await Promise.all(
         thoughts.map(async (thought) => {
             const content = await (await fetch(thought.markdown)).text();
-            const parsed = await markdownToHtml(content);
+            const parsed = await markdownToHtml(content, thought.markdown_images);
             return { thought, content: parsed };
         })
     );
