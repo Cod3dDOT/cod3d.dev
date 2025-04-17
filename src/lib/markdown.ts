@@ -1,5 +1,12 @@
 import remarkCallout from "@r4ai/remark-callout";
-import React from "react";
+import {
+    createElement,
+    Fragment,
+    type ReactNode,
+    type ReactElement,
+    type ComponentProps,
+} from "react";
+import { jsx, jsxs } from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import rehypeCodeLines from "rehype-highlight-code-lines";
 import rehypeKatex from "rehype-katex";
@@ -22,7 +29,6 @@ interface Result {
 export async function markdownToHtml(markdown: string): Promise<string> {
     // const { data: meta, content } = matter(markdown);
 
-    // 1) HTML string for RSS
     const vfile = await unified()
         .use(remarkParse)
         .use(remarkFrontmatter)
@@ -42,9 +48,8 @@ export async function markdownToHtml(markdown: string): Promise<string> {
 
 export async function markdownToReact(
     markdown: string,
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    components: any
-): Promise<React.ReactNode> {
+    components: ComponentProps<typeof rehypeReact>["components"]
+): Promise<ReactNode> {
     // const { data: meta, content } = matter(markdown);
 
     const vfile = await unified()
@@ -59,13 +64,15 @@ export async function markdownToReact(
         .use(rehypeHighlight)
         .use(rehypeCodeLines, { showLineNumbers: true })
         .use(rehypeReact, {
-            createElement: React.createElement,
-            fragment: React.Fragment,
+            createElement: createElement,
+            Fragment: Fragment,
+            jsx: jsx,
+            jsxs: jsxs,
             components: components,
         })
         .process(markdown);
 
-    const r = vfile.result as React.ReactElement<HTMLDivElement>;
+    const r = vfile.result as ReactElement<HTMLDivElement>;
 
-    return r.props.children as React.ReactNode;
+    return r.props.children as ReactNode;
 }

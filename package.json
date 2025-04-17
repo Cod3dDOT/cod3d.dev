@@ -6,12 +6,11 @@
         "dev": "next dev",
         "prebuild": "bun next telemetry disable",
         "build": "next build",
-        "clean-build": "rm -rf .next && bun run build",
+        "build:clean": "rm -rf .next && bun run build",
         "start": "next start",
         "lint": "bunx biome check",
         "lint:fix": "bunx biome check --write --unsafe",
         "analyze": "ANALYZE=true bun run build",
-        "prepare": "husky",
         "generate:pokemons": "bun scripts/generate-pokemons.ts generate",
         "commit": "commit"
     },
