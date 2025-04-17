@@ -19,7 +19,6 @@ import remarkRehype from "remark-rehype";
 import remarkParse from "remark-parse";
 // import matter from "gray-matter";
 import { unified } from "unified";
-import rehypeSanitize from "rehype-sanitize";
 
 interface Result {
     content: string;
@@ -36,7 +35,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
         .use(remarkCallout)
         .use(remarkHeadingId, { defaults: true })
         .use(remarkRehype)
-        .use(rehypeSanitize)
+        // .use(rehypeSanitize)
         .use(rehypeKatex, { output: "mathml" })
         .use(rehypeHighlight)
         .use(rehypeCodeLines, { showLineNumbers: true })
@@ -59,7 +58,7 @@ export async function markdownToReact(
         .use(remarkCallout)
         .use(remarkHeadingId, { defaults: true })
         .use(remarkRehype)
-        .use(rehypeSanitize)
+        // .use(rehypeSanitize)
         .use(rehypeKatex, { output: "mathml" })
         .use(rehypeHighlight)
         .use(rehypeCodeLines, { showLineNumbers: true })
