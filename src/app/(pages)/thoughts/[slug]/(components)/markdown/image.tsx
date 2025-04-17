@@ -7,18 +7,16 @@ type MarkdownImageProps = ComponentProps<"img"> & {
 	allImages: string[];
 };
 
-export function findImagePaths(imageName: string | undefined, paths: string[]) {
-	if (!imageName) {
+export function findImagePaths(src: ComponentProps<"img">["src"], paths: string[]) {
+	if (!src) {
 		return { lightImage: undefined, darkImage: undefined };
 	}
-	// Extract the base name (without extension) from the input image name
-	const baseName = imageName.split(".")[0]; // "something"
 
-	// Initialize variables to store the found paths
+	const baseName = src.split(".")[0]; // ignore extension
+
 	let lightImage: string | undefined;
 	let darkImage: string | undefined;
 
-	// Search through the paths for matching light and dark images
 	for (const path of paths) {
 		if (path.includes(`${baseName}_dark`)) {
 			darkImage = path;
@@ -26,11 +24,9 @@ export function findImagePaths(imageName: string | undefined, paths: string[]) {
 			lightImage = path;
 		}
 
-		// Break early if both images are found
 		if (lightImage && darkImage) break;
 	}
 
-	// Return the found paths or null if not found
 	return { lightImage, darkImage };
 }
 
