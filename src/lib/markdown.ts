@@ -3,7 +3,6 @@ import {
     createElement,
     Fragment,
     type ReactNode,
-    type ReactElement,
     type ComponentProps,
 } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
@@ -19,6 +18,7 @@ import remarkRehype from "remark-rehype";
 import remarkParse from "remark-parse";
 // import matter from "gray-matter";
 import { unified } from "unified";
+import { jsxDEV } from "react/jsx-dev-runtime";
 
 interface Result {
     content: string;
@@ -67,11 +67,10 @@ export async function markdownToReact(
             Fragment: Fragment,
             jsx: jsx,
             jsxs: jsxs,
+            jsxDEV: jsxDEV,
             components: components,
         })
         .process(markdown);
 
-    const r = vfile.result as ReactElement<HTMLDivElement>;
-
-    return r.props.children as ReactNode;
+    return vfile.result;
 }
