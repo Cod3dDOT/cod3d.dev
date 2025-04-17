@@ -1,32 +1,32 @@
 html {
-	--scrollbar-gutter: 0px;
+    --scrollbar-gutter: 0px;
 
-	&.lenis-stopped {
-		--scrollbar-gutter: var(--scrollbar-width);
-	}
+    &.lenis-stopped {
+        --scrollbar-gutter: var(--scrollbar-width);
+    }
 }
 
 * {
-	scrollbar-width: thin;
+    scrollbar-width: thin;
 }
 
 body {
-	min-height: 100vh;
-	overscroll-behavior: none;
-	background-color: var(--background);
-	color: var(--foreground);
-	display: flex;
-	flex-direction: column;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overscroll-behavior: none;
+    background-color: var(--background);
+    color: var(--foreground);
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 *::selection {
-	background-color: var(--accent-yellow);
+    background-color: var(--accent-yellow);
 }
 
 .dark {
-	*::selection {
-		background-color: var(--accent-blue);
-	}
+    *::selection {
+        background-color: var(--accent-blue);
+    }
 }
