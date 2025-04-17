@@ -3,6 +3,7 @@ import RSS, { type FeedOptions } from "rss";
 import { getThoughts } from "@/pocketbase/req";
 import type { Thought } from "@/pocketbase/types";
 import { isError } from "@/pocketbase/utils";
+import { markdownToHtml } from "@/lib/markdown";
 
 export const revalidate = 86400;
 export const runtime = "nodejs";
@@ -38,7 +39,8 @@ export async function GET() {
     const contentResults = await Promise.all(
         thoughts.map(async (thought) => {
             const content = await (await fetch(thought.markdown)).text();
-            return { thought, content };
+            const parsed = await markdownToHtml(content);
+            return { thought, content: parsed };
         })
     );
 

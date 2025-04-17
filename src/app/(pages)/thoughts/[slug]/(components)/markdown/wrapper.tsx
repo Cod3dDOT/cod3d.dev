@@ -1,17 +1,10 @@
-import remarkCallout from "@r4ai/remark-callout";
-import type { JSX } from "react";
-import Markdown, { type ExtraProps } from "react-markdown";
-import rehypeHighlight from "rehype-highlight";
-import rehypeHighlightCodeLines from "rehype-highlight-code-lines";
-import rehypeKatex from "rehype-katex";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkHeadingId from "remark-heading-id";
-import remarkMath from "remark-math";
-
+import { markdownToReact } from "@/lib/markdown";
 import { cn } from "@/lib/utils/cn";
-import { MarkdownCodeBlock } from "./code";
-import { MarkdownImage } from "./image";
 import dynamic from "next/dynamic";
+import type { ComponentProps } from "react";
+import { MarkdownImage } from "./image";
+import { MarkdownCodeBlock } from "./code";
+import type { ExtraProps } from "react-markdown";
 
 const DynamicToC = dynamic(() =>
     import("../tableOfContents").then((mod) => mod.TableOfContents)
@@ -22,10 +15,29 @@ type MarkdownWrapperProps = {
     images: string[];
 };
 
-export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
+export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = async ({
     images,
     markdown,
 }) => {
+    const components = {
+        // wrapper: (props: ComponentProps<"div">) => <>{props.children}</>,
+        h1: () => <></>,
+        pre: (props: ComponentProps<"pre">) => <MarkdownCodeBlock {...props} />,
+        img: (props: ComponentProps<"img">) => (
+            <MarkdownImage src={props.src} allImages={images} alt={props.alt} />
+        ),
+        p(props: ComponentProps<"p"> & ExtraProps) {
+            if (!props.children) return <></>;
+            const child = props.node?.children[0];
+            if (child?.type === "element" && child?.tagName === "img") {
+                return <>{props.children}</>;
+            }
+            return <p>{props.children}</p>;
+        },
+    };
+
+    const markdownComponent = await markdownToReact(markdown, components);
+
     return (
         <section className="relative opacity-0 [--delay:500ms] motion-safe:animate-in md:px-10 xl:flex">
             <div
@@ -40,57 +52,7 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = ({
                     "md:first-letter:text-6xl xl:max-w-prose [&>*:not(figure)]:px-10"
                 )}
             >
-                <Markdown
-                    components={{
-                        h1() {
-                            return <></>;
-                        },
-                        pre(props: JSX.IntrinsicElements["pre"] & ExtraProps) {
-                            return <MarkdownCodeBlock {...props} />;
-                        },
-                        img(props: JSX.IntrinsicElements["img"] & ExtraProps) {
-                            const src = props.src;
-
-                            return (
-                                <MarkdownImage
-                                    src={src}
-                                    allImages={images}
-                                    alt={props.alt}
-                                />
-                            );
-                        },
-                        p(props: JSX.IntrinsicElements["p"] & ExtraProps) {
-                            if (!props.children) return <></>;
-
-                            const child = props.node?.children[0];
-                            if (
-                                child?.type === "element" &&
-                                child?.tagName === "img"
-                            ) {
-                                return <>{props.children}</>;
-                            }
-                            return <p>{props.children}</p>;
-                        },
-                    }}
-                    remarkPlugins={[
-                        remarkFrontmatter,
-                        remarkMath,
-                        remarkCallout,
-                        [remarkHeadingId, { defaults: true }],
-                    ]}
-                    rehypePlugins={[
-                        [rehypeKatex, { output: "mathml" }],
-                        rehypeHighlight,
-                        [
-                            rehypeHighlightCodeLines,
-                            {
-                                showLineNumbers: true,
-                            },
-                        ],
-                    ]}
-                >
-                    {markdown}
-                </Markdown>
+                {markdownComponent}
             </div>
             <div className="-translate-y-1/2 sticky top-1/2 left-1/2 mt-60 hidden translate-x-8 self-start overflow-hidden xl:block 2xl:translate-x-1/2">
                 <DynamicToC />
