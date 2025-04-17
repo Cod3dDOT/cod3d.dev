@@ -12,6 +12,10 @@ export function findImagePaths(src: ComponentProps<"img">["src"], paths: string[
 		return { lightImage: undefined, darkImage: undefined };
 	}
 
+    if (typeof src !== "string") {
+        return { lightImage: src, darkImage: undefined };
+    }
+
 	const baseName = src.split(".")[0]; // ignore extension
 
 	let lightImage: string | undefined;
@@ -64,7 +68,8 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	width = 1080,
 	height = 1080
 }) => {
-	const { lightImage, darkImage } = findImagePaths(src || "", allImages);
+    // this
+	const { lightImage, darkImage } = findImagePaths(src, allImages);
 
 	if (!lightImage || !darkImage) {
 		return <MarkdownImageFailed />;
