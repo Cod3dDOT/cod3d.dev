@@ -1,38 +1,9 @@
-import { cn } from "@/lib/utils/cn";
 import type { ComponentProps } from "react";
 
-type MarkdownImageProps = ComponentProps<"img"> & {
+export type MarkdownImageProps = ComponentProps<"img"> & {
 	className?: string;
-	hideCaption?: boolean;
-	allImages: string[];
+	"data-dark-src"?: string;
 };
-
-export function findImagePaths(src: ComponentProps<"img">["src"], paths: string[]) {
-	if (!src) {
-		return { lightImage: undefined, darkImage: undefined };
-	}
-
-    if (typeof src !== "string") {
-        return { lightImage: src, darkImage: undefined };
-    }
-
-	const baseName = src.split(".")[0]; // ignore extension
-
-	let lightImage: string | undefined;
-	let darkImage: string | undefined;
-
-	for (const path of paths) {
-		if (path.includes(`${baseName}_dark`)) {
-			darkImage = path;
-		} else if (path.includes(baseName)) {
-			lightImage = path;
-		}
-
-		if (lightImage && darkImage) break;
-	}
-
-	return { lightImage, darkImage };
-}
 
 export const MarkdownImageFailed: React.FC = () => {
 	return (
@@ -61,25 +32,17 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	src,
 	alt = "",
 	className,
-	hideCaption = false,
-
-	allImages,
 
 	width = 1080,
-	height = 1080
+	height = 1080,
+
+	"data-dark-src": darkSrc = ""
 }) => {
-    // this
-	const { lightImage, darkImage } = findImagePaths(src, allImages);
-
-	if (!lightImage || !darkImage) {
-		return <MarkdownImageFailed />;
-	}
-
 	return (
 		<figure className={className}>
 			<picture>
 				<img
-					src={lightImage}
+					src={src}
 					fetchPriority="low"
 					loading="lazy"
 					decoding="async"
@@ -89,10 +52,10 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 					className="!m-0 max-h-[70vh] object-contain md:rounded-lg dark:hidden"
 				/>
 			</picture>
-			{darkImage && (
+			{darkSrc && (
 				<picture>
 					<img
-						src={darkImage}
+						src={darkSrc}
 						fetchPriority="low"
 						loading="lazy"
 						decoding="async"
@@ -103,11 +66,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 					/>
 				</picture>
 			)}
-			<figcaption
-				className={cn({ "sr-only": hideCaption }, "text-center md:text-left")}
-			>
-				{alt}
-			</figcaption>
+			<figcaption className={"text-center md:text-left"}>{alt}</figcaption>
 		</figure>
 	);
 };

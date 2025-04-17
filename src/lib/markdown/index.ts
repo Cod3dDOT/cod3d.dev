@@ -1,76 +1,104 @@
 import remarkCallout from "@r4ai/remark-callout";
 import {
-    createElement,
-    Fragment,
-    type ReactNode,
-    type ComponentProps,
+	type ComponentProps,
+	Fragment,
+	type ReactNode,
+	createElement
 } from "react";
+import { jsxDEV } from "react/jsx-dev-runtime";
 import { jsx, jsxs } from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
 import rehypeCodeLines from "rehype-highlight-code-lines";
 import rehypeKatex from "rehype-katex";
 import rehypeReact from "rehype-react";
+import rehypeSanitize from "rehype-sanitize";
 import rehypeStringify from "rehype-stringify";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkHeadingId from "remark-heading-id";
 import remarkMath from "remark-math";
-import remarkRehype from "remark-rehype";
 import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import { createHighlighterCore, createOnigurumaEngine } from "shiki";
 // import matter from "gray-matter";
 import { unified } from "unified";
-import { jsxDEV } from "react/jsx-dev-runtime";
-import rehypeRSSFixes from "./pluginRehypeFixes";
-import rehypeSanitize from "rehype-sanitize";
+import { type RehypeFixesOptions, rehypeFixes } from "./pluginRehypeFixes";
 
 interface Result {
-    content: string;
-    meta: object;
+	content: string;
+	meta: object;
 }
 
-export async function markdownToHtml(markdown: string, images: string[]): Promise<string> {
-    // const { data: meta, content } = matter(markdown);
+export interface CodeData {
+	meta: string;
+}
 
-    const vfile = await unified()
-        .use(remarkParse)
-        .use(remarkFrontmatter)
-        .use(remarkMath)
-        .use(remarkCallout)
-        .use(remarkRehype)
-        .use(rehypeSanitize)
-        .use(rehypeKatex, { output: "mathml" })
-        .use(rehypeRSSFixes, { markdownImages: images })
-        .use(rehypeStringify)
-        .process(markdown);
+const highlighter = await createHighlighterCore({
+	themes: [
+		import("@shikijs/themes/vitesse-light"),
+		import("@shikijs/themes/vitesse-dark")
+	],
+	langs: [
+		import("@shikijs/langs/javascript"),
+		import("@shikijs/langs/typescript")
+	],
+	engine: createOnigurumaEngine(() => import("shiki/wasm"))
+});
 
-    return vfile.toString();
+export async function markdownToHtml(
+	markdown: string,
+	images: string[]
+): Promise<string> {
+	// const { data: meta, content } = matter(markdown);
+
+	const vfile = await unified()
+		.use(remarkParse)
+		.use(remarkFrontmatter)
+		.use(remarkMath)
+		.use(remarkCallout)
+		.use(remarkRehype)
+		.use(rehypeSanitize)
+		.use(rehypeKatex, { output: "mathml" })
+		.use(rehypeFixes, {
+			mode: "RSS",
+			markdownImages: images
+		} as RehypeFixesOptions)
+		.use(rehypeStringify)
+		.process(markdown);
+
+	return vfile.toString();
 }
 
 export async function markdownToReact(
-    markdown: string,
-    components: ComponentProps<typeof rehypeReact>["components"]
+	markdown: string,
+	images: string[],
+	components: ComponentProps<typeof rehypeReact>["components"]
 ): Promise<ReactNode> {
-    // const { data: meta, content } = matter(markdown);
+	// const { data: meta, content } = matter(markdown);
 
-    const vfile = await unified()
-        .use(remarkParse)
-        .use(remarkFrontmatter)
-        .use(remarkMath)
-        .use(remarkCallout)
-        .use(remarkHeadingId, { defaults: true })
-        .use(remarkRehype)
-        // .use(rehypeSanitize)
-        .use(rehypeKatex, { output: "mathml" })
-        .use(rehypeHighlight)
-        .use(rehypeCodeLines, { showLineNumbers: true })
-        .use(rehypeReact, {
-            createElement: createElement,
-            Fragment: Fragment,
-            jsx: jsx,
-            jsxs: jsxs,
-            jsxDEV: jsxDEV,
-            components: components,
-        })
-        .process(markdown);
+	const vfile = await unified()
+		.use(remarkParse)
+		.use(remarkFrontmatter)
+		.use(remarkMath)
+		.use(remarkCallout)
+		.use(remarkHeadingId, { defaults: true })
+		.use(remarkRehype)
+		// .use(rehypeSanitize)
+		.use(rehypeKatex, { output: "mathml" })
+		.use(rehypeHighlight)
+		.use(rehypeCodeLines, { showLineNumbers: true })
+		.use(rehypeFixes, {
+			mode: "React",
+			markdownImages: images
+		})
+		.use(rehypeReact, {
+			createElement: createElement,
+			Fragment: Fragment,
+			jsx: jsx,
+			jsxs: jsxs,
+			jsxDEV: jsxDEV,
+			components: components
+		})
+		.process(markdown);
 
-    return vfile.result;
+	return vfile.result;
 }
