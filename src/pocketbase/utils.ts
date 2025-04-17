@@ -12,4 +12,7 @@ export const getAssetUrl = (
     record: PBThought | PBProject | PBTag,
     filename: string
 ): URL =>
-    new URL(client.files.getURL(record, filename), process.env.NEXT_PUBLIC_URL);
+    new URL(
+        new URL(client.files.getURL(record, filename)).pathname,
+        process.env.NEXT_PUBLIC_URL
+    );
