@@ -76,9 +76,10 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 
 	const { isOpen, closeNav } = useNavigation();
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: closes nav on route change
 	useEffect(() => {
 		closeNav();
-	}, [closeNav]);
+	}, [closeNav, pathname]);
 
 	useAutoClose({ closeNav, menu });
 
