@@ -58,7 +58,7 @@ const MemoizedLenis: React.FC<{ children: React.ReactNode }> = memo(
 		return (
 			<ReactLenis
 				options={options}
-				className="h-full w-full overflow-y-auto p-8 pt-20 sm:pt-8 [&>div]:space-y-16"
+				className="h-full w-full overflow-hidden overflow-y-auto p-8 pt-20 sm:pt-8 [&>div]:space-y-16"
 			>
 				{children}
 			</ReactLenis>
