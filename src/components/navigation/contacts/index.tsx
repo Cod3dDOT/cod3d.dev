@@ -40,7 +40,7 @@ const NavContactsShowcase: React.FC = () => {
 			<img
 				loading="lazy"
 				className="image-rendering-pixelated md:-translate-y-1/2 absolute top-0 right-0 aspect-square w-1/2 translate-x-1/2 md:top-full"
-				src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA/BAMAAAClcQ3sAAAAJ1BMVEUAAAAAAAAAAACAgICFhYX///////+gev/h4feHh8QAAABeSJb6+v9tQX7FAAAAB3RSTlMA881IGQkfxnrzFAAAAb9JREFUSMeV1T2O2zAQBWAiQRp1uUKOlSq3oGFt71HgA4isVCwg6e0BFjAv4IKH2hG51pAe04t9jWHPp8fxH2TKdNgyGZV9PFtrj8DjOU9veUR+dbbIUZ/TzSXow6TOty8xkoh9V7n+5UqnsgN3IMYr2SI1mLfridQaJaB8gKQEsAdSoL/s4q9lwFvGGoRdgAG/Eq91RwLyGXEBne4rMkCe0+E5OJws2ToCblHgNa3QBiEB+Fqo72N5Ai4JDJibYOIVaABaO4QMPFccAcwagE8g8sBxocF5DS4JOGAhzlBX9BuYNjB4BjESoS7YkgBX8JyFn6sCAYRzJIpc1QLLmWgTJQgVIAX6B+BMbi4KNKCrvNH+ISAB4QsQWgDvMi/B/zEDj7fAJJSgS2AdcwEnlLkYBlnkgpS3ooDBmIHbCgZfgfzfWnIFnPNEm5BzAAFEwJIfJBmsVMX5e9CNTbF6AaVw7nPuvNGAMzBJ8xYgd8uUwEq6IocLknCtBtyAG1WBnCBAFfh/Jue3CL2iBk4DA36m595IVvdZ4oqgAFidCibzTHiZN4C6qdVzfWP8+acCk1HgR2NBCYB9QdOI/BC/kQ8Rjmu3Dz8t9QAAAABJRU5ErkJggg=="
+				src="data:image/webp;base64,UklGRq4BAABXRUJQVlA4TKIBAAAvPoAPEA7KkSRJkpwlDzSBAdAJNvDNoyKyQUC6SUY4WYDJSKeTRmppdBFmG80fYETndM/1fwJu/B/Yvqcz/bstGQ8COhLgDDoeIA068S+tygK6+783/rs7oLsYw6Cn79l2B1cVpLzRdocn0N39nudxXVVkeOzcIOhuL5O6Cj7Ro+0e33tJVbDHoqfvPTujv0Fvv/ec1FVVbEDvPrv9S3Z3252ccejAgh+pBfyTAaf1wMy/UisL+AnuvXjGWTXdEMDA8hQuHic02LYkcUZtaMCbIqdWzCwt3nvPtiGjNleWwH5LWxBXITb4vWfbgyVOs5+X79lxlbCZUkd4ECF1iJ8dU8c4qH6rArOorQrdMvoggKqqSQVz2UHaEcvK5G7ZoJX4GMS9F32QJgJLWQyXHRvQiEdpNd1jDLDN6PVe4ERfvkrKuijFlhQjnWJr+kGSuKfY1nyh6VGe7XMX6AR/424i5ekzXyTlKOAepe/cfdAYpkDuQQr9dC9o+k2x3EgmkjYUThDM0oEbDOQB3PAzbjI5QNqFlHtiApxxmX4C7tl8vf/X"
 				alt="pokeball"
 			/>
 		</section>
