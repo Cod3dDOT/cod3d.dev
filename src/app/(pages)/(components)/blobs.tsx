@@ -8,7 +8,7 @@ export const ColorfulBlobs: React.FC = () => {
 			viewBox="0 0 200 200"
 			className={cn(
 				"relative aspect-square [animation-delay:var(--delay)]",
-				"animate-spin will-change-transform motion-safe:[animation-duration:32s] motion-reduce:[animation-duration:512s]",
+				"animate-spin will-change-transform motion-safe:[animation-duration:60s] motion-reduce:[animation-duration:3600s]",
 				"*:h-[35rem] *:w-[35rem] sm:*:h-[42rem] sm:*:w-[42rem]"
 			)}
 		>
