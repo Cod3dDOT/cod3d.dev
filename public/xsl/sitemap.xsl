@@ -14,13 +14,8 @@
                 </title>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-                <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+                <script src="/xsl/tw.js" />
                 <link rel="stylesheet" href="/xsl/styles.css"/>
-                <!-- Fonts -->
-                <link rel="preconnect" href="https://fonts.googleapis.com"/>
-                <link rel="preconnect" href="https://fonts.gstatic.com"/>
-                <link href="https://fonts.googleapis.com/css2?family=Geist+Mono" rel="stylesheet"/>
-                <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700" rel="stylesheet"/>
                 <!-- Theme initializer -->
                 <script>
                     document.addEventListener("DOMContentLoaded", () => {
