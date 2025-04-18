@@ -1,0 +1,139 @@
+@import "https://unpkg.com/open-props/easings.min.css";
+
+:root {
+	--yellow: rgb(224, 191, 81);
+	--purple: rgb(154, 58, 222);
+	--blue: rgb(78, 89, 207);
+	--green: rgb(80, 224, 80);
+	--red: rgb(203, 39, 66);
+	--black: rgb(0, 0, 0);
+
+	--foreground: rgb(18, 18, 18);
+	--background: rgb(230, 230, 230);
+	--container: rgb(242, 242, 242);
+	--accent-blue: var(--blue);
+	--accent-yellow: var(--yellow);
+}
+
+.dark {
+	--foreground: rgb(242, 242, 242);
+	--background: rgb(51, 51, 51);
+	--container: rgb(34, 34, 34);
+}
+
+.theme-toggle {
+    --size: 2rem;
+    --icon-fill: var(--foreground);
+    --icon-fill-hover: var(--accent-blue);
+
+    background: none;
+    border: none;
+    padding: 0;
+    inline-size: var(--size);
+    block-size: var(--size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    outline-offset: 5px;
+}
+
+.theme-toggle > svg {
+    inline-size: 100%;
+    block-size: 100%;
+    stroke-linecap: round;
+}
+
+@media (hover: none) {
+    .theme-toggle { --size: 48px; }
+}
+
+.sun-and-moon > :is(.moon, .sun, .sun-beams) {
+    transform-origin: center center;
+}
+
+.sun-and-moon > .sun {
+    transition: transform .5s var(--ease-elastic-3);
+}
+
+
+.sun-and-moon > .moon > circle {
+    transition: transform .25s var(--ease-out-5);
+}
+
+.dark {
+    .sun-and-moon > .sun-beams {
+        opacity: 0;
+    }
+
+    .sun-and-moon > .moon > circle {
+        transform: translateX(-7px);
+    }
+
+    .sun-and-moon > .sun {
+        transform: scale(1.75);
+    }
+}
+
+.pixelify-sans {
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: none;
+}
+
+.geist {
+    font-family: "Geist", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.geist-mono {
+    font-family: "Geist Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    --scrollbar-gutter: 0px;
+}
+
+* {
+    scrollbar-width: thin;
+}
+
+body {
+    min-height: 100vh;
+    overscroll-behavior: none;
+    background-color: var(--background);
+    color: var(--foreground);
+    display: flex;
+    flex-direction: column;
+}
+
+*::selection {
+    background-color: var(--accent-yellow);
+}
+
+.dark {
+    *::selection {
+        background-color: var(--accent-blue);
+    }
+}
+
+
+.image-rendering-pixelated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}

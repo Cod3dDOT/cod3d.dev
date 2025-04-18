@@ -3,6 +3,8 @@ import type { Thought } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";
 import type { MetadataRoute } from "next";
 
+export const revalidate = 86400;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticSitemap: MetadataRoute.Sitemap = [
 		{

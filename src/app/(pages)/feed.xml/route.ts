@@ -63,9 +63,16 @@ export async function GET() {
 		});
 	}
 
-	return new Response(feed.xml({ indent: true }), {
+	const response = feed
+		.xml({ indent: true })
+		.replace(
+			`<?xml version="1.0" encoding="UTF-8"?>`,
+			`<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="/xsl/rss.xsl" type="text/xsl"?>`
+		);
+
+	return new Response(response, {
 		headers: {
-			"Content-Type": "application/rss+xml; charset=utf-8"
+			"Content-Type": "application/xml; charset=utf-8"
 		}
 	});
 }
