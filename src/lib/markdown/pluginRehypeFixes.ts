@@ -57,7 +57,6 @@ const paragraphVisitor = (
 ): VisitorResult => {
 	if (index === undefined || parent === undefined) return;
 
-	// fix img in <p></p> tags, which is invalid html
 	if (
 		node.children.length === 1 &&
 		node.children[0].type === "element" &&
@@ -70,21 +69,35 @@ const paragraphVisitor = (
 	}
 };
 
-const codeVisitor = (node: Element): VisitorResult => {};
+const chopOffMeta = (ast: Root) => {
+	const children = ast.children;
+	const index = children.findIndex(
+		(node) => node.type === "element" && node.tagName === "hr"
+	);
+
+	if (index !== -1) {
+		// Remove everything up to and including the <hr>
+		ast.children = children.slice(index + 1);
+	}
+};
 
 export const rehypeFixes: Plugin<RehypeFixesOptions[], Root> = (options) => {
 	return (ast: Root) => {
+		// remove everything before the first horizontal divider
+		chopOffMeta(ast);
+
 		visit(ast, "element", (node, index, parent) => {
 			switch (node.tagName) {
 				case "p":
+					// fix img in <p></p> tags, which is invalid html
 					paragraphVisitor(node, index, parent as Parent, options);
 					break;
 				case "img":
+					// transform local markdown images to proper paths
 					imageVisitor(node, options);
 					break;
 				case "code":
-					codeVisitor(node);
-					break;
+					node.properties["data-filename"] = node.data?.meta;
 			}
 		});
 		// Remove h1 as both in RSS and in the blog we have a custom title,

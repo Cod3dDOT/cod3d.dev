@@ -1,13 +1,9 @@
-import type { CodeData } from "@/lib/markdown";
 import { cn } from "@/lib/utils/cn";
 import { splitmix32, stringToUniqueId } from "@/lib/utils/crypto";
-import type { Element as HastElement } from "hast";
 import type { ComponentProps } from "react";
 import { CopyButton } from "./copyButton";
 
-export type MarkdownCodeBlockProps = ComponentProps<"pre"> & {
-	node?: HastElement;
-};
+export type MarkdownCodeBlockProps = ComponentProps<"pre">;
 
 const extensionToColor = {
 	js: "bg-[#FFEA61]",
@@ -20,12 +16,12 @@ const extensionToColor = {
 };
 
 export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
-	children,
-	node
+	children
 }) => {
-	const data = node?.children[0].data as CodeData;
-
-	const filename = data?.meta;
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	const filename = (children as any).props["data-filename"] as
+		| string
+		| undefined;
 	const name = filename?.slice(0, filename.lastIndexOf(".")) || "";
 	const extension = filename?.split(".").at(-1) || "js";
 
