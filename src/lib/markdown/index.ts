@@ -5,6 +5,7 @@ import {
 	type ReactNode,
 	createElement
 } from "react";
+
 import { jsxDEV } from "react/jsx-dev-runtime";
 import { jsx, jsxs } from "react/jsx-runtime";
 import rehypeHighlight from "rehype-highlight";
@@ -18,31 +19,13 @@ import remarkHeadingId from "remark-heading-id";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import { createHighlighterCore, createOnigurumaEngine } from "shiki";
 // import matter from "gray-matter";
 import { unified } from "unified";
 import { type RehypeFixesOptions, rehypeFixes } from "./pluginRehypeFixes";
 
-interface Result {
-	content: string;
-	meta: object;
-}
-
 export interface CodeData {
 	meta: string;
 }
-
-const highlighter = await createHighlighterCore({
-	themes: [
-		import("@shikijs/themes/vitesse-light"),
-		import("@shikijs/themes/vitesse-dark")
-	],
-	langs: [
-		import("@shikijs/langs/javascript"),
-		import("@shikijs/langs/typescript")
-	],
-	engine: createOnigurumaEngine(() => import("shiki/wasm"))
-});
 
 export async function markdownToHtml(
 	markdown: string,
