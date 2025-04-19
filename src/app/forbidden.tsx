@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils/cn";
 
-export default function NotFoundPage() {
+export default function ForbiddenPage() {
 	return (
 		<div
 			className={cn(
@@ -9,7 +9,7 @@ export default function NotFoundPage() {
 		>
 			<h1 className="flex flex-col text-[8rem] leading-none md:text-[10rem] xl:text-[14rem]">
 				<span className="flex flex-col-reverse justify-between lg:flex-row">
-					<span>404</span>
+					<span>403</span>
 					<picture className="image-rendering-pixelated mx-auto my-auto inline-block aspect-square h-48 lg:mx-0 lg:h-full">
 						<img
 							loading="eager"
@@ -21,7 +21,7 @@ export default function NotFoundPage() {
 				</span>
 				<span className="sr-only">: </span>
 				<span className="text-[2rem] lg:text-[10rem] xl:text-[14rem]">
-					Da way?
+					Forbidden
 				</span>
 			</h1>
 		</div>

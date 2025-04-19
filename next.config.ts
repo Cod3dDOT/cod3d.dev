@@ -1,6 +1,25 @@
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
+const CSP = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' blob:;
+  style-src 'self' 'unsafe-inline';
+  object-src 'none';
+  base-uri 'none';
+  form-action 'self';
+  img-src 'self' data:;
+  frame-ancestors 'none';
+  worker-src blob:;
+  upgrade-insecure-requests;
+  trusted-types default dompurify nextjs#bundler;
+  require-trusted-types-for 'script';
+`
+	.replace(/\s{2,}/g, " ")
+	.trim();
+
 const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
@@ -69,7 +88,23 @@ const nextConfig: NextConfig = {
 					{
 						key: "Access-Control-Allow-Headers",
 						value: "Content-Type, Authorization"
-					}
+					},
+					{
+						key: "Access-Control-Allow-Origin",
+						value: "https://wave.webaim.org"
+					},
+					{
+						key: "Access-Control-Allow-Credentials",
+						value: "true"
+					},
+					...(isProd
+						? [
+								{
+									key: "Content-Security-Policy",
+									value: CSP
+								}
+							]
+						: [])
 				]
 			}
 		]);

@@ -33,61 +33,77 @@ export function splitmix32(a: number = Date.now() * Math.random()): number {
 	return ((t = t ^ (t >>> 15)) >>> 0) / 4294967296;
 }
 
-export async function signToken(data: string, SECRET: Uint8Array) {
-	const key = await crypto.subtle.importKey(
+async function deriveKeyFromPassword(
+	password: string,
+	salt: Uint8Array
+): Promise<CryptoKey> {
+	const enc = new TextEncoder();
+	const passKey = await crypto.subtle.importKey(
 		"raw",
-		SECRET,
-		{ name: "HMAC", hash: "SHA-256" },
+		enc.encode(password),
+		{ name: "PBKDF2" },
 		false,
-		["sign"]
+		["deriveKey"]
 	);
-
-	const signature = await crypto.subtle.sign(
-		"HMAC",
-		key,
-		new TextEncoder().encode(data)
-	);
-
-	// Convert the ArrayBuffer to a hex string
-	return Array.from(new Uint8Array(signature))
-		.map((byte) => byte.toString(16).padStart(2, "0"))
-		.join("");
-}
-
-// Helper to verify the token's signature
-export async function verifyToken(
-	data: string,
-	signature: string,
-	SECRET: Uint8Array
-) {
-	const key = await crypto.subtle.importKey(
-		"raw",
-		SECRET,
-		{ name: "HMAC", hash: "SHA-256" },
+	return crypto.subtle.deriveKey(
+		{
+			name: "PBKDF2",
+			salt,
+			iterations: 100_000,
+			hash: "SHA-256"
+		},
+		passKey,
+		{ name: "AES-GCM", length: 256 },
 		false,
-		["verify"]
-	);
-
-	const expectedSignature = new Uint8Array(
-		signature.match(/.{1,2}/g)?.map((byte) => Number.parseInt(byte, 16)) || []
-	);
-
-	return await crypto.subtle.verify(
-		"HMAC",
-		key,
-		expectedSignature,
-		new TextEncoder().encode(data)
+		["encrypt", "decrypt"]
 	);
 }
 
-export async function generateCspHash(input: string) {
-	// Hash the data using SHA-256
-	const hashBuffer = await crypto.subtle.digest(
-		"SHA-256",
-		new TextEncoder().encode(input)
+/**
+ * Encrypt plaintext with a password-derived key using AES-GCM.
+ * Returns opaque token: salt.iv.ciphertext (all base64).
+ */
+export async function encryptPayload(
+	plaintext: string,
+	password: string
+): Promise<string> {
+	// 128-bit salt for PBKDF2
+	const salt = crypto.getRandomValues(new Uint8Array(16));
+	const key = await deriveKeyFromPassword(password, salt);
+
+	// 96-bit IV for AES-GCM
+	const iv = crypto.getRandomValues(new Uint8Array(12));
+	const cipherBuffer = await crypto.subtle.encrypt(
+		{ name: "AES-GCM", iv },
+		key,
+		new TextEncoder().encode(plaintext)
 	);
 
-	const base64Hash = Buffer.from(hashBuffer).toString("base64");
+	const saltB64 = Buffer.from(salt).toString("base64");
+	const ivB64 = Buffer.from(iv).toString("base64");
+	const ctB64 = Buffer.from(new Uint8Array(cipherBuffer)).toString("base64");
+	return `${saltB64}.${ivB64}.${ctB64}`;
+}
 
-	return `sha256-${base64Hash}`;
+/**
+ * Decrypt opaque token produced by encryptPayload using the same password.
+ */
+export async function decryptPayload(
+	token: string,
+	password: string
+): Promise<string> {
+	const [saltB64, ivB64, ctB64] = token.split(".");
+	if (!saltB64 || !ivB64 || !ctB64) throw new Error("Invalid token format");
+
+	const salt = Uint8Array.from(Buffer.from(saltB64, "base64"));
+	const iv = Uint8Array.from(Buffer.from(ivB64, "base64"));
+	const ct = Buffer.from(ctB64, "base64");
+
+	const key = await deriveKeyFromPassword(password, salt);
+	const plainBuffer = await crypto.subtle.decrypt(
+		{ name: "AES-GCM", iv },
+		key,
+		ct
+	);
+	return new TextDecoder().decode(plainBuffer);
 }
