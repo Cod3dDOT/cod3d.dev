@@ -158,12 +158,6 @@ export default async function Page({ params }: Props) {
 			},
 			{
 				"@type": "ListItem",
-				position: 2,
-				name: "thoughts",
-				item: `${domain}/thoughts`
-			},
-			{
-				"@type": "ListItem",
 				position: 3,
 				name: thought.title,
 				item: thoughtUrl

@@ -48,16 +48,6 @@ export default function manifest(): MetadataRoute.Manifest {
 				form_factor: "wide",
 				label: "cod3d.dev"
 			}
-		],
-		shortcuts: [
-			{
-				name: "Projects",
-				url: "/projects"
-			},
-			{
-				name: "Thoughts",
-				url: "/thoughts"
-			}
 		]
 	};
 }

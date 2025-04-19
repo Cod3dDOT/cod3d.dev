@@ -19,7 +19,7 @@ export const MarkdownImageFailed: React.FC = () => {
 				<img
 					loading="lazy"
 					decoding="async"
-					src="/img/togepi-sad.svg"
+					src="/img/sad-togepi.webp"
 					alt="Sad Togepi"
 					className="m-0 w-20 rounded-lg md:w-72"
 				/>

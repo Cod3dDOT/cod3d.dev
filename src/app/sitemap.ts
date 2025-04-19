@@ -12,18 +12,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 1
-		},
-		{
-			url: "https://cod3d.dev/thoughts",
-			lastModified: new Date(),
-			changeFrequency: "monthly",
-			priority: 0.7
-		},
-		{
-			url: "https://cod3d.dev/projects",
-			lastModified: new Date(),
-			changeFrequency: "monthly",
-			priority: 0.5
 		}
 	];
 
