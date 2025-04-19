@@ -36,7 +36,7 @@ const ThoughtLink: React.FC<{
 							<span
 								key={i.toString() + thought.id}
 								className="whitespace-nowrap rounded-xl border-2 border-transparent bg-background p-3 leading-0 transition-colors group-hover:border-warn group-focus:border-warn"
-								aria-hidden="true"
+								aria-hidden
 							>
 								{tag}
 							</span>
@@ -49,7 +49,7 @@ const ThoughtLink: React.FC<{
 						<time dateTime={thought.created.toISOString()}>
 							{dateToString(thought.created)}
 						</time>
-						<span>cod3d.dev</span>
+						<span aria-hidden>cod3d.dev</span>
 					</div>
 
 					<span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-yellow to-40% to-background" />
