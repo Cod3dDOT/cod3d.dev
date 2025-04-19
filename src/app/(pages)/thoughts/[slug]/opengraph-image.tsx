@@ -1,5 +1,3 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { createServerClient } from "@pocketbase/config";
 import { getThought, getThoughts } from "@pocketbase/req";
 import type { Thought } from "@pocketbase/types";
@@ -32,11 +30,11 @@ export const contentType = "image/png";
 
 const getFonts = async (fonts: string[]) => {
 	const promises = fonts.map(async (font) => {
-		const response = await readFile(
-			join(process.cwd(), `./src/assets/fonts/${font}`)
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_URL}/fonts/${font}`
 		);
 
-		return new Uint8Array(response).buffer;
+		return response.arrayBuffer();
 	});
 
 	return Promise.all(promises);
