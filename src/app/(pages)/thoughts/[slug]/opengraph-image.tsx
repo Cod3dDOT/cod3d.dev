@@ -7,6 +7,7 @@ import type { ImageResponseOptions } from "next/server";
 import sharp, { kernel } from "sharp";
 
 import { dateToString } from "@/lib/utils/date";
+import { readFile } from "node:fs/promises";
 
 export async function generateStaticParams() {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: "created" });
@@ -30,11 +31,19 @@ export const contentType = "image/png";
 
 const getFonts = async (fonts: string[]) => {
 	const promises = fonts.map(async (font) => {
-		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_URL}/fonts/${font}`
-		);
-
-		return response.arrayBuffer();
+		try {
+			const response = await readFile(`./public/fonts/${font}`);
+			return response;
+		} catch (error) {
+			try {
+				const response = await fetch(
+					`${process.env.NEXT_PUBLIC_URL}/fonts/${font}`
+				);
+				return response.arrayBuffer();
+			} catch (error) {
+				throw new Error(`Could not get font ${font}`);
+			}
+		}
 	});
 
 	return Promise.all(promises);
@@ -73,7 +82,7 @@ export default async function Image({
 	const thought = errored ? null : (thoughtResponse as Thought);
 
 	const fontData = await getFonts([
-		"GeistMono-Regular-1.3.otf",
+		"GeistMono-Regular-1-3-for-og.ttf",
 		"PixelifySans-Regular.ttf"
 	]);
 

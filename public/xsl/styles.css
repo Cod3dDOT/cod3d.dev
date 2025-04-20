@@ -1,25 +1,28 @@
 @font-face {
-    font-family: 'Geist Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: url(/fonts/GeistMono-Regular.ttf) format('ttf');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+	font-family: "Geist Mono";
+	font-style: normal;
+	font-weight: 400;
+	src: url(/fonts/GeistMono-Regular.woff2) format("woff2");
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-    font-family: 'Geist';
-    font-style: normal;
-    font-weight: 400;
-    src: url(/fonts/Geist-Regular.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+	font-family: "Geist";
+	font-style: normal;
+	font-weight: 400;
+	src: url(/fonts/Geist-Regular.woff2) format("woff2");
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-    font-family: 'Pixelify Sans';
-    font-style: normal;
-    font-weight: 400 700;
-    src: url(/fonts/PixelifySans-Regular.ttf) format('ttf');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+	font-family: "Pixelify Sans";
+	font-style: normal;
+	font-weight: 400 700;
+	src: url(/fonts/PixelifySans-Regular.ttf) format("ttf");
+	unicode-range:
+		U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 :root {
@@ -29,133 +32,212 @@
 	--green: rgb(80, 224, 80);
 	--red: rgb(203, 39, 66);
 	--black: rgb(0, 0, 0);
-
 	--foreground: rgb(18, 18, 18);
 	--background: rgb(230, 230, 230);
 	--container: rgb(242, 242, 242);
 	--accent-blue: var(--blue);
 	--accent-yellow: var(--yellow);
 }
-
 .dark {
 	--foreground: rgb(242, 242, 242);
 	--background: rgb(51, 51, 51);
 	--container: rgb(34, 34, 34);
 }
 
-.theme-toggle {
-    --size: 2rem;
-    --icon-fill: var(--foreground);
-    --icon-fill-hover: var(--accent-blue);
-
-    background: none;
-    border: none;
-    padding: 0;
-    inline-size: var(--size);
-    block-size: var(--size);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    cursor: pointer;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    outline-offset: 5px;
-}
-
-.theme-toggle > svg {
-    inline-size: 100%;
-    block-size: 100%;
-    stroke-linecap: round;
-}
-
-@media (hover: none) {
-    .theme-toggle { --size: 48px; }
-}
-
-.sun-and-moon > :is(.moon, .sun, .sun-beams) {
-    transform-origin: center center;
-}
-
-.sun-and-moon > .sun {
-    transition: transform .5s ease-in-out;
-}
-
-
-.sun-and-moon > .moon > circle {
-    transition: transform .25s ease-in-out;
-}
-
-.dark {
-    .sun-and-moon > .sun-beams {
-        opacity: 0;
-    }
-
-    .sun-and-moon > .moon > circle {
-        transform: translateX(-7px);
-    }
-
-    .sun-and-moon > .sun {
-        transform: scale(1.75);
-    }
-}
-
-.pixelify-sans {
-    font-family: "Pixelify Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: normal;
-    font-style: normal;
-    -webkit-font-smoothing: none;
-    -moz-osx-font-smoothing: grayscale;
-    font-smooth: none;
-}
-
-.geist {
-    font-family: "Geist", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: normal;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.geist-mono {
-    font-family: "Geist Mono", monospace;
-    font-optical-sizing: auto;
-    font-weight: normal;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+/* Global Reset and Base */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-    --scrollbar-gutter: 0px;
+	--scrollbar-gutter: 0px;
 }
-
-* {
-    scrollbar-width: thin;
-}
-
 body {
-    min-height: 100vh;
-    overscroll-behavior: none;
-    background-color: var(--background);
-    color: var(--foreground);
-    display: flex;
-    flex-direction: column;
+	min-height: 100vh;
+	background-color: var(--background);
+	color: var(--foreground);
+	font-family: "Geist", sans-serif;
+	display: flex;
+	flex-direction: column;
+	overscroll-behavior: none;
+	transition: color 0.2s, background-color 0.2s;
+}
+*::selection {
+	background-color: var(--accent-yellow);
+}
+.dark *::selection {
+	background-color: var(--accent-blue);
+}
+.container {
+	max-width: 48rem; /* ~3xl */
+	width: 100%;
+	margin: 0 auto;
+	padding: 2.5rem 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
 }
 
-*::selection {
-    background-color: var(--accent-yellow);
+a {
+	all: unset;
+	color: var(--foreground);
+	cursor: pointer;
+}
+
+button {
+	all: unset;
+}
+
+/* Navigation */
+.nav {
+	padding: 1rem;
+	font-size: 0.875rem;
+	background: color-mix(in srgb, var(--accent-blue) 20%, transparent);
+	border: 2px solid var(--accent-blue);
+	border-radius: 0.75rem;
+	align-items: center;
+	gap: 0.25rem;
+}
+.nav svg {
+	width: 1.5rem;
+	height: 1.5rem;
+	stroke: var(--foreground);
+	vertical-align: middle;
+}
+
+/* Header */
+.feed-header h1 {
+	font-size: 1.25rem;
+	color: var(--accent-blue);
+}
+.feed-header p {
+	margin-top: 0.5rem;
+	font-size: 1.125rem;
+}
+.feed-header a {
+	display: inline-block;
+	margin-top: 0.5rem;
+	font-size: 1rem;
+	color: var(--accent-blue);
+	text-decoration: none;
+	cursor: pointer;
+}
+.feed-header a:hover {
+	text-decoration: underline;
+}
+
+/* Recent Items Section */
+.recent-items h2 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+.feed-item {
+	display: block;
+	cursor: pointer;
+	position: relative;
+	padding: 0.5rem 1rem;
+	margin-bottom: 1rem;
+	border: 2px solid var(--container);
+	border-radius: 0.75rem;
+	background: radial-gradient(
+		circle at top right,
+		var(--accent-yellow) 0%,
+		var(--background) 50%
+	);
+	text-decoration: none;
+	transition: border-color 0.2s;
+	overflow: hidden;
+	gap: 0.5rem;
+}
+.feed-item:hover {
+	border-color: var(--accent-yellow);
+}
+.feed-item-tags {
+	display: flex;
+	gap: 1rem;
+	font-size: 0.875rem;
+}
+.feed-item-tags span {
+	color: var(--accent-blue);
+}
+.feed-item-title {
+	font-size: 1.25rem;
+	margin-top: 0.75rem;
+	font-weight: lighter !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.feed-item-meta {
+	display: flex;
+	justify-content: space-between;
+	font-family: "Geist Mono", monospace;
+	font-size: 0.875rem;
+	margin-top: 0.75rem;
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+	--size: 2rem;
+	--icon-fill: var(--foreground);
+	--icon-fill-hover: var(--accent-blue);
+
+	background: none;
+	border: none;
+	padding: 0;
+	inline-size: var(--size);
+	block-size: var(--size);
+	aspect-ratio: 1;
+	border-radius: 50%;
+	cursor: pointer;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+	outline-offset: 5px;
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	z-index: 9999;
+}
+
+#theme-toggle > svg {
+	inline-size: 100%;
+	block-size: 100%;
+	stroke-linecap: round;
+}
+
+@media (hover: none) {
+	#theme-toggle {
+		--size: 48px;
+	}
+}
+
+.sun-and-moon > :is(.moon, .sun, .sun-beams) {
+	transform-origin: center center;
+}
+
+.sun-and-moon > .sun {
+	transition: transform .5s ease-in-out;
+}
+
+.sun-and-moon > .moon > circle {
+	transition: transform .25s ease-in-out;
 }
 
 .dark {
-    *::selection {
-        background-color: var(--accent-blue);
-    }
-}
+	.sun-and-moon > .sun-beams {
+		opacity: 0;
+	}
 
+	.sun-and-moon > .moon > circle {
+		transform: translateX(-7px);
+	}
 
-.image-rendering-pixelated {
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
+	.sun-and-moon > .sun {
+		transform: scale(1.75);
+	}
 }

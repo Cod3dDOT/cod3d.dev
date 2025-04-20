@@ -9,55 +9,50 @@
         <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
             <head>
                 <title>
-                    RSS •
+					RSS •
                     <xsl:value-of select="/rss/channel/title" />
                 </title>
                 <meta charset="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <script src="/xsl/tw.js" />
                 <link rel="stylesheet" href="/xsl/styles.css" />
 
                 <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        const button = document.getElementById("theme-toggle");
-                        button?.addEventListener("click", () => {
-                            document.documentElement.classList.toggle("dark");
-                            localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
-                        });
+					document.addEventListener("DOMContentLoaded", () => {
+						const button = document.getElementById("theme-toggle");
+						button?.addEventListener("click", () => {
+							document.documentElement.classList.toggle("dark");
+							localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+						});
 
-                        const saved = localStorage.getItem("theme");
-                        if (saved === "dark") document.documentElement.classList.add("dark");
-                    });
+						const saved = localStorage.getItem("theme");
+						if (saved === "dark") document.documentElement.classList.add("dark");
+					});
                 </script>
             </head>
-            <body class="bg-[var(--background)] text-[var(--foreground)] geist transition-colors">
-                <div class="max-w-3xl w-full mx-auto px-6 py-10 space-y-12">
-                    <nav class="p-4 text-sm bg-[var(--accent-blue)]/20 rounded-xl border-[var(--accent-blue)] border-2">
-                        <span>
-                            <strong>This is a web feed</strong>
-                        </span>
-                        <span>, also known as an </span>
-                        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" color="var(--foreground)" class="inline mb-2">
-                            <path d="M12 19C12 14.8 9.2 12 5 12" stroke="var(--foreground)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M19 19C19 10.6 13.4 5 5 5" stroke="var(--foreground)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M5 19.01L5.01 18.9989" stroke="var(--foreground)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <body>
+                <div class="container">
+                    <nav class="nav">
+                        <strong>This is a web feed</strong>
+                        <span>, also known as an</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 19C12 14.8 9.2 12 5 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19 19C19 10.6 13.4 5 5 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5 19.01L5.01 18.9989" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <span> RSS feed. </span>
-                        <span>
-                            <strong>Subscribe</strong>
-                        </span>
+                        <span>RSS feed. </span>
+                        <strong>Subscribe</strong>
                         <span> by copying the URL from the address bar into your newsreader.</span>
                     </nav>
 
-                    <header>
-                        <h1 class="text-xl text-[var(--accent-blue)]">
-                            <xsl:value-of select="/rss/channel/title" />
+                    <header class="feed-header">
+                        <h1>
+                            <xsl:value-of select="/rss/channel/title"/>
                         </h1>
-                        <p class="mt-2 text-lg">
-                            <xsl:value-of select="/rss/channel/description" />
+                        <p>
+                            <xsl:value-of select="/rss/channel/description"/>
                         </p>
-                        <a class="text-[var(--accent-blue)] hover:underline inline-block mt-2" target="_blank">
+                        <a target="_blank">
                             <xsl:attribute name="href">
                                 <xsl:value-of select="/rss/channel/link" />
                             </xsl:attribute>
@@ -65,32 +60,23 @@
                         </a>
                     </header>
 
-                    <section>
-                        <h2 class="text-2xl font-semibold mb-4">Recent Items</h2>
+                    <section class="recent-items">
+                        <h2>Recent Items</h2>
                         <xsl:for-each select="/rss/channel/item">
-                            <a target="_blank" class="relative space-y-2 px-4 py-2 mb-4 rounded-xl border-2 border-[var(--container)] overflow-hidden block hover:border-[var(--accent-yellow)] transition-colors" style="background: radial-gradient(circle at top right, rgb(224,191,81) 0%, var(--background) 50%);">
-                                <xsl:attribute name="href">
-                                    <xsl:value-of select="link" />
-                                </xsl:attribute>
-
-                                <!-- Tags -->
-                                <div class="flex gap-4 text-sm">
+                            <a class="feed-item" href="{link}" target="_blank">
+                                <div class="feed-item-tags">
                                     <xsl:for-each select="category[position() &lt;= 3]">
-                                        <span class="text-[var(--accent-blue)]">
-                                            <xsl:value-of select="." />
+                                        <span>
+                                            <xsl:value-of select="."/>
                                         </span>
                                     </xsl:for-each>
                                 </div>
-
-                                <!-- Title -->
-                                <h3 class="text-xl">
-                                    <xsl:value-of select="title" />
+                                <h3 class="feed-item-title">
+                                    <xsl:value-of select="title"/>
                                 </h3>
-
-                                <!-- Date + cod3d.dev -->
-                                <div class="flex justify-between geist-mono text-sm">
+                                <div class="feed-item-meta">
                                     <time>
-                                        <xsl:value-of select="pubDate" />
+                                        <xsl:value-of select="pubDate"/>
                                     </time>
                                     <span>cod3d.dev</span>
                                 </div>
@@ -99,7 +85,7 @@
                     </section>
                 </div>
 
-                <button id="theme-toggle" class="group aspect-square cursor-pointer touch-manipulation hover:scale-95 fixed top-4 right-4 z-50 w-8 h-8" aria-label="Theme switch">
+                <button id="theme-toggle" aria-label="Theme switch">
                     <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
                         <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
                         <g class="sun-beams" stroke="currentColor">

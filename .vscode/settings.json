@@ -1,6 +1,7 @@
 {
 	"files.associations": {
-		"*.css": "tailwindcss"
+		"**/src/styles/tailwind.css": "tailwindcss",
+		"**/src/styles/markdown.css": "tailwindcss"
 	},
 	"search.exclude": {
 		"**/.git": true,
