@@ -15,6 +15,6 @@ export default function robots(): MetadataRoute.Robots {
 				"*/download"
 			]
 		},
-		sitemap: "https://cod3d.dev/sitemap.xml"
+		sitemap: `${process.env.SITE_URL}/sitemap.xml`
 	};
 }

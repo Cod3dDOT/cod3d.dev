@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const client = createServerClient();
 	const thoughtResponse = await getThought(client, slug);
 
-	const domain = process.env.NEXT_PUBLIC_URL;
+	const domain = process.env.SITE_URL;
 	const thoughtUrl = `${domain}/thoughts/${slug}`;
 
 	if (isError(thoughtResponse)) {
@@ -119,7 +119,7 @@ export default async function Page({ params }: Props) {
 	const markdown = await markdownResponse.text();
 	const time = readingTime(markdown);
 
-	const domain = process.env.NEXT_PUBLIC_URL;
+	const domain = process.env.SITE_URL;
 	const thoughtUrl = `${domain}/thoughts/${slug}`;
 
 	const jsonLd: WithContext<TechArticle> = {
@@ -153,7 +153,7 @@ export default async function Page({ params }: Props) {
 			{
 				"@type": "ListItem",
 				position: 1,
-				name: "cod3d.dev",
+				name: "Home page",
 				item: domain
 			},
 			{

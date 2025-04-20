@@ -8,14 +8,14 @@ export const revalidate = 3600;
 const jsonLd: WithContext<WebPage> = {
 	"@context": "https://schema.org",
 	"@type": "WebPage",
-	url: process.env.NEXT_PUBLIC_URL,
+	url: process.env.SITE_URL,
 	mainEntityOfPage: {
 		"@type": "WebPage",
-		"@id": process.env.NEXT_PUBLIC_URL
+		"@id": process.env.SITE_URL
 	},
 	name: "cod3d's thoughts | A place where I share my struggles",
 	description: "Probably trying to hack you. Or sleeping. Or both.",
-	image: `${process.env.NEXT_PUBLIC_URL}/img/og/og.webp`,
+	image: `${process.env.SITE_URL}/img/og/og.webp`,
 	author: {
 		"@type": "Person",
 		name: "cod3d",

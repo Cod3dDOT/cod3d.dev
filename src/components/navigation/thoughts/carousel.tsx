@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SpotlightCard } from "@/components/effects/spotlightCard";
 import { cn } from "@/lib/utils/cn";
 import { dateToString } from "@/lib/utils/date";
+import { isError } from "@/pocketbase/utils";
 
 const shimmer =
 	"overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/10 before:to-transparent";
@@ -49,7 +50,7 @@ const ThoughtLink: React.FC<{
 						<time dateTime={thought.created.toISOString()}>
 							{dateToString(thought.created)}
 						</time>
-						<span aria-hidden>cod3d.dev</span>
+						<span aria-hidden>{process.env.SITE_NAME}</span>
 					</div>
 
 					<span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-yellow to-40% to-background" />
@@ -93,7 +94,7 @@ const ThoughtLinkSkeleton: React.FC = () => {
 					<span
 						className={cn("relative h-[calc(1lh)] w-24 rounded-md", shimmer)}
 					/>
-					<span>cod3d.dev</span>
+					<span>{process.env.SITE_NAME}</span>
 				</div>
 			</div>
 		</div>
@@ -102,6 +103,12 @@ const ThoughtLinkSkeleton: React.FC = () => {
 
 export const ThoughtsCarousel: React.FC = async () => {
 	const thoughtReponse = await getThoughts(1, 2, { sort: "-created" });
+
+	if (isError(thoughtReponse)) {
+		console.error("Could not get thoughts");
+		return null;
+	}
+
 	const thoughts = thoughtReponse as Thought[];
 
 	return (

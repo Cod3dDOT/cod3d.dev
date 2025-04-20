@@ -28,7 +28,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://cod3d.dev"), // takes effect only in production
+	metadataBase: new URL(process.env.SITE_URL), // takes effect only in production
 	title: "cod3d's den",
 	description: "Probably trying to hack you. Or sleeping. Or both.",
 	creator: "cod3d",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 			"en-US": "/"
 		},
 		types: {
-			"application/rss+xml": "https://cod3d.dev/feed.xml"
+			"application/rss+xml": `${process.env.SITE_URL}/feed.xml`
 		}
 	},
 	robots: {
@@ -58,13 +58,13 @@ export const metadata: Metadata = {
 	openGraph: {
 		type: "website",
 		locale: "en_US",
-		url: "https://cod3d.dev",
+		url: process.env.SITE_URL,
 		title: "cod3d's den",
 		description: "Probably trying to hack you. Or sleeping. Or both.",
 		siteName: "cod3d's den",
 		images: [
 			{
-				url: "/img/og/og.webp",
+				url: `${process.env.SITE_URL}/img/og/og.webp`,
 				width: 1200,
 				height: 675,
 				alt: "cod3d"
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
 		creator: "@cod3ddot",
 		site: "cod3d's den",
 		images: {
-			url: "https://cod3d.dev/img/og/og.webp", // Must be an absolute URL
+			url: `${process.env.SITE_URL}/img/og/og.webp`, // Must be an absolute URL
 			alt: "cod3d"
 		}
 	},
@@ -118,8 +118,8 @@ export default function RootLayout({
 					async
 					src="/um.js"
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
-					data-domains="cod3d.dev"
-					data-host-url="https://cod3d.dev"
+					data-domains={process.env.SITE_NAME}
+					data-host-url={process.env.SITE_URL}
 				/>
 			</body>
 		</html>

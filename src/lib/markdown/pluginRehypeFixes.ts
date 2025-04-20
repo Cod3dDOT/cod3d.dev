@@ -23,9 +23,17 @@ export function findImageVariants(
 	for (const path of paths) {
 		if (path.includes(name)) {
 			if (/[_-]dark/i.test(path)) {
-				dark = path;
+				// since images are exposed to the public,
+				// hide the host url using rewrites (check next.config.ts)
+				dark = path.replace(
+					`https://${process.env.POCKETBASE_HOST}`,
+					process.env.SITE_URL
+				);
 			} else {
-				light = path;
+				light = path.replace(
+					`https://${process.env.POCKETBASE_HOST}`,
+					process.env.SITE_URL
+				);
 			}
 		}
 	}

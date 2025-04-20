@@ -12,12 +12,13 @@ export async function GET() {
 	const thoughtsResponse = await getThoughts();
 
 	if (isError(thoughtsResponse)) {
-		console.error("Could not get thoughts while compiling feed.xml");
-		return new Response(null, { status: 500 });
+		return new Response("Could not get thoughts while compiling feed.xml", {
+			status: 500
+		});
 	}
 
 	const thoughts = thoughtsResponse as Thought[];
-	const siteUrl = process.env.NEXT_PUBLIC_URL;
+	const siteUrl = process.env.SITE_URL;
 
 	const feedOptions: FeedOptions = {
 		title: "cod3d's thoughts",

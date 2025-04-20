@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
 	return {
-		name: "cod3d.dev",
-		short_name: "cod3d.dev",
+		name: process.env.SITE_NAME,
+		short_name: process.env.SITE_NAME,
 		description: "Probably trying to hack you. Or sleeping. Or both.",
 		start_url: "/",
 		lang: "en",
@@ -39,14 +39,14 @@ export default function manifest(): MetadataRoute.Manifest {
 				sizes: "363x811",
 				type: "image/png",
 				form_factor: "narrow",
-				label: "cod3d.dev"
+				label: "Mobile screenshot"
 			},
 			{
 				src: "/pwa/screenshots/desktop.png",
 				sizes: "1647x923",
 				type: "image/png",
 				form_factor: "wide",
-				label: "cod3d.dev"
+				label: "Desktop screenshot"
 			}
 		]
 	};

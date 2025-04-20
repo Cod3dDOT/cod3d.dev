@@ -12,7 +12,7 @@ const _Footer: React.FC = () => {
 			<footer className="bg-background px-10 py-8 md:px-20">
 				<div className="container mx-auto flex justify-between xl:max-w-full">
 					<p>
-						<span>cod3d.dev</span>
+						<span>{process.env.SITE_NAME}</span>
 						<span> @ 2024</span>
 					</p>
 					<p>Made with ☕</p>

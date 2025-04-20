@@ -8,7 +8,7 @@ export const revalidate = 86400;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const staticSitemap: MetadataRoute.Sitemap = [
 		{
-			url: "https://cod3d.dev",
+			url: process.env.SITE_URL,
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 1
@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const thoughts = thoughtsResponse as Thought[];
 
 	const withThoughts: MetadataRoute.Sitemap = thoughts.map((thought) => ({
-		url: `https://cod3d.dev/thoughts/${thought.slug}`,
+		url: `${process.env.SITE_URL}/thoughts/${thought.slug}`,
 		lastModified: thought.updated
 	}));
 

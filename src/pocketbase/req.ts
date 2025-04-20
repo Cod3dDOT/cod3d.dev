@@ -105,6 +105,16 @@ export async function getThoughts(
 				expand: "tags"
 			});
 
+		if (thoughts.items.length === 0) {
+			return {
+				url: "/thoughts",
+				status: 404,
+				response: {},
+				isAbort: false,
+				originalError: null
+			} as ClientResponseError;
+		}
+
 		const thoughtsList = processThoughts(client, thoughts.items);
 
 		return thoughtsList;

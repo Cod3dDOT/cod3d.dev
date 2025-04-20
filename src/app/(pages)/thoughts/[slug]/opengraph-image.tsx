@@ -36,9 +36,7 @@ const getFonts = async (fonts: string[]) => {
 			return response;
 		} catch (error) {
 			try {
-				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_URL}/fonts/${font}`
-				);
+				const response = await fetch(`${process.env.SITE_URL}/fonts/${font}`);
 				return response.arrayBuffer();
 			} catch (error) {
 				throw new Error(`Could not get font ${font}`);
@@ -134,7 +132,7 @@ export default async function Image({
 					{image && (
 						<picture className="h-full w-full">
 							<img
-								alt="cod3d.dev"
+								alt="Hero of the thought"
 								src={image}
 								tw="mt-auto w-38 h-full"
 								width={66}
@@ -155,7 +153,7 @@ export default async function Image({
 						{thought ? dateToString(thought.created) : "At the end of times"}
 					</time>
 
-					<span>cod3d.dev</span>
+					<span>{process.env.SITE_NAME}</span>
 				</div>
 			</div>
 		</div>,

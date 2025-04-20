@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils/cn";
 
 const asBase64 = async (src: string) => {
-	const res = await fetch(new URL(src, "https://cod3d.dev"));
+	const res = await fetch(src);
 	const buffer = await res.arrayBuffer();
 	const base64 = Buffer.from(buffer).toString("base64");
 	return `data:image/webp;base64,${base64}`;
