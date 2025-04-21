@@ -8,6 +8,21 @@ html {
 
 * {
     scrollbar-width: thin;
+    scrollbar-color: var(--foreground) transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--foreground);
+    border-radius: 10px;
+    border: 3px solid transparent;
 }
 
 body {
@@ -19,6 +34,7 @@ body {
     flex-direction: column;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scrollbar-gutter: stable;
 }
 
 *::selection {
