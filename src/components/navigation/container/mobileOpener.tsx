@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from "react";
 import ChevronIcon from "@/components/icons/chevron";
 import HomeIcon from "@/components/icons/home";
 import { ThemeSwitch } from "@/components/themeSwitch";
-import { useNavigation } from "@/lib/context/navigationContext";
+import { useNavigation } from "@/lib/context/navigation";
 import { cn } from "@/lib/utils/cn";
 
 export const MobileOpener: React.FC = React.memo(() => {

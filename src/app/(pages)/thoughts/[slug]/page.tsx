@@ -8,13 +8,13 @@ import { notFound } from "next/navigation";
 import type { BreadcrumbList, TechArticle, WithContext } from "schema-dts";
 
 import { Footer } from "@/components/footer";
-import readingTime from "@/lib/readingTime";
+import readingTime from "@/lib/markdown/readingTime";
 import { minutesToDuration } from "@/lib/utils/date";
 import { ThoughtHeader } from "./(components)/header";
 import { MarkdownWrapper } from "./(components)/markdown/wrapper";
 
-// export const experimental_ppr = true;
-export const revalidate = 86400;
+export const revalidate = 86400; // revalidate every day
+export const dynamicParams = true; // if path that hasn't been generated, server-render on-demand
 
 type Props = {
 	params: Promise<{ slug: string }>;
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 				title: "cod3d's thoughts",
 				description:
 					"There has been an error retrieving the thought. Try to visit the website and reload the page.",
-				siteName: "cod3d's den"
+				siteName: process.env.SITE_NAME
 			}
 		};
 	}
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		alternates: {
 			canonical: thoughtUrl,
 			types: {
-				"application/rss+xml": `${domain}/feed.xml`
+				"application/rss": `${domain}/feed.xml`
 			}
 		},
 		keywords: thought.tags,
@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: thought.title,
 			description: thought.description,
 			creator: "@cod3ddot",
-			site: "cod3d's den"
+			site: process.env.SITE_URL
 		}
 	};
 }

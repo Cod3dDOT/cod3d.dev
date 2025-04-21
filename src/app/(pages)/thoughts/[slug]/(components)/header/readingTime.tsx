@@ -1,4 +1,4 @@
-import readingTime from "@/lib/readingTime";
+import readingTime from "@/lib/markdown/readingTime";
 
 export const ReadingTime: React.FC<{
 	markdown: string;

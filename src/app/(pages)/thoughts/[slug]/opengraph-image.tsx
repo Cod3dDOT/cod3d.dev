@@ -4,7 +4,6 @@ import type { Thought } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";
 import { ImageResponse } from "next/og";
 import type { ImageResponseOptions } from "next/server";
-import sharp, { kernel } from "sharp";
 
 import { dateToString } from "@/lib/utils/date";
 import { readFile } from "node:fs/promises";
@@ -55,16 +54,9 @@ const getImage = async (hero: string) => {
 	}
 
 	const buffer = await response.arrayBuffer();
-	const imageData = await sharp(buffer)
-		.png()
-		.resize({
-			width: size.width,
-			height: size.height,
-			kernel: kernel.nearest
-		})
-		.toBuffer();
+	const base64 = Buffer.from(buffer).toString("base64");
 
-	return `data:image/png;base64,${imageData.toString("base64")}`;
+	return `data:image/png;base64,${base64}`;
 };
 
 export default async function Image({

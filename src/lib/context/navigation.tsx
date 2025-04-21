@@ -1,4 +1,5 @@
-import type React from "react";
+"use client";
+
 import {
 	createContext,
 	memo,
@@ -38,7 +39,6 @@ const NavigationProvider = memo(function NavigationProvider({
 		setIsOpen((prev) => !prev);
 	}, []);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	const contextValue = useMemo(
 		() => ({
 			isOpen,
@@ -46,7 +46,7 @@ const NavigationProvider = memo(function NavigationProvider({
 			closeNav,
 			toggleNav
 		}),
-		[isOpen]
+		[isOpen, openNav, closeNav, toggleNav]
 	);
 
 	return (

@@ -4,8 +4,7 @@ interface NavigatorWithBattery extends Navigator {
 	getBattery?: () => Promise<{ charging: boolean; level: number }>;
 }
 
-export function useDeviceDetection() {
-	const breakpoint = 1024;
+export function useDeviceDetection(breakpoint = 1024) {
 	const isMobile = useMediaQuery(`(max-width: ${breakpoint - 1}px)`);
 	const isDesktop = useMediaQuery(`(min-width: ${breakpoint}px)`);
 	const isReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");

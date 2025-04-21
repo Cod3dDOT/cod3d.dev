@@ -3,7 +3,7 @@ import type { WebPage, WithContext } from "schema-dts";
 import { ColorfulBlobs } from "./(components)/blobs";
 import { SyncedRotationWrapper } from "./(components)/syncedRotationWrapper";
 
-export const revalidate = 3600;
+export const revalidate = 86400; // revalidate every day
 
 const jsonLd: WithContext<WebPage> = {
 	"@context": "https://schema.org",

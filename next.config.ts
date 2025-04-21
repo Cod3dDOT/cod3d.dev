@@ -24,7 +24,8 @@ const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
 	experimental: {
-		viewTransition: true
+		// viewTransition: true, // FIXME not actually implemented
+		// ppr: true // FIXME Investigate: makes every navigation reload the page? weird and broken
 	},
 	images: {
 		formats: ["image/avif", "image/webp"],

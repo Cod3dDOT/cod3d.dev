@@ -1,6 +1,4 @@
 "use client";
-
-import { ReactLenis } from "lenis/react";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import {
@@ -12,10 +10,12 @@ import {
 	useRef
 } from "react";
 
-import { useNavigation } from "@/lib/context/navigationContext";
+import { useNavigation } from "@/lib/context/navigation";
 import { cn } from "@/lib/utils/cn";
 import { DesktopOpener } from "./desktopOpener";
 import { MobileOpener } from "./mobileOpener";
+import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
+import { ReactLenis } from "lenis/react";
 
 type NavigationProps = {
 	children?: React.ReactNode;
@@ -51,9 +51,9 @@ const useAutoClose = ({
 
 const TRANSITION = "duration-300 ease-in-out";
 
-const MemoizedLenis: React.FC<{ children: React.ReactNode }> = memo(
+const ScrollContainer: React.FC<{ children: React.ReactNode }> = memo(
 	({ children }) => {
-		const options = useMemo(() => ({ duration: 1.5 }), []);
+		const options = useMemo(() => ({ duration: 1.5, overscroll: false }), []);
 
 		return (
 			<ReactLenis
@@ -66,20 +66,21 @@ const MemoizedLenis: React.FC<{ children: React.ReactNode }> = memo(
 	}
 );
 
-MemoizedLenis.displayName = "Lenis";
+ScrollContainer.displayName = "Lenis";
 
 export const NavigationContainer: React.FC<NavigationProps> = ({
 	children
 }) => {
 	const pathname = usePathname();
 	const menu = useRef<HTMLDivElement>(null);
+	const { isMobile, isDesktop } = useDeviceDetection();
 
 	const { isOpen, closeNav } = useNavigation();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: closes nav on route change
 	useEffect(() => {
 		closeNav();
-	}, [closeNav, pathname]);
+	}, [pathname]);
 
 	useAutoClose({ closeNav, menu });
 
@@ -106,10 +107,14 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 				)}
 			>
 				<DesktopOpener />
-
 				<MobileOpener />
 				<div inert={!isOpen} className="w-full">
-					<MemoizedLenis>{children}</MemoizedLenis>
+					{isDesktop && <ScrollContainer>{children}</ScrollContainer>}
+					{isMobile && (
+						<div className="h-full w-full space-y-16 overflow-hidden overflow-y-auto overscroll-none p-8 pt-20 sm:pt-8">
+							{children}
+						</div>
+					)}
 				</div>
 			</div>
 		</nav>

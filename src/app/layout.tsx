@@ -8,8 +8,8 @@ import { Pixelify_Sans } from "next/font/google";
 import Script from "next/script";
 
 import { Navigation } from "@/components/navigation";
-import { Providers } from "@/components/providers";
 import { cn } from "@/lib/utils/cn";
+import { Providers } from "./providers";
 
 const font = Pixelify_Sans({
 	subsets: ["latin"],
@@ -59,27 +59,27 @@ export const metadata: Metadata = {
 		type: "website",
 		locale: "en_US",
 		url: process.env.SITE_URL,
-		title: "cod3d's den",
+		title: process.env.SITE_NAME,
 		description: "Probably trying to hack you. Or sleeping. Or both.",
-		siteName: "cod3d's den",
+		siteName: process.env.SITE_NAME,
 		images: [
 			{
 				url: `${process.env.SITE_URL}/img/og/og.webp`,
 				width: 1200,
 				height: 675,
-				alt: "cod3d"
+				alt: process.env.SITE_NAME
 			}
 		]
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "cod3d's den",
+		title: process.env.SITE_NAME,
 		description: "Probably trying to hack you. Or sleeping. Or both.",
 		creator: "@cod3ddot",
-		site: "cod3d's den",
+		site: process.env.SITE_URL,
 		images: {
 			url: `${process.env.SITE_URL}/img/og/og.webp`, // Must be an absolute URL
-			alt: "cod3d"
+			alt: process.env.SITE_NAME
 		}
 	},
 	verification: {}

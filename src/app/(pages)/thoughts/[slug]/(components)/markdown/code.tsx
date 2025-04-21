@@ -54,7 +54,7 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 			)}
 
 			<pre
-				className="max-h-[70vh] md:max-h-none print:max-h-none print:px-0!"
+				className="max-h-[70vh] cursor-pointer md:max-h-none print:max-h-none print:px-0!"
 				id={id}
 			>
 				{children}
