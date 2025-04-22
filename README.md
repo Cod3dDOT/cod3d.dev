@@ -1,8 +1,23 @@
-[![cod3d.dev](https://your-banner-url-here.gif)](https://github.com/cod3ddot/cod3d.dev)
+[![cod3d.dev](https://cod3d.dev/img/readme-next.cod3d.dev.gif)](https://github.com/cod3ddot/cod3d.dev)
 
 # cod3d.dev
 
 Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase.
+
+## Sitemap
+
+```
+├── /                    # Landing page
+├── thoughts/
+│   └── [article]/       # Article page
+│       └── download/    # Article download endpoint
+├── feed.xml             # RSS feed
+├── sitemap.xml          # Sitemap
+├── pgp-key.txt          # PGP to verify ownership
+├── security.txt         # See https://securitytxt.org/, signed using pgp-key.txt
+├── ads.txt              # See https://iabtechlab.com/ads-txt/
+└── app-ads.txt          # See https://iabtechlab.com/ads-txt/
+```
 
 ## Quick Setup
 
@@ -62,7 +77,7 @@ Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase
 - **Styling & Design**
   - [TailwindCSS v4](https://tailwindcss.com)
   - [Geist & Geist Mono](https://vercel.com/font), [Pixelify Sans](https://fonts.google.com/specimen/Pixelify+Sans) fonts
-  - Dark/Light theme support
+  - [next-themes](https://github.com/pacocoursey/next-themes) for theming
 
 - **Content & Data**
   - [PocketBase](https://pocketbase.io) for backend
@@ -70,7 +85,6 @@ Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase
 
 - **Animation & Interaction**
   - [Lenis](https://github.com/darkroomengineering/lenis) for smooth scrolling
-  - [View transitions](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API)
 
 - **Development Tools**
   - [Biome](https://biomejs.dev) for linting & formatting
@@ -90,20 +104,15 @@ Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase
 - `bun generate:pokemons` - Generate Pokemon data
 - `bun commit` - Interactive commit with conventional commit standards
 
-### Security Features
-- Content Security Policy (CSP)
-- Strict CORS settings
-- Trusted Types enforcement
+## Features
 
-## Blog Features
-
-- Markdown with frontmatter support
-- Syntax highlighting
-- Math equations (KaTeX)
+- Markdown with frontmatter support, syntax highlighting, KaTeX and more.
 - Reading time estimation
 - Image theming
-- Code highlighting
 - RSS feed
+- Relaxed Content Security Policy (CSP)
+- Strict CORS settings
+- Trusted Types enforcement
 
 ## Git Workflow
 
@@ -121,7 +130,7 @@ Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase
 
 ## License
 
-   Copyright 2025 cod3ddot
+   Copyright 2025 cod3ddot@proton.me
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
