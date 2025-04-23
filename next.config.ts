@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
 		// ppr: true // FIXME Investigate: makes every navigation reload the page? weird and broken
 	},
 	images: {
-		formats: ["image/avif", "image/webp"],
+		unoptimized: true,
 		contentDispositionType: "attachment"
 	},
 	async rewrites() {

@@ -4,6 +4,9 @@
 
 Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase.
 
+Visit: [cod3d.dev](https://cod3d.dev)
+[analytics.cod3d.dev](https://analytics.cod3d.dev)
+
 ## Sitemap
 
 ```
@@ -46,24 +49,26 @@ Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase
 
 ```
 ├── src/
-│   ├── app/                 # Next.js application pages and routes
-│   │   └── (pages)/         # Page components and layouts
-│   ├── components/          # Reusable UI components
-│   │   ├── effects/         # Reusable effects
-│   │   ├── footer/          # Footer and its components
-│   │   ├── icons/           # Well, icons
-│   │   ├── navigation/      # Navigation drawer
-│   │   └── ...              # Other reusable UI components
-│   ├── lib/                 # Utility functions and hooks
-│   │   ├── hooks/           # Custom React hooks
-│   │   ├── context/         # Custom React contexts
-│   │   ├── markdown/        # Markdown processing utilities
-│   │   ├── utils/           # General utilites
-│   │   └── trustedTypes.ts  # Enables trusted types
-│   ├── pocketbase/          # PocketBase configuration and client
-│   └── styles/              # Global styles and theming
-├── public/                  # Static assets and PWA files
-└── scripts/                 # Scripts to generate some fun
+│   ├── app/                    # Next.js application pages and routes
+│   │   └── (pages)/
+│   │       ├── (components)/   # UI components specific to route
+│   │       └── page.tsx/       # UI components for route
+│   ├── components/             # Reusable UI components
+│   │   ├── effects/            # Reusable effects
+│   │   ├── footer/             # Footer and its components
+│   │   ├── icons/              # Well, icons
+│   │   ├── navigation/         # Navigation drawer
+│   │   └── ...                 # Other reusable UI components
+│   ├── lib/                    # Utility functions and hooks
+│   │   ├── hooks/              # Custom React hooks
+│   │   ├── context/            # Custom React contexts
+│   │   ├── markdown/           # Markdown processing utilities
+│   │   ├── utils/              # General utilites
+│   │   └── trustedTypes.ts     # Enables trusted types
+│   ├── pocketbase/             # PocketBase configuration and client
+│   └── styles/                 # Global styles and theming
+├── public/                     # Static assets and PWA files
+└── scripts/                    # Scripts to generate some fun
 ```
 
 ## Core Technologies
@@ -91,28 +96,30 @@ Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase
   - [Lefthook](https://github.com/evilmartians/lefthook) for Git hooks
   - Conventional commits
 
+- **Analytics**
+  - [Umami](https://github.com/umami-software/umami) for privacy-friendly anallytics. See [analytics.cod3d.dev](https://analytics.cod3d.dev) for stats.
+
 ## Development Tools
 
 ### Available Commands
-- `bun dev` - Start development server
-- `bun build` - Build production bundle (with telemetry disabled)
-- `bun build:clean` - Clean build directory and rebuild
-- `bun start` - Start production server
-- `bun lint` - Run Biome linter
-- `bun lint:fix` - Fix linting issues with Biome
-- `bun analyze` - Analyze bundle size
-- `bun generate:pokemons` - Generate Pokemon data
-- `bun commit` - Interactive commit with conventional commit standards
+- `bun run dev` - Start development server
+- `bun run build` - Build production bundle (with telemetry disabled)
+- `bun run build:clean` - Clean build directory and rebuild
+- `bun run start` - Start production server
+- `bun run lint` - Run Biome linter
+- `bun run lint:fix` - Fix linting issues with Biome
+- `bun run analyze` - Analyze bundle size
+- `bun run generate:pokemons` - Generate Pokemon data
+- `bun run commit` - Interactive commit with conventional commit standards
 
 ## Features
 
 - Markdown with frontmatter support, syntax highlighting, KaTeX and more.
 - Reading time estimation
 - Image theming
-- RSS feed
-- Relaxed Content Security Policy (CSP)
-- Strict CORS settings
-- Trusted Types enforcement
+- RSS feed, download articles in original format (markdown)
+- CSP, CORS, Trusted Types
+- Middleware with download token generation
 
 ## Git Workflow
 

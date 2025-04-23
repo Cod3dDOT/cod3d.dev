@@ -118,7 +118,6 @@ export default function RootLayout({
 					async
 					src="/um.js"
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
-					data-domains={process.env.SITE_NAME}
 					data-host-url={process.env.SITE_URL}
 				/>
 			</body>
