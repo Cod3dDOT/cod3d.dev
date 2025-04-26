@@ -26,7 +26,7 @@ const ThoughtLink: React.FC<{
 				from="var(--yellow)"
 				via="var(--yellow)"
 				size={200}
-				className="relative h-full w-full overflow-hidden rounded-xl bg-container"
+				className="relative h-full w-full overflow-hidden rounded-xl bg-container transition-[background-color]"
 			>
 				<div className="absolute inset-1 z-10 flex flex-col overflow-hidden rounded-xl px-4 py-4">
 					<div
@@ -36,7 +36,7 @@ const ThoughtLink: React.FC<{
 						{thought.tags.map((tag, i) => (
 							<span
 								key={i.toString() + thought.id}
-								className="whitespace-nowrap rounded-xl border-2 border-transparent bg-background p-3 leading-0 transition-colors group-hover:border-warn group-focus:border-warn"
+								className="whitespace-nowrap rounded-xl border-2 border-transparent bg-background p-3 leading-0 transition-[border,background-color] group-hover:border-warn group-focus:border-warn"
 								aria-hidden
 							>
 								{tag}
@@ -53,8 +53,17 @@ const ThoughtLink: React.FC<{
 						<span aria-hidden>{process.env.SITE_NAME}</span>
 					</div>
 
-					<span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-yellow to-40% to-background" />
-					<span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-blue to-40% to-background transition-opacity group-hover:opacity-0 group-focus:opacity-0" />
+					<span
+						className={cn(
+							"-z-10 absolute inset-0",
+							"bg-radial-[circle_at_100%_0%]",
+							"from-accent-blue to-40% to-background",
+							"group-hover:from-accent-yellow group-hover:to-40% group-hover:to-background",
+							"transition-colors"
+						)}
+					/>
+					{/* <span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-yellow to-40% to-background" />
+					<span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-blue to-40% to-background transition-opacity group-hover:opacity-0 group-focus:opacity-0" /> */}
 				</div>
 			</SpotlightCard>
 		</Link>

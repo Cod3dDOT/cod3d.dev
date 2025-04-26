@@ -9,7 +9,7 @@ const _Footer: React.FC = () => {
 
 	return (
 		<>
-			<footer className="bg-background px-10 py-8 md:px-20">
+			<footer className="bg-background px-10 py-8 transition-[background-color] md:px-20">
 				<div className="container mx-auto flex justify-between xl:max-w-full">
 					<p>
 						<span>{process.env.SITE_NAME}</span>
@@ -20,7 +20,7 @@ const _Footer: React.FC = () => {
 			</footer>
 
 			<PrintFooter />
-			<aside className="-z-10 parallax-footer relative flex h-[50vh] w-full items-center overflow-clip bg-container px-12 md:px-24 print:hidden">
+			<aside className="-z-10 parallax-footer relative flex h-[50vh] w-full items-center overflow-clip bg-container px-12 transition-[background-color] md:px-24 print:hidden">
 				<div>
 					<div
 						className={cn(

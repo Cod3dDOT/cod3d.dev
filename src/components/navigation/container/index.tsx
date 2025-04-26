@@ -49,8 +49,6 @@ const useAutoClose = ({
 	}, [handleClosure]);
 };
 
-const TRANSITION = "duration-300 ease-in-out";
-
 const ScrollContainer: React.FC<{ children: React.ReactNode }> = memo(
 	({ children }) => {
 		const options = useMemo(() => ({ duration: 1.5, overscroll: false }), []);
@@ -88,9 +86,8 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 		<nav className="relative print:hidden" id="sidebar">
 			<div
 				className={cn(
-					TRANSITION,
-					"-z-10 fixed inset-0 hidden bg-black opacity-0 transition-[opacity,right] lg:block",
-					isOpen && "right-1/2 z-50 opacity-20"
+					"-z-10 fixed inset-0 hidden bg-black opacity-0 transition-[opacity,right] duration-300 ease-in-out lg:block",
+					isOpen && "right-1/2 z-50 opacity-30"
 				)}
 			/>
 
@@ -98,8 +95,8 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 				ref={menu}
 				className={cn(
 					"fixed inset-0 z-50 flex xl:left-1/2",
-					TRANSITION,
-					"transition-transform will-change-transform",
+					"[transition:background-color_150ms_cubic-bezier(0.4,0,0.2,1),translate_300ms_cubic-bezier(0.4,0,0.2,1)]",
+					"will-change-transform",
 					"bg-background md:bg-background/50 md:backdrop-blur-xl",
 					isOpen
 						? "translate-x-0"

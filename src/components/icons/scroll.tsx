@@ -1,13 +1,14 @@
 import React from "react";
 
 import type { IconProps } from ".";
+import { cn } from "@/lib/utils/cn";
 
 const ScrollIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
 		<svg
 			ref={ref}
 			{...props}
-			className={className}
+			className={cn("transition-[fill]", className)}
 			width="48"
 			height="48"
 			viewBox="0 0 48 48"

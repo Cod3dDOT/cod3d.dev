@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { IconProps } from ".";
+import { cn } from "@/lib/utils/cn";
 
 type Props = {
 	showCheck?: boolean;
@@ -13,7 +14,7 @@ const CopyIcon = React.forwardRef<SVGSVGElement, Props>(
 			xmlns="http://www.w3.org/2000/svg"
 			ref={ref}
 			{...props}
-			className={className}
+			className={cn("transition-[fill]", className)}
 			viewBox="0 0 24 24"
 			strokeWidth="1.5"
 			fill="none"

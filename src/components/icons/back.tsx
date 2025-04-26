@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { IconProps } from ".";
+import { cn } from "@/lib/utils/cn";
 
 const BackIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
@@ -17,7 +18,7 @@ const BackIcon = React.forwardRef<SVGSVGElement, IconProps>(
 			strokeLinecap="round"
 			strokeLinejoin="round"
 			aria-hidden="true"
-			className={className}
+			className={cn("transition-[fill]", className)}
 		>
 			<path d="M3 19V5" />
 			<path d="m13 6-6 6 6 6" />

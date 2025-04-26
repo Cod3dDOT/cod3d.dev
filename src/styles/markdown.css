@@ -54,7 +54,7 @@
 	content: attr(data-line-number);
 
 	margin-left: -12px;
-	margin-right: 12px;
+	margin-right: 24px;
 	width: 2ch;
 	text-align: right;
 	display: inline-block;

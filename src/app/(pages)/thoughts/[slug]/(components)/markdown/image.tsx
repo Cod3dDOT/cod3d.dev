@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils/cn";
 import type { ComponentProps } from "react";
 
 export type MarkdownImageProps = ComponentProps<"img"> & {
@@ -39,7 +40,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	"data-dark-src": darkSrc = ""
 }) => {
 	return (
-		<figure className={className}>
+		<figure className={cn("relative", className)}>
 			<picture>
 				<img
 					src={src}
@@ -49,11 +50,11 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 					alt={alt}
 					width={width}
 					height={height}
-					className="!m-0 max-h-[70vh] object-contain md:rounded-lg dark:hidden"
+					className="!m-0 max-h-[70vh] object-contain"
 				/>
 			</picture>
 			{darkSrc && (
-				<picture>
+				<picture className="absolute inset-0 opacity-0 transition-[opacity] dark:opacity-100">
 					<img
 						src={darkSrc}
 						fetchPriority="low"
@@ -62,7 +63,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 						alt={alt}
 						width={width}
 						height={height}
-						className="!m-0 hidden max-h-[70vh] object-contain md:rounded-lg dark:block"
+						className="!m-0 max-h-[70vh] object-contain md:rounded-lg"
 					/>
 				</picture>
 			)}

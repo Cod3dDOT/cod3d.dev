@@ -167,7 +167,7 @@ export default async function Page({ params }: Props) {
 
 	return (
 		<ReactLenis root>
-			<main className="relative bg-background font-sans">
+			<main className="relative bg-background font-sans transition-[background-color]">
 				<article>
 					<script
 						type="application/ld+json"
@@ -185,13 +185,11 @@ export default async function Page({ params }: Props) {
 						}}
 					/>
 
-					<div className="bg-gradient-to-b from-transparent via-transparent to-background md:px-10">
-						<ThoughtHeader
-							slug={thought.slug}
-							thought={thought}
-							markdown={markdown}
-						/>
-					</div>
+					<ThoughtHeader
+						slug={thought.slug}
+						thought={thought}
+						markdown={markdown}
+					/>
 
 					<MarkdownWrapper
 						images={thought.markdown_images}

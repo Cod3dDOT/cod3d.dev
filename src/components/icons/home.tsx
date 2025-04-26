@@ -1,13 +1,14 @@
 import React from "react";
 
 import type { IconProps } from ".";
+import { cn } from "@/lib/utils/cn";
 
 const HomeIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
 		<svg
 			ref={ref}
 			{...props}
-			className={className}
+			className={cn("transition-[fill]", className)}
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"
