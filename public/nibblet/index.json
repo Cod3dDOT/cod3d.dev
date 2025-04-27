@@ -1,0 +1,6 @@
+{
+	"nibblet-test": {
+		"matches": "google.com",
+		"url": "/scripts/nibblet-test.js"
+	}
+}
