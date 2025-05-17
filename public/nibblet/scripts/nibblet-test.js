@@ -1,4 +1,4 @@
 () => {
-	document.head = "HELLO FROM NIBBLET";
+	document.title = "HELLO FROM NIBBLET";
 	return true;
 };
