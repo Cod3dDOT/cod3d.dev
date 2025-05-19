@@ -1,6 +1,16 @@
 {
-	"nibblet-test": {
-		"matches": "google.com",
-		"url": "/scripts/nibblet-test.js"
-	}
+	"hash": "b6f9a8b8e6b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4",
+	"registryId": "cod3d.dev",
+	"registryUrl": "https://cod3d.dev/nibblet/index.json",
+	"items": [
+		{
+			"id": "nibblet-test",
+			"name": "nibblet test",
+			"version": "1.0.0",
+			"author": "cod3d",
+			"description": "test nibblet",
+			"url": "https://cod3d.dev/nibblet/scripts/nibblet-test.js",
+			"matches": "google.com"
+		}
+	]
 }
