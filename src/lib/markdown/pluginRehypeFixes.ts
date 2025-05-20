@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { Element, Parent, Root } from "hast";
 import type { Plugin } from "unified";
 import { remove } from "unist-util-remove";

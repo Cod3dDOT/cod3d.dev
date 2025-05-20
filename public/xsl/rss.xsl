@@ -1,4 +1,11 @@
 <?xml version="1.1" encoding="utf-8"?>
+
+<!--
+SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 <xsl:stylesheet version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:atom="http://www.w3.org/2005/Atom">

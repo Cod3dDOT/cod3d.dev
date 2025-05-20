@@ -1,7 +1,8 @@
-/*!
- * reading-time
+/*
  * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
- * MIT Licensed
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 export type Options = {

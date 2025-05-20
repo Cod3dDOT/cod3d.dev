@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { cn } from "@/lib/utils/cn";
 import { splitmix32, stringToUniqueId } from "@/lib/utils/crypto";
 import type { ComponentProps } from "react";

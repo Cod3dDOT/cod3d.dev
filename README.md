@@ -137,6 +137,17 @@ Visit: [cod3d.dev](https://cod3d.dev)
 
 ## License
 
+This projects strives to be REUSE compliant.
+
+Generally:
+- Art, documentation and security-related .txt files are licensed under CC-BY-NC-SA-4.0
+- Code is licensed under Apache-2.0
+- Fonts are used under OFL-1.1
+- Config files are under CC0-1.0
+
+Pokémon and Pokémon character names are trademarks of Nintendo.
+
+```
    Copyright 2025 cod3ddot@proton.me
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -150,3 +161,4 @@ Visit: [cod3d.dev](https://cod3d.dev)
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+```

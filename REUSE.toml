@@ -1,0 +1,69 @@
+version = 1
+SPDX-PackageName = "cod3d.dev"
+SPDX-PackageSupplier = "https://github.com/cod3ddot/cod3d.dev"
+
+# text/code/projects
+[[annotations]]
+path = ["public/generated-assets/mons.css", "public/nibblet/**/*"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 cod3ddot@proton.me"
+SPDX-License-Identifier = "Apache-2.0"
+
+# configs
+[[annotations]]
+path = [
+    ".env",
+    ".env.example",
+    ".gitignore",
+    ".gitattributes",
+    ".vscode/**/*",
+    "bun.lock",
+    "biome.json",
+    "package.json",
+    "tsconfig.json",
+    ".postcssrc.json",
+    "public/pgp-key.txt",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2025 cod3ddot@proton.me"
+SPDX-License-Identifier = "CC0-1.0"
+
+# docs
+[[annotations]]
+path = [
+    "README.md",
+    "public/ads.txt",
+    "public/app-ads.txt",
+    "public/security.txt",
+]
+SPDX-FileCopyrightText = "2025 cod3ddot@proton.me"
+SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
+
+# art
+[[annotations]]
+path = [
+    "public/pwa/**/*",
+    "src/app/favicon.ico",
+    "src/app/apple-icon.png",
+    "public/img/og/og.webp",
+    "public/img/readme-*.gif",
+    "public/img/pokeball.webp",   # hand-drawn by cod3ddot
+    "public/img/sad-togepi.webp", # re-drawn by cod3ddot
+]
+SPDX-FileCopyrightText = "cod3d.dev website art © 2025 by cod3ddot@proton.me"
+SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
+
+# fonts
+[[annotations]]
+path = [
+    "public/fonts/Geist-Regular.woff2",
+    "public/fonts/GeistMono-Regular.woff2",
+    "public/fonts/GeistMono-Regular-1-3-for-og.ttf",
+]
+SPDX-FileCopyrightText = "Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font.git)"
+SPDX-License-Identifier = "OFL-1.1"
+
+[[annotations]]
+path = ["public/fonts/PixelifySans-Regular.ttf"]
+SPDX-FileCopyrightText = "Copyright 2021 The Pixelify Sans Project Authors (https://github.com/eifetx/Pixelify-Sans)"
+SPDX-License-Identifier = "OFL-1.1"

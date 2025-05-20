@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { encryptPayload } from "./lib/utils/crypto";

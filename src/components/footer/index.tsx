@@ -1,11 +1,17 @@
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Suspense } from "react";
 
 import { cn } from "@/lib/utils/cn";
-import { getRandomPokemon } from "@/lib/utils/poke";
+import { getRandomPokemon } from "@/lib/utils/mons";
 import { PrintFooter } from "./printFooter";
 
-const _Footer: React.FC = () => {
-	const pokemon = getRandomPokemon();
+const _Footer: React.FC = async () => {
+	const pokemon = await getRandomPokemon();
 
 	return (
 		<>
@@ -20,19 +26,22 @@ const _Footer: React.FC = () => {
 			</footer>
 
 			<PrintFooter />
+
+			<link rel="stylesheet" href="/generated-assets/mons.css" />
+
 			<aside className="-z-10 parallax-footer relative flex h-[50vh] w-full items-center overflow-clip bg-container px-12 transition-[background-color] md:px-24 print:hidden">
-				<div>
+				{/* for pokemon color variables to work */}
+				<div className="mons">
 					<div
 						className={cn(
+							pokemon.class,
 							"text-justify font-medium text-6xl md:text-[10vw]",
 							"bg-gradient-to-br from-[var(--c)] via-[var(--c)] bg-clip-text text-transparent",
-							"selection:text-foreground",
-							pokemon.class
+							"selection:text-foreground"
 						)}
 					>
 						{pokemon.name}
 					</div>
-
 					<p className="mt-4 md:w-[50vw] xl:text-xl">{pokemon.description}</p>
 				</div>
 				<picture

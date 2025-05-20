@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { getProjects } from "@pocketbase/req";
 import type { Project } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";

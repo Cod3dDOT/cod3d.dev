@@ -1,5 +1,10 @@
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 @import "./root.css";
 @import "./tailwind.css";
 @import "./global.css";
 @import "./markdown.css";
-@import "./pokemons.css";

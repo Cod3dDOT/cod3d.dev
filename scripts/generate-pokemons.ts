@@ -1,82 +1,48 @@
-import fs from "node:fs";
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-import { colorFromImage, writeFile } from "./generate-utils";
-import {
-	API_getAllPokemonSpecies,
-	API_getPokemonByName,
-	API_getPokemonSpecies
-} from "./pokeApi";
+import { colorFromImage } from "./utils/color-utils";
+import { pokeApi } from "./pokeApi";
+import { createFolder, removeFolder, writeFile } from "./utils/file-utils";
+import { updateProgressBar } from "./utils/cli-utils";
 
 interface Pokemon {
-	name: string;
-	description: string;
+	id: number;
 	spriteUrl?: string;
-	className?: string;
 	colorHex?: string;
 }
 
-interface PokemonSave {
-	n: string;
-	d: string;
-	c: string;
-}
+const withColors = async (imageFolder: string, mons: Pokemon[]) => {
+	const pokemonsWithColors: Pokemon[] = await Promise.all(
+		mons.map(async (pokemon) => {
+			const dominantColor = await colorFromImage(
+				`${imageFolder}${pokemon.id}.png`
+			);
 
-const generateCSSFile = async (
-	path: string,
-	imageFolder: string,
-	mons: Pokemon[]
-) => {
-	const colorToClass: { [key: string]: string } = {};
-	let classCounter = 1;
+			const reducedColor = dominantColor.to3DigitHex();
 
-	for (const pokemon of mons) {
-		const dominantColor = await colorFromImage(
-			`${imageFolder}${pokemon.name}.png`
-		);
+			return {
+				...pokemon,
+				colorHex: reducedColor
+			};
+		})
+	);
 
-		const reducedColor = dominantColor.reduced(32);
-		const reducedHex = reducedColor.toHex();
-
-		if (!(reducedHex in colorToClass)) {
-			colorToClass[reducedHex] = `mon${classCounter++}`;
-		}
-
-		pokemon.colorHex = reducedHex;
-		pokemon.className = colorToClass[reducedHex];
-	}
-
-	const cssContent = Object.entries(colorToClass)
-		.map(([color, className]) => `.${className}{--c:${color}}`)
-		.join("");
-
-	writeFile(path, cssContent);
-	return mons;
+	return pokemonsWithColors;
 };
 
 function savePokemons(path: string, pokemons: Pokemon[]): void {
-	const savePokemons: PokemonSave[] = pokemons.map((pokemon: Pokemon) => {
-		return {
-			n: pokemon.name,
-			d: pokemon.description,
-			c: pokemon.className?.substring(3) || "mon0"
-		};
-	});
+	const classEntries = pokemons
+		.filter((pokemon) => pokemon.colorHex)
+		.map((pokemon) => `.i${pokemon.id}{--c:${pokemon.colorHex}}`)
+		.join("");
 
-	writeFile(path, JSON.stringify(savePokemons));
-}
+	const cssContent = `.mons{${classEntries}}`;
 
-function updateProgressBar(current: number, total: number): void {
-	const barLength = 40; // Length of the progress bar in characters
-	const progress = Math.floor((current / total) * barLength);
-	const bar = "█".repeat(progress) + "░".repeat(barLength - progress);
-	const percentage = ((current / total) * 100).toFixed(2);
-
-	// Clear the current line and print the progress bar
-	process.stdout.clearLine(0);
-	process.stdout.cursorTo(0);
-	process.stdout.write(
-		`Progress: [${bar}] ${percentage}% (${current}/${total})`
-	);
+	writeFile(path, cssContent);
 }
 
 async function savePokemonImage(
@@ -84,42 +50,32 @@ async function savePokemonImage(
 	folder: string
 ): Promise<void> {
 	if (!pokemon.spriteUrl) {
-		console.log(`No sprite URL for ${pokemon.name}`);
+		console.log(`No sprite URL for ${pokemon.id}`);
 		return;
 	}
 	const response = await fetch(pokemon.spriteUrl);
 	const buffer = await response.arrayBuffer();
-	fs.writeFileSync(`${folder}/${pokemon.name}.png`, Buffer.from(buffer));
+	writeFile(`${folder}/${pokemon.id}.png`, Buffer.from(buffer));
 }
 
 async function getPokemonById(id: number): Promise<Pokemon> {
-	const speciesData = await API_getPokemonSpecies(id);
-	const pokemonData = await API_getPokemonByName(speciesData.id.toString());
-	const description = speciesData.flavor_text_entries
-		.find((entry) => entry.language.name === "en")
-		?.flavor_text.replace(/(?:\n|\f)/g, " ");
-
-	const englishName = speciesData.names.find(
-		(name) => name.language.name === "en"
-	)?.name;
+	const speciesData = await pokeApi.getPokemonSpecies(id);
+	const pokemonData = await pokeApi.getPokemonByName(speciesData.id.toString());
 
 	return {
-		name: englishName || speciesData.name,
-		description: description || "No description available",
+		id: speciesData.id,
 		spriteUrl: pokemonData.sprites.front_default
 	};
 }
 
 // Fetch Pokémon data concurrently and log the progress in a table
 async function fetchFromPokeAPI(
-	folder: string,
 	imageFolder: string,
-	jsonPath: string,
-	cssPath: string
+	jsonPath: string
 ): Promise<void> {
-	const species = await API_getAllPokemonSpecies();
+	const species = await pokeApi.getAllPokemonSpecies();
 
-	const tableData: Array<{ Name: string; Status: string }> = [];
+	const tableData: Array<{ name: string; success: boolean }> = [];
 	const total = species.length;
 	let completed = 0;
 
@@ -129,17 +85,16 @@ async function fetchFromPokeAPI(
 		speciesData: { name: string },
 		id: number,
 		folder: string,
-		tableData: Array<{ Name: string; Status: string }>,
+		tableData: Array<{ name: string; success: boolean }>,
 		total: number
 	): Promise<Pokemon | null> {
 		try {
 			const pokemon = await getPokemonById(id);
-			tableData.push({ Name: speciesData.name, Status: "✅" });
+			tableData.push({ name: speciesData.name, success: true });
 			await savePokemonImage(pokemon, folder);
 			return pokemon;
 		} catch (error) {
-			console.error(`Failed to fetch Pokémon ${speciesData.name}:`, error);
-			tableData.push({ Name: speciesData.name, Status: "❌" });
+			tableData.push({ name: speciesData.name, success: false });
 			return null;
 		} finally {
 			updateProgressBar(++completed, total);
@@ -154,25 +109,26 @@ async function fetchFromPokeAPI(
 
 	console.log("\n"); // Add a new line after the progress bar completes
 
-	console.log("Generating Pokémon CSS...");
-	await generateCSSFile(cssPath, imageFolder, pokemons);
+	console.log("Updating Pokémon data with colors...");
+	const pokemonsWithColors = await withColors(imageFolder, pokemons);
 
 	console.log("Saving Pokémon data...");
-	savePokemons(jsonPath, pokemons);
+	savePokemons(jsonPath, pokemonsWithColors);
+
+	console.log("Cleaning up...");
+	removeFolder(imageFolder);
 }
 
 const args = process.argv.slice(2);
 const command = args.at(0);
 
-const path = "./public/pokemon/";
-const imageFolder = "./public/pokemon/image/";
-const jsonPath = "./public/pokemon/_mons.json";
-const stylePath = "./public/pokemon/pokemons.css";
+const path = "./scripts/generated-assets/";
+const imageFolder = `${path}cached-images/`;
+const cssPath = `${path}mons.css`;
 
 if (command === "generate") {
-	if (!fs.existsSync(path) || !fs.existsSync(imageFolder)) {
-		fs.mkdirSync(path);
-		fs.mkdirSync(imageFolder);
-	}
-	fetchFromPokeAPI(path, imageFolder, jsonPath, stylePath);
+	createFolder(path);
+	createFolder(imageFolder);
+
+	fetchFromPokeAPI(imageFolder, cssPath);
 }

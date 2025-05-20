@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 export const dateToString = (date: Date) => {
 	return date.toLocaleDateString("en-us", {
 		year: "numeric",
