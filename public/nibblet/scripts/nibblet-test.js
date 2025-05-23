@@ -7,9 +7,14 @@ const main = () => {
 };
 
 document.addEventListener(
-	"script-utils-event[RUN]",
-	document.dispatchEvent(
-		new CustomEvent("script-utils-event[RUN]", { detail: main() })
-	),
+	"run",
+	(event) => {
+		console.log(event);
+		document.dispatchEvent(
+			new CustomEvent("run", {
+				detail: { namespace: "nibblet-test", main: main() }
+			})
+		);
+	},
 	false
 );

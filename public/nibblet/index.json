@@ -1,5 +1,5 @@
 {
-	"hash": "b6f9a8b8e6b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4b4",
+	"registryName": "cod3d's stuff",
 	"registryId": "cod3d.dev",
 	"registryUrl": "https://cod3d.dev/nibblet/index.json",
 	"items": [
@@ -10,7 +10,7 @@
 			"author": "cod3d",
 			"description": "test nibblet",
 			"url": "https://cod3d.dev/nibblet/scripts/nibblet-test.js",
-			"matches": "google.com"
+			"matches": ["google.com"]
 		}
 	]
 }
