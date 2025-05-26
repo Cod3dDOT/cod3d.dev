@@ -7,7 +7,7 @@
 import { Suspense } from "react";
 
 import { cn } from "@/lib/utils/cn";
-import { getRandomPokemon } from "@/lib/utils/mons";
+import { getPokemonSprite, getRandomPokemon } from "@/lib/utils/mons";
 import { PrintFooter } from "./printFooter";
 
 const _Footer: React.FC = async () => {
@@ -52,7 +52,7 @@ const _Footer: React.FC = async () => {
 				>
 					<img
 						loading="lazy"
-						src={pokemon.sprite}
+						src={await getPokemonSprite(pokemon.id)}
 						alt={pokemon.name}
 						width={96}
 						height={96}

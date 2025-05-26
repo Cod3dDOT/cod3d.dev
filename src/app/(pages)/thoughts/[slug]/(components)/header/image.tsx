@@ -5,21 +5,15 @@
  */
 
 import { cn } from "@/lib/utils/cn";
-
-const asBase64 = async (src: string) => {
-	const res = await fetch(src);
-	const buffer = await res.arrayBuffer();
-	const base64 = Buffer.from(buffer).toString("base64");
-	return `data:image/webp;base64,${base64}`;
-};
+import { imageToData } from "@/lib/utils/image";
 
 export const HeroImage: React.FC<{
 	src: string;
 	srcDark?: string;
 	alt: string;
 }> = async ({ alt, src, srcDark }) => {
-	const base64Light = await asBase64(src);
-	const base64Dark = srcDark ? await asBase64(srcDark) : undefined;
+	const base64Light = await imageToData(src);
+	const base64Dark = srcDark ? await imageToData(srcDark) : undefined;
 
 	return (
 		<figure className={cn("image-rendering-pixelated !m-0 xl:!my-6")}>

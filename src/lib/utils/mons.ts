@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+import { imageToData } from "./image";
 
 interface PokeAPIResponse {
 	flavor_text_entries: {
@@ -23,9 +19,9 @@ interface PokeAPIResponse {
 }
 
 export interface Pokemon {
+	id: number;
 	name: string;
 	description: string;
-	sprite: string;
 	class: string;
 }
 
@@ -45,9 +41,15 @@ async function getPokemonDetails(id: number): Promise<Pokemon> {
 	const name = response.names.find((name) => name.language.name === "en")?.name;
 
 	return {
+		id,
 		name: name || "",
 		description: description || "",
-		sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
 		class: `i${id}`
 	};
+}
+
+export async function getPokemonSprite(id: number) {
+	const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
+	return imageToData(url);
 }

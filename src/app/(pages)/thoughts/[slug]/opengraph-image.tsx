@@ -13,6 +13,7 @@ import type { ImageResponseOptions } from "next/server";
 
 import { dateToString } from "@/lib/utils/date";
 import { readFile } from "node:fs/promises";
+import { imageToData } from "@/lib/utils/image";
 
 export async function generateStaticParams() {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: "created" });
@@ -52,19 +53,6 @@ const getFonts = async (fonts: string[]) => {
 	return Promise.all(promises);
 };
 
-const getImage = async (hero: string) => {
-	const response = await fetch(hero);
-
-	if (!response.ok) {
-		return null;
-	}
-
-	const buffer = await response.arrayBuffer();
-	const base64 = Buffer.from(buffer).toString("base64");
-
-	return `data:image/png;base64,${base64}`;
-};
-
 export default async function Image({
 	params
 }: {
@@ -97,7 +85,9 @@ export default async function Image({
 		}
 	];
 
-	const image = await getImage(thought?.hero.light || "");
+	const image = await imageToData(thought?.hero.light || "");
+
+	console.log(image);
 
 	return new ImageResponse(
 		<div
@@ -127,16 +117,16 @@ export default async function Image({
 							</div>
 						))}
 					</div>
-					{image && (
-						<picture className="h-full w-full">
+					{image && image.length !== 0 && (
+						<picture>
 							<img
-								alt="Hero of the thought"
+								alt="Thought's hero"
 								src={image}
-								tw="mt-auto w-38 h-full"
+								tw="w-38 h-auto object-cover"
 								width={66}
 								height={38}
 								style={{
-									imageRendering: "pixelated"
+									imageRendering: "pixelated" // FIXME: Doesn't work
 								}}
 							/>
 						</picture>
