@@ -8,6 +8,8 @@ pre-commit:
     biome:
         glob: "*.{js,mjs,ts,jsx,tsx,css,scss}"
         run: bunx biome check --write --unsafe "{staged_files}"
+    reuse:
+        run: reuse lint
 
 # Validate commit messages
 commit-msg:
