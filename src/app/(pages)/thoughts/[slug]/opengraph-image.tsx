@@ -85,9 +85,11 @@ export default async function Image({
 		}
 	];
 
-	const image = await imageToData(thought?.hero.light || "");
-
-	console.log(image);
+	// FIXME: this will fail if the image isn't a png
+	// we can use sharp to convert the images (they are generated at build time anyways)
+	const image = thought?.hero.light
+		? await imageToData(thought?.hero.light)
+		: null;
 
 	return new ImageResponse(
 		<div
@@ -126,7 +128,9 @@ export default async function Image({
 								width={66}
 								height={38}
 								style={{
-									imageRendering: "pixelated" // FIXME: Doesn't work
+									// FIXME: Doesn't work (probably due to canvas imageSmoothingEnabled)
+									// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled
+									imageRendering: "pixelated"
 								}}
 							/>
 						</picture>
