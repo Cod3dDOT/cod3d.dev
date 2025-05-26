@@ -4,10 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { colorFromImage } from "./utils/color-utils";
 import { pokeApi } from "./pokeApi";
-import { createFolder, removeFolder, writeFile } from "./utils/file-utils";
 import { updateProgressBar } from "./utils/cli-utils";
+import { colorFromImage } from "./utils/color-utils";
+import { createFolder, removeFolder, writeFile } from "./utils/file-utils";
 
 interface Pokemon {
 	id: number;

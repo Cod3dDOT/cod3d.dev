@@ -17,11 +17,11 @@ import {
 } from "react";
 
 import { useNavigation } from "@/lib/context/navigation";
+import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
 import { cn } from "@/lib/utils/cn";
+import { ReactLenis } from "lenis/react";
 import { DesktopOpener } from "./desktopOpener";
 import { MobileOpener } from "./mobileOpener";
-import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
-import { ReactLenis } from "lenis/react";
 
 type NavigationProps = {
 	children?: React.ReactNode;

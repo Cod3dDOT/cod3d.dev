@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2025 cod3ddot@proton.me
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 /**
  * Fetches an image from URL and encodes it into a base64 string
  * Adapted from this thread: https://community.cloudflare.com/t/convert-request-body-to-base64-encoded-string-solved/99341/5

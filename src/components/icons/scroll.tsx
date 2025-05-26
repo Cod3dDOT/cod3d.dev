@@ -6,8 +6,8 @@
 
 import React from "react";
 
-import type { IconProps } from ".";
 import { cn } from "@/lib/utils/cn";
+import type { IconProps } from ".";
 
 const ScrollIcon = React.forwardRef<SVGSVGElement, IconProps>(
 	({ className, ...props }, ref) => (
