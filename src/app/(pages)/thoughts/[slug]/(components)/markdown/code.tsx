@@ -35,7 +35,12 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 	const id = `code-${name}-${random}`;
 
 	return (
-		<figure className="overflow-hidden border-y-2 font-mono md:rounded-lg md:border-2">
+		<figure
+			className={cn(
+				"overflow-hidden border-container border-y-4 font-mono md:rounded-lg md:border-4",
+				filename && "!border-t-0"
+			)}
+		>
 			{filename && (
 				<figcaption className="!mt-0 relative flex h-14 items-center justify-between overflow-hidden border-b bg-container">
 					<span className="h-full text-center text-foreground">
@@ -60,7 +65,7 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 			)}
 
 			<pre
-				className="max-h-[70vh] cursor-text py-2! md:max-h-none print:max-h-none print:px-0!"
+				className="max-h-[70vh] cursor-text bg-container/40 py-2! md:max-h-none print:max-h-none print:px-0!"
 				id={id}
 			>
 				{children}

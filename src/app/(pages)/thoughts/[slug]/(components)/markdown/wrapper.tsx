@@ -37,7 +37,7 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = async ({
 					"prose lg:prose-xl prose-neutral prose-amber dark:prose-invert max-w-none",
 					"prose-headings:font-light prose-h4:text-[larger]",
 					"prose-a:transition-colors prose-a:hover:text-accent-blue",
-					"prose-pre:bg-transparent prose-pre:text-foreground",
+					"prose-pre:text-foreground",
 					"prose-inline-code:before:content-none prose-inline-code:after:content-none", // removes `` from inline code blocks
 					"not-print:prose-inline-code:mx-1 prose-inline-code:rounded-md not-print:prose-inline-code:bg-container not-print:prose-inline-code:p-1 prose-inline-code:text-[smaller]",
 					"md:prose-figure:mx-10",

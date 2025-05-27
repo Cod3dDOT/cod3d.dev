@@ -177,7 +177,7 @@ export default async function Page({ params }: Props) {
 				<article>
 					<script
 						type="application/ld+json"
-						// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: server-side
 						dangerouslySetInnerHTML={{
 							__html: JSON.stringify(jsonLd)
 						}}
@@ -185,7 +185,7 @@ export default async function Page({ params }: Props) {
 
 					<script
 						type="application/ld+json"
-						// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: server-side
 						dangerouslySetInnerHTML={{
 							__html: JSON.stringify(jsonLdBreadcrumbList)
 						}}
