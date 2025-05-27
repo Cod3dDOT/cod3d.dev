@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import NavContactsShowcase from "./contacts";
-import { NavigationContainer } from "./container";
+import NavContactsShowcase from "./contact";
+import { NavigationContainer } from "./common/container";
 import NavProjectsShowcase from "./projects";
 import NavThoughtsShowcase from "./thoughts";
 

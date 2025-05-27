@@ -11,7 +11,7 @@ import { NavProjectsList, NavProjectsListSkeleton } from "./list";
 
 const NavProjectsShowcase: React.FC = () => {
 	return (
-		<section>
+		<section className="group/section">
 			<SectionHeader section="Projects" />
 			<Suspense fallback={<NavProjectsListSkeleton />}>
 				<NavProjectsList />

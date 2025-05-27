@@ -11,7 +11,7 @@ import { ThoughtsCarousel, ThoughtsCarouselSkeleton } from "./carousel";
 
 const NavThoughtsShowcase: React.FC = () => {
 	return (
-		<section className="sm:!mt-0">
+		<section className="group/section sm:!mt-0">
 			<SectionHeader section="Thoughts" />
 			<Suspense fallback={<ThoughtsCarouselSkeleton />}>
 				<ThoughtsCarousel />
