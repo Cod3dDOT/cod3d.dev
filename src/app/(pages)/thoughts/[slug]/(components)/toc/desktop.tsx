@@ -23,7 +23,7 @@ const HEADING_MARGINS = {
 } as const;
 
 const SCROLL_OFFSET = -30;
-const TOC_SELECTOR = "h2, h3";
+const TOC_SELECTOR = "h2, h3, h4, h5, h6";
 
 /**
  * Determines if a heading is currently active based on scroll position
@@ -103,10 +103,9 @@ export const TOCListItem = memo<TOCListItemProps>(
 
 TOCListItem.displayName = "TOCListItem";
 
-// ===== MAIN COMPONENT =====
 export const TableOfContents: React.FC = () => {
-	// ===== HOOKS =====
 	const headings = useTableOfContents({
+		container: "article",
 		selector: TOC_SELECTOR,
 		observeChanges: false
 	});
@@ -114,7 +113,6 @@ export const TableOfContents: React.FC = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const { height: windowHeight } = useWindowSize();
 
-	// ===== SCROLL HANDLER =====
 	const lenis = useLenis(
 		({ scroll }: { scroll: number }) => {
 			if (headings.length === 0) return;
@@ -146,7 +144,6 @@ export const TableOfContents: React.FC = () => {
 		[headings, windowHeight]
 	);
 
-	// ===== EVENT HANDLERS =====
 	const handleHeadingClick = useCallback(
 		(id: string) => {
 			lenis?.scrollTo(`#${id}`, { offset: SCROLL_OFFSET });
