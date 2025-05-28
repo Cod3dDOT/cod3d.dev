@@ -5,9 +5,9 @@
  */
 
 import type { Element, Root } from "hast";
+import { toString as hastToString } from "hast-util-to-string";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import { toString as hastToString } from "hast-util-to-string";
 
 export interface HeadingInfo {
 	id: string;

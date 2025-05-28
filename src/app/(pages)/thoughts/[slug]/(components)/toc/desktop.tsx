@@ -10,9 +10,9 @@ import { useLenis } from "lenis/react";
 import { memo, useCallback, useState } from "react";
 import { useWindowSize } from "react-use";
 
-import { cn } from "@/lib/utils/cn";
 import { useTableOfContents } from "@/lib/hooks/useTableOfContents";
 import type { HeadingInfo } from "@/lib/markdown/pluginTOC";
+import { cn } from "@/lib/utils/cn";
 
 const HEADING_MARGINS = {
 	2: "ml-8",
