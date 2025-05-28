@@ -6,8 +6,9 @@
 
 "use client";
 
+import { cn } from "@/lib/utils/cn";
 import Link from "next/link";
-import { type ReactNode, useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const bytes = (str: string) => str.split("").map((c) => c.charCodeAt(0));
 const str = (bytes: number[]) =>
@@ -15,18 +16,54 @@ const str = (bytes: number[]) =>
 const byte_xor = (b1: number[], b2: number[]) => b1.map((b, i) => b ^ b2[i]);
 
 const style =
-	"relative flex group h-12 p-2 px-4 items-center justify-center space-x-3 bg-container rounded-md overflow-hidden cursor-pointer";
+	"relative group/link hover:rounded-xl transition-all text-left duration-300 flex px-6 h-18 items-center rounded-lg overflow-hidden cursor-pointer";
+
+const Contents: React.FC<{
+	children: React.ReactNode;
+	text: string;
+	subtext: string;
+	active?: boolean;
+}> = ({ children, text, subtext, active = false }) => {
+	return (
+		<>
+			<div
+				className={cn(
+					"-z-20 -translate-y-1/2 -inset-1/2 absolute top-1/2 aspect-square animate-spin bg-gradient-to-b from-accent-yellow to-accent-blue opacity-0 transition-opacity group-hover/link:opacity-100",
+					active && "opacity-100"
+				)}
+			/>
+			<div
+				className={cn(
+					"-z-10 absolute inset-0 rounded-lg bg-container transition-all group-hover/link:inset-1",
+					active && "!inset-full"
+				)}
+			/>
+			{children}
+			<div className="ml-4 flex flex-col justify-center space-y-1 transition-transform duration-300 group-hover/link:translate-x-1">
+				<span className="font-medium text-lg leading-none">{text}</span>
+				<span className="text-sm leading-none">{subtext}</span>
+			</div>
+		</>
+	);
+};
 
 export const ContactButton: React.FC<{
-	children: ReactNode;
+	children: React.ReactNode;
 	text: string;
+	subtext: string;
 	copy: string;
-}> = ({ children, text, copy }) => {
+	className?: string;
+}> = ({ children, text, subtext, copy, className }) => {
 	const ref = useRef<HTMLButtonElement>(null);
+	const [active, setActive] = useState(false);
 
 	const copyCallback = useCallback(() => {
-		// TODO: add feedback
-		void navigator.clipboard.writeText(copy);
+		setActive(true);
+		navigator.clipboard.writeText(copy);
+
+		setTimeout(() => {
+			setActive(false);
+		}, 1000);
 	}, [copy]);
 
 	useEffect(() => {
@@ -37,19 +74,23 @@ export const ContactButton: React.FC<{
 	}, [copyCallback]);
 
 	return (
-		<button ref={ref} className={style} type="button">
-			{children}
-			<span>{text}</span>
+		<button ref={ref} className={cn(style, className)} type="button">
+			<Contents text={text} subtext={subtext} active={active}>
+				{children}
+			</Contents>
 		</button>
 	);
 };
 
 export const ContactLink: React.FC<{
-	children: ReactNode;
+	children: React.ReactNode;
 	text: string;
+	subtext: string;
 	href: string;
 	protectedBytes?: number[];
-}> = ({ children, text, href, protectedBytes }) => {
+	className?: string;
+}> = ({ children, text, subtext, href, protectedBytes, className }) => {
+	const [active, setActive] = useState(false);
 	const linkRef = useRef<HTMLAnchorElement>(null);
 
 	useEffect(() => {
@@ -57,16 +98,28 @@ export const ContactLink: React.FC<{
 		linkRef.current.addEventListener("click", (e) => {
 			e.preventDefault();
 
+			setActive(true);
+
 			const host = bytes(location.hostname);
 			const email = str(byte_xor(protectedBytes, host));
 			window.location.href = `mailto:${email}`;
+
+			setTimeout(() => {
+				setActive(false);
+			}, 1000);
 		});
 	}, [protectedBytes]);
 
 	return (
-		<Link hrefLang="en" ref={linkRef} className={style} href={href}>
-			{children}
-			<span>{text}</span>
+		<Link
+			hrefLang="en"
+			ref={linkRef}
+			className={cn(style, className)}
+			href={href}
+		>
+			<Contents text={text} subtext={subtext} active={active}>
+				{children}
+			</Contents>
 		</Link>
 	);
 };
