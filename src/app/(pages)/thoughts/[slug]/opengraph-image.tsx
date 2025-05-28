@@ -13,8 +13,8 @@ import type { ImageResponseOptions } from "next/server";
 
 import { readFile } from "node:fs/promises";
 import { dateToString } from "@/lib/utils/date";
-import sharp from "sharp";
 import { bufferToData } from "@/lib/utils/image";
+import sharp from "sharp";
 
 export async function generateStaticParams() {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: "created" });
