@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import GithubIcon from "@/components/icons/github";
 import MailIcon from "@/components/icons/mail";
 import MatrixIcon from "@/components/icons/matrix";
 import { SectionHeader } from "../header";
 import { ContactButton, ContactLink } from "./link";
-import GithubIcon from "@/components/icons/github";
 
 const NavContactsShowcase: React.FC = () => {
 	return (
