@@ -15,6 +15,13 @@ export async function imageToData(url: string): Promise<string> {
 	const contentType = response.headers.get("content-type") || "image/png";
 	const buffer = new Uint8Array(await response.arrayBuffer());
 
+	return bufferToData(contentType, buffer);
+}
+
+export async function bufferToData(
+	contentType: string,
+	buffer: Buffer | Uint8Array
+): Promise<string> {
 	let string = "";
 	for (let i = 0; i < buffer.byteLength; i++) {
 		string += String.fromCharCode(buffer[i]);

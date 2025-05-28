@@ -13,7 +13,8 @@ import type { ImageResponseOptions } from "next/server";
 
 import { readFile } from "node:fs/promises";
 import { dateToString } from "@/lib/utils/date";
-import { imageToData } from "@/lib/utils/image";
+import sharp from "sharp";
+import { bufferToData } from "@/lib/utils/image";
 
 export async function generateStaticParams() {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: "created" });
@@ -53,6 +54,31 @@ const getFonts = async (fonts: string[]) => {
 	return Promise.all(promises);
 };
 
+const getScaledImage = async (url?: string, scaleFactor = 3) => {
+	if (!url) return null;
+
+	const response = await fetch(url);
+	if (!response.ok)
+		throw new Error(`Failed to fetch image: ${response.statusText}`);
+
+	const buffer = await response.arrayBuffer();
+
+	const image = sharp(Buffer.from(buffer));
+	const metadata = await image.metadata();
+
+	const width = metadata.width * scaleFactor;
+	const height = metadata.height * scaleFactor;
+
+	const resizedBuffer = await image
+		.resize(width, height, {
+			kernel: sharp.kernel.nearest // Preserve pixel art
+		})
+		.png()
+		.toBuffer();
+
+	return bufferToData("image/png", resizedBuffer);
+};
+
 export default async function Image({
 	params
 }: {
@@ -85,11 +111,65 @@ export default async function Image({
 		}
 	];
 
-	// FIXME: this will fail if the image isn't a png
-	// we can use sharp to convert the images (they are generated at build time anyways)
-	const image = thought?.hero.light
-		? await imageToData(thought?.hero.light)
-		: null;
+	if (errored || !thought) {
+		return await OpenGraphErrorImage({ fonts });
+	}
+
+	return await OpenGraphImage({ thought, fonts });
+}
+
+const OpenGraphErrorImage = async ({
+	fonts
+}: { fonts: ImageResponseOptions["fonts"] }) => {
+	const image = await getScaledImage(`${process.env.SITE_URL}/img/teapot.webp`);
+
+	return new ImageResponse(
+		<div
+			tw="relative flex w-full h-full bg-transparent"
+			style={{ fontFamily: "PixelifySans" }}
+		>
+			<div
+				tw="absolute flex flex-col inset-4 p-8 rounded-[2rem] overflow-hidden shadow-xl border-2 border-black/5"
+				style={{
+					background:
+						"radial-gradient(circle at right top, rgb(224,191,81) 0%, rgb(230,230,230) 50%)"
+				}}
+			>
+				{image && (
+					<picture tw="ml-auto">
+						<img
+							alt="Teapot"
+							src={image}
+							tw="w-[47px] h-[46px]"
+							width={235}
+							height={230}
+						/>
+					</picture>
+				)}
+
+				<h1 tw="mt-auto w-4/5 text-7xl" style={{ fontFamily: "GeistMono" }}>
+					Oops: I'm a teapot
+				</h1>
+				<p tw="text-4xl w-4/5" style={{ fontFamily: "GeistMono" }}>
+					It seems we ran into some issues. Oh well. :dev sobbing in the back:
+				</p>
+				<div tw="flex justify-between text-4xl">
+					<span>{process.env.SITE_NAME}</span>
+				</div>
+			</div>
+		</div>,
+		{
+			...size,
+			fonts
+		}
+	);
+};
+
+const OpenGraphImage = async ({
+	thought,
+	fonts
+}: { thought: Thought; fonts: ImageResponseOptions["fonts"] }) => {
+	const image = await getScaledImage(thought.hero.light);
 
 	return new ImageResponse(
 		<div
@@ -119,19 +199,14 @@ export default async function Image({
 							</div>
 						))}
 					</div>
-					{image && image.length !== 0 && (
+					{image && (
 						<picture>
 							<img
 								alt="Thought's hero"
 								src={image}
-								tw="w-38 h-auto object-cover"
+								tw="w-38 h-auto"
 								width={66}
 								height={38}
-								style={{
-									// FIXME: Doesn't work (probably due to canvas imageSmoothingEnabled)
-									// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled
-									imageRendering: "pixelated"
-								}}
 							/>
 						</picture>
 					)}
@@ -154,4 +229,4 @@ export default async function Image({
 			fonts: fonts
 		}
 	);
-}
+};

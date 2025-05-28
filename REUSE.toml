@@ -48,6 +48,7 @@ path = [
     "public/img/og/og.webp",
     "public/img/readme-*.gif",
     "public/img/pokeball.webp",   # hand-drawn by cod3ddot
+    "public/img/teapot.webp",     # hand-drawn by cod3ddot
     "public/img/sad-togepi.webp", # re-drawn by cod3ddot
 ]
 SPDX-FileCopyrightText = "cod3d.dev website art © 2025 by cod3ddot@proton.me"
