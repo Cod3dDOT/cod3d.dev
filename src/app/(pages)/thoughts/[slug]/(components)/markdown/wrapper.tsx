@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils/cn";
 import dynamic from "next/dynamic";
 import { MarkdownCodeBlock, type MarkdownCodeBlockProps } from "./code";
 import { MarkdownImage, type MarkdownImageProps } from "./image";
+import { MobileTOC } from "../toc/mobile";
 
-const DynamicToC = dynamic(() =>
-	import("../tableOfContents").then((mod) => mod.TableOfContents)
+const DynamicDesktopTOC = dynamic(() =>
+	import("../toc/desktop").then((mod) => mod.TableOfContents)
 );
 
 type MarkdownWrapperProps = {
@@ -28,10 +29,22 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = async ({
 	images,
 	markdown
 }) => {
-	const markdownComponent = await markdownToReact(markdown, images, components);
+	const { markdown: markdownComponent, headings } = await markdownToReact(
+		markdown,
+		images,
+		components
+	);
 
 	return (
 		<section className="relative opacity-0 [--delay:500ms] motion-safe:animate-in md:px-10 xl:flex">
+			<div className="relative mx-10 mb-10 overflow-hidden lg:hidden">
+				<MobileTOC headings={headings} />
+				<span className="-translate-y-1/2 -space-y-3 absolute top-1/2 right-0 flex flex-col items-center font-bold font-pixelify text-[5.5rem] leading-none opacity-20">
+					<span>T</span>
+					<span>O</span>
+					<span>C</span>
+				</span>
+			</div>
 			<div
 				className={cn(
 					"prose lg:prose-xl prose-neutral prose-amber dark:prose-invert max-w-none",
@@ -47,7 +60,7 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = async ({
 				{markdownComponent}
 			</div>
 			<div className="-translate-y-1/2 sticky top-1/2 left-1/2 mt-60 hidden translate-x-8 self-start overflow-hidden xl:block 2xl:translate-x-1/2">
-				<DynamicToC />
+				<DynamicDesktopTOC />
 			</div>
 		</section>
 	);

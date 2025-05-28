@@ -28,6 +28,7 @@ import remarkRehype from "remark-rehype";
 // import matter from "gray-matter";
 import { unified } from "unified";
 import { type RehypeFixesOptions, rehypeFixes } from "./pluginRehypeFixes";
+import { type HeadingInfo, rehypeCollectHeadings } from "./pluginTOC";
 
 export interface CodeData {
 	meta: string;
@@ -61,7 +62,7 @@ export async function markdownToReact(
 	markdown: string,
 	images: string[],
 	components: ComponentProps<typeof rehypeReact>["components"]
-): Promise<ReactNode> {
+): Promise<{ markdown: ReactNode; headings: HeadingInfo[] }> {
 	// const { data: meta, content } = matter(markdown);
 
 	const vfile = await unified()
@@ -79,6 +80,7 @@ export async function markdownToReact(
 			mode: "React",
 			markdownImages: images
 		})
+		.use(rehypeCollectHeadings)
 		.use(rehypeReact, {
 			createElement: createElement,
 			Fragment: Fragment,
@@ -89,5 +91,8 @@ export async function markdownToReact(
 		})
 		.process(markdown);
 
-	return vfile.result;
+	return {
+		markdown: vfile.result,
+		headings: vfile.data.toc
+	};
 }
