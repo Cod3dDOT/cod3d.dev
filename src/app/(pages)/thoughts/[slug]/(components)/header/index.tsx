@@ -60,7 +60,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 	));
 
 	return (
-		<header className="flex flex-col px-10 pt-20 sm:gap-12 md:px-20">
+		<header className="flex flex-col px-5 pt-20 sm:gap-12 md:px-20 xl:h-screen-dynamic">
 			<div className="flex flex-col gap-8 text-base uppercase opacity-0 motion-safe:animate-in motion-reduce:animate-fade-in sm:flex-row sm:justify-between">
 				<div className="*:align-middle">
 					<span className="font-extralight">Reading time</span>

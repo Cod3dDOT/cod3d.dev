@@ -21,6 +21,6 @@
 
 .dark {
 	--foreground: rgb(242, 242, 242);
-	--background: rgb(51, 51, 51);
-	--container: rgb(34, 34, 34);
+	--background: rgb(40, 40, 40);
+	--container: rgb(25, 25, 25);
 }

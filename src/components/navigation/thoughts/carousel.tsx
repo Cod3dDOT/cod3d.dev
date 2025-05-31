@@ -36,7 +36,7 @@ const ThoughtLink: React.FC<{
 			>
 				<div className="absolute inset-1 z-10 flex flex-col overflow-hidden rounded-xl px-4 py-4">
 					<div
-						className="flex space-x-2 [font-size:smaller]"
+						className="flex space-x-2 text-base"
 						aria-label={`Thought tags: ${thought.tags.join(", ")}`}
 					>
 						{thought.tags.map((tag, i) => (
@@ -49,7 +49,7 @@ const ThoughtLink: React.FC<{
 							</span>
 						))}
 					</div>
-					<h3 className="mt-auto mb-auto w-3/4 [font-size:larger] md:mb-1">
+					<h3 className="mt-auto mb-auto w-3/4 text-xl md:mb-1">
 						{thought.title}
 					</h3>
 					<div className="flex justify-between">
@@ -68,8 +68,6 @@ const ThoughtLink: React.FC<{
 							"transition-colors"
 						)}
 					/>
-					{/* <span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-yellow to-40% to-background" />
-					<span className="-z-10 absolute inset-0 bg-radial-[circle_at_100%_0%] from-accent-blue to-40% to-background transition-opacity group-hover:opacity-0 group-focus:opacity-0" /> */}
 				</div>
 			</SpotlightCard>
 		</Link>

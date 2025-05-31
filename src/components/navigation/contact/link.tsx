@@ -41,7 +41,7 @@ const Contents: React.FC<{
 			{children}
 			<div className="ml-4 flex flex-col justify-center space-y-1 transition-transform duration-300 group-hover/link:translate-x-1">
 				<span className="font-medium text-lg leading-none">{text}</span>
-				<span className="text-sm leading-none">{subtext}</span>
+				<span className="leading-none">{subtext}</span>
 			</div>
 		</>
 	);

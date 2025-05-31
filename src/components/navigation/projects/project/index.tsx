@@ -23,9 +23,9 @@ export const NavProject: React.FC<{
 			className="group relative flex items-center overflow-hidden rounded-md transition-shadow hover:shadow-xl focus:shadow-xl sm:h-16"
 		>
 			<ProjectBadge status={project.status} />
-			<div className="flex flex-1 flex-col space-y-1 p-2 sm:w-fit sm:flex-initial">
-				<span className="text-xl">{project.name}</span>
-				<span className="text-sm">{project.description}</span>
+			<div className="flex flex-1 flex-col p-2 sm:w-fit sm:flex-initial">
+				<span className="text-2xl">{project.name}</span>
+				<span>{project.description}</span>
 			</div>
 			<div className="hidden flex-1 sm:block" aria-hidden="true">
 				<MemoProjectGridEffect project={project} />
@@ -47,8 +47,8 @@ export const NavProjectSkeleton: React.FC = () => {
 			)}
 		>
 			<div className="flex flex-1 flex-col space-y-1 p-2 sm:w-fit sm:flex-initial">
-				<span className="h-[1lh] w-24 rounded-md bg-foreground/10 text-xl shadow-sm" />
-				<span className="h-[1lh] w-48 rounded-md bg-foreground/10 text-sm shadow-sm" />
+				<span className="h-[1lh] w-24 rounded-md bg-foreground/10 text-2xl shadow-sm" />
+				<span className="h-[1lh] w-48 rounded-md bg-foreground/10 shadow-sm" />
 			</div>
 
 			<span className="mr-4 h-8 w-8 rounded-full bg-foreground/10" />
