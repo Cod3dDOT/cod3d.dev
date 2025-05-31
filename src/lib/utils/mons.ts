@@ -29,6 +29,7 @@ export interface Pokemon {
 	name: string;
 	description: string;
 	class: string;
+	sprite: Promise<string>;
 }
 
 export async function getRandomPokemon(): Promise<Pokemon> {
@@ -36,26 +37,39 @@ export async function getRandomPokemon(): Promise<Pokemon> {
 	return await getPokemonDetails(+id);
 }
 
+async function getPokemonSprite(id: number) {
+	const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
+	return imageToData(url);
+}
+
 async function getPokemonDetails(id: number): Promise<Pokemon> {
 	const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
-	const response = (await (await fetch(url)).json()) as PokeAPIResponse;
+	const response = await fetch(url);
 
-	const description = response.flavor_text_entries
+	if (!response.ok) {
+		return {
+			id: 175,
+			name: "Togepi",
+			description: "Oops! It seems something went wrong. Togepi is now sad.",
+			class: "i175",
+			sprite: imageToData("/img/sad-togepi.webp")
+		};
+	}
+
+	const json = (await response.json()) as PokeAPIResponse;
+
+	const description = json.flavor_text_entries
 		.find((entry) => entry.language.name === "en")
 		?.flavor_text.replace(/(?:\n|\f)/g, " ");
 
-	const name = response.names.find((name) => name.language.name === "en")?.name;
+	const name = json.names.find((name) => name.language.name === "en")?.name;
 
 	return {
 		id,
 		name: name || "",
 		description: description || "",
-		class: `i${id}`
+		class: `i${id}`,
+		sprite: getPokemonSprite(id)
 	};
-}
-
-export async function getPokemonSprite(id: number) {
-	const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-
-	return imageToData(url);
 }

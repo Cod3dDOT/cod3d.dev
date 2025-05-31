@@ -60,7 +60,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 				/>
 			</picture>
 			{darkSrc && (
-				<picture className="absolute inset-0 opacity-0 transition-[opacity] dark:opacity-100">
+				<picture className="absolute inset-0 opacity-0 transition-opacity dark:opacity-100">
 					<img
 						src={darkSrc}
 						fetchPriority="low"

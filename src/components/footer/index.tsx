@@ -7,11 +7,23 @@
 import { Suspense } from "react";
 
 import { cn } from "@/lib/utils/cn";
-import { getPokemonSprite, getRandomPokemon } from "@/lib/utils/mons";
+import { imageToData } from "@/lib/utils/image";
+import { type Pokemon, getRandomPokemon } from "@/lib/utils/mons";
 import { PrintFooter } from "./printFooter";
 
 const _Footer: React.FC = async () => {
-	const pokemon = await getRandomPokemon();
+	let pokemon: Pokemon;
+	try {
+		pokemon = await getRandomPokemon(); // FIXME: some weird SSL version error
+	} catch (e) {
+		pokemon = {
+			id: 175,
+			name: "Togepi",
+			description: "Oops! It seems something went wrong. Togepi is now sad.",
+			class: "i175",
+			sprite: imageToData(`${process.env.SITE_URL}/img/sad-togepi.webp`)
+		};
+	}
 
 	return (
 		<>
@@ -52,7 +64,7 @@ const _Footer: React.FC = async () => {
 				>
 					<img
 						loading="lazy"
-						src={await getPokemonSprite(pokemon.id)}
+						src={await pokemon.sprite}
 						alt={pokemon.name}
 						width={96}
 						height={96}

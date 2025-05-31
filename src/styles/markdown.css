@@ -20,6 +20,10 @@
 		:last-child {
 			margin: 0px;
 		}
+
+        ul li::marker {
+            color: var(--color);
+        }
 	}
 }
 

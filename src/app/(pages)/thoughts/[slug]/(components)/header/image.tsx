@@ -16,23 +16,22 @@ export const HeroImage: React.FC<{
 	const base64Dark = srcDark ? await imageToData(srcDark) : undefined;
 
 	return (
-		<figure className={cn("image-rendering-pixelated !m-0 xl:!my-6")}>
-			<picture>
+		<figure className={cn("image-rendering-pixelated !m-0 xl:!my-6 relative")}>
+			<picture className={cn(srcDark && "transition-opacity dark:opacity-0")}>
 				<img
 					src={base64Light}
 					alt={alt}
 					className={cn(
-						"!m-0 aspect-video w-full object-cover md:rounded-lg lg:w-[25vw]",
-						srcDark && "dark:hidden"
+						"!m-0 aspect-video w-full object-cover md:rounded-lg lg:w-[25vw]"
 					)}
 				/>
 			</picture>
 			{srcDark && (
-				<picture>
+				<picture className="absolute inset-0 z-10 opacity-0 transition-opacity dark:opacity-100">
 					<img
 						src={base64Dark}
 						alt={alt}
-						className="!m-0 hidden aspect-video w-full object-cover md:rounded-lg xl:w-[25vw] dark:block"
+						className="!m-0 aspect-video w-full object-cover md:rounded-lg xl:w-[25vw]"
 					/>
 				</picture>
 			)}

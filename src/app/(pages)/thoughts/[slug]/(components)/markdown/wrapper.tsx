@@ -47,7 +47,8 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = async ({
 			</div>
 			<div
 				className={cn(
-					"prose lg:prose-xl prose-neutral prose-amber dark:prose-invert max-w-none",
+					"prose lg:prose-xl prose-neutral dark:prose-invert max-w-none",
+					"prose-a:text-accent-blue dark:prose-a:text-accent-yellow",
 					"prose-headings:font-light prose-h4:text-[larger]",
 					"prose-a:transition-colors prose-a:hover:text-accent-blue",
 					"prose-pre:text-foreground",
