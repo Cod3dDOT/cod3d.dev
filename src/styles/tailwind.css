@@ -91,6 +91,10 @@
     image-rendering: crisp-edges;
 }
 
+@utility h-screen-dynamic {
+    height: 100dvh;
+}
+
 @layer components {
     .parallax-footer {
         animation: slide-up-slow linear;

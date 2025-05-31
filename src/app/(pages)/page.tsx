@@ -39,7 +39,7 @@ export default function Home() {
 					__html: JSON.stringify(jsonLd)
 				}}
 			/>
-			<main className="my-auto flex h-screen flex-col justify-center px-10 md:px-24">
+			<main className="!h-screen-dynamic my-auto flex h-screen flex-col justify-center px-10 md:px-24">
 				<h1 className="text-[4rem] sm:text-[5.65rem] md:text-[8rem]">
 					cod3d.dev
 				</h1>
