@@ -173,7 +173,7 @@ export default async function Page({ params }: Props) {
 
 	return (
 		<ReactLenis root>
-			<main className="relative bg-background font-sans transition-[background-color]">
+			<main className="relative bg-background pb-10 font-sans transition-[background-color]">
 				<article>
 					<script
 						type="application/ld+json"

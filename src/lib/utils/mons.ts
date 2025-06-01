@@ -34,7 +34,17 @@ export interface Pokemon {
 
 export async function getRandomPokemon(): Promise<Pokemon> {
 	const id = Math.floor(Math.random() * 1024) + 1; // max 1025
-	return await getPokemonDetails(+id);
+	try {
+		return await getPokemonDetails(+id);
+	} catch (e) {
+		return {
+			id: 175,
+			name: "Togepi",
+			description: "Oops! It seems something went wrong. Togepi is now sad.",
+			class: "i175",
+			sprite: imageToData(`${process.env.SITE_URL}/img/sad-togepi.webp`)
+		};
+	}
 }
 
 async function getPokemonSprite(id: number) {
@@ -53,7 +63,7 @@ async function getPokemonDetails(id: number): Promise<Pokemon> {
 			name: "Togepi",
 			description: "Oops! It seems something went wrong. Togepi is now sad.",
 			class: "i175",
-			sprite: imageToData("/img/sad-togepi.webp")
+			sprite: imageToData(`${process.env.SITE_URL}/img/sad-togepi.webp`)
 		};
 	}
 
