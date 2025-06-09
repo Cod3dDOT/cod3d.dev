@@ -47,9 +47,9 @@ path = [
     "src/app/apple-icon.png",
     "public/img/og/og.webp",
     "public/img/readme-*.gif",
-    "public/img/pokeball.webp",   # hand-drawn by cod3ddot
-    "public/img/teapot.webp",     # hand-drawn by cod3ddot
-    "public/img/sad-togepi.webp", # re-drawn by cod3ddot
+    "public/img/pokeball.webp",
+    "public/img/teapot.webp",
+    "public/img/sad-togepi.webp",
 ]
 SPDX-FileCopyrightText = "cod3d.dev website art © 2025 by cod3ddot@proton.me"
 SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
@@ -59,7 +59,7 @@ SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
 path = [
     "public/fonts/Geist-Regular.woff2",
     "public/fonts/GeistMono-Regular.woff2",
-    "public/fonts/GeistMono-Regular-1-3-for-og.ttf",
+    "public/fonts/opengraph/GeistMono-Regular-1.3.ttf",
 ]
 SPDX-FileCopyrightText = "Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font.git)"
 SPDX-License-Identifier = "OFL-1.1"

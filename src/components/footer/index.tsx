@@ -22,9 +22,8 @@ const _Footer: React.FC = async () => {
 					"bg-container px-5 py-10 transition-[background-color] md:px-20"
 				)}
 			>
-				<p>
-					<span>{process.env.SITE_NAME} @</span>
-					<span className="font-mono text-sm">2025. </span>
+				<p className="flex justify-between space-x-2 lg:justify-normal">
+					<span>{process.env.SITE_NAME} @ 2025. </span>
 					<span>All rights reserved.</span>
 				</p>
 

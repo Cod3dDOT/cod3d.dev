@@ -92,7 +92,7 @@ export default async function Image({
 	const thought = errored ? null : (thoughtResponse as Thought);
 
 	const fontData = await getFonts([
-		"GeistMono-Regular-1-3-for-og.ttf",
+		"opengraph/GeistMono-Regular-1.3.ttf",
 		"PixelifySans-Regular.ttf"
 	]);
 
