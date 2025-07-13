@@ -1,8 +1,13 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["./src/styles/**/*", "./src/webgl/**/*"]
+		"includes": ["**", "!src/styles/**/*", "!src/webgl/**/*"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -29,17 +34,16 @@
 			}
 		}
 	},
-	"organizeImports": {
-		"enabled": true
-	},
-	"vcs": {
-		"enabled": true,
-		"clientKind": "git",
-		"useIgnoreFile": true
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	},
 	"overrides": [
 		{
-			"include": ["**/*.css"],
+			"includes": ["**/*.css"],
 			"linter": {
 				"rules": {
 					"correctness": {

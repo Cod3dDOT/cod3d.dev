@@ -35,20 +35,20 @@ const ThoughtLink: React.FC<{
 				className="relative h-full w-full overflow-hidden rounded-xl bg-container transition-[background-color]"
 			>
 				<div className="absolute inset-1 z-10 flex flex-col overflow-hidden rounded-xl px-4 py-4">
-					<div
+					<ul
 						className="flex space-x-2 text-base"
 						aria-label={`Thought tags: ${thought.tags.join(", ")}`}
 					>
 						{thought.tags.map((tag, i) => (
-							<span
-								key={i.toString() + thought.id}
-								className="whitespace-nowrap rounded-xl border-2 border-transparent bg-background p-3 leading-0 transition-[border,background-color] group-hover:border-warn group-focus:border-warn"
+							<li
+								key={`${thought.id}-tag-${i}`}
 								aria-hidden
+								className="whitespace-nowrap rounded-xl border-2 border-transparent bg-background p-3 leading-0 transition-[border,background-color] group-hover:border-warn group-focus:border-warn"
 							>
-								{tag}
-							</span>
+								<span>{tag}</span>
+							</li>
 						))}
-					</div>
+					</ul>
 					<h3 className="mt-auto mb-auto w-3/4 text-xl md:mb-1">
 						{thought.title}
 					</h3>
@@ -86,8 +86,7 @@ const ThoughtLinkSkeleton: React.FC = () => {
 				<div className="flex space-x-2 [font-size:smaller]">
 					{["w-16", "w-24", "w-8"].map((w, i) => (
 						<span
-							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-							key={`skeleton-tag-${i}`}
+							key={`skeleton-tag-placeholder-${i.toString()}`}
 							className={cn(
 								w,
 								shimmer,

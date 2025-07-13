@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { cn } from "@/lib/utils/cn";
 import type { ComponentProps } from "react";
+import { cn } from "@/lib/utils/cn";
 
 export type MarkdownImageProps = ComponentProps<"img"> & {
 	className?: string;

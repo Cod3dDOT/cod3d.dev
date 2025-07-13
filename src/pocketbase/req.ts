@@ -52,7 +52,7 @@ function processThoughts(
 }
 
 function processProjects(
-	client: TypedPocketBase,
+	_client: TypedPocketBase,
 	projects: PBProject[]
 ): Project[] {
 	return projects.map((project) => {

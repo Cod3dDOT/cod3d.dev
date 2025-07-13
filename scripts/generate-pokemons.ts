@@ -93,7 +93,7 @@ async function fetchFromPokeAPI(
 			tableData.push({ name: speciesData.name, success: true });
 			await savePokemonImage(pokemon, folder);
 			return pokemon;
-		} catch (error) {
+		} catch (_error) {
 			tableData.push({ name: speciesData.name, success: false });
 			return null;
 		} finally {

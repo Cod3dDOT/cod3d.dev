@@ -36,7 +36,7 @@ export async function getRandomPokemon(): Promise<Pokemon> {
 	const id = Math.floor(Math.random() * 1024) + 1; // max 1025
 	try {
 		return await getPokemonDetails(+id);
-	} catch (e) {
+	} catch (_e) {
 		return {
 			id: 175,
 			name: "Togepi",

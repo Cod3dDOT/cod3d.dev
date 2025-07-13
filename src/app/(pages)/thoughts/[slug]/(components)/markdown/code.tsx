@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import type { ComponentProps, ReactElement } from "react";
 import { cn } from "@/lib/utils/cn";
 import { splitmix32, stringToUniqueId } from "@/lib/utils/crypto";
-import type { ComponentProps } from "react";
 import { CopyButton } from "./copyButton";
 
 export type MarkdownCodeBlockProps = ComponentProps<"pre">;
@@ -24,12 +24,13 @@ const extensionToColor = {
 export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 	children
 }) => {
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	const filename = (children as any).props["data-filename"] as
-		| string
-		| undefined;
+	const props = (children as ReactElement).props as Map<
+		string,
+		string | undefined
+	>;
+	const filename = props.get("data-filename");
 	const name = filename?.slice(0, filename.lastIndexOf(".")) || "";
-	const extension = filename?.split(".").at(-1) || "js";
+	const extension = filename?.split(".").at(-1);
 
 	const random = stringToUniqueId(splitmix32().toString()).toString();
 	const id = `code-${name}-${random}`;
@@ -45,16 +46,18 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 				<figcaption className="!mt-0 relative flex h-14 items-center justify-between overflow-hidden border-b bg-container">
 					<span className="h-full text-center text-foreground">
 						<span className="mx-4 print:mx-0">{name}</span>
-						<span
-							className={cn(
-								"inline-grid h-full items-center not-print:px-3 dark:text-container",
-								"print:bg-transparent",
-								extensionToColor[extension as keyof typeof extensionToColor]
-							)}
-						>
-							{"."}
-							{extension}
-						</span>
+						{extension && (
+							<span
+								className={cn(
+									"inline-grid h-full items-center not-print:px-3 dark:text-container",
+									"print:bg-transparent",
+									extensionToColor[extension as keyof typeof extensionToColor]
+								)}
+							>
+								{"."}
+								{extension}
+							</span>
+						)}
 					</span>
 					<CopyButton
 						id={id}

@@ -34,7 +34,7 @@ export default function Home() {
 		<>
 			<script
 				type="application/ld+json"
-				// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: happens on build due to static gen
 				dangerouslySetInnerHTML={{
 					__html: JSON.stringify(jsonLd)
 				}}

@@ -7,7 +7,7 @@
 import { Suspense } from "react";
 
 import { cn } from "@/lib/utils/cn";
-import { type Pokemon, getRandomPokemon } from "@/lib/utils/mons";
+import { getRandomPokemon, type Pokemon } from "@/lib/utils/mons";
 import { PrintFooter } from "./printFooter";
 
 const _Footer: React.FC = async () => {

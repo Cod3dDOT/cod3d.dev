@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { decryptPayload } from "@/lib/utils/crypto";
 import { createServerClient } from "@pocketbase/config";
 import { getThought } from "@pocketbase/req";
 import type { Thought } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import { decryptPayload } from "@/lib/utils/crypto";
 
 export const revalidate = 86400;
 

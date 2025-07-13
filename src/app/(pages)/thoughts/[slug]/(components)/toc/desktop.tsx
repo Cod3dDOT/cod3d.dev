@@ -152,7 +152,7 @@ export const TableOfContents: React.FC = () => {
 	);
 
 	if (headings.length === 0) {
-		return <></>;
+		return;
 	}
 
 	return (

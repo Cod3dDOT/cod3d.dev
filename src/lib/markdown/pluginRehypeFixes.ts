@@ -67,7 +67,7 @@ const paragraphVisitor = (
 	node: Element,
 	index: number | undefined,
 	parent: Parent | undefined,
-	options: RehypeFixesOptions
+	_options: RehypeFixesOptions
 ): VisitorResult => {
 	if (index === undefined || parent === undefined) return;
 

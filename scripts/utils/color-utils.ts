@@ -8,14 +8,6 @@ import { extractColors } from "extract-colors";
 import type { FinalColor } from "extract-colors/lib/types/Color";
 import sharp from "sharp";
 
-function clamp(value: number, min: number, max: number): number {
-	return Math.min(Math.max(value, min), max);
-}
-
-function roundToNearest(value: number, multiple: number): number {
-	return Math.round(value / multiple) * multiple;
-}
-
 export async function colorFromImage(path: string): Promise<Color> {
 	const { data, info } = await sharp(path)
 		.raw()
@@ -24,7 +16,7 @@ export async function colorFromImage(path: string): Promise<Color> {
 	const colors = await extractColors({
 		data: new Uint8ClampedArray(data),
 		width: info.width,
-		height: info.height
+		height: info.height,
 	});
 
 	const sortedByArea = colors.sort((a, b) => b.area - a.area);

@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import dynamic from "next/dynamic";
 import { markdownToReact } from "@/lib/markdown";
 import { cn } from "@/lib/utils/cn";
-import dynamic from "next/dynamic";
 import { MobileTOC } from "../toc/mobile";
 import { MarkdownCodeBlock, type MarkdownCodeBlockProps } from "./code";
 import { MarkdownImage, type MarkdownImageProps } from "./image";

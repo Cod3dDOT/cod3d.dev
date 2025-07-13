@@ -5,21 +5,20 @@
  */
 
 "use client";
+import { ReactLenis } from "lenis/react";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import {
-	type RefObject,
 	memo,
+	type RefObject,
 	useCallback,
 	useEffect,
 	useMemo,
 	useRef
 } from "react";
-
 import { useNavigation } from "@/lib/context/navigation";
 import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
 import { cn } from "@/lib/utils/cn";
-import { ReactLenis } from "lenis/react";
 import { DesktopOpener } from "./desktopOpener";
 import { MobileOpener } from "./mobileOpener";
 

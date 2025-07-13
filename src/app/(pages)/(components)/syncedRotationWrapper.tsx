@@ -6,9 +6,9 @@
 
 "use client";
 
+import { useEffect, useState } from "react";
 import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
 import { cn } from "@/lib/utils/cn";
-import { useEffect, useState } from "react";
 
 // needs to be a client component for the date to work
 export const SyncedRotationWrapper: React.FC<{ children: React.ReactNode }> = ({

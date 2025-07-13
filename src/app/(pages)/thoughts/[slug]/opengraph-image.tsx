@@ -4,17 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { readFile } from "node:fs/promises";
 import { createServerClient } from "@pocketbase/config";
 import { getThought, getThoughts } from "@pocketbase/req";
 import type { Thought } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";
 import { ImageResponse } from "next/og";
 import type { ImageResponseOptions } from "next/server";
-
-import { readFile } from "node:fs/promises";
+import sharp from "sharp";
 import { dateToString } from "@/lib/utils/date";
 import { bufferToData } from "@/lib/utils/image";
-import sharp from "sharp";
 
 export async function generateStaticParams() {
 	const thoughtsResponse = await getThoughts(1, 20, { sort: "created" });
@@ -41,11 +40,11 @@ const getFonts = async (fonts: string[]) => {
 		try {
 			const response = await readFile(`./public/fonts/${font}`);
 			return response;
-		} catch (error) {
+		} catch {
 			try {
 				const response = await fetch(`${process.env.SITE_URL}/fonts/${font}`);
 				return response.arrayBuffer();
-			} catch (error) {
+			} catch {
 				throw new Error(`Could not get font ${font}`);
 			}
 		}
@@ -120,7 +119,9 @@ export default async function Image({
 
 const OpenGraphErrorImage = async ({
 	fonts
-}: { fonts: ImageResponseOptions["fonts"] }) => {
+}: {
+	fonts: ImageResponseOptions["fonts"];
+}) => {
 	const image = await getScaledImage(`${process.env.SITE_URL}/img/teapot.webp`);
 
 	return new ImageResponse(
@@ -168,7 +169,10 @@ const OpenGraphErrorImage = async ({
 const OpenGraphImage = async ({
 	thought,
 	fonts
-}: { thought: Thought; fonts: ImageResponseOptions["fonts"] }) => {
+}: {
+	thought: Thought;
+	fonts: ImageResponseOptions["fonts"];
+}) => {
 	const image = await getScaledImage(thought.hero.light);
 
 	return new ImageResponse(

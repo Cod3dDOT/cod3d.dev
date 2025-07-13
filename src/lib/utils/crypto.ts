@@ -27,15 +27,13 @@ export function stringToUniqueId(str: string, seed = 0) {
  * @return {number} a random 32-bit integer between 0 and 1.
  */
 export function splitmix32(a: number = Date.now() * Math.random()): number {
-	// biome-ignore lint/style/noParameterAssign: <explanation>
 	a |= 0;
-	// biome-ignore lint/style/noParameterAssign: <explanation>
 	a = (a + 0x9e3779b9) | 0;
 	let t = a ^ (a >>> 16);
 	t = Math.imul(t, 0x21f0aaad);
 	t = t ^ (t >>> 15);
 	t = Math.imul(t, 0x735a2d97);
-	// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+	// biome-ignore lint/suspicious/noAssignInExpressions: this is black magic, don't touch
 	return ((t = t ^ (t >>> 15)) >>> 0) / 4294967296;
 }
 
