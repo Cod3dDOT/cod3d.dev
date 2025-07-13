@@ -16,7 +16,7 @@ export async function colorFromImage(path: string): Promise<Color> {
 	const colors = await extractColors({
 		data: new Uint8ClampedArray(data),
 		width: info.width,
-		height: info.height,
+		height: info.height
 	});
 
 	const sortedByArea = colors.sort((a, b) => b.area - a.area);
