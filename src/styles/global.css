@@ -88,11 +88,12 @@ body {
         transform: scaleX(1); /* Scale to full width */
         border-radius: 20px;
     }
+}
 
-    ::scroll-marker-group {
-        display: flex;
-        justify-content: center;
-        gap: 0;
-        margin-block-start: 1rem;
-    }
+/* Chrome 135+ */
+.carousel::scroll-marker-group {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-block-start: 1rem;
 }
