@@ -32,7 +32,7 @@ const ThoughtLink: React.FC<{
 				from="var(--yellow)"
 				via="var(--yellow)"
 				size={200}
-				className="relative h-full w-full overflow-hidden rounded-xl bg-container transition-[background-color]"
+				className="relative aspect-video h-full w-full overflow-hidden rounded-xl bg-container transition-[background-color]"
 			>
 				<div className="absolute inset-1 z-10 flex flex-col overflow-hidden rounded-xl px-4 py-4">
 					<ul
@@ -114,7 +114,9 @@ const ThoughtLinkSkeleton: React.FC = () => {
 };
 
 export const ThoughtsCarousel: React.FC = async () => {
-	const thoughtReponse = await getThoughts(1, 2, { sort: "-created" });
+	const thoughtReponse = await getThoughts(undefined, undefined, {
+		sort: "-created"
+	});
 
 	if (isError(thoughtReponse)) {
 		console.error("Could not get thoughts");
@@ -124,16 +126,20 @@ export const ThoughtsCarousel: React.FC = async () => {
 	const thoughts = thoughtReponse as Thought[];
 
 	return (
-		<div className="grid aspect-video grid-cols-1 grid-rows-1 space-x-2 sm:aspect-[32/9] sm:grid-cols-2">
+		<ul
+			className={cn(
+				"grid auto-cols-[90%] grid-flow-col space-x-4 sm:auto-cols-[50%]",
+				"carousel"
+			)}
+		>
 			{thoughts.map((thought) => {
 				return (
-					<ThoughtLink
-						key={`nav-link-thought-${thought.id}`}
-						thought={thought}
-					/>
+					<li key={`nav-link-thought-${thought.id}`}>
+						<ThoughtLink thought={thought} />
+					</li>
 				);
 			})}
-		</div>
+		</ul>
 	);
 };
 

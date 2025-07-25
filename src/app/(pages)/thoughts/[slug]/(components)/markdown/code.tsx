@@ -19,11 +19,11 @@ const extensionToColor = {
 	json: "bg-[#b7b7b7]",
 	ts: "bg-[#39B0FF]",
 	tsx: "bg-[#39B0FF]",
-	py: "bg-[#FFDE57]",
+	py: "bg-[#FFDE57]"
 };
 
 export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
-	children,
+	children
 }) => {
 	const props = (children as ReactElement).props as Properties;
 	const filename = props["data-filename"]?.toString();
@@ -37,7 +37,7 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 		<figure
 			className={cn(
 				"overflow-hidden border-container border-y-4 font-mono md:rounded-lg md:border-4",
-				filename && "!border-t-0",
+				filename && "!border-t-0"
 			)}
 		>
 			{filename && (
@@ -49,7 +49,7 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 								className={cn(
 									"inline-grid h-full items-center not-print:px-3 dark:text-container",
 									"print:bg-transparent",
-									extensionToColor[extension as keyof typeof extensionToColor],
+									extensionToColor[extension as keyof typeof extensionToColor]
 								)}
 							>
 								{"."}

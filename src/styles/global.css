@@ -55,3 +55,44 @@ body {
         background-color: var(--accent-blue);
     }
 }
+
+.carousel {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    list-style: none;
+
+    @media (prefers-reduced-motion: no-preference) {
+        scroll-behavior: smooth;
+    }
+
+    > li {
+        scroll-snap-align: center;
+    }
+
+    /* Chrome 135+ */
+    anchor-name: --carousel; /* define the anchor */
+    scroll-marker-group: after;
+
+    > li::scroll-marker {
+        content: "";
+        border-radius: 100%;
+        width: 20px;
+        height: 10px;
+        background-color: var(--foreground);
+        transform: scaleX(0.5); /* Start at half width */
+        /* transform-origin: left center; */
+        transition: all 0.2s ease-in-out;
+    }
+
+    > li::scroll-marker:target-current {
+        transform: scaleX(1); /* Scale to full width */
+        border-radius: 20px;
+    }
+
+    ::scroll-marker-group {
+        display: flex;
+        justify-content: center;
+        gap: 0;
+        margin-block-start: 1rem;
+    }
+}

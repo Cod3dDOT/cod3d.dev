@@ -53,7 +53,7 @@ const getFonts = async (fonts: string[]) => {
 	return Promise.all(promises);
 };
 
-const getScaledImage = async (url?: string, scaleFactor = 3) => {
+const getScaledImage = async (url?: string, width = 100) => {
 	if (!url) return null;
 
 	const response = await fetch(url);
@@ -63,13 +63,9 @@ const getScaledImage = async (url?: string, scaleFactor = 3) => {
 	const buffer = await response.arrayBuffer();
 
 	const image = sharp(Buffer.from(buffer));
-	const metadata = await image.metadata();
-
-	const width = metadata.width * scaleFactor;
-	const height = metadata.height * scaleFactor;
 
 	const resizedBuffer = await image
-		.resize(width, height, {
+		.resize(width, undefined, {
 			kernel: sharp.kernel.nearest // Preserve pixel art
 		})
 		.png()

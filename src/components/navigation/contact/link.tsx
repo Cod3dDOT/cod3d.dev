@@ -6,7 +6,6 @@
 
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils/cn";
 
@@ -111,15 +110,10 @@ export const ContactLink: React.FC<{
 	}, [protectedBytes]);
 
 	return (
-		<Link
-			hrefLang="en"
-			ref={linkRef}
-			className={cn(style, className)}
-			href={href}
-		>
+		<a hrefLang="en" ref={linkRef} className={cn(style, className)} href={href}>
 			<Contents text={text} subtext={subtext} active={active}>
 				{children}
 			</Contents>
-		</Link>
+		</a>
 	);
 };

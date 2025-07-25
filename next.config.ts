@@ -30,6 +30,9 @@ const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	poweredByHeader: false,
 	experimental: {
+		// useLightningcss: true, // TODO: wait until tailwindcss intergation is ready
+		typedRoutes: true,
+		reactCompiler: true
 		// viewTransition: true, // FIXME not actually implemented
 		// ppr: true // FIXME Investigate: makes every navigation reload the page? weird and broken
 	},
