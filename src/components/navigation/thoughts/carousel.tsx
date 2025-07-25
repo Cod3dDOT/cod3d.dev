@@ -145,14 +145,19 @@ export const ThoughtsCarousel: React.FC = async () => {
 
 export const ThoughtsCarouselSkeleton: React.FC = () => {
 	return (
-		<div className="grid aspect-video grid-cols-1 grid-rows-1 space-x-2 sm:aspect-[32/9] sm:grid-cols-2">
+		<ul
+			className={cn(
+				"grid auto-cols-[90%] grid-flow-col space-x-4 sm:auto-cols-[50%]",
+				"carousel"
+			)}
+		>
 			{[1, 2].map((index) => {
 				return (
-					<ThoughtLinkSkeleton
-						key={`nav-skeleton-thought-${index.toString()}`}
-					/>
+					<li key={`nav-skeleton-thought-${index.toString()}`}>
+						<ThoughtLinkSkeleton />
+					</li>
 				);
 			})}
-		</div>
+		</ul>
 	);
 };

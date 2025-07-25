@@ -4,6 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+:where(html) {
+	--ease-3: cubic-bezier(0.25, 0, 0.3, 1);
+	--ease-out-5: cubic-bezier(0, 0, 0, 1);
+	--ease-elastic-out-3: cubic-bezier(0.5, 1.25, 0.75, 1.25);
+	--ease-elastic-out-4: cubic-bezier(0.5, 1.5, 0.75, 1.25);
+}
+
 @font-face {
 	font-family: "Geist Mono";
 	font-style: normal;
@@ -37,7 +44,6 @@
 	--blue: rgb(78, 89, 207);
 	--green: rgb(80, 224, 80);
 	--red: rgb(203, 39, 66);
-	--black: rgb(0, 0, 0);
 	--foreground: rgb(18, 18, 18);
 	--background: rgb(230, 230, 230);
 	--container: rgb(242, 242, 242);
@@ -189,63 +195,127 @@ button {
 	margin-top: 0.75rem;
 }
 
-/* Theme Toggle Button */
-#theme-toggle {
+/*
+ * Code adapted from https://github.com/argyleink/gui-challenges/blob/main/theme-toggle/theme-switch.css
+ */
+
+.theme-switch {
 	--size: 2rem;
 	--icon-fill: var(--foreground);
-	--icon-fill-hover: var(--accent-blue);
+	--icon-fill-hover: black;
 
 	background: none;
 	border: none;
 	padding: 0;
+
 	inline-size: var(--size);
 	block-size: var(--size);
 	aspect-ratio: 1;
 	border-radius: 50%;
+
 	cursor: pointer;
 	touch-action: manipulation;
 	-webkit-tap-highlight-color: transparent;
-	outline-offset: 5px;
-	position: fixed;
-	top: 1rem;
-	right: 1rem;
-	z-index: 9999;
-}
 
-#theme-toggle > svg {
-	inline-size: 100%;
-	block-size: 100%;
-	stroke-linecap: round;
+	outline-offset: 5px;
+
+	position: fixed;
+	right: 1rem;
+	top: 1rem;
+	z-index: 999;
+
+	& > svg {
+		inline-size: 100%;
+		block-size: 100%;
+		stroke-linecap: round;
+	}
 }
 
 @media (hover: none) {
-	#theme-toggle {
+	.theme-switch {
 		--size: 48px;
 	}
 }
 
+.dark .theme-switch {
+	--icon-fill-hover: white;
+}
+
 .sun-and-moon > :is(.moon, .sun, .sun-beams) {
-	transform-origin: center center;
+	transform-origin: center;
 }
 
-.sun-and-moon > .sun {
-	transition: transform 0.5s ease-in-out;
+.sun-and-moon > :is(.moon, .sun) {
+	fill: var(--icon-fill);
 }
 
-.sun-and-moon > .moon > circle {
-	transition: transform 0.25s ease-in-out;
+.theme-switch:is(:hover, :focus-visible) > .sun-and-moon > :is(.moon, .sun) {
+	fill: var(--icon-fill-hover);
 }
 
-.dark {
-	.sun-and-moon > .sun-beams {
-		opacity: 0;
+.sun-and-moon > .sun-beams {
+	stroke: var(--icon-fill);
+	stroke-width: 2px;
+}
+
+.theme-switch:is(:hover, :focus-visible) .sun-and-moon > .sun-beams {
+	stroke: var(--icon-fill-hover);
+}
+
+.dark .sun-and-moon > .sun {
+	transform: scale(1.75);
+}
+
+.dark .sun-and-moon > .sun-beams {
+	opacity: 0;
+}
+
+.dark .sun-and-moon > .moon > circle {
+	transform: translateX(-7px);
+}
+
+@supports (cx: 1) {
+	.dark .sun-and-moon > .moon > circle {
+		cx: 17;
+		transform: translateX(0);
 	}
+}
 
-	.sun-and-moon > .moon > circle {
-		transform: translateX(-7px);
-	}
-
+@media (prefers-reduced-motion: no-preference) {
 	.sun-and-moon > .sun {
+		transition: all 0.5s var(--ease-elastic-out-3);
+	}
+
+	.sun-and-moon > .sun-beams {
+		transition:
+			transform 0.5s var(--ease-elastic-out-4),
+			opacity 0.5s var(--ease-3),
+			stroke 0.5s var(--ease-3);
+	}
+
+	.sun-and-moon .moon > circle {
+		transition: transform 0.25s var(--ease-out-5);
+	}
+
+	@supports (cx: 1) {
+		.sun-and-moon .moon > circle {
+			transition: cx 0.25s var(--ease-out-5);
+		}
+	}
+
+	.dark .sun-and-moon > .sun {
+		transition-timing-function: var(--ease-3);
+		transition-duration: 0.25s;
 		transform: scale(1.75);
+	}
+
+	.dark .sun-and-moon > .sun-beams {
+		transition-duration: 0.15s;
+		transform: rotateZ(-25deg);
+	}
+
+	.dark .sun-and-moon > .moon > circle {
+		transition-duration: 0.5s;
+		transition-delay: 0.25s;
 	}
 }

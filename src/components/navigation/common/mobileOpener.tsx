@@ -32,7 +32,7 @@ export const MobileOpener: React.FC = React.memo(() => {
 	return (
 		<div
 			className={cn(
-				"absolute z-20 flex space-x-2 rounded-bl-xl border-transparent border-b-2 border-l-2 p-4 sm:hidden",
+				"absolute z-20 flex items-center gap-2 rounded-bl-xl border-transparent border-b-2 border-l-2 p-4 sm:hidden",
 				"transition-all duration-300 will-change-transform",
 				!isOpen ? "-translate-x-full" : "translate-x-[calc(100vw-100%)]",
 				!isOpen && pathname.includes("thoughts/") && "border-foreground"
@@ -56,7 +56,10 @@ export const MobileOpener: React.FC = React.memo(() => {
 				<span className="sr-only">Home</span>
 			</Link>
 
-			<ThemeSwitch id="theme-switch-mobile" className="h-12 w-12 p-3" />
+			<ThemeSwitch
+				id="theme-switch-mobile"
+				className="![block-size:3rem] ![inline-size:3rem] p-3"
+			/>
 
 			<button
 				ref={ref}

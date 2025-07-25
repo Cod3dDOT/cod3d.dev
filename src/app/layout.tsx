@@ -118,7 +118,7 @@ export default function RootLayout({
 				</Providers>
 
 				<Script
-					integrity="sha512-PBl7NVhFzYr+R5O2MdXcNHfEouSwt+RUrzEw5eR/OPZKMgesWUiiI/IomdWcFZbtyv7i11egn4ym4o371a9+Cw=="
+					integrity="sha512-NvB9p2Vwo7N0RayKFcrkBianZoWfZwZelGXZX0YtGBqFGHDYqgSIELjXCKL8zRalkGUHpxI5BNDlwcFu56A9Mw=="
 					crossOrigin="anonymous"
 					strategy="afterInteractive"
 					async

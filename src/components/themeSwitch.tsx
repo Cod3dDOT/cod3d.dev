@@ -38,29 +38,31 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(
 				ref={ref}
 				type="button"
 				className={cn(
-					"group aspect-square cursor-pointer touch-manipulation hover:scale-95",
+					"theme-switch transition-transform hover:scale-95",
 					className
 				)}
 				aria-label="Theme switch"
+				aria-live="polite"
 			>
-				<svg aria-hidden="true" viewBox="0 0 24 24" focusable={false}>
-					<mask className="origin-center" id={`moon-mask-${id}`}>
+				<svg
+					className="sun-and-moon"
+					aria-hidden="true"
+					viewBox="0 0 24 24"
+					focusable={false}
+				>
+					<mask className="moon" id={`moon-mask-${id}`}>
 						<rect x="0" y="0" width="100%" height="100%" fill="white" />
-						<circle
-							cx="24"
-							cy="10"
-							r="6"
-							className="origin-center transition-[cx] duration-300 dark:translate-x-0 dark:translate-y-0 dark:delay-300 dark:duration-600 dark:[cx:17]"
-						/>
+						<circle cx="24" cy="10" r="6" fill="black" />
 					</mask>
 					<circle
-						className="origin-center fill-foreground transition-all duration-600 group-hover:fill-foreground/80 dark:scale-[1.75] dark:duration-300"
+						className="sun"
 						cx="12"
 						cy="12"
 						r="6"
 						mask={`url(#moon-mask-${id})`}
+						fill="currentColor"
 					/>
-					<g className="dark:-rotate-45 origin-center stroke-2 stroke-foreground transition-all delay-150 duration-600 [stroke-linecap:round] group-hover:stroke-foreground/60 dark:opacity-0 dark:delay-0 dark:duration-300">
+					<g className="sun-beams" stroke="currentColor">
 						<line x1="12" y1="1" x2="12" y2="3" />
 						<line x1="12" y1="21" x2="12" y2="23" />
 						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />

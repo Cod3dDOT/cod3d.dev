@@ -33,7 +33,7 @@ export const DesktopOpener: React.FC = memo(() => {
 		<div className="hidden h-full w-16 flex-col items-center shadow-lg sm:flex">
 			<ThemeSwitch
 				id="theme-switch-desktop"
-				className="w-full translate-y-4 p-4 transition-transform duration-300"
+				className="my-4 w-full translate-y-4"
 			/>
 			<Link
 				aria-disabled={isHome}
