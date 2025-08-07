@@ -8,9 +8,7 @@ import { createServerClient } from "@pocketbase/config";
 import { getThought } from "@pocketbase/req";
 import type { Thought } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-import { decryptPayload } from "@/lib/utils/crypto";
 
 export const revalidate = 86400;
 
@@ -20,30 +18,6 @@ const hasValidOrigin = (request: Request): boolean => {
 	const refererUrl = referer ? new URL(referer) : null;
 
 	return refererUrl?.origin === origin;
-};
-
-const hasValidToken = async (): Promise<{
-	slug: string;
-	valid: boolean;
-}> => {
-	const token = (await cookies()).get("token")?.value;
-	if (!token) return { slug: "", valid: false };
-
-	let data: { slug: string; expiresAt: number };
-	try {
-		const decrypted = await decryptPayload(
-			token,
-			process.env.PRIVATE_DOWNLOAD_KEY
-		);
-		data = JSON.parse(decrypted);
-	} catch {
-		return { slug: "", valid: false };
-	}
-
-	return {
-		slug: data.slug,
-		valid: data.expiresAt > Date.now()
-	};
 };
 
 export async function GET(request: Request) {
@@ -56,11 +30,6 @@ export async function GET(request: Request) {
 
 	const validOrigin = hasValidOrigin(request);
 	if (!validOrigin) {
-		return new Response(null, { status: 403 });
-	}
-
-	const { valid: validToken, slug: tokenSlug } = await hasValidToken();
-	if (!validToken || tokenSlug !== slug) {
 		return new Response(null, { status: 403 });
 	}
 
