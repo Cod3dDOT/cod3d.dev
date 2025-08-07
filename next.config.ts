@@ -34,7 +34,6 @@ const nextConfig: NextConfig = {
 		typedRoutes: true,
 		reactCompiler: true
 		// viewTransition: true, // FIXME not actually implemented
-		// ppr: true // FIXME Investigate: makes every navigation reload the page? weird and broken
 	},
 	images: {
 		unoptimized: true,
@@ -126,3 +125,7 @@ const analyzedConfig = withBundleAnalyzer({
 })(nextConfig);
 
 export default process.env.ANALYZE === "true" ? analyzedConfig : nextConfig;
+
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+
+initOpenNextCloudflareForDev();

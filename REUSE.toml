@@ -23,6 +23,8 @@ path = [
     "tsconfig.json",
     ".postcssrc.json",
     "public/pgp-key.txt",
+    "public/_headers",
+    "wrangler.jsonc",
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "2025 cod3ddot@proton.me"

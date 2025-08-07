@@ -39,3 +39,6 @@ next-env.d.ts
 
 # scripts
 scripts/generated-assets
+
+.open-next
+.dev.vars

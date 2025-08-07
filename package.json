@@ -1,5 +1,5 @@
 {
-	"name": "next.cod3d.dev",
+	"name": "cod3d-dev",
 	"version": "0.3.1",
 	"license": "Apache-2.0",
 	"private": false,
@@ -8,7 +8,10 @@
 		"prebuild": "bun next telemetry disable",
 		"build": "next build",
 		"build:clean": "rm -rf .next && bun run build",
-		"start": "next start",
+		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+		"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+		"upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
 		"lint": "bunx biome check",
 		"lint:fix": "bunx biome check --write --unsafe",
 		"analyze": "ANALYZE=true bun run build",
@@ -16,6 +19,7 @@
 		"commit": "commit"
 	},
 	"dependencies": {
+		"@opennextjs/cloudflare": "^1.6.5",
 		"@r4ai/remark-callout": "^0.6.2",
 		"babel-plugin-react-compiler": "^19.1.0-rc.2",
 		"copy-to-clipboard": "^3.3.3",
@@ -41,7 +45,8 @@
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
 		"rss": "^1.2.2",
-		"unist-util-remove": "^4.0.0"
+		"unist-util-remove": "^4.0.0",
+		"wrangler": "^4.28.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.1.4",
