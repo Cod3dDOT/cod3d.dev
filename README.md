@@ -1,11 +1,40 @@
 [![cod3d.dev](https://cod3d.dev/img/readme-next.cod3d.dev.gif)](https://github.com/cod3ddot/cod3d.dev)
 
+<div align="center">
+  <!-- Apache 2.0 License Badge -->
+  <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Apache%202.0-blue.svg?style=for-the-badge&logo=apache" alt="License: Apache 2.0" />
+  </a>
+
+  <!-- Hosting: Cloudflare -->
+  <a href="https://www.cloudflare.com" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Hosted on Cloudflare" />
+  </a>
+
+  <!-- Built with: Next.js -->
+  <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Built with Next.js" />
+  </a>
+
+  <!-- Built with: Tailwind CSS -->
+  <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/Tailwind-00bdff?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Styled with Tailwind CSS" />
+  </a>
+
+  <!-- Built with: PocketBase -->
+  <a href="https://pocketbase.io" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/PocketBase-3c3c3c?style=for-the-badge&logo=pocketbase&logoColor=white" alt="Backend: PocketBase" />
+  </a>
+</div>
+
+
 # cod3d.dev
 
 Personal website and blog built with Next.js v15, TailwindCSS v4, and PocketBase.
 
-Visit: [cod3d.dev](https://cod3d.dev)
-[analytics.cod3d.dev](https://analytics.cod3d.dev)
+Home: [cod3d.dev](https://cod3d.dev)
+
+Analytics: [analytics.cod3d.dev](https://analytics.cod3d.dev)
 
 ## Sitemap
 
@@ -37,7 +66,6 @@ Visit: [cod3d.dev](https://cod3d.dev)
    POCKETBASE_HOST=your_pocketbase_host
    POCKETBASE_USER=your_pocketbase_user
    POCKETBASE_PASS=your_pocketbase_pass
-   PRIVATE_DOWNLOAD_KEY=your_private_download_key
    ```
 
 3. Start development server:
