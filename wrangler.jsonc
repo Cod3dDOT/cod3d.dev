@@ -8,6 +8,38 @@
 		"directory": ".open-next/assets",
 		"binding": "ASSETS"
 	},
+	"services": [
+		{
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "cod3d-dev"
+		}
+	],
+
+	// DO Queue
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "NEXT_CACHE_DO_QUEUE",
+				"class_name": "DOQueueHandler"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": ["DOQueueHandler"]
+		}
+	],
+
+	// D1 Tag Cache (Next mode)
+	// This is only required if you use On-demand revalidation
+	// "d1_databases": [
+	// 	{
+	// 		"binding": "NEXT_TAG_CACHE_D1",
+	// 		"database_id": "<DATABASE_ID>",
+	// 		"database_name": "<DATABASE_NAME>"
+	// 	}
+	// ],
 	"r2_buckets": [
 		// Use R2 incremental cache
 		// See https://opennext.js.org/cloudflare/caching
