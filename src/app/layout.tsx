@@ -120,7 +120,7 @@ export default function RootLayout({
 				<Script
 					integrity="sha512-NvB9p2Vwo7N0RayKFcrkBianZoWfZwZelGXZX0YtGBqFGHDYqgSIELjXCKL8zRalkGUHpxI5BNDlwcFu56A9Mw=="
 					crossOrigin="anonymous"
-					strategy="afterInteractive"
+					strategy="lazyOnload"
 					async
 					src="/um.js"
 					data-website-id="769f6be6-7f1e-4a6b-a214-7734c116c541"
