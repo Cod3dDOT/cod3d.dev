@@ -32,7 +32,8 @@ const nextConfig: NextConfig = {
 	experimental: {
 		// useLightningcss: true, // TODO: wait until tailwindcss intergation is ready
 		typedRoutes: true,
-		reactCompiler: true
+		reactCompiler: true,
+		authInterrupts: true // enables forbidden()
 		// viewTransition: true, // FIXME not actually implemented
 	},
 	images: {
