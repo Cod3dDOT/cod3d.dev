@@ -66,6 +66,7 @@ Analytics: [analytics.cod3d.dev](https://analytics.cod3d.dev)
    POCKETBASE_HOST=your_pocketbase_host
    POCKETBASE_USER=your_pocketbase_user
    POCKETBASE_PASS=your_pocketbase_pass
+   UMAMI_WEBSITE_ID=your_umami_id
    ```
 
 3. Start development server:

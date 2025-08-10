@@ -36,8 +36,9 @@ const hasValidOrigin = (request: Request): boolean => {
 	return refererUrl?.origin === origin;
 };
 
-export async function GET(request: Request, params: Promise<{ slug: string }>) {
-	const slug = (await params).slug;
+export async function GET(request: Request) {
+	const { pathname } = new URL(request.url);
+	const slug = pathname.split("/").pop();
 
 	if (!slug) {
 		return notFound();

@@ -12,6 +12,7 @@ declare global {
 			POCKETBASE_PASS: string;
 			SITE_URL: string;
 			SITE_NAME: string;
+			UMAMI_WEBSITE_ID: string;
 		}
 	}
 }
