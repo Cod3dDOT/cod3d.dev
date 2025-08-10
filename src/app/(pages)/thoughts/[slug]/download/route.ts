@@ -5,12 +5,28 @@
  */
 
 import { createServerClient } from "@pocketbase/config";
-import { getThought } from "@pocketbase/req";
+import { getThought, getThoughts } from "@pocketbase/req";
 import type { Thought } from "@pocketbase/types";
 import { isError } from "@pocketbase/utils";
 import { notFound } from "next/navigation";
 
 export const revalidate = 86400;
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+	const thoughtsResponse = await getThoughts(1, 20, { sort: "created" });
+
+	if (isError(thoughtsResponse)) {
+		console.error("Could not get thoughts");
+		return [];
+	}
+
+	const thoughts = thoughtsResponse as Thought[];
+
+	return thoughts.map((thought) => ({
+		slug: thought.slug
+	}));
+}
 
 const hasValidOrigin = (request: Request): boolean => {
 	const { origin } = new URL(request.url);
@@ -20,9 +36,8 @@ const hasValidOrigin = (request: Request): boolean => {
 	return refererUrl?.origin === origin;
 };
 
-export async function GET(request: Request) {
-	const { pathname } = new URL(request.url);
-	const slug = pathname.split("/").at(-2);
+export async function GET(request: Request, params: Promise<{ slug: string }>) {
+	const slug = (await params).slug;
 
 	if (!slug) {
 		return notFound();
