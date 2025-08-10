@@ -90,6 +90,8 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 						>
 							<a
 								href={`${slug}/download`}
+								data-umami-event="download"
+								data-umami-event-url={`${slug}/download`}
 								rel="noopener"
 								className="transition-colors hover:text-accent-blue focus:text-accent-blue dark:focus:text-accent-blue dark:hover:text-accent-yellow"
 								aria-describedby="md-download-tooltip"

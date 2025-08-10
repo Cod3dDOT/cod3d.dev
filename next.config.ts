@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
 		return Promise.resolve([
 			{
 				source: "/um.js",
-				destination: "https://analytics.umami.is/script.js"
+				destination: "https://cloud.umami.is/script.js"
 			},
 			{
 				source: "/api/send",
