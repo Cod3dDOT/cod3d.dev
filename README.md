@@ -1,4 +1,4 @@
-[![cod3d.dev](https://cod3d.dev/img/readme-next.cod3d.dev.gif)](https://github.com/cod3ddot/cod3d.dev)
+[![cod3d.dev](./docs/github-header.gif)](https://github.com/cod3ddot/cod3d.dev)
 
 <div align="center">
   <!-- Apache 2.0 License Badge -->
