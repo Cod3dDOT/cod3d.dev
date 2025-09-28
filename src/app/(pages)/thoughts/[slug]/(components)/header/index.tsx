@@ -83,36 +83,32 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 					<span className="font-extralight">Available in</span>
 					<br />
 					<div className="flex space-x-2">
-						<Tooltip
-							id="md-download-tooltip"
-							content="Markdown"
-							position="bottom"
-						>
-							<a
-								href={`${slug}/download`}
-								data-umami-event="download"
-								data-umami-event-url={`${slug}/download`}
-								rel="noopener"
-								className="transition-colors hover:text-accent-blue focus:text-accent-blue dark:focus:text-accent-blue dark:hover:text-accent-yellow"
-								aria-describedby="md-download-tooltip"
-							>
-								<MarkdownIcon className="h-[1lh] w-[1lh]" />
-							</a>
+						<Tooltip content="Markdown" position="bottom">
+							{(tooltipId) => (
+								<a
+									href={`${slug}/download`}
+									data-umami-event="download"
+									data-umami-event-url={`${slug}/download`}
+									rel="noopener"
+									className="transition-colors hover:text-accent-blue focus:text-accent-blue dark:focus:text-accent-blue dark:hover:text-accent-yellow"
+									aria-describedby={tooltipId}
+								>
+									<MarkdownIcon className="h-lh w-[1lh]" />
+								</a>
+							)}
 						</Tooltip>
-						<Tooltip
-							id="blog-rss-link-tooltip"
-							content="RSS Feed"
-							position="bottom"
-						>
-							<a
-								href="/feed.xml"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="transition-colors hover:text-accent-blue focus:text-accent-blue dark:focus:text-accent-blue dark:hover:text-accent-yellow"
-								aria-describedby="blog-rss-link-tooltip"
-							>
-								<RssIcon className="h-[1lh] w-[1lh]" />
-							</a>
+						<Tooltip content="RSS Feed" position="bottom">
+							{(tooltipId) => (
+								<a
+									href="/feed.xml"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="transition-colors hover:text-accent-blue focus:text-accent-blue dark:focus:text-accent-blue dark:hover:text-accent-yellow"
+									aria-describedby={tooltipId}
+								>
+									<RssIcon className="h-lh w-[1lh]" />
+								</a>
+							)}
 						</Tooltip>
 					</div>
 				</div>

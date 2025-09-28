@@ -126,7 +126,7 @@ const OpenGraphErrorImage = async ({
 			style={{ fontFamily: "PixelifySans" }}
 		>
 			<div
-				tw="absolute flex flex-col inset-4 p-8 rounded-[2rem] overflow-hidden shadow-xl border-2 border-black/5"
+				tw="absolute flex flex-col inset-4 p-8 rounded-4xl overflow-hidden shadow-xl border-2 border-black/5"
 				style={{
 					background:
 						"radial-gradient(circle at right top, rgb(224,191,81) 0%, rgb(230,230,230) 50%)"
@@ -177,7 +177,7 @@ const OpenGraphImage = async ({
 			style={{ fontFamily: "PixelifySans" }}
 		>
 			<div
-				tw="absolute flex flex-col inset-4 p-8 rounded-[2rem] overflow-hidden shadow-xl border-2 border-black/5"
+				tw="absolute flex flex-col inset-4 p-8 rounded-4xl overflow-hidden shadow-xl border-2 border-black/5"
 				style={{
 					background:
 						"radial-gradient(circle at right top, rgb(224,191,81) 0%, rgb(230,230,230) 50%)"

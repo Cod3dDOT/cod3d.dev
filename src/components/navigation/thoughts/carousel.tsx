@@ -14,7 +14,7 @@ import { dateToString } from "@/lib/utils/date";
 import { isError } from "@/pocketbase/utils";
 
 const shimmer =
-	"overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/10 before:to-transparent";
+	"overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-linear-to-r before:from-transparent before:via-foreground/10 before:to-transparent";
 
 const ThoughtLink: React.FC<{
 	thought: Thought;
@@ -78,12 +78,12 @@ const ThoughtLinkSkeleton: React.FC = () => {
 	return (
 		<div
 			className={cn(
-				"!via-foreground/50 relative h-full w-full overflow-hidden rounded-xl bg-container",
+				"relative h-full w-full overflow-hidden rounded-xl bg-container via-foreground/50!",
 				shimmer
 			)}
 		>
 			<div className="absolute inset-1 flex flex-col overflow-hidden rounded-xl bg-background px-4 py-4">
-				<div className="flex space-x-2 [font-size:smaller]">
+				<div className="flex space-x-2 text-[smaller]">
 					{["w-16", "w-24", "w-8"].map((w, i) => (
 						<span
 							key={`skeleton-tag-placeholder-${i.toString()}`}
@@ -98,7 +98,7 @@ const ThoughtLinkSkeleton: React.FC = () => {
 				</div>
 				<div
 					className={cn(
-						"relative mt-auto mb-auto h-[1lh] w-3/4 rounded-lg bg-container [font-size:larger] md:mb-1",
+						"relative mt-auto mb-auto h-lh w-3/4 rounded-lg bg-container text-[larger] md:mb-1",
 						shimmer
 					)}
 				/>

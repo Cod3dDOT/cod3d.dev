@@ -43,12 +43,12 @@ export const NavProjectSkeleton: React.FC = () => {
 		<div
 			className={cn(
 				"relative flex items-center justify-between overflow-hidden rounded-md transition-shadow sm:h-16",
-				"before:-translate-x-full before:absolute before:inset-0 before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-foreground/10 before:to-transparent"
+				"before:-translate-x-full before:absolute before:inset-0 before:animate-[shimmer_2s_infinite] before:bg-linear-to-r before:from-transparent before:via-foreground/10 before:to-transparent"
 			)}
 		>
 			<div className="flex flex-1 flex-col space-y-1 p-2 sm:w-fit sm:flex-initial">
-				<span className="h-[1lh] w-24 rounded-md bg-foreground/10 text-2xl shadow-sm" />
-				<span className="h-[1lh] w-48 rounded-md bg-foreground/10 shadow-sm" />
+				<span className="h-lh w-24 rounded-md bg-foreground/10 text-2xl shadow-sm" />
+				<span className="h-lh w-48 rounded-md bg-foreground/10 shadow-sm" />
 			</div>
 
 			<span className="mr-4 h-8 w-8 rounded-full bg-foreground/10" />

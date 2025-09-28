@@ -13,6 +13,7 @@ import {
 	type RefObject,
 	useCallback,
 	useEffect,
+	useId,
 	useMemo,
 	useRef
 } from "react";
@@ -79,6 +80,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 	const { isMobile, isDesktop } = useDeviceDetection();
 
 	const { isOpen, closeNav } = useNavigation();
+	const id = useId();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: closes nav on route change
 	useEffect(() => {
@@ -88,7 +90,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 	useAutoClose({ closeNav, menu });
 
 	return (
-		<nav className="relative print:hidden" id="sidebar">
+		<nav className="relative print:hidden" id={id}>
 			<div
 				className={cn(
 					"-z-10 fixed inset-0 hidden bg-black opacity-0 transition-[opacity,right] duration-300 ease-in-out lg:block",
@@ -108,8 +110,8 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 						: "translate-x-full sm:translate-x-[calc(100%-4rem)]"
 				)}
 			>
-				<DesktopOpener />
-				<MobileOpener />
+				<DesktopOpener sidebarId={id} />
+				<MobileOpener sidebarId={id} />
 				<div inert={!isOpen} className="w-full">
 					{isDesktop && <ScrollContainer>{children}</ScrollContainer>}
 					{isMobile && (

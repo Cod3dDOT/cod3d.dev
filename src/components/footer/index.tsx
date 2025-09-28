@@ -37,7 +37,7 @@ const _Footer: React.FC = async () => {
 							className={cn(
 								pokemon.class,
 								"text-justify font-medium text-6xl md:text-[10vw]",
-								"bg-gradient-to-br from-[var(--c)] via-[var(--c)] bg-clip-text text-transparent",
+								"bg-linear-to-br from-(--c) via-(--c) bg-clip-text text-transparent",
 								"selection:text-foreground"
 							)}
 						>

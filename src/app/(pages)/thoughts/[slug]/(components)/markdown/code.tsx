@@ -37,11 +37,11 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 		<figure
 			className={cn(
 				"overflow-hidden border-container border-y-4 font-mono md:rounded-lg md:border-4",
-				filename && "!border-t-0"
+				filename && "border-t-0!"
 			)}
 		>
 			{filename && (
-				<figcaption className="!mt-0 relative flex h-14 items-center justify-between overflow-hidden border-b bg-container">
+				<figcaption className="relative mt-0! flex h-14 items-center justify-between overflow-hidden border-b bg-container">
 					<span className="h-full text-center text-foreground">
 						<span className="mx-4 print:mx-0">{name}</span>
 						{extension && (

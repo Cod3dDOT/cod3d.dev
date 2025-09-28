@@ -27,14 +27,14 @@ const Contents: React.FC<{
 		<>
 			<div
 				className={cn(
-					"-z-20 -translate-y-1/2 -inset-1/2 absolute top-1/2 aspect-square animate-spin bg-gradient-to-b from-accent-yellow to-accent-blue opacity-0 transition-opacity group-hover/link:opacity-100",
+					"-z-20 -translate-y-1/2 -inset-1/2 absolute top-1/2 aspect-square animate-spin bg-linear-to-b from-accent-yellow to-accent-blue opacity-0 transition-opacity group-hover/link:opacity-100",
 					active && "opacity-100"
 				)}
 			/>
 			<div
 				className={cn(
 					"-z-10 absolute inset-0 rounded-lg bg-container transition-all group-hover/link:inset-1",
-					active && "!inset-full"
+					active && "inset-full!"
 				)}
 			/>
 			{children}

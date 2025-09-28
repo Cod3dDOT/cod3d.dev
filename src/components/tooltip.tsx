@@ -4,21 +4,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useId } from "react";
 import { cn } from "@/lib/utils/cn";
 
 interface TooltipProps {
-	id: string;
 	position?: "top" | "bottom" | "left" | "right";
 	content: string;
-	children: React.ReactNode;
+	children: (id: string) => React.ReactNode;
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
-	id,
 	children,
 	content,
 	position = "top"
 }) => {
+	const id = useId();
+
 	const positionClasses = {
 		top: "bottom-full left-1/2 transform -translate-x-1/2 mb-2",
 		bottom: "top-full left-1/2 transform -translate-x-1/2 mt-2",
@@ -28,7 +29,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
 	return (
 		<div className="group relative inline-block">
-			{children}
+			{children(id)}
 
 			<div
 				id={id}

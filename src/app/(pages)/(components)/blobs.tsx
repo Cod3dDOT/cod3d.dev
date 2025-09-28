@@ -15,14 +15,16 @@ export const ColorfulBlobs: React.FC = () => {
 			className={cn(
 				"relative aspect-square [animation-delay:var(--delay)]",
 				"animate-spin will-change-transform motion-safe:[animation-duration:60s] motion-reduce:[animation-duration:3600s]",
-				"*:h-[35rem] *:w-[35rem] sm:*:h-[42rem] sm:*:w-[42rem]"
+				"*:h-140 *:w-140 sm:*:h-168 sm:*:w-2xl"
 			)}
 		>
 			<title>Colorful Blobs</title>
 			<defs>
+				{/** biome-ignore lint/correctness/useUniqueElementIds: none */}
 				<filter id="GaussianBlur" x="-50%" y="-50%" width="200%" height="200%">
 					<feGaussianBlur stdDeviation="10" in="SourceGraphic" result="blur" />
 				</filter>
+				{/** biome-ignore lint/correctness/useUniqueElementIds: none */}
 				<filter id="GrainyTexture" x="-50%" y="-50%" width="200%" height="200%">
 					<feTurbulence
 						type="fractalNoise"

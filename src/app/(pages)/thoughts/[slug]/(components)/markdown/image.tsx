@@ -56,7 +56,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 					alt={alt}
 					width={width}
 					height={height}
-					className="!m-0 max-h-[70vh] object-contain"
+					className="m-0! max-h-[70vh] object-contain"
 				/>
 			</picture>
 			{darkSrc && (
@@ -69,7 +69,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 						alt={alt}
 						width={width}
 						height={height}
-						className="!m-0 max-h-[70vh] object-contain md:rounded-lg"
+						className="m-0! max-h-[70vh] object-contain md:rounded-lg"
 					/>
 				</picture>
 			)}
