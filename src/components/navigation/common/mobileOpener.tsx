@@ -6,15 +6,14 @@
 
 "use client";
 
+import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef } from "react";
-
 import ChevronIcon from "@/components/icons/chevron";
 import HomeIcon from "@/components/icons/home";
 import { ThemeSwitch } from "@/components/themeSwitch";
 import { useNavigation } from "@/lib/context/navigation";
-import { cn } from "@/lib/utils/cn";
 
 export const MobileOpener: React.FC<{ sidebarId: string }> = React.memo(
 	({ sidebarId }) => {
@@ -32,7 +31,7 @@ export const MobileOpener: React.FC<{ sidebarId: string }> = React.memo(
 
 		return (
 			<div
-				className={cn(
+				className={clsx(
 					"absolute z-20 flex items-center gap-2 rounded-bl-xl border-transparent border-b-2 border-l-2 p-4 sm:hidden",
 					"transition-all duration-300 will-change-transform",
 					!isOpen ? "-translate-x-full" : "translate-x-[calc(100vw-100%)]",
@@ -42,7 +41,7 @@ export const MobileOpener: React.FC<{ sidebarId: string }> = React.memo(
 				<Link
 					hrefLang="en"
 					href="/"
-					className={cn(
+					className={clsx(
 						"ml-auto transition-all hover:scale-95 focus:scale-95",
 						isHome && "scale-0"
 					)}
@@ -67,7 +66,7 @@ export const MobileOpener: React.FC<{ sidebarId: string }> = React.memo(
 				>
 					<ChevronIcon
 						focusable={false}
-						className={cn(
+						className={clsx(
 							"h-12 w-12 fill-foreground p-4 transition-transform duration-300",
 							isOpen && "rotate-180"
 						)}

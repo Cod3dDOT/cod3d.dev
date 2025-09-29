@@ -6,10 +6,9 @@
 
 "use client";
 
+import { clsx } from "clsx";
 import { useEffect, useRef, useState } from "react";
-
 import CopyIcon from "@/components/icons/copy";
-import { cn } from "@/lib/utils/cn";
 
 type CopyState = null | "success" | "error";
 
@@ -64,7 +63,7 @@ export const CopyButton: React.FC<{
 		<button
 			ref={buttonRef}
 			type="button"
-			className={cn(
+			className={clsx(
 				"group relative z-10 cursor-pointer transition-all duration-200",
 				className
 			)}
@@ -73,7 +72,7 @@ export const CopyButton: React.FC<{
 		>
 			<CopyIcon
 				showCheck={copyState === "success"}
-				className={cn(
+				className={clsx(
 					"stroke-2 stroke-foreground transition-all group-hover:scale-110",
 					{
 						"stroke-error": copyState === "error",
@@ -82,7 +81,7 @@ export const CopyButton: React.FC<{
 				)}
 			/>
 			<span
-				className={cn(
+				className={clsx(
 					"translate-full absolute top-0 right-0 h-40 w-40 rounded-full bg-success transition-all duration-200",
 					copyState === "success" && "scale-200 animate-ping"
 				)}

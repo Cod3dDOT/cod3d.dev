@@ -5,11 +5,10 @@
  */
 
 import type { Thought } from "@pocketbase/types";
-
+import { clsx } from "clsx";
 import MarkdownIcon from "@/components/icons/markdown";
 import RssIcon from "@/components/icons/rss";
 import { Tooltip } from "@/components/tooltip";
-import { cn } from "@/lib/utils/cn";
 import { DateScroll } from "./dateScroll";
 import { HeroImage } from "./image";
 import { ReadingTime } from "./readingTime";
@@ -49,7 +48,7 @@ export const ThoughtHeader: React.FC<HeaderProps> = ({
 	const spans = words.map((word, index) => (
 		<span
 			key={`${index.toString()}-markdown-title`}
-			className={cn(
+			className={clsx(
 				"inline-block opacity-0 motion-safe:animate-in motion-reduce:animate-fade-in",
 				delays[index]
 			)}

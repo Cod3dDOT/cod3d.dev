@@ -6,9 +6,9 @@
 
 "use client";
 
+import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
-import { cn } from "@/lib/utils/cn";
 
 // needs to be a client component for the date to work
 export const SyncedRotationWrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -25,7 +25,7 @@ export const SyncedRotationWrapper: React.FC<{ children: React.ReactNode }> = ({
 
 	return (
 		<div
-			className={cn(
+			className={clsx(
 				seconds !== 1 ? "opacity-100" : "opacity-0",
 				"-inset-full -z-10 fixed flex animate-in-reduced items-center justify-center overflow-hidden transition-opacity duration-200 lg:inset-0"
 			)}

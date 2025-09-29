@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { cn } from "@/lib/utils/cn";
 import { imageToData } from "@/lib/utils/image";
 
 export const HeroImage: React.FC<{
@@ -16,16 +15,12 @@ export const HeroImage: React.FC<{
 	const base64Dark = srcDark ? await imageToData(srcDark) : undefined;
 
 	return (
-		<figure
-			className={cn("image-rendering-pixelated relative m-0! xl:my-auto!")}
-		>
-			<picture className={cn(srcDark && "transition-opacity dark:opacity-0")}>
+		<figure className="image-rendering-pixelated relative m-0! xl:my-auto!">
+			<picture className={srcDark && "transition-opacity dark:opacity-0"}>
 				<img
 					src={base64Light}
 					alt={alt}
-					className={cn(
-						"m-0! aspect-video w-full object-cover md:rounded-lg lg:w-[40vw]"
-					)}
+					className="m-0! aspect-video w-full object-cover md:rounded-lg lg:w-[40vw]"
 				/>
 			</picture>
 			{srcDark && (

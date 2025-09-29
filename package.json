@@ -45,7 +45,6 @@
 		"unist-util-remove": "^4.0.0"
 	},
 	"devDependencies": {
-		"wrangler": "^4.40.2",
 		"@biomejs/biome": "2.2.4",
 		"@commitlint/cli": "^20.0.0",
 		"@commitlint/config-conventional": "^20.0.0",
@@ -54,19 +53,20 @@
 		"@tailwindcss/postcss": "^4.1.13",
 		"@tailwindcss/typography": "^0.5.19",
 		"@types/hast": "^3.0.4",
-		"@types/unist": "^3.0.3",
 		"@types/node": "^24.5.2",
 		"@types/react": "^19.1.15",
 		"@types/react-dom": "^19.1.9",
 		"@types/remark-heading-id": "^1.0.0",
 		"@types/rss": "^0.0.32",
+		"@types/unist": "^3.0.3",
 		"clsx": "^2.1.1",
 		"extract-colors": "^4.2.1",
 		"lefthook": "^1.13.4",
 		"postcss": "^8.5.6",
 		"schema-dts": "^1.1.5",
+		"sharp": "^0.34.4",
 		"tailwindcss": "^4.1.13",
 		"typescript": "^5.9.2",
-		"sharp": "^0.34.4"
+		"wrangler": "^4.40.2"
 	}
 }

@@ -5,6 +5,7 @@
  */
 
 "use client";
+import clsx from "clsx";
 import { ReactLenis } from "lenis/react";
 import { usePathname } from "next/navigation";
 import type React from "react";
@@ -19,7 +20,6 @@ import {
 } from "react";
 import { useNavigation } from "@/lib/context/navigation";
 import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
-import { cn } from "@/lib/utils/cn";
 import { DesktopOpener } from "./desktopOpener";
 import { MobileOpener } from "./mobileOpener";
 
@@ -92,7 +92,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 	return (
 		<nav className="relative print:hidden" id={id}>
 			<div
-				className={cn(
+				className={clsx(
 					"-z-10 fixed inset-0 hidden bg-black opacity-0 transition-[opacity,right] duration-300 ease-in-out lg:block",
 					isOpen && "right-1/2 z-50 opacity-30"
 				)}
@@ -100,7 +100,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 
 			<div
 				ref={menu}
-				className={cn(
+				className={clsx(
 					"fixed inset-0 z-50 flex xl:left-1/2",
 					"[transition:background-color_150ms_cubic-bezier(0.4,0,0.2,1),translate_300ms_cubic-bezier(0.4,0,0.2,1)]",
 					"will-change-transform",

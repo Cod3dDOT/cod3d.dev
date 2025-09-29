@@ -4,9 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import clsx from "clsx";
 import React from "react";
-
-import { cn } from "@/lib/utils/cn";
 import type { IconProps } from ".";
 
 const GithubIcon = React.forwardRef<SVGSVGElement, IconProps>(
@@ -14,7 +13,7 @@ const GithubIcon = React.forwardRef<SVGSVGElement, IconProps>(
 		<svg
 			ref={ref}
 			{...props}
-			className={cn("transition-[fill]", className)}
+			className={clsx("transition-[fill]", className)}
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"

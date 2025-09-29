@@ -6,10 +6,9 @@
 
 import { getThoughts } from "@pocketbase/req";
 import type { Thought } from "@pocketbase/types";
+import clsx from "clsx";
 import Link from "next/link";
-
 import { SpotlightCard } from "@/components/effects/spotlightCard";
-import { cn } from "@/lib/utils/cn";
 import { dateToString } from "@/lib/utils/date";
 import { isError } from "@/pocketbase/utils";
 
@@ -60,7 +59,7 @@ const ThoughtLink: React.FC<{
 					</div>
 
 					<span
-						className={cn(
+						className={clsx(
 							"-z-10 absolute inset-0",
 							"bg-radial-[circle_at_100%_0%]",
 							"from-accent-blue to-40% to-background",
@@ -77,7 +76,7 @@ const ThoughtLink: React.FC<{
 const ThoughtLinkSkeleton: React.FC = () => {
 	return (
 		<div
-			className={cn(
+			className={clsx(
 				"relative h-full w-full overflow-hidden rounded-xl bg-container via-foreground/50!",
 				shimmer
 			)}
@@ -87,7 +86,7 @@ const ThoughtLinkSkeleton: React.FC = () => {
 					{["w-16", "w-24", "w-8"].map((w, i) => (
 						<span
 							key={`skeleton-tag-placeholder-${i.toString()}`}
-							className={cn(
+							className={clsx(
 								w,
 								shimmer,
 								"h-[calc(1lh+0.5rem)] rounded-full bg-container backdrop-blur-lg"
@@ -97,14 +96,14 @@ const ThoughtLinkSkeleton: React.FC = () => {
 					))}
 				</div>
 				<div
-					className={cn(
+					className={clsx(
 						"relative mt-auto mb-auto h-lh w-3/4 rounded-lg bg-container text-[larger] md:mb-1",
 						shimmer
 					)}
 				/>
 				<div className="flex justify-between">
 					<span
-						className={cn("relative h-[calc(1lh)] w-24 rounded-md", shimmer)}
+						className={clsx("relative h-[calc(1lh)] w-24 rounded-md", shimmer)}
 					/>
 					<span>{process.env.SITE_NAME}</span>
 				</div>
@@ -127,7 +126,7 @@ export const ThoughtsCarousel: React.FC = async () => {
 
 	return (
 		<ul
-			className={cn(
+			className={clsx(
 				"grid auto-cols-[90%] grid-flow-col space-x-4 sm:auto-cols-[50%]",
 				"carousel"
 			)}
@@ -146,7 +145,7 @@ export const ThoughtsCarousel: React.FC = async () => {
 export const ThoughtsCarouselSkeleton: React.FC = () => {
 	return (
 		<ul
-			className={cn(
+			className={clsx(
 				"grid auto-cols-[90%] grid-flow-col space-x-4 sm:auto-cols-[50%]",
 				"carousel"
 			)}

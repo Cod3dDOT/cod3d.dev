@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import clsx from "clsx";
 import type { Properties } from "hast";
 import type { ComponentProps, ReactElement } from "react";
-import { cn } from "@/lib/utils/cn";
 import { splitmix32, stringToUniqueId } from "@/lib/utils/crypto";
 import { CopyButton } from "./copyButton";
 
@@ -35,7 +35,7 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 
 	return (
 		<figure
-			className={cn(
+			className={clsx(
 				"overflow-hidden border-container border-y-4 font-mono md:rounded-lg md:border-4",
 				filename && "border-t-0!"
 			)}
@@ -46,7 +46,7 @@ export const MarkdownCodeBlock: React.FC<MarkdownCodeBlockProps> = ({
 						<span className="mx-4 print:mx-0">{name}</span>
 						{extension && (
 							<span
-								className={cn(
+								className={clsx(
 									"inline-grid h-full items-center not-print:px-3 dark:text-container",
 									"print:bg-transparent",
 									extensionToColor[extension as keyof typeof extensionToColor]

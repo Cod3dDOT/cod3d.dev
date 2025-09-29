@@ -5,9 +5,8 @@
  */
 
 import type { Project } from "@pocketbase/types";
-
+import clsx from "clsx";
 import GithubIcon from "@/components/icons/github";
-import { cn } from "@/lib/utils/cn";
 import { ProjectBadge } from "./badge";
 import { MemoProjectGridEffect } from "./gridEffect";
 
@@ -41,7 +40,7 @@ export const NavProject: React.FC<{
 export const NavProjectSkeleton: React.FC = () => {
 	return (
 		<div
-			className={cn(
+			className={clsx(
 				"relative flex items-center justify-between overflow-hidden rounded-md transition-shadow sm:h-16",
 				"before:-translate-x-full before:absolute before:inset-0 before:animate-[shimmer_2s_infinite] before:bg-linear-to-r before:from-transparent before:via-foreground/10 before:to-transparent"
 			)}

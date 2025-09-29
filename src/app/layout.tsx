@@ -14,7 +14,6 @@ import { Pixelify_Sans } from "next/font/google";
 import Script from "next/script";
 
 import { Navigation } from "@/components/navigation";
-import { cn } from "@/lib/utils/cn";
 import { Providers } from "./providers";
 
 const font = Pixelify_Sans({
@@ -104,12 +103,7 @@ export default function RootLayout({
 			suppressHydrationWarning
 		>
 			<body
-				className={cn(
-					font.variable,
-					GeistSans.variable,
-					GeistMono.variable,
-					"font-pixelify"
-				)}
+				className={`font-pixelify ${font.variable} ${GeistSans.variable} ${GeistMono.variable}`}
 			>
 				<Providers>
 					{children}

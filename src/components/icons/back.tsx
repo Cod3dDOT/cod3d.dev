@@ -4,9 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import clsx from "clsx";
 import React from "react";
-
-import { cn } from "@/lib/utils/cn";
 import type { IconProps } from ".";
 
 const BackIcon = React.forwardRef<SVGSVGElement, IconProps>(
@@ -24,7 +23,7 @@ const BackIcon = React.forwardRef<SVGSVGElement, IconProps>(
 			strokeLinecap="round"
 			strokeLinejoin="round"
 			aria-hidden="true"
-			className={cn("transition-[fill]", className)}
+			className={clsx("transition-[fill]", className)}
 		>
 			<path d="M3 19V5" />
 			<path d="m13 6-6 6 6 6" />

@@ -6,10 +6,9 @@
 
 "use client";
 
+import clsx from "clsx";
 import { useTheme } from "next-themes";
 import { memo, useCallback, useEffect, useId, useRef } from "react";
-
-import { cn } from "@/lib/utils/cn";
 
 interface ThemeSwitchProps {
 	className?: string;
@@ -36,7 +35,7 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = memo(({ className }) => {
 		<button
 			ref={ref}
 			type="button"
-			className={cn(
+			className={clsx(
 				"theme-switch transition-transform hover:scale-95",
 				className
 			)}

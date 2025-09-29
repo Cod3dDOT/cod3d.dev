@@ -4,19 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { cn } from "@/lib/utils/cn";
-
 export const ColorfulBlobs: React.FC = () => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			xmlnsXlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 200 200"
-			className={cn(
-				"relative aspect-square [animation-delay:var(--delay)]",
-				"animate-spin will-change-transform motion-safe:[animation-duration:60s] motion-reduce:[animation-duration:3600s]",
-				"*:h-140 *:w-140 sm:*:h-168 sm:*:w-2xl"
-			)}
+			className="relative aspect-square animate-spin will-change-transform [animation-delay:var(--delay)] *:h-140 *:w-140 sm:*:h-168 sm:*:w-2xl motion-safe:[animation-duration:60s] motion-reduce:[animation-duration:3600s]"
 		>
 			<title>Colorful Blobs</title>
 			<defs>

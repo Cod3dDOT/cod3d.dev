@@ -6,13 +6,12 @@
 
 "use client";
 
+import clsx from "clsx";
 import type React from "react";
 import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { useMouse } from "react-use";
-
 import { useDeviceDetection } from "@/lib/hooks/useDeviceDetection";
 import { useIsVisible } from "@/lib/hooks/useIsVisible";
-import { cn } from "@/lib/utils/cn";
 
 type Color =
 	| `rgba(${number}, ${number}, ${number}, ${number})`
@@ -103,7 +102,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
 			<div
 				id={id}
 				ref={container}
-				className={cn(
+				className={clsx(
 					"relative transform-gpu",
 					"before:absolute before:inset-0 before:bg-[radial-gradient(var(--spotlight-size)_circle_at_var(--spotlight-x)_var(--spotlight-y),var(--spotlight-color-stops))]",
 					className

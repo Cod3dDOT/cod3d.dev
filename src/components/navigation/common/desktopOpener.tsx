@@ -6,15 +6,14 @@
 
 "use client";
 
+import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import { memo, useEffect, useRef } from "react";
-
 import HomeIcon from "@/components/icons/home";
 import { ThemeSwitch } from "@/components/themeSwitch";
 import { useNavigation } from "@/lib/context/navigation";
-import { cn } from "@/lib/utils/cn";
 
 export const DesktopOpener: React.FC<{ sidebarId: string }> = memo(
 	({ sidebarId }) => {
@@ -38,7 +37,7 @@ export const DesktopOpener: React.FC<{ sidebarId: string }> = memo(
 					inert={isHome}
 					hrefLang="en"
 					href="/"
-					className={cn(
+					className={clsx(
 						"aspect-square w-full p-4 transition-transform hover:scale-95",
 						isHome && "scale-0!"
 					)}
@@ -59,7 +58,7 @@ export const DesktopOpener: React.FC<{ sidebarId: string }> = memo(
 					className="group *:-translate-y-1/2 relative h-full w-16 cursor-pointer *:absolute *:top-1/2 *:left-1/2 *:h-16 *:w-1 *:bg-foreground"
 				>
 					<span
-						className={cn(
+						className={clsx(
 							"-translate-x-[calc(50%-4px)] transition-all",
 							isOpen
 								? "-translate-x-1/2! h-8! rotate-45! group-hover:scale-y-90"
@@ -67,7 +66,7 @@ export const DesktopOpener: React.FC<{ sidebarId: string }> = memo(
 						)}
 					/>
 					<span
-						className={cn(
+						className={clsx(
 							"-translate-x-[calc(50%+4px)] transition-all",
 							isOpen &&
 								"-translate-x-1/2! -rotate-45! h-8! group-hover:scale-y-90"

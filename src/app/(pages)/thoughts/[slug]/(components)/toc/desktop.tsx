@@ -6,13 +6,12 @@
 
 "use client";
 
+import clsx from "clsx";
 import { useLenis } from "lenis/react";
 import { memo, useCallback, useState } from "react";
 import { useWindowSize } from "react-use";
-
 import { useTableOfContents } from "@/lib/hooks/useTableOfContents";
 import type { HeadingInfo } from "@/lib/markdown/pluginTOC";
-import { cn } from "@/lib/utils/cn";
 
 const HEADING_MARGINS = {
 	2: "ml-8",
@@ -62,7 +61,7 @@ export const TOCListItem = memo<TOCListItemProps>(
 
 		return (
 			<li
-				className={cn(
+				className={clsx(
 					// Base styles
 					"group/li relative w-96 whitespace-nowrap transition-all duration-200",
 					// Margin based on heading level
@@ -71,7 +70,7 @@ export const TOCListItem = memo<TOCListItemProps>(
 			>
 				{/* Active indicator line */}
 				<span
-					className={cn(
+					className={clsx(
 						// Base line styles
 						"-left-full -translate-x-4 -translate-y-1/2 absolute top-1/2",
 						"h-px w-full bg-foreground/10 transition-colors duration-200",
@@ -86,7 +85,7 @@ export const TOCListItem = memo<TOCListItemProps>(
 				<a
 					href={`#${heading.id}`}
 					onClick={handleClick}
-					className={cn(
+					className={clsx(
 						"block transition-all duration-200",
 						// Active state styles
 						isActive

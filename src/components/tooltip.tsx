@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import clsx from "clsx";
 import { useId } from "react";
-import { cn } from "@/lib/utils/cn";
 
 interface TooltipProps {
 	position?: "top" | "bottom" | "left" | "right";
@@ -34,7 +34,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 			<div
 				id={id}
 				role="tooltip"
-				className={cn(
+				className={clsx(
 					"invisible absolute opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100",
 					"whitespace-nowrap normal-case peer-focus:visible peer-focus:opacity-100",
 					"rounded border-foreground bg-container p-2 text-foreground shadow-lg transition-opacity duration-200 ease-in-out",

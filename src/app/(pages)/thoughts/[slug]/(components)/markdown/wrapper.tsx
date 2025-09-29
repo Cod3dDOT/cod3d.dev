@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { markdownToReact } from "@/lib/markdown";
-import { cn } from "@/lib/utils/cn";
 import { MobileTOC } from "../toc/mobile";
 import { MarkdownCodeBlock, type MarkdownCodeBlockProps } from "./code";
 import { MarkdownImage, type MarkdownImageProps } from "./image";
@@ -46,7 +46,7 @@ export const MarkdownWrapper: React.FC<MarkdownWrapperProps> = async ({
 				</span>
 			</div>
 			<div
-				className={cn(
+				className={clsx(
 					"prose lg:prose-xl prose-lg prose-neutral dark:prose-invert max-w-none lg:leading-relaxed!",
 					"prose-a:text-accent-blue dark:prose-a:text-accent-yellow",
 					"prose-headings:font-light prose-h4:text-[larger]",

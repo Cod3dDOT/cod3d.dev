@@ -4,9 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import clsx from "clsx";
 import React from "react";
-
-import { cn } from "@/lib/utils/cn";
 import type { IconProps } from ".";
 
 type Props = {
@@ -20,7 +19,7 @@ const CopyIcon = React.forwardRef<SVGSVGElement, Props>(
 			xmlns="http://www.w3.org/2000/svg"
 			ref={ref}
 			{...props}
-			className={cn("transition-[fill]", className)}
+			className={clsx("transition-[fill]", className)}
 			viewBox="0 0 24 24"
 			strokeWidth="1.5"
 			fill="none"

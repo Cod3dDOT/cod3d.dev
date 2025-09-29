@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import clsx from "clsx";
 import type { ComponentProps } from "react";
-import { cn } from "@/lib/utils/cn";
 
 export type MarkdownImageProps = ComponentProps<"img"> & {
 	className?: string;
@@ -46,7 +46,7 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 	"data-dark-src": darkSrc = ""
 }) => {
 	return (
-		<figure className={cn("relative", className)}>
+		<figure className={clsx("relative", className)}>
 			<picture>
 				<img
 					src={src}

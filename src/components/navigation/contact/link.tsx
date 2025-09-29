@@ -6,8 +6,8 @@
 
 "use client";
 
+import clsx from "clsx";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils/cn";
 
 const bytes = (str: string) => str.split("").map((c) => c.charCodeAt(0));
 const str = (bytes: number[]) =>
@@ -26,13 +26,13 @@ const Contents: React.FC<{
 	return (
 		<>
 			<div
-				className={cn(
+				className={clsx(
 					"-z-20 -translate-y-1/2 -inset-1/2 absolute top-1/2 aspect-square animate-spin bg-linear-to-b from-accent-yellow to-accent-blue opacity-0 transition-opacity group-hover/link:opacity-100",
 					active && "opacity-100"
 				)}
 			/>
 			<div
-				className={cn(
+				className={clsx(
 					"-z-10 absolute inset-0 rounded-lg bg-container transition-all group-hover/link:inset-1",
 					active && "inset-full!"
 				)}
@@ -73,7 +73,7 @@ export const ContactButton: React.FC<{
 	}, [copyCallback]);
 
 	return (
-		<button ref={ref} className={cn(style, className)} type="button">
+		<button ref={ref} className={clsx(style, className)} type="button">
 			<Contents text={text} subtext={subtext} active={active}>
 				{children}
 			</Contents>
@@ -110,7 +110,12 @@ export const ContactLink: React.FC<{
 	}, [protectedBytes]);
 
 	return (
-		<a hrefLang="en" ref={linkRef} className={cn(style, className)} href={href}>
+		<a
+			hrefLang="en"
+			ref={linkRef}
+			className={clsx(style, className)}
+			href={href}
+		>
 			<Contents text={text} subtext={subtext} active={active}>
 				{children}
 			</Contents>

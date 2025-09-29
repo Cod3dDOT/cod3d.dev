@@ -4,15 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { cn } from "@/lib/utils/cn";
-
 export default function ForbiddenPage() {
 	return (
-		<div
-			className={cn(
-				"relative mx-auto flex h-screen flex-col items-center justify-center overflow-hidden"
-			)}
-		>
+		<div className="relative mx-auto flex h-screen flex-col items-center justify-center overflow-hidden">
 			<h1 className="flex flex-col text-[8rem] leading-none md:text-[10rem] xl:text-[14rem]">
 				<span className="flex flex-col-reverse justify-between lg:flex-row">
 					<span>403</span>

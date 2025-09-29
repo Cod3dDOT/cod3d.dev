@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { cn } from "@/lib/utils/cn";
 import { dateToString } from "@/lib/utils/date";
 
 export const DateScroll: React.FC<{
@@ -28,10 +27,7 @@ export const DateScroll: React.FC<{
 		>
 			<span className="motion-safe:invisible">{dateToString(date)}</span>
 			<div
-				className={cn(
-					"absolute left-0 flex flex-col whitespace-nowrap motion-safe:animate-scroll-in",
-					`[--delay:${delay}ms]`
-				)}
+				className={`[--delay:${delay}ms] absolute left-0 flex flex-col whitespace-nowrap motion-safe:animate-scroll-in`}
 				aria-hidden="true"
 			>
 				{dates.map((date, i) => (

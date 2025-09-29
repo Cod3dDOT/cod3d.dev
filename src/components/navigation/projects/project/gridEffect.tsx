@@ -7,10 +7,9 @@
 "use client";
 
 import type { Project } from "@pocketbase/types";
+import clsx from "clsx";
 import { memo, useMemo } from "react";
-
 import { GridPattern } from "@/components/effects/gridPattern";
-import { cn } from "@/lib/utils/cn";
 import { stringToUniqueId } from "@/lib/utils/crypto";
 import { randomIntFromIntervalPredicted } from "@/lib/utils/math";
 
@@ -60,7 +59,7 @@ export const ProjectGridEffect: React.FC<{ project: Project }> = ({
 			className="mask-[radial-gradient(white,transparent_70%)] h-full w-full stroke-2 stroke-foreground opacity-0 transition-opacity group-hover:opacity-100 group-focus:opacity-100"
 		>
 			{blocks.map(([row, column], index) => {
-				const blockClassName = cn(
+				const blockClassName = clsx(
 					color,
 					animationDelay[randomIntFromIntervalPredicted(0, 4, idn + index)]
 				);

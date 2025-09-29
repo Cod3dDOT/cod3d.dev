@@ -4,9 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import clsx from "clsx";
 import { Suspense } from "react";
-
-import { cn } from "@/lib/utils/cn";
 import { getRandomPokemon, type Pokemon } from "@/lib/utils/mons";
 import { PrintFooter } from "./printFooter";
 
@@ -17,7 +16,7 @@ const _Footer: React.FC = async () => {
 		<>
 			<PrintFooter />
 			<footer
-				className={cn(
+				className={clsx(
 					"-z-10 parallax-footer relative h-[50vh] overflow-clip print:hidden",
 					"bg-container px-5 py-10 transition-[background-color] md:px-20"
 				)}
@@ -34,7 +33,7 @@ const _Footer: React.FC = async () => {
 					{/* for pokemon color variables to work */}
 					<div className="mons">
 						<div
-							className={cn(
+							className={clsx(
 								pokemon.class,
 								"text-justify font-medium text-6xl md:text-[10vw]",
 								"bg-linear-to-br from-(--c) via-(--c) bg-clip-text text-transparent",
@@ -46,7 +45,7 @@ const _Footer: React.FC = async () => {
 						<p className="mt-4 md:w-[50vw] xl:text-xl">{pokemon.description}</p>
 					</div>
 					<picture
-						className={cn(
+						className={clsx(
 							"-z-10 -translate-1/2 absolute top-1/2 left-1/2 aspect-square h-full opacity-20",
 							"xl:-translate-x-1/4 xl:right-0 xl:left-auto xl:opacity-100"
 						)}
