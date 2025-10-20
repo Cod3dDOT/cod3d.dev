@@ -112,7 +112,7 @@ export default function RootLayout({
 				</Providers>
 
 				<Script
-					integrity="LFfHqvZvOrSep1SaSjVisBeYS0rsowJlHFiQfHJRZH7hxLaB2VAgGiwUbtXHRSn70oYZp6xq+tuhe+5T0BkdkQ=="
+					integrity="sha512-LFfHqvZvOrSep1SaSjVisBeYS0rsowJlHFiQfHJRZH7hxLaB2VAgGiwUbtXHRSn70oYZp6xq+tuhe+5T0BkdkQ=="
 					crossOrigin="anonymous"
 					strategy="lazyOnload"
 					async
