@@ -17,7 +17,7 @@ import {
 	useEffect,
 	useId,
 	useMemo,
-	useRef,
+	useRef
 } from "react";
 
 import { useNavigation } from "@/lib/context/navigation";
@@ -31,7 +31,7 @@ type NavigationProps = {
 
 const useAutoClose = ({
 	closeNav,
-	menu,
+	menu
 }: {
 	closeNav: () => void;
 	menu: RefObject<Element | null>;
@@ -43,7 +43,7 @@ const useAutoClose = ({
 
 			if (!contains || link) closeNav();
 		},
-		[closeNav, menu],
+		[closeNav, menu]
 	);
 
 	useEffect(() => {
@@ -59,10 +59,7 @@ const useAutoClose = ({
 
 const ScrollContainer: React.FC<{ children: React.ReactNode }> = memo(
 	({ children }) => {
-		const options = useMemo(
-			() => ({ duration: 1.5, overscroll: false }),
-			[],
-		);
+		const options = useMemo(() => ({ duration: 1.5, overscroll: false }), []);
 
 		return (
 			<ReactLenis
@@ -72,13 +69,13 @@ const ScrollContainer: React.FC<{ children: React.ReactNode }> = memo(
 				{children}
 			</ReactLenis>
 		);
-	},
+	}
 );
 
 ScrollContainer.displayName = "Lenis";
 
 export const NavigationContainer: React.FC<NavigationProps> = ({
-	children,
+	children
 }) => {
 	const pathname = usePathname();
 	const menu = useRef<HTMLDivElement>(null);
@@ -99,7 +96,7 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 			<div
 				className={clsx(
 					"-z-10 fixed inset-0 hidden bg-black opacity-0 transition-[opacity,right] duration-300 ease-in-out lg:block",
-					isOpen && "right-1/2 z-50 opacity-30",
+					isOpen && "right-1/2 z-50 opacity-30"
 				)}
 			/>
 
@@ -108,10 +105,10 @@ export const NavigationContainer: React.FC<NavigationProps> = ({
 				className={clsx(
 					"fixed inset-0 z-50 flex xl:left-1/2",
 					"[transition:background-color_150ms_cubic-bezier(0.4,0,0.2,1),translate_300ms_cubic-bezier(0.4,0,0.2,1)]",
-					"will-change-transform bg-background",
+					"bg-background will-change-transform",
 					isOpen
 						? "translate-x-0"
-						: "translate-x-full sm:translate-x-[calc(100%-4rem)]",
+						: "translate-x-full sm:translate-x-[calc(100%-4rem)]"
 				)}
 			>
 				<DesktopOpener sidebarId={id} />
